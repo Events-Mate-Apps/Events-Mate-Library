@@ -1,5 +1,5 @@
 import { Box, Stack } from "@chakra-ui/react";
-import { Vendor } from "@/interfaces/vendor"
+import { Vendor } from "../../../interfaces/vendor"
 import Image from "../../image/Image";
 
 interface ImageListProps {
