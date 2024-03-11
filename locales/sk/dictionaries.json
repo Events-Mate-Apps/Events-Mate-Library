@@ -1,0 +1,44 @@
+{
+	"date": {
+		"day": {
+			"few": "Dni",
+			"many": "Dni",
+			"one": "deň",
+			"other": "Dni",
+			"two": "Dni",
+			"zero": "Dni"
+		},
+		"hour": {
+			"few": "hodiny",
+			"many": "hodiny",
+			"one": "hodina",
+			"other": "hodiny",
+			"two": "hodiny",
+			"zero": "hodiny"
+		},
+		"minute": {
+			"few": "Zápisnice",
+			"many": "Zápisnice",
+			"one": "minúta",
+			"other": "Zápisnice",
+			"two": "Zápisnice",
+			"zero": "Zápisnice"
+		},
+		"month": {
+			"few": "mesiace",
+			"many": "mesiace",
+			"one": "mesiac",
+			"other": "mesiace",
+			"two": "mesiace",
+			"zero": "mesiace"
+		},
+		"second": {
+			"few": "sekundy",
+			"many": "sekundy",
+			"one": "druhý",
+			"other": "sekundy",
+			"two": "sekundy",
+			"zero": "sekundy"
+		}
+	}
+}

@@ -1,0 +1,109 @@
+{
+	"addPayment": {
+		"addNotification": "Přidat oznámení",
+		"alerts": {
+			"addNotification": {
+				"confirm": "Přidat oznámení",
+				"message": "Nastavení připomenutí pro\n{{paymentName}}v\n{{paymentDate}}",
+				"title": "Přidat oznámení"
+			},
+			"savePayment": {
+				"confirm": "Uložit platbu",
+				"message": "Opravdu chcete přidat tuto platbu?",
+				"title": "Uložit platbu"
+			}
+		},
+		"title": "Přidat platbu"
+	},
+	"detail": {
+		"actions": {
+			"changeToPaid": "Změna na placené",
+			"changeToPending": "Změna na čekající"
+		},
+		"alerts": {
+			"delete": {
+				"confirm": "Odstranit",
+				"message": "Opravdu chcete tuto platbu smazat?",
+				"title": "Odstranit platbu"
+			},
+			"deleteMultiple": {
+				"confirm": "Odstranění položek",
+				"message": "Jste si jisti, že chcete položky trvale odstranit. {{itemsCount}}",
+				"title": "Odstranění položek - {{itemsCount}}"
+			}
+		},
+		"dueDate": "Datum splatnosti",
+		"estimatedBudget": "Odhadovaný rozpočet",
+		"leftAmount": "Zbývá: {{remainingBudget}}",
+		"paidAmount": "Placeno: {{paidAmount}}",
+		"paidAt": "Placeno v",
+		"paymentAmount": "Částka",
+		"remaining": "Zbývající",
+		"spent": "Spent",
+		"topSpender": "Největší plátce",
+		"waitingAmount": "Čekání: {{waitingAmount}}"
+	},
+	"form": {
+		"amount": {
+			"placeholder": "Zadejte částku platby",
+			"required": "Požaduje se částka",
+			"title": "Výše platby"
+		},
+		"currency": {
+			"placeholder": "Zvolte měnu",
+			"required": "Je vyžadována měna",
+			"title": "Platební měna"
+		},
+		"dueDate": {
+			"placeholder": "Zvolte datum splatnosti",
+			"required": "Vyžaduje se datum splatnosti",
+			"title": "Datum splatnosti"
+		},
+		"name": {
+			"placeholder": "Název platby",
+			"required": "Je vyžadováno jméno",
+			"title": "Název platby"
+		},
+		"paidAt": {
+			"placeholder": "Vyberte, kdy byla platba provedena",
+			"title": "Vyplaceno k datu"
+		},
+		"payer": {
+			"placeholder": "Kdo zaplatil tuto platbu",
+			"required": "Je vyžadován plátce",
+			"title": "Plátce platby"
+		},
+		"status": {
+			"placeholder": "Výběr stavu platby",
+			"required": "Je vyžadován stav platby",
+			"title": "Stav platby"
+		},
+		"type": {
+			"placeholder": "Vyberte typ platby",
+			"required": "Typ platby je vyžadován",
+			"title": "Typ platby"
+		}
+	},
+	"notifications": {
+		"paymentReminder": {
+			"body": "Měli byste provést platbu za: {{budgetItemName}}",
+			"subtitle": "Je zhruba v té době",
+			"title": "Datum platby - {{budgetItemName}}"
+		}
+	},
+	"payment": "Platba",
+	"paymentDetail": {
+		"estimatedAmount": "Odhadovaná částka je {{estimatedAmount}}",
+		"payer": "Plátce"
+	},
+	"paymentStatus": {
+		"paid": "Placené",
+		"pending": "Čekající",
+		"title": "Stav platby"
+	},
+	"paymentType": {
+		"deposit": "Vklad",
+		"finalPayment": "Závěrečná platba",
+		"title": "Typ platby"
+	}
+}

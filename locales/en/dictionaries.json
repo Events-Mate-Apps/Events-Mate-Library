@@ -1,0 +1,44 @@
+{
+	"date": {
+		"day": {
+			"few": "days",
+			"many": "days",
+			"one": "day",
+			"other": "days",
+			"two": "days",
+			"zero": "days"
+		},
+		"hour": {
+			"few": "hours",
+			"many": "hours",
+			"one": "hour",
+			"other": "hours",
+			"two": "hours",
+			"zero": "hours"
+		},
+		"minute": {
+			"few": "minutes",
+			"many": "minutes",
+			"one": "minute",
+			"other": "minutes",
+			"two": "minutes",
+			"zero": "minutes"
+		},
+		"month": {
+			"few": "months",
+			"many": "months",
+			"one": "month",
+			"other": "months",
+			"two": "months",
+			"zero": "months"
+		},
+		"second": {
+			"few": "seconds",
+			"many": "seconds",
+			"one": "second",
+			"other": "seconds",
+			"two": "seconds",
+			"zero": "seconds"
+		}
+	}
+}

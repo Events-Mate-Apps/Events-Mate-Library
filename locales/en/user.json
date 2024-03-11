@@ -1,0 +1,25 @@
+{
+	"profile": {
+		"icons": {
+			"dark": {
+				"subtitle": "If you really like Dark Mode, just go with it this one 😎",
+				"title": "Dark"
+			},
+			"original": {
+				"subtitle": "Original App Icon that represents who we are.",
+				"title": "Original"
+			},
+			"pink": {
+				"subtitle": "Original App Icon that represents who we are but inverted.",
+				"title": "Pink"
+			},
+			"pride": {
+				"subtitle": "Celebrate LGBTQ+ community with this icon. 🏳️‍🌈",
+				"title": "Pride"
+			},
+			"subtitle": "App Icon",
+			"title": "Change Icon of your Your App 🥳"
+		},
+		"title": "Hello 👋"
+	}
+}

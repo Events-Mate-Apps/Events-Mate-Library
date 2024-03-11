@@ -1,0 +1,105 @@
+{
+    "title": "Vyberte Si Vaše Perfektné Predplatné",
+    "subTitle": "Riešenie šité pre každého dodávateľa. Upgradujte kedykoľvek.",
+    "noCreditCardRequired": "Kreditná karta nie je potrebná",
+    "plan": {
+        "monthly": "MESAČNE",
+        "annually": "ROČNE"
+    },
+    "free": "Zadarmo",
+    "monthly": "mes.",
+    "annually": "rok",
+    "mostPopularPlan": "Najpoužívanejšie predplatné",
+    "selectedPlan": "Vybrané predplatné",
+    "features": {
+      "1 Image": "1 obrázok",
+      "Location listing": "Zoznam lokalít",
+      "1 Category": "1 kategória",
+      "Description space": "Priestor pre popis",
+      "Visibility on the web": "Viditeľnosť na webe",
+      "10 Images": "10 obrázkov",
+      "Social Media links": "Odkazy na sociálne médiá",
+      "Multiple categories": "Viac kategórií",
+      "Detailed description": "Podrobný popis",
+      "Collect and showcase reviews": "Zbierka a prezentácia recenzií",
+      "Visibility on apps and web": "Viditeľnosť v aplikáciách a na webe",
+      "FAQ section": "Sekcia FAQ",
+      "Localized descriptions": "Lokalizované popisy",
+      "List in multiple locations": "Zoznam vo viacerých lokalitách",
+      "Enhanced visibility": "Zvýšená viditeľnosť",
+      "Premium support": "Premium podpora",
+      "Unlimited images": "Neobmedzené obrázky",
+      "Direct messaging (Beta)": "Priame zasielanie správ (Beta)",
+      "File sharing": "Zdieľanie súborov",
+      "Video uploads": "Nahrávanie videí",
+      "Recommend and get recommended by top vendors": "Odporučiť a byť odporúčaný od top dodávateľov",
+      "Best visibility": "Najlepšia viditeľnosť",
+      "Statistics": "Statistiky"
+    },
+    "cards": [
+        {
+            "title": "Základné",
+            "desc": "Začnite s Events Mate a prezentujte svoje služby našej rastúcej komunite.",
+            "button": "Začať Zadarmo",
+            "addition": "Zadarmo navždy",
+            "benefits": "1 Obrázok; Zápis v lokalite; 1 Kategória; Priestor na popis; Viditeľnosť na webe"
+        },
+        {
+            "title": "Štandardné",
+            "desc": "Zvýšte svoju viditeľnosť a komunikujte s potenciálnymi klientmi prostredníctvom recenzií.",
+            "button": "Začať",
+            "addition": "Za dodávateľa za mesiac",
+            "benefits": "10 Obrázkov; Odkazy na sociálne médiá; Viaceré kategórie; Detailný popis; Sbierajte a zobrazujte recenzie; Viditeľnosť na aplikáciách a webe"
+        },
+        {
+            "title": "Prémiové",
+            "desc": "Rozšírte svoj dosah s lokalizovanými popismi, často kladenými otázkami a viditeľnosťou na niekoľkých lokalitách.",
+            "button": "Začať",
+            "addition": "Za dodávateľa za mesiac",
+            "benefits": "Sekcia FAQ; Lokalizované popisy; Zoznam na niekoľkých lokalitách; Rozšírená viditeľnosť; Prémiová podpora; Viditeľnosť na aplikáciách a webe"
+        },
+        {
+            "title": "Platina",
+            "desc": "Ultimátny balíček pre dodávateľov, ktorí hľadajú najlepšie nástroje, viditeľnosť a funkcie na zapojenie.",
+            "button": "Začať",
+            "addition": "Za dodávateľa za mesiac",
+            "benefits": "Neobmedzené obrázky; Priame správy (Beta); Zdieľanie súborov; Nahranie videí; Odporúčajte a buďte odporúčaní najlepšími dodávateľmi; Nejlepší viditelnost"
+        }
+    ],
+    "faq": [
+        {
+          "title": "Akú podporu môžem očakávať s Prémiovým predplatným?",
+          "text": "Prémioví dodávatelia majú našu záväzok k venovanej podpore. Kedykoľvek máte otázku alebo sa stretnete s problémom, môžete očakávať odpoveď od nášho tímu behom niekoľkých málo hodín. Priorizujeme vaše obavy, aby sme zabezpečili plynulú skúsenosť s Events Mate."
+        },
+        {
+          "title": "Zvažujem Platina predplatné. Ako sa líši podpora?",
+          "text": "Platina dodávatelia dostávajú našu najvyššiu úroveň podpory. Nielenže budeme reagovať na vaše otázky v rekordnom čase, ale tiež pre vás aktívne riešime problémy. Predstavte si to ako mať venovaný tím podpory len pre váš profil."
+        },
+        {
+          "title": "Môžem inzerovať s Platina predplatným?",
+          "text": "Samozrejme! Platina dodávatelia majú exkluzívnu príležitosť využívať reklamu v sieti 'Events Mate'. Toto poskytuje ďalšiu viditeľnosť a môže výrazne zvýšiť angažovanosť s potenciálnymi klientmi."
+        },
+        {
+          "title": "Ako funguje odporúčanie založené na lokalite pre Platina dodávateľ?",
+          "text": "Ako Platina dodávateľ budete automaticky odporúčaní užívateľom, ktorí sú v blízkosti vašej lokality a ešte neselekovali dodávateľa vo vašej kategórii. To vám dáva priamku výhodu, spája vás s užívateľmi, ktorí aktívne plánujú svoje udalosti a potrebujú vaše služby."
+        },
+        {
+          "title": "Mám ďalšie otázky. Ako vás môžem kontaktovať?",
+          "text": "Sme tu pre vás! Ak máte ďalšie otázky alebo potrebujete ďalšie informácie, neváhajte kontaktovať náš tím podpory. Pamätajte, že Prémioví a Platina dodávatelia majú prioritu pri odpovedaní, aby bola zabezpečená najlepšia možná skúsenosť."
+        },
+        {
+          "title": "Môžem kedykoľvek zrušiť moje predplatné?",
+          "text": "Áno, samozrejme! Na Events Mate veríme v flexibilitu. Rovnako ako u mnohých streamovacích platforiem, môžete kedykoľvek zrušiť svoje predplatné. Ak ste na mesačnom predplatnom, nebude vám účtované za ďalší mesiac, a ak ste na ročnom predplatnom, vaše predplatné sa pre budúci rok nepreľi. Sme tu, aby sme podporili váš podnik a chceme, aby ste sa cítili sebavedomí vo vašom rozhodnutí spojiť sa s nami."
+        },
+        {
+          "title": "Ponúkate skúšobnú verziu zdarma pre vaše predplatné?",
+          "text": "Áno, ponúkame! Na Events Mate chceme, aby ste mali dôveru vo vaše rozhodnutie. Pre naše mesačné predplatné ponúkame 7-dňovú skúšobnú verziu zdarma, ktorá vám umožní vyskúšať všetky funkcie bez akýchkoľvek poplatkov. Ak sa rozhodnete, že to pre vás nie je, môžete zrušiť pred koncom skúšobného obdobia a nebudete účtovaní."
+        },
+        {
+            "title": "Ako sa líši viditeľnosť na webe a v aplikáciách pre každé predplatné?",
+            "text": "Skvelá otázka! Na 'Events Mate' zabezpečíme, že každé predplatné ponúka hodnotu v podobe viditeľnosti:",
+            "text2": "Pamätajte, že viditeľnosť a poradie vo vyhľadávaní hrajú kľúčovú úlohu pri naviazaní kontaktu s potenciálnymi klientmi, takže vyberte predplatné, ktoré zodpovedá vašim podnikateľským cieľom.",
+            "list": "Základné Predplatné: Dodávatelia so Základným predplatným sú viditeľní výhradne na našej webovej platforme.; Štandardné Predplatné: dodávatelia na Štandardnom predplatnom si užívajú viditeľnosti ako na našej webovej platforme, tak na všetkých našich aplikáciách.; Prémiové Predplatné: Okrem viditeľnosti na webe a vo všetkých našich aplikáciách majú Prémioví dodávatelia výhodu z vylepšeného poradia vo vyhľadávaní, čo im zabezpečuje vyššiu pozíciu vo výsledkoch vyhľadávania.; Platina Predplatné: Platina dodávatelia majú to najlepšie z oboch svetov. Nielenže sa objavujú na našej webovej platforme a v aplikáciách, ale tiež si užívajú najvyššieho poradia vo výsledkoch vyhľadávania, čo zabezpečuje maximálnu viditeľnosť a angažovanosť."
+        }
+    ]
+}

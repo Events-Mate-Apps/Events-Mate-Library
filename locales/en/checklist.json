@@ -1,0 +1,72 @@
+{
+	"actions": {
+		"date": {
+			"alerts": {
+				"changed": {
+					"message": "Congratulation to yor Wedding Date 🥳.\nWe recalculated when you should finish rest of the tasks.",
+					"title": "Wedding Date Changed"
+				},
+				"wantChange": {
+					"confirm": "Change",
+					"message": "Do you want to change Wedding Date?\nIt will recalculate estimates when tasks should be done.",
+					"title": "Change Wedding Date"
+				}
+			},
+			"title": "Select Wedding date"
+		},
+		"discoverVendors": {
+			"list": "List of vendors shortlisted for the category",
+			"subtitle": "Discover Vendors and add them to your planning",
+			"title": "Discover Vendors"
+		},
+		"location": {
+			"alert": {
+				"message": "Amazing 🥳\nNow You can use Wedding location when searing for your Vendors.",
+				"title": "Location Selected"
+			},
+			"placeholder": "Enter Wedding Location"
+		}
+	},
+	"addTask": {
+		"dueDate": "Due date",
+		"taskName": "Task name",
+		"title": "Add task"
+	},
+	"editTask": {
+		"title": "Edit task"
+	},
+	"search": {
+		"placeholder": "Search in checklist ..."
+	},
+	"tabs": {
+		"calendar": {
+			"empty": "No open tasks that we can put to Calendar",
+			"title": "Calendar"
+		},
+		"categories": {
+			"empty": "No Categories that we can display. Should we create you new Checklist?"
+		},
+		"myTasks": {
+			"empty": "You didn't add any of your tasks so go a head and create some",
+			"title": "My Tasks"
+		},
+		"overdue": {
+			"empty": "Amazing you are on track to have everything ready for your wedding!",
+			"title": "Overdue"
+		},
+		"pinned": {
+			"empty": "No pinned tasks. Its easy in task detail just press the pin icon and it will appear here and on your wedding detail"
+		}
+	},
+	"taskDetail": {
+		"alerts": {
+			"delete": {
+				"confirm": "Delete",
+				"message": "Are you sure you want to delete this task?",
+				"title": "Delete task"
+			}
+		},
+		"open": "Open"
+	},
+	"tasks": "Tasks"
+}

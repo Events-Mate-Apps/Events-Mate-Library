@@ -1,0 +1,25 @@
+{
+	"profile": {
+		"icons": {
+			"dark": {
+				"subtitle": "Pokud se vám tmavý režim opravdu líbí, zvolte tento 😎",
+				"title": "Dark"
+			},
+			"original": {
+				"subtitle": "Originální ikona aplikace, která představuje, kdo jsme.",
+				"title": "Originál"
+			},
+			"pink": {
+				"subtitle": "Původní ikona aplikace, která představuje, kdo jsme, ale převrácená.",
+				"title": "Růžová"
+			},
+			"pride": {
+				"subtitle": "Oslavte komunitu LGBTQ+ touto ikonou. 🏳️‍🌈",
+				"title": "Pride"
+			},
+			"subtitle": "Ikona aplikace",
+			"title": "Změna ikony vaší aplikace 🥳"
+		},
+		"title": "Ahoj 👋"
+	}
+}

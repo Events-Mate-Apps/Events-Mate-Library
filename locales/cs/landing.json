@@ -1,0 +1,197 @@
+{
+	"actions": {
+		"createAccount": {
+			"action": "Začněte plánovat",
+			"subtitle": "Bezproblémové plánování pomocí nástroje WeddMate \"vše v jednom\". Každý detail dotažený k dokonalosti.",
+			"title": "Začněte svou vysněnou svatební cestu!"
+		},
+		"vendors": {
+			"action": "Začít nyní",
+			"subtitle": "Připojte se k exkluzivní síti WeddMate a spojte se s klienty snů.",
+			"title": "Pozvedněte svůj svatební byznys!"
+		}
+	},
+	"featuresCards": {
+		"heading": "Proč si vybrat Events Mate?",
+		"cards": {
+			"1": {
+				"text": "Zajistěte si primární viditelnost na naší platformě a zajistěte, aby potenciální klienti viděli vaše služby jako první. Vyšší tarify zaručují top pozici, díky čemuž se odlišíte na přeplněném trhu.",
+				"title": "Zvyšte svou viditelnost",
+				"subtitle": "Zajistěte si hlavní pozici pro maximální expozici"
+			},
+			"2": {
+				"text": "Zefektivněte komunikaci s potenciálními klienty pomocí našeho integrovaného zprávového systému. Sdílejte soubory, videa a detaily pro hladké transakce a spolupráci.",
+				"title": "Komunikujte a interagujte",
+				"subtitle": "Přímé zprávy, bezproblémové sdílení souborů"
+			},
+			"3": {
+				"text": "Získejte detailní statistiky a informace o výkonnosti vašeho podnikání. Dělejte informovaná rozhodnutí na základě dat v reálném čase, optimalizujte své nabídky a cílíte na své publikum efektivně.",
+				"title": "Buďte informováni",
+				"subtitle": "Získejte informace v reálném čase, optimalizujte nabídky"
+			},
+			"4": {
+				"text": "Dosáhněte na globální publikum s lokalizovanými popisy v několika jazycích. Překonejte jazykové bariéry a oslovte klienty z různých kulturních prostředí, rozšířte svůj tržní dosah.",
+				"title": "Rozšiřte se mezinárodně",
+				"subtitle": "Oslovte globální publikum s lokalizovaným obsahem"
+			},
+			"5": {
+				"text": "Vaše služby nebudou prezentovány pouze na jedné platformě. S Events Mate budete výrazně zastoupeni v naší aplikaci Wedding Planner a v nadcházející aplikaci Team Building. Rozšiřte svůj dosah a snadno oslovte různé trhy.",
+				"title": "Zastoupení v několika aplikacích",
+				"subtitle": "Buďte viditelní ve více specializovaných aplikacích"
+			}
+		},
+		"subheading": "Objevte jedinečné výhody připojení se k síti Events Mate a podívejte se, jak posilujeme váš podnik v oblasti událostí."
+	},
+	"faq": {
+		"heading": "Často kladené otázky",
+		"questions": {
+			"1": {
+				"text": "WeddMate je bezplatný nástroj pro plánování svatby, který je k dispozici v mobilní aplikaci i na webu. Je navržen tak, aby zjednodušil a zefektivnil vaše svatební přípravy a pomohl vám udržet organizaci a zbavit se stresu před vaším velkým dnem.",
+				"title": "Co je WeddMate?"
+			},
+			"2": {
+				"text": "Jednoduše si stáhněte WeddMate z App Store nebo Google Play nebo navštivte naše webové stránky. Zaregistrujte si bezplatný účet a okamžitě získáte přístup ke všem našim plánovacím nástrojům.",
+				"title": "Jak začít s WeddMate?"
+			},
+			"3": {
+				"text": "WeddMate je zcela zdarma! Věříme, že si každý zaslouží svatební plánování bez stresu a skrytých nákladů.",
+				"title": "Existuje prémiová verze, nebo je vše zdarma?"
+			},
+			"4": {
+				"text": "WeddMate nabízí celou řadu funkcí, které vám pomohou na každém kroku plánování svatby - od sledování rozpočtu až po správu seznamů hostů, hledání dodavatelů a vytváření časových plánů.",
+				"title": "Jak WeddMate pomáhá při plánování svatby?"
+			},
+			"5": {
+				"text": "Rozhodně! WeddMate umožňuje snadnou spolupráci. Své plány, seznamy a další informace můžete sdílet se svým partnerem, rodinou nebo svatebním plánovačem, a zajistit tak, aby všichni byli v obraze.",
+				"title": "Mohu se o své svatební plány podělit se svým partnerem nebo plánovačem?"
+			},
+			"6": {
+				"text": "Vaše soukromí je pro nás nejvyšší prioritou. Všechny vaše údaje jsou bezpečně uloženy a bez vašeho výslovného souhlasu nebudou nikdy poskytnuty třetím stranám.",
+				"title": "Jsou moje data u WeddMate v bezpečí?"
+			},
+			"7": {
+				"text": "Ano, WeddMate má vybraný seznam důvěryhodných dodavatelů. Můžete si je prohlížet, číst recenze a kontaktovat je přímo prostřednictvím aplikace, což usnadňuje nalezení ideálního partnera pro vaše potřeby.",
+				"title": "Mohu prostřednictvím aplikace vyhledat a kontaktovat dodavatele?"
+			},
+			"8": {
+				"text": "Jsme tu, abychom vám pomohli! Náš specializovaný tým podpory je vám k dispozici, aby zodpověděl všechny dotazy a provedl vás aplikací. Můžete se na nás obrátit prostřednictvím nápovědy v aplikaci nebo na našich webových stránkách.",
+				"title": "Co když budu při používání aplikace potřebovat pomoc nebo budu mít otázky?"
+			}
+		},
+		"subheading": "Objevte odpovědi na nejčastější otázky týkající se WeddMate, vašeho spolehlivého společníka při plánování svatby."
+	},
+	"faqEventsMate": {
+		"heading": "Často kladené otázky",
+		"questions": {
+			"1": {
+				"text": "V Events Mate jsme víc než jen další platforma pro události. Máme věnované mobilní aplikace jak pro Android, tak pro všechny platformy Apple. Naše zaměření není jen na marketing; vytváříme nástroje, které vám pomáhají rozvíjet vaše podnikání. S Events Mate budete mít přehled o všech svých událostech na jednom místě, což zjednodušuje a zefektivňuje správu.",
+				"title": "V čem se Events Mate liší od ostatních platform pro události?"
+			},
+			"2": {
+				"text": "Je to jednoduché! Vytvořte si účet a poté přidejte nového dodavatele. Celý proces vám zabere ne déle než 2 minuty.",
+				"title": "Jak se mohu zaregistrovat jako dodavatel na Events Mate?"
+			},
+			"3": {
+				"text": "Naše cenová politika je transparentní a přímočará. [Odkaz na sekci s cenami nebo stránku pro více informací.]",
+				"title": "Jsou s připojením k Events Mate spojeny nějaké poplatky nebo náklady?"
+			},
+			"4": {
+				"text": "Když uživatelé procházejí dodavateli, třídíme je nejprve podle jejich plánu a poté podle data, kdy byli vytvořeni. Při vyhledávání se dodavatelé s vyšším plánem zobrazí jako první, následováni abecedním řazením.",
+				"title": "Jak funguje systém hodnocení Events Mate?"
+			},
+			"5": {
+				"text": "Samozřejmě! Můžete spravovat své předplatné s tou samou flexibilitou, na kterou jste zvyklí u svých oblíbených streamovacích služeb.",
+				"title": "Můžu kdykoli upgradovat, snižovat nebo zrušit svůj plán?"
+			},
+			"6": {
+				"text": "Dodavatelé s plánem Premium nebo vyšším mohou od zákazníků dostávat recenze, které zahrnují klady, zápory, popis a hodnocení hvězdičkami. Recenze jsou zabezpečeny e-mailem recenzenta, aby nemohl přidat více recenzí.",
+				"title": "Jak Events Mate zachází s recenzemi a zpětnou vazbou od klientů?"
+			},
+			"7": {
+				"text": "Dodavatelé s Premium balíčkem mají k dispozici odpověď do 24 hodin, zatímco dodavatelé s balíčkem Platinum mají k dispozici odpověď do 8 hodin. Navíc pro dodavatele s balíčkem Platinum také pomáháme řešit problémy nebo dokonce nastavit určité funkce za vás, například přidání popisu v nových lokalizacích.",
+				"title": "Jakou podporu mohu očekávat jako dodavatel na Events Mate?"
+			},
+			"8": {
+				"text": "Vůbec ne! Naše platforma je navržena tak, aby byla intuitivní a uživatelsky přívětivá, což zjednodušuje proces nastavení.",
+				"title": "Potřebuji být technicky zdatný, abych si nastavil svůj profil dodavatele na Events Mate?"
+			},
+			"9": {
+				"text": "Váš profil je zobrazen ve všech našich aplikacích, což umožňuje klientům objevit vaše služby. Navíc poskytujeme doporučení na základě kritérií události, aby klienti našli dokonalého dodavatele.",
+				"title": "Jak mi Events Mate pomáhá spojit se s potenciálními klienty?"
+			}
+		},
+		"subheading": "Objevte odpovědi na nejčastější otázky týkající se Events Mate, vašeho spolehlivého společníka při plánování událostí."
+	},
+	"features": {
+		"mobileApp": {
+			"subtitle": "Mějte podrobnosti o svatbě na dosah ruky. Ať už jste na schůzce s dodavateli nebo nakupujete šaty, naše mobilní aplikace vám zajistí, že budete vždy informováni a organizováni.",
+			"title": "Plánování na cestách pomocí aplikace"
+		},
+		"subtitle": "Od počáteční jiskry inspirace až po závěrečné \"ano\" je naše platforma uzpůsobena tak, aby každý krok vaší svatební cesty byl kouzelný a bez stresu.",
+		"title": "Objevte svět svateb s WeddMate",
+		"webApp": {
+			"subtitle": "Ponořte se do podrobného plánování pomocí našeho uživatelsky přívětivého webového rozhraní. Každý nástroj, který potřebujete, je vzdálen pouhé jedno kliknutí - od sestavení rozpočtu až po zasedací pořádek.",
+			"title": "Komplexní plánování svatby na webu"
+		},
+		"weddingWebsite": {
+			"subtitle": "Sdílejte svůj milostný příběh, podrobnosti o události a informace o RSVP na krásně navržených osobních webových stránkách pro své hosty.",
+			"title": "Vytvoření svatebních webových stránek snů"
+		}
+	},
+	"featuresEventsMate": {
+		"title": "Odemkněte potenciál vašeho podnikání s Events Mate",
+		"subtitle": "Od zahájení vašeho digitálního debutu po revoluci v interakci s klienty, jsme zde, abychom vaše podnikání posunuli do budoucnosti služeb v oblasti událostí."
+	},
+	"header": {
+		"hotel": "Hotel",
+		"photographer": "Fotograf",
+		"venue": "Svatební místo",
+		"wedding_dress": "Svatební šaty"
+	},
+	"hero": {
+		"primaryAction": "Začněte svou cestu",
+		"secondaryAction": "Prozkoumat dodavatelé",
+		"subtitle": "WeddMate je váš dokonalý společník na svatbu - od dokonalých dodavatelů až po bezproblémové plánování.",
+		"title": "Společně vytváříme svatby snů.",
+		"titleFirstPart": "Vytváření svateb snů,",
+		"titleSecondPart": "Společně."
+	},
+	"heroEM": {
+		"primaryAction": "Přidejte se k revoluci",
+		"secondaryAction": "Zjistěte jak",
+		"subtitle": "Staňte se součástí revoluce.",
+		"title": "Budoucnost událostí začíná zde",
+		"titleFirstPart": "Budoucnost událostí začíná",
+		"titleSecondPart": "zde"
+	},
+	"search": {
+		"startTyping": "Začněte psát...",
+		"noResults": "Žádné výsledky",
+		"action": "Hledat nyní",
+		"placeholder": {
+			"category": "Vyberte si kategorii...",
+			"location": "Kde je svatba?...",
+			"name": "Vyhledávání podle názvu dodavatele..."
+		},
+		"subtitle": "Najděte s WeddMate nejlepší svatební dodavatele a udělejte svůj velký den nezapomenutelným.",
+		"title": "Objevte svůj tým snů!"
+	},
+	"aboutUsHeader": {
+		"title": "Usnadňujeme plánování akcí",
+		"text": "Jsme specializovaný tým zaměřený na zjednodušení procesu pořádání akcí včetně svateb."
+	},
+	"banner": {
+		"title": "Zakupte si jedno z našich předplatných a znásobte růst svého podnikání",
+		"subtitle": "Vyberte si jedno z našich výhodných předplatných",
+		"button": "Zjistit víc"
+	},
+	"navbar": {
+		"dashboard": "Přehled",
+		"getStarted": "Začít"
+	},
+	"share": {
+		"edited": "Upraveno",
+		"pending": "Čekající pozvánka"
+	},
+	"title": ""
+}

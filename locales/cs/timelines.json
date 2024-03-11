@@ -1,0 +1,74 @@
+{
+	"addEvent": {
+		"title": "Přidat událost"
+	},
+	"addEventForm": {
+		"color": {
+			"label": "Barva události",
+			"placeholder": "Zadejte barvu události",
+			"required": "Je vyžadována barva události"
+		},
+		"endAt": {
+			"label": "Konec na",
+			"placeholder": "Zadejte, kdy událost skončí",
+			"required": "Je vyžadováno ukončení akce"
+		},
+		"startAt": {
+			"label": "Začíná na",
+			"placeholder": "Zadejte, kdy událost začne",
+			"required": "Je vyžadován začátek akce"
+		},
+		"title": {
+			"label": "Název události",
+			"placeholder": "Zadejte název události",
+			"required": "Název události je povinný"
+		}
+	},
+	"addTimeline": {
+		"name": "Název časové osy",
+		"title": "Přidat časovou osu"
+	},
+	"addTimelineForm": {
+		"date": {
+			"hint": "",
+			"label": "Datum časové osy",
+			"placeholder": "Zadejte datum časové osy",
+			"required": "Je vyžadováno datum časové osy"
+		},
+		"title": {
+			"label": "Název časové osy",
+			"placeholder": "Zadejte název časové osy",
+			"required": "Vyžaduje se název časové osy"
+		}
+	},
+	"alerts": {
+		"delete": {
+			"confirm": "Odstranit časovou osu",
+			"message": "Určitě chcete odstranit časovou osu?",
+			"title": "Odstranit časovou osu"
+		}
+	},
+	"editEvent": {
+		"title": "Upravit událost"
+	},
+	"editTimeline": {
+		"title": "Upravit časovou osu"
+	},
+	"empty": "Žádné časové plány a přidejte si jeden, abyste měli svůj svatební den pod kontrolou.",
+	"eventDetail": {
+		"alerts": {
+			"delete": {
+				"confirm": "Odstranit událost",
+				"message": "Jste si jisti, že chcete událost odstranit?",
+				"title": "Odstranit událost"
+			}
+		},
+		"duration": "Doba trvání",
+		"end": "Konec na",
+		"name": "Název události",
+		"start": "Začněte na"
+	},
+	"search": {
+		"placeholder": "Hledání v časových osách..."
+	}
+}

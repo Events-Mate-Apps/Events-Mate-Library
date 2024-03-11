@@ -1,0 +1,83 @@
+{
+	"collaboration": {
+		"action": "Zasílání pozvánek",
+		"addEmail": "Přidat {{inputVal}}",
+		"emailPlaceholder": "Zadejte e-mailové adresy...",
+		"subtitle": "Jejich oprávnění můžete dále nastavit později.",
+		"title": "Pozvat lidi ke spolupráci pomocí jejich e-mailové adresy."
+	},
+	"createWedding": {
+		"date": "Datum svatby",
+		"subtitle": "Svatbu vytvoříte ve dvou krocích. Pokud ještě neznáte datum svatby, nebojte se, můžete ho kdykoli změnit.",
+		"title": "Vytvořit svatbu",
+		"weddingName": "Svatební jméno",
+		"weddingNameHint": "Můžete použít svá jména nebo si to pojmenovat, jak chcete 💍"
+	},
+	"detail": {
+		"budget": {
+			"viewBudget": "Zobrazit rozpočet"
+		},
+		"countdown": {
+			"status": {
+				"after": "Po",
+				"left": "Vlevo"
+			},
+			"title": "Odpočítávání"
+		},
+		"guests": {
+			"invitedNumber": "{{guestCount}} Pozváno"
+		},
+		"multiplatform": {
+			"subtitle": "Mějte přístup ke svému svatebnímu plánovači odkudkoli. WeddMate funguje také v jakémkoli webovém prohlížeči.",
+			"title": "Plánujte kdekoli",
+			"webLinkTitle": "Svatba na webu"
+		}
+	},
+	"myWeddings": {
+		"createdByMe": "Vytvořeno mnou",
+		"emptyMyWeddings": {
+			"subtitle": "Žádné svatby nebyly nalezeny, tak si je vytvořte.",
+			"title": "Žádné svatby 😢"
+		},
+		"emptyShared": {
+			"subtitle": "Žádný z nich s vámi zatím nesdílí svatbu. Možná budete první a podělíte se s někým o svou svatbu.",
+			"title": "Žádné svatby 😢"
+		},
+		"fetchingFromIcloud": "Počkejte, prosím, až obdržíme vaše svatby uložené na iCloudu.",
+		"invitedBy": "Pozvání přijal:",
+		"items": {
+			"budgetAmount": "Rozpočet: {{totalBudget}}",
+			"guestsCount": "Hosté: {{numberOfGuests}}"
+		},
+		"sharedWithMe": "Sdílel se mnou",
+		"status": "Stav:",
+		"title": "Moje svatby"
+	},
+	"sharing": {
+		"acceptInvite": "Přijmout pozvání",
+		"addShare": {
+			"fullAccess": "Plný přístup",
+			"title": "Pozvánka"
+		},
+		"empty": {
+			"subtitle": "Pozvěte někoho, kdo vám se svatbou pomůže. Rodina, partner nebo svatební plánovač.",
+			"title": "Nejste sami"
+		},
+		"invitedBy": "Pozvání od: {{email}}",
+		"manageSharing": "Správa sdílení",
+		"permissions": {
+			"edit": "Upravit",
+			"none": "Žádné",
+			"title": "Oprávnění",
+			"view": "Zobrazit"
+		},
+		"status": {
+			"accepted": "Přijato",
+			"denied": "Odmítnuto",
+			"invited": "Pozvánka na",
+			"message": "Stav pozvánky: {{status}}",
+			"title": "Stav pozvánky"
+		},
+		"title": "Sdílení"
+	}
+}

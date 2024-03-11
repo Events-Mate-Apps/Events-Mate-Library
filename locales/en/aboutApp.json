@@ -1,0 +1,38 @@
+{
+	"title": "About app",
+	"main": {
+		"events": "Events",
+		"made": "Made",
+		"easy": "Easy"
+	},
+	"featuresCards": {
+		"heading": "Discover the Features of Events Mate",
+		"cards": {
+			"1": {
+				"title": "Welcome to the wedding",
+				"subtitle": "The Ultimate Wedding App WeddMate",
+				"text": "Available across all Apple platforms, Android, and Web. Experience seamless wedding planning and management like never before."
+			},
+			"2": {
+				"title": "Rich Information & Assets",
+				"subtitle": "Everything You Need in One Place",
+				"text": "High-resolution images to capture the essence of your special day. Plus, an FAQ section to address all your queries, and localized descriptions for a personalized touch."
+			},
+			"3": {
+				"title": "Interact & Engage",
+				"subtitle": "Connect with Your Audience",
+				"text": "Collect reviews to build trust. Showcase your social media presence with integrated links, and provide direct channels like email and phone for easy communication."
+			},
+			"4": {
+				"title": "Customize Your Experience",
+				"subtitle": "Personalized Just for You",
+				"text": "Choose from multiple categories to cater to diverse needs. Whether it's photography, venue, or catering, we have got you covered."
+			},
+			"5": {
+				"title": "Exciting Features on the Way",
+				"subtitle": "Stay Tuned for More",
+				"text": "Get ready for a messaging feature to connect with vendors and an availability calendar, synced directly with your personal schedule. Coming soon!"
+			}
+		}
+	}
+}

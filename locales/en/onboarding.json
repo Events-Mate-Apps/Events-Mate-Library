@@ -1,0 +1,32 @@
+{
+	"wedding": {
+		"step1": {
+			"subtitle": "Wedding preparations don't have to be stressful. Let's explore together what the WeddMate app can do for you.",
+			"title": "Say I do to perfect wedding"
+		},
+		"step2": {
+			"subtitle": "Simply get in touch with the photographer, band or catering company. Search for interesting services in the area and create your own team of suppliers.",
+			"title": "The best Vendors"
+		},
+		"step3": {
+			"subtitle": "Create a wedding budget using price estimates and keep your finances under control.",
+			"title": "Save every penny"
+		},
+		"step4": {
+			"subtitle": "With us you will never forget anything! Plan your own tasks and get inspired by the pre-made plans.",
+			"title": "Step by step"
+		},
+		"step5": {
+			"subtitle": "Send out invitations directly from the app and keep track of who's arriving with whom.",
+			"title": "Guests and Invites"
+		},
+		"step6": {
+			"subtitle": "Keep track of your wedding day with timelines.",
+			"title": "Every minute under control"
+		},
+		"step7": {
+			"subtitle": "On your own wedding website you can plan your wedding online and give your guests access to all the important information.\nWe will create it for you free of charge and immediately.",
+			"title": "All in one platform"
+		}
+	}
+}

@@ -1,0 +1,83 @@
+{
+	"collaboration": {
+		"action": "Odoslanie pozvánok",
+		"addEmail": "Pridať {{inputVal}}",
+		"emailPlaceholder": "Zadajte e-mailové adresy...",
+		"subtitle": "Ich oprávnenia môžete nastaviť neskôr.",
+		"title": "Pozývanie ľudí na spoluprácu pomocou ich e-mailovej adresy"
+	},
+	"createWedding": {
+		"date": "Dátum svadby",
+		"subtitle": "Vytvorte si svadbu v dvoch krokoch. Ak ešte nepoznáte dátum svadby, nebojte sa, môžete ho kedykoľvek zmeniť.",
+		"title": "Vytvoriť svadbu",
+		"weddingName": "Svadobné meno",
+		"weddingNameHint": "Môžete použiť svoje mená alebo ho pomenovať, ako chcete 💍"
+	},
+	"detail": {
+		"budget": {
+			"viewBudget": "Zobraziť rozpočet"
+		},
+		"countdown": {
+			"status": {
+				"after": "Po stránke",
+				"left": "Vľavo"
+			},
+			"title": "Odpočítavanie"
+		},
+		"guests": {
+			"invitedNumber": "{{guestCount}} pozvaný"
+		},
+		"multiplatform": {
+			"subtitle": "Majte prístup k svojmu svadobnému plánovaču odkiaľkoľvek. WeddMate funguje aj v akomkoľvek webovom prehliadači.",
+			"title": "Plánujte kdekoľvek",
+			"webLinkTitle": "Svadba na webe"
+		}
+	},
+	"myWeddings": {
+		"createdByMe": "Vytvorené mnou",
+		"emptyMyWeddings": {
+			"subtitle": "Nenašli sa žiadne svadby, tak si ich vytvorte.",
+			"title": "Žiadne svadby 😢"
+		},
+		"emptyShared": {
+			"subtitle": "Žiadna z nich sa s vami zatiaľ o svadbu nepodelila. Možno budete prvý a podelíte sa s niekým o svoju svadbu.",
+			"title": "Žiadne svadby 😢"
+		},
+		"fetchingFromIcloud": "Počkajte, prosím, kým nedostaneme vaše svadby uložené v iCloude.",
+		"invitedBy": "Pozýva:",
+		"items": {
+			"budgetAmount": "Rozpočet: {{totalBudget}}",
+			"guestsCount": "Hostia: {{numberOfGuests}}"
+		},
+		"sharedWithMe": "Zdieľané so mnou",
+		"status": "Stav:",
+		"title": "Moje svadby"
+	},
+	"sharing": {
+		"acceptInvite": "Prijať pozvanie",
+		"addShare": {
+			"fullAccess": "Plný prístup",
+			"title": "Pozvánka"
+		},
+		"empty": {
+			"subtitle": "Pozvite niekoho, kto vám môže pomôcť so svadbou. Rodina, partner alebo svadobný plánovač.",
+			"title": "Nie ste sami"
+		},
+		"invitedBy": "Pozýva: {{email}}",
+		"manageSharing": "Správa zdieľania",
+		"permissions": {
+			"edit": "Upraviť",
+			"none": "Žiadne",
+			"title": "Oprávnenia",
+			"view": "Zobraziť"
+		},
+		"status": {
+			"accepted": "Prijaté",
+			"denied": "Odmietnuté",
+			"invited": "Pozvanie na",
+			"message": "Stav pozvania: {{status}}",
+			"title": "Stav pozvania"
+		},
+		"title": "Zdieľanie"
+	}
+}

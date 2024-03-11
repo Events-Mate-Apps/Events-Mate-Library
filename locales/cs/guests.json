@@ -1,0 +1,92 @@
+{
+	"alerts": {
+		"delete": {
+			"confirm": "Odstranit hosta",
+			"message": "Opravdu chcete tohoto hosta odstranit?",
+			"title": "Odstranit hosta"
+		}
+	},
+	"contacts": {
+		"empty": "Ohh ne, nenašli jsme žádný kontakt 🥺",
+		"grouped": "Seskupení",
+		"import": "Import z kontaktů",
+		"search": {
+			"placeholder": "Vyhledávání v Kontaktech"
+		},
+		"selectMultiple": "Vybrat více",
+		"selectNumber": "Vybrat ({{number}})",
+		"title": "Kontakty"
+	},
+	"detail": {
+		"invite": "Pozvánka",
+		"sendInvite": "Poslat pozvánku"
+	},
+	"empty": "Žádní hosté. Jděte na to po hlavě a jednoho přidejte nebo je pozvěte pomocí kouzelného odkazu.",
+	"form": {
+		"aboutGuest": "O hostu",
+		"aboutGuestFooter": "Adresa je určena pouze pro vás, abyste věděli, kam posílat pozvánky.",
+		"addAnother": "Přidat dalšího dodavatele",
+		"pleaseUploadImage": "Prosím nahrajte obrázek",
+		"allergies": "Alergie",
+		"contactInformation": "Kontaktní informace",
+		"diets": "Diety",
+		"firstName": "Křestní jméno",
+		"lastName": "Příjmení",
+		"location": {
+			"manual": {
+				"placeholder": "Poštovní adresa hosta",
+				"title": "Obyčejná adresa"
+			},
+			"search": {
+				"placeholder": "Zadejte adresu a my ji najdeme",
+				"title": "Vyhledávací adresa"
+			}
+		},
+		"needHotel": "Potřebujete hotel",
+		"needHotelDescription": "Zjistěte, zda bude host potřebovat hotel",
+		"plusOne": "Plus jedna",
+		"plusOneInfo": "Kolik hostů si může vzít s sebou.",
+		"seat": "Místo",
+		"title": "Přidat hosta",
+		"weddingDayDetails": "Podrobnosti o svatebním dni"
+	},
+	"guestAge": {
+		"adult": "Dospělí",
+		"child": "Dítě",
+		"infant": "Kojenec",
+		"placeholder": "Zvolte věk",
+		"required": "Věk je vyžadován",
+		"title": "Věk hostů"
+	},
+	"guestStatus": {
+		"confirmed": "Potvrzeno",
+		"declined": "Odmítnuto",
+		"maybe": "Možná",
+		"noResponse": "Žádná odpověď",
+		"placeholder": "Vybrat stav",
+		"required": "Je vyžadován status",
+		"title": "Status hosta"
+	},
+	"RSVP": {
+		"linkTitle": "Magický odkaz",
+		"password": {
+			"action": "Vstupte!",
+			"placeholder": "Zadejte své kouzelné heslo z pozvánky",
+			"subtitle": "Udržme tuto párty exkluzivní! 🎉 Použijte tajný kód z pozvánky nebo klikněte na speciální odkaz, který jsme vám poslali. Nemáte kód? Žádný strach! Stačí se zeptat báječných hostitelů na kouzelné heslo 😉.",
+			"title": "Exkluzivní vstupní kód 🎉"
+		},
+		"public": {
+			"invitedGuestSubtitle": "Na lásku a oslavy! 🥂 Získali jste pozvánku na svatbu. Laskavě se přihlaste a připojte se k oslavě!",
+			"magicLinkSubtitle": "Na lásku a oslavy! 🥂 Získali jste pozvánku na svatbu. Laskavě se přihlaste a připojte se k oslavě!"
+		},
+		"rsvp": "RSVP",
+		"subtitle": "Pozvěte své přátele a rodinu pomocí jediného odkazu. Který zároveň slouží jako informace o vaší svatbě pro vaše hosty.",
+		"title": "Snadné pozvánky"
+	},
+	"search": {
+		"placeholder": "Vyhledávání v hostech ..."
+	},
+	"updateGuest": {
+		"title": "Aktualizace Hosta"
+	}
+}

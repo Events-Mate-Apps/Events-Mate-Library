@@ -1,0 +1,204 @@
+{
+  "addVendor": {
+    "yourListing": "Váš seznam",
+    "alerts": {
+      "invalidEmail": {
+        "message": "Zadejte platný e-mail dodavatele",
+        "title": "Chybějící informace"
+      },
+      "missingCategory": {
+        "message": "Vyberte prosím alespoň jednu kategorii",
+        "title": "Chybějící informace"
+      },
+      "missingEmail": {
+        "message": "Zadejte e-mail dodavatele",
+        "title": "Chybějící informace"
+      },
+      "missingName": {
+        "message": "Zadejte název dodavatele",
+        "title": "Chybějící informace"
+      }
+    },
+    "appleMapsSearch": {
+      "subtitle": "Pokud se dodavatele nachází v aplikaci Apple Maps, použijte toto pole k jeho vyhledání. Všechny údaje pro vás získáme automaticky.",
+      "title": "Hledání v Mapách Apple"
+    },
+    "contact": {
+      "subtitle": "Tyto informace budou pouze na vaší svatbě.",
+      "title": "Kontaktní informace"
+    },
+    "profileImage": {
+      "subtitle": "Je to nepovinné, slouží to pouze k tomu, aby váš dodavatelé vypadal v aplikaci lépe.",
+      "title": "Výběr profilového obrázku"
+    },
+    "title": "Přidat dodavatele",
+    "webData": {
+      "subtitle": "Zadejte platnou adresu URL pro získání dat z webu s předponou **https://** nebo **http://**. Navštívíme jejich web a pokusíme se pro vás získat další údaje, například e-mail a obrázky.",
+      "title": "Získejte informace z webových stránek"
+    },
+    "googleSearch": "Google hledání",
+    "enterLocationTitle": "Zadejte lokaci",
+    "enterLocationDesc": "Zadejte místo (stát, město, země), kde by se svatba měla konat, a my vám tam doporučíme dodavatele (nepovinné)",
+    "socialSites": "Sociální sítě"
+  },
+  "categories": {
+    "accommodation": "Ubytování",
+    "beauty_and_health": "Krása a zdraví",
+    "cake_and_sweet_Bar": "Dort a sladký bar",
+    "ceremonial_place": "Obřadní místo",
+    "ceremony": "Obřad",
+    "decoration": "Dekorace",
+    "entertainment": "Zábava",
+    "favors": "",
+    "flowers": "Květiny",
+    "honeymoon": "Líbánky",
+    "invites": "POZVÁNKY",
+    "jewelry": "Šperky",
+    "kids": "Děti",
+    "legal": "Právní",
+    "music": "Hudba",
+    "photography": "Fotografie",
+    "rentals": "Pronájmy",
+    "stationery": "Kancelářské potřeby",
+    "suit": "Oblek",
+    "traditions": "Tradice",
+    "transportation": "Doprava",
+    "venue": "Místo konání",
+    "video": "Video",
+    "wedding_dress": "Svatební šaty",
+    "wedding_planner": "Svatební plánovač",
+    "bakery": "Cukrářství",
+    "band": "Kapela",
+    "bar": "Bar",
+    "bridesmaid_dress": "Šaty pro družičky",
+    "caterer": "Catering",
+    "childcare": "Hlídání dětí",
+    "dance": "Tanec",
+    "dj": "DJ",
+    "florist": "Florista",
+    "hair_dresser": "Kadeřník",
+    "hotel": "Hotel",
+    "jewelry_store": "Zlatnictví",
+    "makeup_artist": "Makeup artist",
+    "manicure": "Manikůra",
+    "office": "Matriční úřady",
+    "photographer": "Fotograf",
+    "restaurant": "Restaurace",
+    "videographer": "Kameraman",
+    "classical_musicians": "Hudebníci klasické hudby"
+  },
+  "detail": {
+    "myVendor": "Můj dodavatel",
+    "subscriptionActive": "Aktivní předplatné",
+    "buySubscription": "Koupit předplatné",
+    "aboutUs": "O nás",
+    "actions": {
+      "addToFavorites": "Přidat do oblíbených",
+      "addToMyTeam": "Přidat do mého týmu",
+      "addToShortlisted": "Přidat do užšího výběru",
+      "removeFromFavorites": "Odstranění z oblíbených položek",
+      "removeFromMyTeam": "Odstranění z mého týmu",
+      "removeFromShortlisted": "Odstranit z užšího výběru"
+    },
+    "deals": {
+      "create": {
+        "description": "Popisek",
+        "endsAt": "Končí",
+        "header": "Vytvořit nabídku",
+        "isPermanent": "Je nabídka trvalá?",
+        "startsAt": "Začíná",
+        "title": "Název"
+      },
+      "form": {
+        "descriptionRequired": "Popisek je povinný",
+        "endsAtRequired": "Pokud dohoda není trvalá, je vyžadováno pole 'Končí'",
+        "error": "Došlo k chybě, zkuste to prosím znovu nebo kontaktujte podporu.",
+        "startsAtRequired": "Pokud dohoda není trvalá, je vyžadováno pole 'Začíná'",
+        "success": "Vytvoření nabídky bylo úspěšné!",
+        "titleRequired": "Název je povinný"
+      },
+      "titleSingular": "Speciální Nabídka!",
+      "titleMultiple": "Speciální Nabídky!",
+      "tagDeal": "Nabídka",
+      "tagExpired": "Nabídka Vypršela",
+      "timingEnds": "Končí k ",
+      "timingEnded": "Skončila k ",
+      "permanent": "Akce platí do odvolání"
+    },
+    "faq": {
+      "subtitle": "Na co se nás lidé nejčastěji ptají?",
+      "title": "Často kladené dotazy"
+    },
+    "location": "Umístění"
+  },
+  "dialog": {
+    "success": "Platba byla úspěšná!",
+    "successText": "Děkujeme za Vaši platbu.",
+    "failure": "Platba se nezdařila",
+    "failureText": "Je nám líto, něco se pokazilo."
+  },
+  "filters": {
+    "distance": "Vzdálenost",
+    "location": {
+      "searchTitle": "Hledání města",
+      "title": "Umístění"
+    },
+    "reset": "Obnovení",
+    "title": "Filtry",
+    "useFilters": "Použití filtrů"
+  },
+  "search": {
+    "noResults": "Žádné výsledky",
+    "broaden": "Zkuste rozšířit své vyhledávání",
+    "placeholder": "Vyhledávání dodavatelů ...",
+    "tip": "Tip: Existující dodavatelé jsou označeni naší ikonou!",
+    "failedToLoad": "Nepodařilo se načíst dodavatele, zkuste to prosím znovu později."
+  },
+  "subtitle": {
+    "label": ""
+  },
+  "tabs": {
+    "discover": {
+      "empty": "Žádní dodavatelé v této lokalitě zkuste změnit umístění nebo filtry",
+      "title": "Objevte"
+    },
+    "favorite": {
+      "empty": {
+        "subtitle": "Objevte mnoho našich skvělých dodavatelů a přidejte si je do oblíbených.",
+        "title": "Zatím žádné oblíbené položky"
+      },
+      "title": "Oblíbené"
+    },
+    "myTeam": {
+      "empty": {
+        "subtitle": "Z vybraných nebo oblíbených dodavatelů je jednoduše přidejte do svého týmu, až se rozhodnete.",
+        "title": "Nikdo z vašeho týmu"
+      },
+      "title": "Můj tým"
+    },
+    "shortlisted": {
+      "empty": {
+        "subtitle": "Jděte a objevte mnoho našich skvělých dodavatelů a přidejte je do užšího výběru",
+        "title": "Nikdo nebyl zařazen do užšího výběru"
+      },
+      "title": "Na seznamu"
+    }
+  },
+  "image-uploaded-successfully": "Obrázek byl úspěšně nahrán",
+  "upload-image": "Nahrát obrázek",
+  "remove-image": "Odebrat obrázek",
+  "image-uploaded": "Obrázek nahrán",
+  "vendor-image": "Obrázek dodavatele",
+  "questionnaire": {
+    "person": "osoba",
+    "piece": "kus",
+    "hour": "hodina",
+    "total": "celkem",
+      "yes": "Ano",
+      "no": "Ne",
+    "name": "Jméno",
+    "description": "Popis",
+    "quantity": "Množství",
+    "price": "Cena"
+  }
+}

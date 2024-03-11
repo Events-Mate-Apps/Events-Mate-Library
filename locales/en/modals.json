@@ -1,0 +1,81 @@
+{
+	"requests": {
+		"allow": "Allow access",
+		"calendar": {
+			"alerts": {
+				"alreadyExist": {
+					"message": "This event already exist in your calendar.",
+					"title": "Event Exist"
+				},
+				"authorizationDenied": {
+					"message": "It seems like you previously denied access to calendar. Please go to settings and enable access to Calendar.",
+					"title": "Authorization Denied"
+				},
+				"authorizationRestricted": {
+					"message": "It seems like you have restricted access. Contact them to give you access.",
+					"title": "Authorization Restricted"
+				}
+			},
+			"calendar": {
+				"addToCalendar": "Add to calendar",
+				"alreadyInCalendar": "Already in calendar"
+			},
+			"features": {
+				"feature1": {
+					"subtitle": "You can see your tasks in your Calendar app",
+					"title": "Calendar in sync"
+				},
+				"feature2": {
+					"subtitle": "We will add you Wedding tasks to your calendar so you can stay more on track.",
+					"title": "Tasks"
+				},
+				"feature3": {
+					"subtitle": "On the wedding day you will have everything prepared also in your calendar.",
+					"title": "Timeline"
+				}
+			},
+			"subtitle": "",
+			"title": ""
+		},
+		"contacts": {
+			"features": {
+				"feature1": {
+					"subtitle": "Adding your Guests can be much easier",
+					"title": "Easier"
+				},
+				"feature2": {
+					"subtitle": "For sending RSVP is used email and you get that easily from Contacts 🤩",
+					"title": "RSVP"
+				},
+				"feature3": {
+					"subtitle": "You already have Vendor in your Contacts? Lets add it. Or other way we can add Vendors to your Contacts.",
+					"title": "Vendors"
+				}
+			},
+			"subtitle": "We would like to get access to your Contacts so we can make your WeddMate experience even better",
+			"title": "Contacts"
+		}
+	},
+	"whatsNew": {
+		"features": {
+			"feature1": {
+				"subtitle": "Adding your Guests can be much easier",
+				"title": "Easier"
+			},
+			"feature2": {
+				"subtitle": "For sending RSVP is used email and you get that easily from Contacts 🤩",
+				"title": "RSVP"
+			},
+			"feature3": {
+				"subtitle": "You already have Vendor in your Contacts? Lets add it. Or other way we can add Vendors to your Contacts.",
+				"title": "Vendors"
+			},
+			"feature4": {
+				"subtitle": "",
+				"title": ""
+			}
+		},
+		"subtitle": "Welcome to the new version of WeddMate. \nTake a look at what we updated for you.",
+		"title": "What's New"
+	}
+}

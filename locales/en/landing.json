@@ -1,0 +1,197 @@
+{
+	"actions": {
+		"createAccount": {
+			"action": "Start Planning",
+			"subtitle": "Plan seamlessly with WeddMate's all-in-one tool. Every detail, perfected.",
+			"title": "Begin Your Dream Wedding Journey!"
+		},
+		"vendors": {
+			"action": "Showcase Now",
+			"subtitle": "Join WeddMate's Exclusive Network and Connect with Dream Clients.",
+			"title": "Elevate Your Wedding Business!"
+		}
+	},
+	"featuresCards": {
+		"heading": "Why Choose Events Mate?",
+		"cards": {
+			"1": {
+				"text": "Secure prime visibility on our platform, ensuring potential clients see your services first. Higher plans guarantee a top spot, making sure you stand out in a crowded market.",
+				"title": "Boost Your Visibility",
+				"subtitle": "Secure Your Prime Spot for Maximum Exposure"
+			},
+			"2": {
+				"text": "Streamline communications with potential clients using our integrated messaging system. Share files, videos, and details to facilitate smooth transactions and collaborations.",
+				"title": "Engage & Interact",
+				"subtitle": "Direct Messaging, Seamless File Sharing Experience"
+			},
+			"3": {
+				"text": "Access detailed statistics and insights about your business performance. Make informed decisions based on real-time data, optimizing your offerings and targeting your audience effectively.",
+				"title": "Stay Informed",
+				"subtitle": "Get Real-Time Insights, Optimize Offerings"
+			},
+			"4": {
+				"text": "Reach a global audience with localized descriptions in multiple languages. Break language barriers and cater to clients from diverse backgrounds, expanding your market reach.",
+				"title": "Expand Internationally",
+				"subtitle": "Reach Global Audience with Localized Content"
+			},
+			"5": {
+				"text": "Your services won't just be showcased on one platform. With Events Mate, you'll be prominently featured on our Wedding Planner app and the upcoming Team Building app. Expand your reach and tap into diverse markets with ease.",
+				"title": "Featured on Multiple Apps",
+				"subtitle": "Be Visible Across Multiple Dedicated Apps"
+			}
+		},
+		"subheading": "Discover the unique advantages of joining the Events Mate network and see how we empower your event business."
+	},
+	"faq": {
+		"heading": "Frequently Asked Questions",
+		"questions": {
+			"1": {
+				"text": "WeddMate is a free wedding planning tool available both as a mobile app and on the web. It's designed to simplify and streamline your wedding preparations, helping you stay organized and stress-free leading up to your big day.",
+				"title": "What is WeddMate?"
+			},
+			"2": {
+				"text": "Simply download WeddMate from the App Store or Google Play, or visit our website. Sign up for a free account, and you'll gain access to all our planning tools immediately.",
+				"title": "How do I get started with WeddMate?"
+			},
+			"3": {
+				"text": "WeddMate is entirely free! We believe everyone deserves a stress-free wedding planning experience without any hidden costs.",
+				"title": "Is there a premium version or is everything free?"
+			},
+			"4": {
+				"text": "From tracking your budget to managing guest lists, finding vendors, and creating timelines, WeddMate offers a range of features designed to assist you at every step of your wedding planning journey.",
+				"title": "How does WeddMate help with wedding planning?"
+			},
+			"5": {
+				"text": "Absolutely! WeddMate allows for easy collaboration. You can share your plans, lists, and more with your partner, family, or wedding planner, ensuring everyone stays in the loop.",
+				"title": "Can I share my wedding plans with my partner or planner?"
+			},
+			"6": {
+				"text": "Your privacy is our top priority. All your data is securely stored and will never be shared with third parties without your explicit consent.",
+				"title": "Is my data secure with WeddMate?"
+			},
+			"7": {
+				"text": "Yes, WeddMate has a curated list of trusted vendors. You can browse, read reviews, and contact them directly through the app, making it easier to find the perfect match for your needs.",
+				"title": "Can I find and contact vendors through the app?"
+			},
+			"8": {
+				"text": "We're here to assist! Our dedicated support team is available to answer any queries and guide you through the app. You can reach out to us via the app's help section or our website.",
+				"title": "What if I need help or have questions while using the app?"
+			}
+		},
+		"subheading": "Discover the answers to the most common questions about WeddMate, your trusted wedding planning companion."
+	},
+	"faqEventsMate": {
+		"heading": "Frequently Asked Questions",
+		"questions": {
+			"1": {
+				"text": "At Events Mate, we're more than just another event platform. We have dedicated mobile apps for both Android and all Apple platforms. Our focus isn't just on marketing; we're building tools to help you grow your business. With Events Mate, you'll have an overview of all your events in one place, making management simpler and more efficient.",
+				"title": "What makes Events Mate different from other event platforms?"
+			},
+			"2": {
+				"text": "It's simple! Create an account and then add a new vendor. The whole process will take you no longer than 2 minutes.",
+				"title": "How do I sign up as a vendor on Events Mate?"
+			},
+			"3": {
+				"text": "Our pricing is transparent and straightforward. [Link to pricing section or page for more details.]",
+				"title": "Are there any fees or costs associated with joining Events Mate?"
+			},
+			"4": {
+				"text": "When users browse vendors, we sort them by their plan first and then by the date they were created. For searches, vendors with higher plans appear first, followed by alphabetical ordering.",
+				"title": "How does the Events Mate ranking system work?"
+			},
+			"5": {
+				"text": "Absolutely! You can manage your subscription with the same flexibility you're used to from your favorite streaming services.",
+				"title": "Can I upgrade, downgrade, or cancel my plan at any time?"
+			},
+			"6": {
+				"text": "Vendors with Premium plans or higher can receive reviews, which include pros, cons, a description, and a star rating. Reviews are secured by the reviewer's email address to ensure authenticity and prevent multiple reviews from the same user.",
+				"title": "How does Events Mate handle reviews and feedback from clients?"
+			},
+			"7": {
+				"text": "Premium vendors enjoy a 24-hour response time, while Platinum vendors benefit from an 8-hour response time. Additionally, for Platinum vendors, we also assist by fixing issues or even setting up certain features for you, like adding descriptions in new localizations.",
+				"title": "What support can I expect as a vendor on Events Mate?"
+			},
+			"8": {
+				"text": "Not at all! Our platform is designed to be intuitive and user-friendly, making the setup process a breeze.",
+				"title": "Do I need to be tech-savvy to set up my vendor profile on Events Mate?"
+			},
+			"9": {
+				"text": "Your profile is displayed across our apps, allowing clients to discover your services. Additionally, we provide recommendations based on event criteria to match clients with the perfect vendor.",
+				"title": "How does Events Mate help me connect with potential clients?"
+			}
+		},
+		"subheading": "Discover the answers to the most common questions about Events Mate, your trusted event planning companion."
+	},
+	"features": {
+		"mobileApp": {
+			"subtitle": "Keep your wedding details at your fingertips. Whether you're at a vendor meeting or dress shopping, our mobile app ensures you're always informed and organized.",
+			"title": "Plan On-the-Go with the App"
+		},
+		"subtitle": "From the initial spark of inspiration to the final \\\"I do\\\", our platform is tailored to make every step of your wedding journey magical and stress-free.",
+		"title": "Discover the World of Weddings with WeddMate",
+		"webApp": {
+			"subtitle": "Dive into detailed planning with our user-friendly web interface. From budgeting to seating charts, every tool you need is just a click away.",
+			"title": "Comprehensive Wedding Planning on the Web"
+		},
+		"weddingWebsite": {
+			"subtitle": "Share your love story, event details, and RSVP information on a beautifully designed, personal website for your guests.",
+			"title": "Create Your Dream Wedding Website"
+		}
+	},
+	"featuresEventsMate": {
+		"title": "Unleash Your Event Business Potential with Events Mate",
+		"subtitle": "From sparking your digital debut to revolutionizing client interactions, we're here to propel your venture into the future of event services."
+	},
+	"header": {
+		"hotel": "Hotel",
+		"photographer": "Photographer",
+		"venue": "Venue",
+		"wedding_dress": "Wedding dress"
+	},
+	"hero": {
+		"primaryAction": "Start Your Journey",
+		"secondaryAction": "Explore Vendors",
+		"subtitle": "From perfect vendors to seamless planning, WeddMate is your ultimate wedding companion.",
+		"title": "Crafting Dream Weddings, Together.",
+		"titleFirstPart": "Crafting Dream Weddings,",
+		"titleSecondPart": "Together."
+	},
+	"heroEM": {
+		"primaryAction": "Join the Revolution",
+		"secondaryAction": "Find Out How",
+		"subtitle": "Be Part of the Revolution.",
+		"title": "The Future of Events Starts Here",
+		"titleFirstPart": "The Future of Events Starts",
+		"titleSecondPart": "Here"
+	},
+	"search": {
+		"startTyping": "Start typing to search...",
+		"noResults": "No results found.",
+		"action": "Search Now",
+		"placeholder": {
+			"category": "Choose a Category...",
+			"location": "Where's the Wedding?...",
+			"name": "Search by the Vendor name..."
+		},
+		"subtitle": "Find top wedding vendors with WeddMate and make your big day unforgettable.",
+		"title": "Discover Your Dream Team!"
+	},
+	"aboutUsHeader": {
+		"title": "Making Event Planning Easy",
+		"text": "We are a dedicated team focused on simplifying the process of organizing events, including weddings."
+	},
+	"banner": {
+		"title": "Purchase one of our subscriptions and multiply the growth of your business",
+		"subtitle": "Choose one of our advantageous subscriptions",
+		"button": "Learn more"
+	},
+    "navbar": {
+        "dashboard": "Dashboard",
+        "getStarted": "Get Started"
+    },
+	"share": {
+		"edited": "Edited",
+		"pending": "Pending invite"
+	},
+	"title": ""
+}

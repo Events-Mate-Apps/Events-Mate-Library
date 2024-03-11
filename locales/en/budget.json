@@ -1,0 +1,109 @@
+{
+	"addPayment": {
+		"addNotification": "Add notification",
+		"alerts": {
+			"addNotification": {
+				"confirm": "Add notification",
+				"message": "Set reminder for\n{{paymentName}}\nat\n{{paymentDate}}",
+				"title": "Add Notification"
+			},
+			"savePayment": {
+				"confirm": "Save payment",
+				"message": "Are you sure you want add this payment?",
+				"title": "Save payment"
+			}
+		},
+		"title": "Add Payment"
+	},
+	"detail": {
+		"actions": {
+			"changeToPaid": "Change to paid",
+			"changeToPending": "Change to pending"
+		},
+		"alerts": {
+			"delete": {
+				"confirm": "Delete",
+				"message": "Are you sure you want to delete this payment?",
+				"title": "Delete payment"
+			},
+			"deleteMultiple": {
+				"confirm": "Delete items",
+				"message": "Are you sure you want to permanently delete items. {{itemsCount}}",
+				"title": "Delete Items - {{itemsCount}}"
+			}
+		},
+		"dueDate": "Due date",
+		"estimatedBudget": "Estimated budget",
+		"leftAmount": "Left: {{remainingBudget}}",
+		"paidAmount": "Paid: {{paidAmount}}",
+		"paidAt": "Paid at",
+		"paymentAmount": "Amount",
+		"remaining": "Remaining",
+		"spent": "Spent",
+		"topSpender": "Top spender",
+		"waitingAmount": "Waiting: {{waitingAmount}}"
+	},
+	"form": {
+		"amount": {
+			"placeholder": "Enter payment amount",
+			"required": "Amount is required",
+			"title": "Payment amount"
+		},
+		"currency": {
+			"placeholder": "Select Currency",
+			"required": "Currency is required",
+			"title": "Payment Currency"
+		},
+		"dueDate": {
+			"placeholder": "Select due date",
+			"required": "Due date is required",
+			"title": "Payment Due date"
+		},
+		"name": {
+			"placeholder": "Payment name",
+			"required": "Name is required",
+			"title": "Payment name"
+		},
+		"paidAt": {
+			"placeholder": "Select when payment was made",
+			"title": "Paid at date"
+		},
+		"payer": {
+			"placeholder": "Who paid for this payment",
+			"required": "Payer is required",
+			"title": "Payment payer"
+		},
+		"status": {
+			"placeholder": "Select payment status",
+			"required": "Payment status is required",
+			"title": "Payment status"
+		},
+		"type": {
+			"placeholder": "Select payment type",
+			"required": "Payment type is required",
+			"title": "Payment type"
+		}
+	},
+	"notifications": {
+		"paymentReminder": {
+			"body": "You should make payment for: {{budgetItemName}}",
+			"subtitle": "Is about that time",
+			"title": "Payment date - {{budgetItemName}}"
+		}
+	},
+	"payment": "Payment",
+	"paymentDetail": {
+		"estimatedAmount": "Estimated amount is {{estimatedAmount}}",
+		"payer": "Payer"
+	},
+	"paymentStatus": {
+		"paid": "Paid",
+		"pending": "Pending",
+		"title": "Payment status"
+	},
+	"paymentType": {
+		"deposit": "Deposit",
+		"finalPayment": "Final payment",
+		"title": "Payment type"
+	}
+}
