@@ -13,7 +13,7 @@ import LanguageList from 'language-list';
 
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { Description, DescriptionWithLabel, Language, Vendor } from '@/interfaces/vendor';
+import { Description, DescriptionWithLabel, Language, Vendor } from '../../interfaces/vendor';
 import VendorDescription from './Description';
 import FAQ from './FAQ';
 import VendorLocation from './Location';
@@ -24,8 +24,8 @@ import ReviewStars from './ReviewStars';
 import { NextSeo } from 'next-seo';
 import MarkdownReader from './MarkdownReader';
 import DealsCard from './deals/DealsCard';
-import { UserData } from '@/interfaces/user';
-import { api } from '@/utils/api';
+import { UserData } from '../../interfaces/user';
+import { api } from '../../utils/api';
 import Contacts from './Contacts';
 import ReviewsCard from './reviews/ReviewsCard';
 

@@ -7,12 +7,12 @@ import {
 import useTranslation from '@/misc/i18n/useTranslation';
 import Card from '@/components/card/Card';
 import React, {useEffect, useState} from "react";
-import dayjs from "@/utils/dayjs";
+import dayjs from "../../../utils/dayjs";
 import {useRouter} from "next/router";
 import NextLink from "next/link";
 import {AddIcon} from "@chakra-ui/icons";
 import {TinyColor} from "@ctrl/tinycolor/dist";
-import { api } from '@/utils/api';
+import { api } from '../../../utils/api';
 import { Deal } from './Deal';
 import { DealType } from '../../../interfaces/deals';
 import { Vendor } from '../../../interfaces/vendor';

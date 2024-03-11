@@ -8,7 +8,7 @@ import {
     useColorModeValue
 } from '@chakra-ui/react';
 
-import { Vendor } from '@/interfaces/vendor';
+import { Vendor } from '../../interfaces/vendor';
 import { MdStar, MdStarHalf } from 'react-icons/md';
 
 interface ReviewStarsProps {

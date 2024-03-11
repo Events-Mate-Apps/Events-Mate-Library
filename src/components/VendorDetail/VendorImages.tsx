@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 import ImageList from './image/ImageList';
 import EditableImageList from './image/EditableImageList';
-import { Vendor } from '@/interfaces/vendor';
+import { Vendor } from '../../interfaces/vendor';
 import Image from '../image/Image';
 
 

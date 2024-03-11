@@ -8,7 +8,7 @@ import {
 // Assets
 import {FaRegClock, FaEdit} from 'react-icons/fa';
 import { DealType } from "../../../interfaces/deals";
-import dayjs from "@/utils/dayjs";
+import dayjs from "../../../utils/dayjs";
 import React, { useEffect, useState } from "react";
 import useTranslation from "@/misc/i18n/useTranslation";
 import NextLink from "next/link";
