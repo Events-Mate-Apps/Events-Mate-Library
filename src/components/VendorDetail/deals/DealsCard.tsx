@@ -15,7 +15,7 @@ import {TinyColor} from "@ctrl/tinycolor/dist";
 import { api } from '@/utils/api';
 import { Deal } from './Deal';
 import { DealType } from '../../../interfaces/deals';
-import { Vendor } from '~/interfaces/vendor';
+import { Vendor } from '../../../interfaces/vendor';
 
 interface DealsCardProps {
     vendor: Vendor
