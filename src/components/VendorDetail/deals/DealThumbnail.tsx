@@ -1,6 +1,6 @@
 import { Box, Flex } from '@chakra-ui/react';
 import React from "react";
-import { DealImage } from '@/interfaces/deals';
+import { DealImage } from '../../../interfaces/deals';
 import Image from '../../image/Image';
 
 interface DealThumbnailProps {
