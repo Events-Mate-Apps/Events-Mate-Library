@@ -3,6 +3,7 @@ export type Vendor = {
   id: string;
   alias: string;
   categories: string[];
+  description: string; // description
   userId: string;
   name: string;
   phones: Phone[];
@@ -30,18 +31,6 @@ export type Vendor = {
   };
   images: Image[];
   seoImageLink?: string;
-  priority: number;
-  premiumSubscription: {
-    id: string;
-    priority: number;
-    status: string;
-    stripeCustomerId: string, 
-    stripePriceId: string,
-    stripeProductId: string,  
-    subscriptionId: string;
-    userId: string
-    vendorId: string
-  }
 };
 
 export interface DescriptionWithLabel extends Description {
