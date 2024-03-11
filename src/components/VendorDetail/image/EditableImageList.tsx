@@ -1,10 +1,10 @@
 import { Button, Flex, Stack, useToast } from "@chakra-ui/react";
-import { Vendor } from "@/interfaces/vendor"
+import { Vendor } from "../../../interfaces/vendor"
 import { useEffect, useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import useTranslation from "next-translate/useTranslation";
-import { api } from "@/utils/api";
+import { api } from "../../../utils/api";
 import AddImage from "./AddImage";
 import DraggableImage from "./DraggableImage";
 
