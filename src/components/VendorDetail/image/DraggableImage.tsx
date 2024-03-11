@@ -15,7 +15,7 @@ import {
 import useTranslation from 'next-translate/useTranslation';
 import { useRef, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
-import { Image as ImageType } from '@/interfaces/vendor';
+import { Image as ImageType } from '../../../interfaces/vendor';
 import { api } from '@/utils/api';
 import Image from '../../image/Image';
 
