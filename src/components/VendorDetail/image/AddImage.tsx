@@ -14,7 +14,7 @@ import {
 import useTranslation from '@/misc/i18n/useTranslation';
 import { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-import { NewVendorForValues } from '@/interfaces/vendor';
+import { NewVendorForValues } from '../../../interfaces/vendor';
 import { simpleUploadVendorImage, compressImage } from '../../../service/ImageService'; 
 
 export interface Image {
