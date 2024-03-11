@@ -83,7 +83,6 @@ const Map: React.FC<MapProps> = ({ onRegionChangeEnd, center, onAnnotationFocus,
       const toAdd = vendors.filter(
         (v) => !existing.find((a) => a.data && a.data.id === v.id)
       );
-      console.log({ toRemove, toAdd });
       map.removeAnnotations(toRemove.filter(Boolean) as mapkit.Annotation[]);
       toAdd.forEach((vendor) => {
         if (!vendor.location) return;
