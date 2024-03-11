@@ -23,7 +23,7 @@ export type SocialType = {
   domain?: string;
 };
 
-export const links: SocialType[] = [
+export const links = [
   {
     label: 'TikTok',
     property: 'tikTok',
