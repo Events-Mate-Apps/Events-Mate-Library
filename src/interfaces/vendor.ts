@@ -3,7 +3,6 @@ export type Vendor = {
   id: string;
   alias: string;
   categories: string[];
-  description: string; // description
   userId: string;
   name: string;
   phones: Phone[];
@@ -15,9 +14,25 @@ export type Vendor = {
   };
   features: string[];
   faq: {
-    question: string;
-    answer: string;
-  }[];
+    question: {
+      translations: [
+        {
+          translation: string,
+          languageISO: string
+        }
+      ]
+    },
+    answer: {
+      translations: [
+        {
+          translation: string,
+          languageISO: string
+        }
+      ]
+    },
+    vendorId: string
+    id: string
+    }[];
   links: {
     type: Socials;
     url: string;
@@ -31,6 +46,19 @@ export type Vendor = {
   };
   images: Image[];
   seoImageLink?: string;
+  priority: number;
+  premiumSubscription: {
+    id: string;
+    priority: number;
+    status: string;
+    stripeCustomerId: string, 
+    stripePriceId: string,
+    stripeProductId: string,  
+    subscriptionId: string;
+    userId: string
+    vendorId: string
+  },
+  status: string
 };
 
 export interface DescriptionWithLabel extends Description {
