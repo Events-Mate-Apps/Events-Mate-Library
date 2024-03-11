@@ -3,8 +3,8 @@ import {
     HStack
 } from '@chakra-ui/react';
 
-import { Vendor } from '@/interfaces/vendor';
-import { links } from '@/utils/links';
+import { Vendor } from '../../interfaces/vendor';
+import { links } from '../../utils/links';
 
 interface LinksProps {
     vendor: Vendor
