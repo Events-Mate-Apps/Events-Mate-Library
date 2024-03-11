@@ -1,7 +1,7 @@
 import {Box, Flex} from '@chakra-ui/react';
 import React from "react";
 import Image from "../../image/Image";
-import { Vendor } from '~/interfaces/vendor';
+import { Vendor } from '../../../interfaces/vendor';
 
 export default function ReviewVendorImage(props: { vendor: Vendor }) {
     const { vendor } = props;
