@@ -145,7 +145,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                 mb="12px"
                 mt={{ sm: '20px', md: '50px', '2xl': '20px', '3xl': '50px' }}
               >
-                {vendor.name}
+                {vendor.name} em-lib
               </Text>
               <ReviewStars vendor={vendor} />
               <Flex gap="5px" flexWrap="wrap" mb="20px">
