@@ -3,7 +3,7 @@ import useTranslation from '@/misc/i18n/useTranslation';
 
 import Card from '@/components/card/Card';
 
-import { Vendor } from '@/interfaces/vendor';
+import { Vendor } from '../../interfaces/vendor';
 import Map from './Map';
 
 interface VendorLocationProps {
