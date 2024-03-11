@@ -1,7 +1,7 @@
 import { Box, useColorMode, useToken } from '@chakra-ui/react';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Vendor } from '@/interfaces/vendor';
-import { loadMapKit } from '@/utils/mapkit';
+import { Vendor } from '../../interfaces/vendor';
+import { loadMapKit } from '../../utils/mapkit';
 
 interface MapProps {
   onRegionChangeEnd: (e: mapkit.EventBase<mapkit.Map>) => void;
