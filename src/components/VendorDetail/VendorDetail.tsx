@@ -18,7 +18,7 @@ import VendorDescription from './Description';
 import FAQ from './FAQ';
 import VendorLocation from './Location';
 import useTranslation from '@/misc/i18n/useTranslation';
-import VendorImages from '@/components/VendorDetail/VendorImages';
+import VendorImages from '../VendorDetail/VendorImages';
 import Links from './Links';
 import ReviewStars from './ReviewStars';
 import { NextSeo } from 'next-seo';
