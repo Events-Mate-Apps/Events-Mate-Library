@@ -192,7 +192,8 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
         </Flex>
       </Card>
       {currentDescription && <VendorDescription desc={currentDescription} />}
-      {(vendor.faq.length !== 0 && vendor.isPremium) && <FAQ vendor={vendor} />}
+      {/* {(vendor.faq.length !== 0 && vendor.isPremium) && <FAQ vendor={vendor} />} */}
+      <FAQ vendor={vendor} />
       <DealsCard vendor={vendor} />
       <VendorLocation vendor={vendor} />
       <ReviewsCard vendorId={vendor.id}/>
