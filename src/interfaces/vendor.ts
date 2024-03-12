@@ -13,16 +13,7 @@ export type Vendor = {
     longitude: number;
   };
   features: string[];
-  faq: {
-    question: {
-      translations: Translation[]
-    },
-    answer: {
-      translations: Translation[]
-    },
-    vendorId: string
-    id: string
-    }[];
+  faq: FAQItem[];
   links: {
     type: Socials;
     url: string;
@@ -51,9 +42,26 @@ export type Vendor = {
   status: string
 };
 
+export interface FAQItem {
+  question: TranslationTextContent
+  questionId?: string,
+  answer: TranslationTextContent,
+  answerId?: string,
+  vendorId: string
+  id: string
+}
+
+export interface TranslationTextContent {
+  id?: string,
+  defaultTranslation: Translation | null,
+  translations: Translation[]
+}
+
 export interface Translation {
+  id?: string,
+  textContentId?: string,
   translation: string,
-  languageISO: string
+  languageISO: string,
 }
 
 export interface DescriptionWithLabel extends Description {
