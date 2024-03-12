@@ -64,6 +64,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
   }
 
   useEffect(() => {
+    console.log(vendor, 'vendor')
     getDescriptions()
   }, [])
 

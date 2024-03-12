@@ -15,20 +15,10 @@ export type Vendor = {
   features: string[];
   faq: {
     question: {
-      translations: [
-        {
-          translation: string,
-          languageISO: string
-        }
-      ]
+      translations: Translation[]
     },
     answer: {
-      translations: [
-        {
-          translation: string,
-          languageISO: string
-        }
-      ]
+      translations: Translation[]
     },
     vendorId: string
     id: string
@@ -60,6 +50,11 @@ export type Vendor = {
   },
   status: string
 };
+
+export interface Translation {
+  translation: string,
+  languageISO: string
+}
 
 export interface DescriptionWithLabel extends Description {
   label: string

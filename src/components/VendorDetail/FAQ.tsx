@@ -14,7 +14,7 @@ import useTranslation from '@/misc/i18n/useTranslation';
 
 import Card from '@/components/card/Card';
 
-import { Vendor } from '../../interfaces/vendor';
+import { Translation, Vendor } from '../../interfaces/vendor';
 
 interface FAQProps {
     vendor: Vendor,
@@ -24,6 +24,12 @@ const FAQ: React.FC<FAQProps> = ({ vendor }) =>{
     const textColor = useColorModeValue('secondaryGray.900', 'white');
     const borderColor = useColorModeValue('secondaryGray.400', 'whiteAlpha.100');
     const { t } = useTranslation();
+
+    const { lang } = useTranslation()
+
+    const getCurrentTranslation = (lang: string, translations: Translation) => {
+
+    }
 
     return (
         <Card p='30px' mb={{ base: '20px', '2xl': '20px' }}>
@@ -52,7 +58,7 @@ const FAQ: React.FC<FAQProps> = ({ vendor }) =>{
                                     fontWeight="700"
                                     fontSize={{ sm: 'md', lg: 'md' }}
                                 >
-                                    {faq.question}
+                                    {faq.question.translations[0].translation}
                                 </Text>
                             </Box>
                             <AccordionIcon color="gray.500" />
@@ -66,7 +72,7 @@ const FAQ: React.FC<FAQProps> = ({ vendor }) =>{
                                 alignSelf="flex-start"
                                 justifySelf="flex-start"
                             >
-                                {faq.answer}
+                                {faq.answer.translations[0].translation}
                             </Text>
                         </AccordionPanel>
                     </AccordionItem>
