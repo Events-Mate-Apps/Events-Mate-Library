@@ -72,8 +72,4 @@ const VendorImages: React.FC<VendorImagesProps> = ({ vendor, editable }) => {
     );
 }
 
-VendorImages.defaultProps = {
-    editable: false,
-}
-
 export default VendorImages;
