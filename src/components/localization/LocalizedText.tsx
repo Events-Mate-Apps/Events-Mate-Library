@@ -21,8 +21,6 @@ const LocalizedText: React.FC<LocalizedTextProps> = ({ content }) => {
 
     return (
         <>
-            <p>{JSON.stringify(lang)}</p>
-            <p>{JSON.stringify(content)}</p>
             {getCurrentTranslation()}
         </>
     );

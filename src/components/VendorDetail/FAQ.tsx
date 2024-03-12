@@ -75,7 +75,7 @@ const FAQ: React.FC<FAQProps> = ({ vendor }) =>{
                                 alignSelf="flex-start"
                                 justifySelf="flex-start"
                             >
-                                <LocalizedText content={faq.question} />
+                                <LocalizedText content={faq.answer} />
                             </Text>
                         </AccordionPanel>
                     </AccordionItem>
