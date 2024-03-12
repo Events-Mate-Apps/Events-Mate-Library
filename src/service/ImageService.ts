@@ -16,7 +16,6 @@ export const uploadVendorImage = async (img: File, vendorId: string): Promise<Im
   try {
     imgForm = new FormData();
     imgForm.append('image', img);
-    console.log("Image appended to FormData");
   } catch (error) {
     console.error("Error creating FormData:", error);
   }

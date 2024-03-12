@@ -107,7 +107,6 @@ const Map: React.FC<MapProps> = ({ onRegionChangeEnd, center, onAnnotationFocus,
   }, [color, map, vendors]);
 
   useEffect(() => {
-    console.log('resetting center');
     if (center)
       map?.setCenterAnimated(
         new mapkit.Coordinate(center.latitude, center.longitude)
