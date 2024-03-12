@@ -15,6 +15,7 @@ import useTranslation from '@/misc/i18n/useTranslation';
 import Card from '@/components/card/Card';
 
 import { Translation, TranslationTextContent, Vendor } from '../../interfaces/vendor';
+import LocalizedText from '../localization/LocalizedText';
 
 interface FAQProps {
     vendor: Vendor,
@@ -60,7 +61,7 @@ const FAQ: React.FC<FAQProps> = ({ vendor }) =>{
                                     fontWeight="700"
                                     fontSize={{ sm: 'md', lg: 'md' }}
                                 >
-                                    {getCurrentTranslation(lang, faq.question)}
+                                    <LocalizedText content={faq.question} />
                                 </Text>
                             </Box>
                             <AccordionIcon color="gray.500" />
@@ -74,7 +75,7 @@ const FAQ: React.FC<FAQProps> = ({ vendor }) =>{
                                 alignSelf="flex-start"
                                 justifySelf="flex-start"
                             >
-                                    {getCurrentTranslation(lang, faq.answer)}
+                                <LocalizedText content={faq.question} />
                             </Text>
                         </AccordionPanel>
                     </AccordionItem>
