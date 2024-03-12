@@ -48,7 +48,7 @@ const FAQ: React.FC<FAQProps> = ({ vendor }) =>{
                 w={{ sm: '100%', md: '100%', xl: '94%' }}
                 mb="16px"
             >
-                {vendor.isPremium && vendor.faq.map((faq, index) => (
+                {vendor.faq.map((faq, index) => (
                     <AccordionItem border="none" key={index}>
                         <AccordionButton
                             p="20px 0px 20px 0px"
