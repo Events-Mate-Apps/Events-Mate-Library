@@ -31,7 +31,7 @@ import VendorImages from './VendorImages';
 
 interface VendorDetailProps {
   vendor: Vendor;
-  user?: UserData,
+  user: UserData | null,
   sendStats?: (vendorId: string, event: string) => Promise<void>
 }
 
