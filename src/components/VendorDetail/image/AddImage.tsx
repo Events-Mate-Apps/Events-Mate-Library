@@ -11,7 +11,7 @@ import {
   useColorModeValue,
   useToast,
 } from '@chakra-ui/react';
-import useTranslation from '@/misc/i18n/useTranslation';
+import useTranslation from 'next-translate';
 import { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { NewVendorForValues } from '../../../interfaces/vendor';
