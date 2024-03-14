@@ -10,7 +10,7 @@ import {FaRegClock, FaEdit} from 'react-icons/fa';
 import { DealType } from "../../../interfaces/deals";
 import dayjs from "../../../utils/dayjs";
 import React, { useEffect, useState } from "react";
-import useTranslation from "@/misc/i18n/useTranslation";
+import useTranslation from "next-translate";
 import NextLink from "next/link";
 import DeleteDealDialog from './DeleteDealDialog';
 import DealThumbnail from './DealThumbnail';
