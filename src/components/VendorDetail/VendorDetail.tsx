@@ -8,7 +8,7 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { darken } from '@chakra-ui/theme-tools';
-import Card from '@/components/card/Card';
+import Card from '../../components/card/Card';
 import LanguageList from 'language-list';
 
 import { useRouter } from 'next/router';

@@ -1,7 +1,7 @@
 import { Text, useColorModeValue } from '@chakra-ui/react';
 import useTranslation from 'next-translate';
 
-import Card from '@/components/card/Card';
+import Card from '../../components/card/Card';
 
 import { Vendor } from '../../interfaces/vendor';
 import Map from './Map';

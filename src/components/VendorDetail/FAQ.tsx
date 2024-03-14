@@ -4,17 +4,15 @@ import {
     AccordionIcon,
     AccordionItem,
     AccordionPanel,
-    Icon,
-    Flex,
     Box,
     Text,
     useColorModeValue
 } from '@chakra-ui/react';
 import useTranslation from 'next-translate';
 
-import Card from '@/components/card/Card';
+import Card from '../../components/card/Card';
 
-import { Translation, TranslationTextContent, Vendor } from '../../interfaces/vendor';
+import { Vendor } from '../../interfaces/vendor';
 import LocalizedText from '../localization/LocalizedText';
 
 interface FAQProps {
@@ -25,14 +23,6 @@ const FAQ: React.FC<FAQProps> = ({ vendor }) =>{
     const textColor = useColorModeValue('secondaryGray.900', 'white');
     const borderColor = useColorModeValue('secondaryGray.400', 'whiteAlpha.100');
     const { t } = useTranslation();
-
-    const { lang } = useTranslation()
-
-    const getCurrentTranslation = (ISO: string, content: TranslationTextContent) => {
-        const translation = content.translations.find(e => e.languageISO === ISO)?.translation
-        if (!translation) return content.defaultTranslation?.translation
-        return translation
-    }
 
     return (
         <Card p='30px' mb={{ base: '20px', '2xl': '20px' }}>
