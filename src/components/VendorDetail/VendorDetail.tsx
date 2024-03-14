@@ -54,8 +54,8 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
         const { data } = await api.get(`vendors/${vendor.id}/getDescriptions`);
         setDescriptions(data.map((e: Description) => {
             return {
-                ...e,
-                label: langs.find((l) => l.code === e.language)?.language || '',
+              ...e,
+              label: langs.find((l) => l.code === e.language)?.language || '',
             }
         }));
     } catch (error) {
