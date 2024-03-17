@@ -12,7 +12,7 @@ import {
   AlertDialogContent,
   AlertDialogOverlay,
 } from '@chakra-ui/react';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from 'next-translate';
 import { useRef, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { Image as ImageType } from '../../../interfaces/vendor';

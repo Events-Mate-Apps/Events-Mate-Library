@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import useNextTranslation from 'next-translate/useTranslation';
+import useNextTranslation from 'next-translate';
 
 /*
 	This wrapper hook is so the translations persist through the page animations.

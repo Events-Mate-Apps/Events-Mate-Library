@@ -6,7 +6,7 @@ import {
     useColorModeValue,
     useToast,
 } from '@chakra-ui/react';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from 'next-translate';
 import React from 'react';
 import { Vendor } from '../../interfaces/vendor';
 

@@ -3,7 +3,7 @@ import { Vendor } from "../../../interfaces/vendor"
 import { useEffect, useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import useTranslation from "next-translate/useTranslation";
+import useTranslation from "next-translate";
 import { api } from "../../../utils/api";
 import AddImage from "./AddImage";
 import DraggableImage from "./DraggableImage";
