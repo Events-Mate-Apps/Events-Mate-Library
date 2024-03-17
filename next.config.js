@@ -37,4 +37,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextTranslate(nextConfig); 
+export default nextTranslate(nextConfig); 
