@@ -1,6 +1,6 @@
-const hoistNonReactStatics = require('hoist-non-react-statics');
+import hoistNonReactStatics from 'hoist-non-react-statics';
 
-const config = {
+const i18nConfig = {
   locales: ['en', 'sk', 'cs'],
   defaultLocale: 'en',
   pages: {
@@ -19,4 +19,4 @@ const config = {
   staticsHoc: hoistNonReactStatics,
 };
 
-export default config;
+export default i18nConfig;
