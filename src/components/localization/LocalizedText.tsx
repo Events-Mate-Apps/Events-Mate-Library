@@ -1,10 +1,7 @@
-import { Flex, Box } from '@chakra-ui/react';
+import React from 'react';
 
-import React, { useState } from 'react';
-
-import { TranslationTextContent, Vendor } from '../../interfaces/vendor';
-import Image from '../image/Image';
-import useTranslation from 'next-translate/useTranslation';
+import { TranslationTextContent } from '../../interfaces/vendor';
+import useTranslation from 'next-translate';
 
 
 interface LocalizedTextProps  { 
