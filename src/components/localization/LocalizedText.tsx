@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { TranslationTextContent } from '../../interfaces/vendor';
-import useTranslation from 'next-translate';
+import useTranslation from 'next-translate/useTranslation';
 
 
 interface LocalizedTextProps  { 

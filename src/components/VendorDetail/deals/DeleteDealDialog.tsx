@@ -11,7 +11,7 @@ import {
     useDisclosure,
     useToast
 } from '@chakra-ui/react';
-import useTranslation from 'next-translate';
+import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react';
 import { BASE_URL, api } from '../../../utils/api';
 import {FaTrash} from "react-icons/fa";

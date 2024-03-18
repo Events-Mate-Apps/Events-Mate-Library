@@ -17,7 +17,7 @@ import { Description, DescriptionWithLabel, Language, Vendor } from '../../inter
 import VendorDescription from './Description';
 import FAQ from './FAQ';
 import VendorLocation from './Location';
-import useTranslation from 'next-translate';
+import useTranslation from 'next-translate/useTranslation';
 import Links from './Links';
 import ReviewStars from './ReviewStars';
 import { NextSeo } from 'next-seo';
