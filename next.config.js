@@ -1,7 +1,7 @@
-import nextTranslate from 'next-translate-plugin';
+const nextTranslate = require('next-translate-plugin');
 
 /** @type {import('next').NextConfig} */
-export default nextTranslate({
+const nextConfig = {
   experimental: {
     // appDir: true,
   },
@@ -35,4 +35,6 @@ export default nextTranslate({
     }
     return config;
   },
-});
+};
+
+module.exports = nextTranslate(nextConfig); 
