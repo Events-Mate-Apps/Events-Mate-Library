@@ -4,7 +4,7 @@ import {
     Text,
     useColorModeValue
 } from '@chakra-ui/react';
-import useTranslation from 'next-translate';
+import useTranslation from 'next-translate/useTranslation';
 import Card from '../../../components/card/Card';
 import React, {useEffect, useState} from "react";
 import dayjs from "../../../utils/dayjs";
