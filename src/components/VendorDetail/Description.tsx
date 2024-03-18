@@ -1,10 +1,10 @@
 import { Text, useColorModeValue } from '@chakra-ui/react';
-import useTranslation from '../../misc/i18n/useTranslation';
 
 import Card from '../../components/card/Card';
 
 import MarkdownReader from './MarkdownReader';
 import { DescriptionWithLabel } from '../../interfaces/vendor';
+import useTranslation from 'next-translate/useTranslation';
 
 interface DescriptionProps { 
 	desc: DescriptionWithLabel

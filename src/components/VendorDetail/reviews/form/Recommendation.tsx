@@ -4,8 +4,7 @@ import { useFormContext } from 'react-hook-form';
 import InputField from '~/components/fields/InputField';
 import SwitchField from '~/components/fields/SwitchField';
 import TextArea from '~/components/fields/TextArea';
-import useTranslation from '~/misc/i18n/useTranslation';
-
+import useTranslation from 'next-translate/useTranslation';
 export default function Recommendation() {
     const {
         register,

@@ -6,8 +6,7 @@ import {
     Text,
     useColorModeValue
 } from '@chakra-ui/react';
-import useTranslation from '~/misc/i18n/useTranslation';
-import Card from '~/components/card/Card';
+import useTranslation from 'next-translate/useTranslation';import Card from '~/components/card/Card';
 import React, { useEffect, useState } from "react";
 import NextLink from "next/link";
 import {darken} from "@chakra-ui/theme-tools";
