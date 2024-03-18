@@ -150,8 +150,8 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                 {vendor.name}
               </Text>
               <ReviewStars vendor={vendor} />
-              <Flex gap="5px" flexWrap="wrap" mb="20px">
-                {vendor.categories?.map((cat) => (
+              {/* <Flex gap="5px" flexWrap="wrap" mb="20px">
+                {vendor.categories.map((cat) => (
                   <Tag
                     variant="solid"
                     bgColor="blackAlpha.500"
@@ -162,7 +162,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                     {t('vendors:categories.' + cat)}
                   </Tag>
                 ))}
-              </Flex>
+              </Flex> */}
               <Box>
                 {descriptions.length !== 1 && <ButtonGroup size='sm' isAttached variant='outline'>
                   {descriptions.map((e) => {
