@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Flex, Text } from "@chakra-ui/react";
 import { Rating } from 'react-simple-star-rating';
 import { useFormContext } from "react-hook-form";
-import useTranslation from "~/misc/i18n/useTranslation";
+import useTranslation from "next-translate/useTranslation";
 
 export default function StarRating(props: {attribute: string}) {
     // Form context, setValue doesn't re-render index.tsx (done manually in index using watch)

@@ -1,4 +1,6 @@
 import store from 'store'
 
-export const CURRENT_PROJECT: string | undefined = store.get('PROJECT_NAME')
-export const isEventsMate: boolean = (CURRENT_PROJECT === 'Events-Mate')
+export const isEventsMate = async (): Promise<boolean> => {
+    const CURRENT_PROJECT: string | undefined = await store.get('PROJECT_NAME')
+    return CURRENT_PROJECT === 'Events-Mate'
+}
