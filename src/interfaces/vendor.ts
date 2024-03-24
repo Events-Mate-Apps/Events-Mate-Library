@@ -13,7 +13,7 @@ export type Vendor = {
     longitude: number;
   };
   features: string[];
-  faq: FAQItem[];
+  faq: FAQElement[];
   links: {
     type: Socials;
     url: string;
@@ -42,15 +42,14 @@ export type Vendor = {
   status: string
 };
 
-export interface FAQItem {
+export interface FAQElement {
   question: TranslationTextContent
   questionId?: string,
   answer: TranslationTextContent,
   answerId?: string,
   vendorId: string
-  id: string
+  id?: string
 }
-
 export interface TranslationTextContent {
   id?: string,
   defaultTranslation: Translation | null,
