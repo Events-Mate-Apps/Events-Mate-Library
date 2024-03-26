@@ -8,6 +8,8 @@ export type Vendor = {
   phones: Phone[];
   emails: Email[];
   address: Address;
+  latitude: number;
+  longitude: number;
   location?: {
     latitude: number;
     longitude: number;
