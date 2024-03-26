@@ -85,11 +85,10 @@ const Map: React.FC<MapProps> = ({ onRegionChangeEnd, center, onAnnotationFocus,
       );
       map.removeAnnotations(toRemove.filter(Boolean) as mapkit.Annotation[]);
       toAdd.forEach((vendor) => {
-        if (!vendor.location) return;
         const annotation = new mapkit.MarkerAnnotation(
           new mapkit.Coordinate(
-            vendor.location.latitude,
-            vendor.location.longitude
+            vendor.latitude,
+            vendor.longitude
           ),
           {
             title: vendor.name,
