@@ -30,6 +30,7 @@ export type Vendor = {
   images: Image[];
   seoImageLink?: string;
   priority: number;
+  description: TranslationTextContent,
   premiumSubscription: {
     id: string;
     priority: number;
