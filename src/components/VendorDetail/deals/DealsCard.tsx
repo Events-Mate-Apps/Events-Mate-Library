@@ -6,31 +6,34 @@ import {
 } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
 import Card from '../../../components/card/Card';
-import React, {useEffect, useState} from "react";
-import dayjs from "../../../utils/dayjs";
-import {useRouter} from "next/router";
-import NextLink from "next/link";
-import {AddIcon} from "@chakra-ui/icons";
-import {TinyColor} from "@ctrl/tinycolor/dist";
+import React, { useEffect, useState } from 'react';
+import dayjs from '../../../utils/dayjs';
+import { useRouter } from 'next/router';
+import NextLink from 'next/link';
+import { AddIcon } from '@chakra-ui/icons';
+import { TinyColor } from '@ctrl/tinycolor/dist';
 import { api } from '../../../utils/api';
-import { Deal } from './Deal';
+import Deal from './Deal';
 import { DealType } from '../../../interfaces/deals';
 import { Vendor } from '../../../interfaces/vendor';
+import { isEventsMate } from '../../../utils/orientation';
 
-interface DealsCardProps {
-    vendor: Vendor
-}
-
-const DealsCard: React.FC<DealsCardProps> = ({ vendor }) => {
+const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
     const [isAnyActive, setIsAnyActive] = useState<boolean>(false);
     const [isInDashboard, setIsInDashboard] = useState<boolean>(false);
     const { t } = useTranslation();
 
     const textColor = useColorModeValue('secondaryGray.900', 'white');
-    const bgHover = useColorModeValue(
+    const bgHoverWm = useColorModeValue(
         { bg: new TinyColor('#e13784').darken(5).toString() },
         { bg: 'brand.300' });
-    const bg = useColorModeValue('#e13784', 'brand.400');
+    const bgWm = useColorModeValue('#e13784', 'brand.400');
+
+    const bgHoverEm = useColorModeValue(
+        { bg: 'brand.800' },
+        { bg: 'brand.300' });
+    const bgEm = useColorModeValue('brand.900', 'brand.400');
+
     const router = useRouter();
 
     const [deals, setDeals] = useState<DealType[]>([])
@@ -45,8 +48,9 @@ const DealsCard: React.FC<DealsCardProps> = ({ vendor }) => {
         }
     }
 
-    useEffect(() => { getDeals() }, [])
-
+    useEffect(() => {
+        getDeals()
+    }, [])
 
     const sortedDeals = deals?.slice().sort((a, b) => {
         const isPermanentComparison = b.isPermanent ? 1 : -1;
@@ -75,12 +79,12 @@ const DealsCard: React.FC<DealsCardProps> = ({ vendor }) => {
             display={isAnyActive ? 'block' : 'none'}
             bgColor={!isInDashboard ? 'navy.00' : 'transparent'}
         >
-            <Flex w="100%" mb='20px'>
+            <Flex w='100%' mb='20px'>
                 <Text color={textColor} fontSize='2xl' fontWeight='700'>
                     {sortedDeals?.length == 1 ? t('vendors:detail.deals.titleSingular') : t('vendors:detail.deals.titleMultiple')}
                 </Text>
             </Flex>
-            <Flex w="100%" justify='space-between' flexWrap='wrap'>
+            <Flex w='100%' justify='space-between' flexWrap='wrap'>
                 {sortedDeals != undefined &&
                     sortedDeals?.length > 0 &&
                     sortedDeals?.map((deal, key) => {
@@ -95,17 +99,17 @@ const DealsCard: React.FC<DealsCardProps> = ({ vendor }) => {
                         );
                     })}
             </Flex>
-            { isInDashboard &&
-                <Flex w="100%">
+            {isInDashboard &&
+                <Flex w='100%'>
                     <Button
                         as={NextLink}
                         href={`${vendor.id}/deals/new`}
                         color='white'
-                        background={bg}
-                        _hover={bgHover}
+                        background={isEventsMate() ? bgEm : bgWm}
+                        _hover={isEventsMate() ? bgHoverEm : bgHoverWm}
                         leftIcon={<AddIcon />}
                         letterSpacing='normal'
-                        size="md"
+                        size='md'
                         m='auto'
                     >
                         {t('vendors:detail.deals.create.header')}

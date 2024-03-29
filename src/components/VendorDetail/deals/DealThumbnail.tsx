@@ -1,16 +1,16 @@
 import { Box, Flex } from '@chakra-ui/react';
-import React from "react";
+import React from 'react';
 import { DealImage } from '../../../interfaces/deals';
 import Image from '../../image/Image';
 
 interface DealThumbnailProps {
     dealImage: DealImage
 }
-  
+
 const DealThumbnail: React.FC<DealThumbnailProps> = ({ dealImage }) => {
     return (
         <Flex
-            direction="column"
+            direction='column'
             me={{ lg: '20px', xl: '30px' }}
             mb={{ sm: '24px', lg: '0px' }}
         >
@@ -33,9 +33,9 @@ const DealThumbnail: React.FC<DealThumbnailProps> = ({ dealImage }) => {
             >
                 <Image
                     src={dealImage.src}
-                    w="100%"
-                    h="100%"
-                    borderRadius="15px"
+                    w='100%'
+                    h='100%'
+                    borderRadius='15px'
                     alt={dealImage.alt}
                 />
             </Box>

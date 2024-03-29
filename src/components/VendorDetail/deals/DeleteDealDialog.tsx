@@ -14,7 +14,8 @@ import {
 import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react';
 import { BASE_URL, api } from '../../../utils/api';
-import {FaTrash} from "react-icons/fa";
+import { FaTrash } from 'react-icons/fa';
+import { isEventsMate } from '../../../utils/orientation';
 
 interface DeleteDialogProps {
     vendorId: string,
@@ -25,7 +26,8 @@ const DeleteDealDialog: React.FC<DeleteDialogProps> = ({ vendorId, dealId }) => 
     const [isLoading, setLoading] = useState<boolean>(false);
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-    const bg = useColorModeValue('#e13784', 'brand.400');
+    const bgWm = useColorModeValue('#e13784', 'brand.400');
+    const bgEm = useColorModeValue('brand.900', 'brand.400');
     const { t } = useTranslation();
 
     const cancelRef = React.useRef<HTMLButtonElement>(null);
@@ -63,7 +65,7 @@ const DeleteDealDialog: React.FC<DeleteDialogProps> = ({ vendorId, dealId }) => 
                 mt='1px'
                 fontSize='16'
                 cursor='pointer'
-                color={bg}
+                color={isEventsMate() ? bgEm : bgWm}
                 onClick={onOpen}
             />
             <AlertDialog
