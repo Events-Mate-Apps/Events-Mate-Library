@@ -29,8 +29,8 @@ const Location: React.FC<VendorLocationProps> = ({ vendor }) => {
 			<Card pos="relative" p="0" w="full" h="280px" overflow="hidden">
 				<Map
 					center={{
-						latitude: vendor.location?.latitude ?? 14.2,
-						longitude: vendor.location?.longitude ?? 50.1
+						latitude: vendor.latitude,
+						longitude: vendor.longitude
 					}}
 					onRegionChangeEnd={(e) => {
 					}}
