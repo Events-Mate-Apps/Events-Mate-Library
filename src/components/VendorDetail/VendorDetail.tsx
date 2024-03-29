@@ -196,6 +196,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
       <DealsCard vendor={vendor} />
       <VendorLocation vendor={vendor} />
       <ReviewsCard vendorId={vendor.id}/>
+      <Text color={isEventsMate() ? 'blue.900' : 'red.900'}>color</Text>
     </Flex>
   );
 }
