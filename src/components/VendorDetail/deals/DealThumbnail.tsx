@@ -11,21 +11,18 @@ const DealThumbnail: React.FC<DealThumbnailProps> = ({ dealImage }) => {
     return (
         <Flex
             direction='column'
-            me={{ lg: '20px', xl: '30px' }}
-            mb={{ sm: '24px', lg: '0px' }}
+            me={{ base: '20px', xl: '30px' }}
         >
             <Box
                 w={{
-                    sm: '40px',
-                    md: '600px',
-                    lg: '80px',
+                    sm: '60px',
+                    md: '80px',
                     xl: '100px',
                     '2xl': '120px',
                 }}
                 h={{
-                    sm: '40px',
-                    md: '600px',
-                    lg: '80px',
+                    sm: '60px',
+                    md: '80px',
                     xl: '100px',
                     '2xl': '120px',
                 }}

@@ -64,7 +64,7 @@ const Deal: React.FC<DealProps> = ({ deal, vendorId, isNotVisible, isInDashboard
 
     return (
         <Card
-            w='49%'
+            w={{ base: '98%', xl: '49%', '2xl': '32%' }}
             mb='2%'
             background={backgroundColor}
             border={`1px solid`}
@@ -76,7 +76,11 @@ const Deal: React.FC<DealProps> = ({ deal, vendorId, isNotVisible, isInDashboard
             <CardHeader>
                 <Flex flexDirection='row'>
                     {deal.image != undefined && <DealThumbnail dealImage={deal.image} />}
-                    <Flex justifyContent='space-between' flexWrap='wrap' flexDirection='column' pt='4' pb='1'>
+                    <Flex
+                        justifyContent='space-around'
+                        flexWrap='wrap'
+                        flexDirection='column'
+                    >
                         <Tag
                             w='min'
                             whiteSpace='nowrap'
@@ -91,7 +95,7 @@ const Deal: React.FC<DealProps> = ({ deal, vendorId, isNotVisible, isInDashboard
                         </Tag>
                         <Text
                             color={textColor}
-                            fontSize='2xl'
+                            fontSize={{ base: 'lg', md: '2xl' }}
                             fontWeight='500'
                         >
                             {deal.title}
@@ -112,8 +116,8 @@ const Deal: React.FC<DealProps> = ({ deal, vendorId, isNotVisible, isInDashboard
                     {deal.description}
                 </Text>
                 <Flex alignItems='center' pt='3'>
-                    <Icon as={FaRegClock} fontSize='13' mr='1' mt='1px' />
-                    <Text color={textColor} fontWeight='500'>
+                    <Icon as={FaRegClock} fontSize={{ base: '8', md: '13' }} mr='1' mt={{ md: '1px' }} />
+                    <Text color={textColor} fontWeight='500' fontSize={{ base: '8', md: '13' }}>
                         {deal.isPermanent ? t('vendors:detail.deals.permanent') :
                             isActive ? t('vendors:detail.deals.timingEnds') + formattedDate :
                                 t('vendors:detail.deals.timingEnded') + formattedDate}.
