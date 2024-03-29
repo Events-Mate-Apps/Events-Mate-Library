@@ -4,16 +4,15 @@ import {
     Flex, Icon, Tag,
     Text, useColorModeValue
 } from '@chakra-ui/react';
-
-// Assets
-import {FaRegClock, FaEdit} from 'react-icons/fa';
-import { DealType } from "../../../interfaces/deals";
-import dayjs from "../../../utils/dayjs";
-import React, { useEffect, useState } from "react";
-import useTranslation from "next-translate/useTranslation";
-import NextLink from "next/link";
+import { FaRegClock, FaEdit } from 'react-icons/fa';
+import { DealType } from '../../../interfaces/deals';
+import dayjs from '../../../utils/dayjs';
+import React, { useEffect, useState } from 'react';
+import useTranslation from 'next-translate/useTranslation';
+import NextLink from 'next/link';
 import DeleteDealDialog from './DeleteDealDialog';
 import DealThumbnail from './DealThumbnail';
+import { isEventsMate } from '../../../utils/orientation';
 
 interface DealProps {
     deal: DealType;
@@ -22,14 +21,15 @@ interface DealProps {
     isNotVisible: (newState: boolean) => void;
 }
 
-export const Deal: React.FC<DealProps> = ({ deal, vendorId, isNotVisible, isInDashboard }) => {
+const Deal: React.FC<DealProps> = ({ deal, vendorId, isNotVisible, isInDashboard }) => {
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [isActive, setIsActive] = useState<boolean>(false);
 
     const textColor = useColorModeValue('secondaryGray.900', 'white');
     const backgroundColor = useColorModeValue('gray.100', 'navy.700');
     const borderColor = useColorModeValue('secondaryGray.200', 'navy.900');
-    const bg = useColorModeValue('#e13784', 'brand.400');
+    const bgWm = useColorModeValue('#e13784', 'brand.400');
+    const bgEm = useColorModeValue('brand.900', 'brand.400');
     const tagBorderColor = useColorModeValue('white', 'navy.700');
 
     const { t } = useTranslation();
@@ -67,7 +67,7 @@ export const Deal: React.FC<DealProps> = ({ deal, vendorId, isNotVisible, isInDa
             w='49%'
             mb='2%'
             background={backgroundColor}
-            border={`2px solid`}
+            border={`1px solid`}
             borderRadius={`25px`}
             borderColor={borderColor}
             opacity={isActive ? '1' : '0.5'}
@@ -75,17 +75,17 @@ export const Deal: React.FC<DealProps> = ({ deal, vendorId, isNotVisible, isInDa
         >
             <CardHeader>
                 <Flex flexDirection='row'>
-                    {deal.image != undefined && <DealThumbnail dealImage={deal.image}/>}
+                    {deal.image != undefined && <DealThumbnail dealImage={deal.image} />}
                     <Flex justifyContent='space-between' flexWrap='wrap' flexDirection='column' pt='4' pb='1'>
                         <Tag
                             w='min'
                             whiteSpace='nowrap'
                             bgColor={tagBorderColor}
-                            color={bg}
+                            color={isEventsMate() ? bgEm : bgWm}
                             border={'1px solid'}
-                            borderColor={bg}
-                            backdropFilter="auto"
-                            backdropBlur="md"
+                            borderColor={isEventsMate() ? bgEm : bgWm}
+                            backdropFilter='auto'
+                            backdropBlur='md'
                         >
                             {isActive ? t('vendors:detail.deals.tagDeal') : t('vendors:detail.deals.tagExpired')}
                         </Tag>
@@ -97,12 +97,12 @@ export const Deal: React.FC<DealProps> = ({ deal, vendorId, isNotVisible, isInDa
                             {deal.title}
                         </Text>
                     </Flex>
-                    { isInDashboard && <Flex ml='auto' mt='4' me='4' h='min'>
+                    {isInDashboard && <Flex ml='auto' mt='4' me='4' h='min'>
                         <NextLink href={`/app/vendors/edit/${vendorId}/deals/${deal.id}`}>
-                            <Icon as={FaEdit} fontSize='18' color={bg} />
+                            <Icon as={FaEdit} fontSize='18' color={isEventsMate() ? bgEm : bgWm} />
                         </NextLink>
-                        <DeleteDealDialog vendorId={vendorId} dealId={deal.id}/>
-                    </Flex> }
+                        <DeleteDealDialog vendorId={vendorId} dealId={deal.id} />
+                    </Flex>}
                 </Flex>
             </CardHeader>
             <CardBody justifyContent='space-between' pt='0'>
@@ -116,10 +116,12 @@ export const Deal: React.FC<DealProps> = ({ deal, vendorId, isNotVisible, isInDa
                     <Text color={textColor} fontWeight='500'>
                         {deal.isPermanent ? t('vendors:detail.deals.permanent') :
                             isActive ? t('vendors:detail.deals.timingEnds') + formattedDate :
-                            t('vendors:detail.deals.timingEnded') + formattedDate }.
+                                t('vendors:detail.deals.timingEnded') + formattedDate}.
                     </Text>
                 </Flex>
             </CardBody>
         </Card>
     )
 }
+
+export default Deal;
