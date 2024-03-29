@@ -1,124 +1,106 @@
-// TODO: This is not the final solution, when we implement axios in this submodule, we will use it here
 import {
     Button,
     Flex,
     Spacer,
     Text,
-    useColorModeValue
+    useColorModeValue, useToast
 } from '@chakra-ui/react';
-import useTranslation from 'next-translate/useTranslation';import Card from '~/components/card/Card';
-import React, { useEffect, useState } from "react";
-import NextLink from "next/link";
-import {darken} from "@chakra-ui/theme-tools";
+import useTranslation from 'next-translate/useTranslation';
+import Card from '~/components/card/Card';
+import React, { useEffect, useState } from 'react';
 import Review from './Review';
+import NextLink from 'next/link';
+import { api } from '~/utils/api';
+import { TinyColor } from '@ctrl/tinycolor/dist';
+import { VendorReviewResponse } from '../../../interfaces/types/review';
+import { CustomError } from '../../../interfaces/global';
+import { Vendor } from '../../../interfaces/vendor';
+import { isEventsMate } from '../../../utils/orientation';
 
-export type VendorReviewResponse = {
-    reviews: VendorReview[];
-    totalPages: number;
-    totalReviews: number;
-};
-
-export type VendorReview = {
-    id: string;
-    rating: number;
-    qualityOfService: number;
-    responsiveness: number
-    professionalism: number;
-    value: number;
-    flexibility: number;
-    recommend: boolean;
-    didWeHelp: boolean;
-    title: string;
-    description?: string;
-    amountSpent?: number;
-    guestsAttended?: number;
-    authorEmail: string;
-    createdAt: Date;
-};
-
-export type VendorReviewPost = {
-    rating: number;
-    authorIp: string;
-    qualityOfService: number;
-    responsiveness: number;
-    professionalism: number;
-    value: number;
-    flexibility: number;
-    recommend: boolean;
-    didWeHelp: boolean;
-    title: string;
-    description?: string;
-    amountSpent?: number;
-    guestsAttended?: number;
-    authorEmail: string;
-};
-
-export default function ReviewsCard(props: { vendorId: string }) {
-    // Color settings and translation
+const ReviewsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
     const textColor = useColorModeValue('secondaryGray.900', 'white');
+    const [reviews, setReviews] = useState<VendorReviewResponse>();
     const { t } = useTranslation();
-    const [reviews, setReviews] = useState<VendorReviewResponse | null>(null)
 
+    const toast = useToast();
 
     const getReviews = async () => {
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/vendors/${props.vendorId}/reviews?take=3&skip=0`)
-            setReviews(await res.json())
-        } catch (e) {
-            
+            const { data } = await api.get(`vendors/${vendor.id}/reviews?take=5&skip=0`);
+            setReviews(data)
+        } catch (error) {
+            const err = error as CustomError;
+            console.error('Error occurred. Stack trace: ' + err.raw?.message || err.message);
+
+            toast({
+                title: t('common:error'),
+                description: t('editors:add.error.title') + ' ' + (err.raw?.message || err.message),
+                status: 'error',
+            });
         }
     }
 
     useEffect(() => {
         getReviews()
-    }, [])
+    }, []);
 
-    //TODO "take" and "skip" based on relevant conditions, not only last three
-
-
-    //TODO add a button to "See all"
-    //TODO deprecated "darken"
+    //TODO add a button to 'See all'
     return (
-        <Card p='30px' mb={{ base: '20px', '2xl': '20px' }}>
-            <Flex w="100%" mb='20px'>
+        <Card p='30px' mb='20px' display={vendor.priority >= 2 && vendor.isPremium ? 'flex' : 'none'}>
+            <Flex w='100%' mb='20px'>
                 <Text color={textColor} fontSize='2xl' fontWeight='700'>
                     {t('vendors:detail.reviews.label')}
                 </Text>
                 <Spacer />
-                <NextLink href={`/vendors/${props.vendorId}/add-review`}>
+                <NextLink href={`/vendors/${vendor.id}/add-review`}>
                     <Button
-                        borderRadius="16px"
-                        background="#e13784"
+                        display={isEventsMate() ? 'none' : 'inline-flex'}
+                        borderRadius='16px'
+                        background={'#e13784'}
                         _hover={{
-                            background: darken('#E13784', 5),
+                            background: new TinyColor('#e13784').darken(5).toString(),
                         }}
-                        color="#FFF"
-                        lineHeight="16px"
-                        px="28px"
-                        h="48px"
-                        fontWeight={600}>
+                        color='#fff'
+                        lineHeight='16px'
+                        px='28px'
+                        h='48px'
+                        fontWeight='600'>
                         {t('vendors:detail.reviews.button')}
                     </Button>
                 </NextLink>
             </Flex>
-            <Flex w="100%" justify='space-between'>
-            {/*TODO ts-ignore => better condition in order to avoid undefined*/}
-            {reviews &&
-                reviews?.totalReviews > 0 &&
-                reviews?.reviews.map((review, key) => {
-                    return (
-                        <Review
-                            rating={review.rating}
-                            // @ts-ignore
-                            title={review.title}
-                            authorEmail={review.authorEmail}
-                            // @ts-ignore
-                            description={review.description}
-                            key={key}
-                        />
-                    );
-                })}
+            <Flex
+                w='100%'
+                justify='flex-start'
+                overflowX='scroll'
+                css={{
+                    '&': {
+                        '-ms-overflow-style': 'none',
+                        'scrollbar-width': 'none'
+                    },
+                    '&::-webkit-scrollbar': {
+                        display: 'none'
+                    }
+                }}
+            >
+                {reviews != undefined &&
+                    reviews?.totalReviews > 0 &&
+                    reviews?.reviews.map((review, key) => {
+                        return (
+                            <Review
+                                rating={review.rating}
+                                title={review.title}
+                                authorEmail={review.authorEmail}
+                                description={review.description}
+                                createDate={review.createdAt}
+                                key={review.title + key}
+                                vendor={vendor}
+                            />
+                        );
+                    })}
             </Flex>
         </Card>
     );
 }
+
+export default ReviewsCard;
