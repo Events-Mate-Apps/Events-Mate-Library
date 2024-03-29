@@ -28,7 +28,6 @@ import { api } from '../../utils/api';
 import Contacts from './Contacts';
 import ReviewsCard from './reviews/ReviewsCard';
 import VendorImages from './VendorImages';
-import { isEventsMate } from '../../utils/orientation';
 
 interface VendorDetailProps {
     vendor: Vendor;
