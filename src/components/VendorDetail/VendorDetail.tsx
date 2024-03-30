@@ -46,6 +46,8 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
         router.push(`/main/pricing?vendorId=${vendorId}`);
     }
 
+    const reviewConfirmed = router.query.confirmReviewToken;
+    const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
     const [descriptions, setDescriptions] = useState<DescriptionWithLabel[]>([])
     const [currentDescription, setCurrentDescription] = useState<DescriptionWithLabel | null>(null)
 
@@ -77,6 +79,13 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
 
         setCurrentDescription(descriptions[0])
     }, [descriptions])
+
+    useEffect(() => {
+        if (reviewConfirmed !== undefined
+            && !isDialogOpen) {
+            setIsDialogOpen(true);
+        }
+    }, [reviewConfirmed, isDialogOpen])
 
     return (
         <Flex direction='column' w='100%'>
@@ -181,14 +190,14 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                                 </ButtonGroup>}
                             </Box>
                             <Contacts sendStats={sendStats} vendor={vendor} />
-                            <Text
+                            <Box
                                 color='secondaryGray.600'
                                 pe={{ base: '0px', '3xl': '200px' }}
                                 mb='40px'
                                 mt='20px'
                             >
                                 {currentDescription && <MarkdownReader source={currentDescription.value} />}
-                            </Text>
+                            </Box>
                             <Links vendor={vendor} />
                         </Flex>
                     </Flex>
