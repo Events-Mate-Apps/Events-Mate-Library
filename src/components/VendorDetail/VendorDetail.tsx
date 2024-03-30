@@ -7,10 +7,8 @@ import {
     ButtonGroup,
     Button,
 } from '@chakra-ui/react';
-import { darken } from '@chakra-ui/theme-tools';
 import Card from '../../components/card/Card';
 import LanguageList from 'language-list';
-
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { Description, DescriptionWithLabel, Language, Vendor } from '../../interfaces/vendor';
@@ -28,6 +26,7 @@ import { api } from '../../utils/api';
 import Contacts from './Contacts';
 import ReviewsCard from './reviews/ReviewsCard';
 import VendorImages from './VendorImages';
+import { TinyColor } from '@ctrl/tinycolor/dist';
 
 interface VendorDetailProps {
     vendor: Vendor;
@@ -130,9 +129,9 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                             </Tag>
                             : <Tag
                                 variant='solid'
-                                background='#E13784'
+                                background={'#e13784'}
                                 _hover={{
-                                    background: darken('#E13784', 5),
+                                    background: new TinyColor('#e13784').darken(5).toString(),
                                 }}
                                 backdropFilter='auto'
                                 backdropBlur='md'
