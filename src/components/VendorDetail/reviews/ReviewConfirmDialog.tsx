@@ -7,7 +7,7 @@ import {
     AlertDialogOverlay,
     Button, CloseButton,
     Flex, Spacer,
-    Text, useColorModeValue, useDisclosure, useToast
+    Text, useColorModeValue, useToast
 } from '@chakra-ui/react';
 import { FaCheckCircle } from 'react-icons/fa';
 import useTranslation from 'next-translate/useTranslation';
@@ -17,22 +17,16 @@ import { CustomError } from '~/interfaces/global';
 
 interface ReviewConfirmDialogProps {
     token?: string | string[];
-    isDialogOpen: boolean;
+    isOpen: boolean;
     turnOffDialog: () => void;
 }
 
-const ReviewConfirmDialog: React.FC<ReviewConfirmDialogProps> = ({ token, isDialogOpen, turnOffDialog }) => {
-    const cancelRef = React.useRef<HTMLButtonElement>(null);
-    const { isOpen, onClose } = useDisclosure({ isOpen: isDialogOpen });
+const ReviewConfirmDialog: React.FC<ReviewConfirmDialogProps> = ({ token, isOpen, turnOffDialog }) => {
+    const cancelRef = React.useRef<HTMLButtonElement | null>(null);
 
     const toast = useToast();
     const { t } = useTranslation()
     const cancelButton = useColorModeValue('white', 'gray.700');
-
-    const turnOffDialogPass = () => {
-        onClose();
-        turnOffDialog();
-    }
 
     const verification = async () => {
         try {
@@ -53,17 +47,17 @@ const ReviewConfirmDialog: React.FC<ReviewConfirmDialogProps> = ({ token, isDial
     }
 
     useEffect(() => {
-        if (isDialogOpen) {
+        if (isOpen) {
             verification();
         }
-    }, [isDialogOpen]);
+    }, [isOpen]);
 
     return (
         <>
             <AlertDialog
                 isOpen={isOpen}
                 leastDestructiveRef={cancelRef}
-                onClose={turnOffDialogPass}
+                onClose={turnOffDialog}
                 isCentered
             >
                 <AlertDialogOverlay>
@@ -72,7 +66,7 @@ const ReviewConfirmDialog: React.FC<ReviewConfirmDialogProps> = ({ token, isDial
                             <Flex>
                                 <Spacer/>
                                 <CloseButton
-                                    onClick={turnOffDialogPass}
+                                    onClick={turnOffDialog}
                                 />
                             </Flex>
                         </AlertDialogHeader>
@@ -86,8 +80,8 @@ const ReviewConfirmDialog: React.FC<ReviewConfirmDialogProps> = ({ token, isDial
                             flexDirection='column'
                         >
                             <FaCheckCircle
-                            color='#E13784'
-                            size='100px'
+                                color='#E13784'
+                                size='100px'
                             />
                             <Text fontSize='36px' mt='20px'>
                                 {(t('vendors:detail.reviews.confirm'))}
@@ -105,7 +99,7 @@ const ReviewConfirmDialog: React.FC<ReviewConfirmDialogProps> = ({ token, isDial
                             <Button
                                 backgroundColor={cancelButton}
                                 ref={cancelRef}
-                                onClick={turnOffDialogPass}
+                                onClick={turnOffDialog}
                             >
                                 {t('common:cancel')}
                             </Button>

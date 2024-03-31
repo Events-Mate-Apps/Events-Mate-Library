@@ -5,7 +5,7 @@ import {
     useColorModeValue,
     Box,
     ButtonGroup,
-    Button,
+    Button, useDisclosure,
 } from '@chakra-ui/react';
 import Card from '../../components/card/Card';
 import LanguageList from 'language-list';
@@ -41,13 +41,13 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
     const textColor = useColorModeValue('secondaryGray.900', 'white');
     const { t } = useTranslation();
 
+    const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: false });
     const { push, replace, query, locale, pathname } = useRouter();
     const goToPricings = (vendorId: string) => {
         push(`/main/pricing?vendorId=${vendorId}`);
     }
 
     const reviewConfirmedToken = query.confirmReviewToken;
-    const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
     const [descriptions, setDescriptions] = useState<DescriptionWithLabel[]>([])
     const [currentDescription, setCurrentDescription] = useState<DescriptionWithLabel | null>(null)
 
@@ -82,13 +82,13 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
 
     useEffect(() => {
         if (reviewConfirmedToken !== undefined
-            && !isDialogOpen) {
-            setIsDialogOpen(true);
+            && !isOpen) {
+            onOpen();
         }
-    }, [reviewConfirmedToken, isDialogOpen])
+    }, [reviewConfirmedToken, isOpen])
 
     const turnOffDialog = () => {
-        setIsDialogOpen(false);
+        onClose();
         delete query.confirmReviewToken;
         replace({ pathname: pathname, query });
     }
@@ -114,7 +114,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
             />
             <ReviewConfirmDialog
                 token={reviewConfirmedToken}
-                isDialogOpen={isDialogOpen}
+                isOpen={isOpen}
                 turnOffDialog={turnOffDialog}
             />
             <Card mt={{ sm: '50px', md: '75px' }} me={{ lg: '60px' }} mb={{ sm: '50px', md: '75px' }}>
