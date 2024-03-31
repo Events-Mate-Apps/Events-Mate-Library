@@ -17,9 +17,10 @@ import LocalizedText from '../localization/LocalizedText';
 
 interface FAQProps {
     vendor: Vendor,
+    language: string
 }
 
-const FAQ: React.FC<FAQProps> = ({ vendor }) =>{
+const FAQ: React.FC<FAQProps> = ({ vendor, language }) =>{
     const textColor = useColorModeValue('secondaryGray.900', 'white');
     const borderColor = useColorModeValue('secondaryGray.400', 'whiteAlpha.100');
     const { t } = useTranslation();
@@ -51,7 +52,10 @@ const FAQ: React.FC<FAQProps> = ({ vendor }) =>{
                                     fontWeight="700"
                                     fontSize={{ sm: 'md', lg: 'md' }}
                                 >
-                                    <LocalizedText content={faq.question} />
+                                    <LocalizedText 
+                                        content={faq.question}
+                                        language={language}
+                                    />
                                 </Text>
                             </Box>
                             <AccordionIcon color="gray.500" />
@@ -65,7 +69,10 @@ const FAQ: React.FC<FAQProps> = ({ vendor }) =>{
                                 alignSelf="flex-start"
                                 justifySelf="flex-start"
                             >
-                                <LocalizedText content={faq.answer} />
+                                <LocalizedText 
+                                    content={faq.answer}
+                                    language={language}
+                                />
                             </Text>
                         </AccordionPanel>
                     </AccordionItem>
