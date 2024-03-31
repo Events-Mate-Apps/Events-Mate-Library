@@ -25,6 +25,7 @@ import { UserData } from '../../interfaces/user';
 import { api } from '../../utils/api';
 import Contacts from './Contacts';
 import ReviewsCard from './reviews/ReviewsCard';
+import ReviewConfirmDialog from './reviews/ReviewConfirmDialog';
 import VendorImages from './VendorImages';
 import { TinyColor } from '@ctrl/tinycolor/dist';
 
@@ -40,12 +41,12 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
     const textColor = useColorModeValue('secondaryGray.900', 'white');
     const { t } = useTranslation();
 
-    const router = useRouter();
+    const { push, replace, query, locale, pathname } = useRouter();
     const goToPricings = (vendorId: string) => {
-        router.push(`/main/pricing?vendorId=${vendorId}`);
+        push(`/main/pricing?vendorId=${vendorId}`);
     }
 
-    const reviewConfirmed = router.query.confirmReviewToken;
+    const reviewConfirmedToken = query.confirmReviewToken;
     const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
     const [descriptions, setDescriptions] = useState<DescriptionWithLabel[]>([])
     const [currentDescription, setCurrentDescription] = useState<DescriptionWithLabel | null>(null)
@@ -69,7 +70,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
     }, [])
 
     useEffect(() => {
-        const d: DescriptionWithLabel | undefined = descriptions.find((e) => e.language === router.locale)
+        const d: DescriptionWithLabel | undefined = descriptions.find((e) => e.language === locale)
 
         if (d) {
             setCurrentDescription(d)
@@ -80,11 +81,17 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
     }, [descriptions])
 
     useEffect(() => {
-        if (reviewConfirmed !== undefined
+        if (reviewConfirmedToken !== undefined
             && !isDialogOpen) {
             setIsDialogOpen(true);
         }
-    }, [reviewConfirmed, isDialogOpen])
+    }, [reviewConfirmedToken, isDialogOpen])
+
+    const turnOffDialog = () => {
+        setIsDialogOpen(false);
+        delete query.confirmReviewToken;
+        replace({ pathname: pathname, query });
+    }
 
     return (
         <Flex direction='column' w='100%'>
@@ -104,6 +111,11 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                     ],
                     url: `https://weddmate-web.vercel.app/vendors/${vendor.alias}`,
                 }}
+            />
+            <ReviewConfirmDialog
+                token={reviewConfirmedToken}
+                isDialogOpen={isDialogOpen}
+                turnOffDialog={turnOffDialog}
             />
             <Card mt={{ sm: '50px', md: '75px' }} me={{ lg: '60px' }} mb={{ sm: '50px', md: '75px' }}>
                 <Flex direction='column' w='100%'>
