@@ -38,19 +38,24 @@ interface VendorDetailProps {
 }
 
 const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) => {
-    const languages: Language[] = LanguageList().getData();
-    const langs = [{ code: 'all', language: 'All' }, ...languages]
     const textColor = useColorModeValue('secondaryGray.900', 'white');
     const { t } = useTranslation();
 
     const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: false });
-    const { push, replace, query, locale, pathname } = useRouter();
+    const { push, replace, query, pathname } = useRouter();
     const goToPricings = (vendorId: string) => {
         push(`/main/pricing?vendorId=${vendorId}`);
     }
 
     const reviewConfirmedToken = query.confirmReviewToken;
     const [langToDisplay, setLangToDisplay] = useState<string | null>(null)
+
+    useEffect(() => {
+        console.log('langToDisplay', langToDisplay)
+        console.log('vendor', vendor)
+        console.log('vendor.faq', vendor.faq)
+
+    }, [])
 
 
     useEffect(() => {
@@ -127,12 +132,12 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                             >
                                 {t('vendors:detail.buySubscription')}
                             </Tag>}
-                            <LanguageBar
-                                obj={vendor.faq}
-                                langToDisplay={langToDisplay}
-                                setLangToDisplay={setLangToDisplay}
-                            />
                     </div>}
+                    <LanguageBar
+                        obj={vendor.faq}
+                        langToDisplay={langToDisplay}
+                        setLangToDisplay={setLangToDisplay}
+                    />
                     <Flex direction={{ sm: 'column', lg: 'column', xl: 'row' }}>
                         <VendorImages vendor={vendor} />
                         <Flex direction='column' w='100%'>
