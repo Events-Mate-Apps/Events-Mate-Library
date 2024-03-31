@@ -1,6 +1,7 @@
 import { Box, Flex, Tag, TagLabel, useColorModeValue } from '@chakra-ui/react';
 import React from 'react';
 import { Vendor } from '../../interfaces/vendor';
+import { isEventsMate } from '~/utils/orientation';
 
 interface LangButtonProps {
   vendor?: Vendor,
@@ -12,7 +13,10 @@ interface LangButtonProps {
 const LangButton: React.FC<LangButtonProps> = (
   { title, isSelected, onClick }) => {
 
-  const bgColor = useColorModeValue('brand.900', 'brand.400') 
+  const bgColor = useColorModeValue(
+    isEventsMate() ? 'brand.900' : '#e13784', 
+    isEventsMate() ? 'brand.400' : '#e13784', 
+  ) 
 
   return (
     <Box

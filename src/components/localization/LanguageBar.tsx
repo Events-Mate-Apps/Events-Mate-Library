@@ -26,16 +26,15 @@ const LanguageBar: React.FC<LanguageBarProps> = ({ obj, langToDisplay, setLangTo
                 mb='10px'
             > 
                 {langs.map((e) => {
-                        return (
-                            <LangButton 
-                                key={e}
-                                title={e}
-                                onClick={() => setLangToDisplay(e)}
-                                isSelected={e === langToDisplay}
-                            />
-                        )
-                    })
-                }
+                    return (
+                        <LangButton 
+                            key={e}
+                            title={e}
+                            onClick={() => setLangToDisplay(e)}
+                            isSelected={e === langToDisplay}
+                        />
+                    )
+                })}
             </HStack>
         </Flex>
     );
