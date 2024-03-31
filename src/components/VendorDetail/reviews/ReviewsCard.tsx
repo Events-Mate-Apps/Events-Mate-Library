@@ -12,10 +12,11 @@ import Review from './Review';
 import NextLink from 'next/link';
 import { api } from '~/utils/api';
 import { TinyColor } from '@ctrl/tinycolor/dist';
-import { VendorReviewResponse } from '../../../interfaces/types/review';
+import { VendorReview, VendorReviewResponse } from '../../../interfaces/types/review';
 import { CustomError } from '../../../interfaces/global';
 import { Vendor } from '../../../interfaces/vendor';
 import { isEventsMate } from '../../../utils/orientation';
+import dayjs from 'dayjs';
 
 const ReviewsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
     const textColor = useColorModeValue('secondaryGray.900', 'white');
@@ -27,7 +28,7 @@ const ReviewsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
     const getReviews = async () => {
         try {
             const { data } = await api.get(`vendors/${vendor.id}/reviews?take=5&skip=0`);
-            setReviews(data)
+            setReviews(data);
         } catch (error) {
             const err = error as CustomError;
             console.error('Error occurred. Stack trace: ' + err.raw?.message || err.message);
@@ -85,7 +86,9 @@ const ReviewsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
             >
                 {reviews != undefined &&
                     reviews?.totalReviews > 0 &&
-                    reviews?.reviews.map((review, key) => {
+                    reviews?.reviews.sort((a: VendorReview, b: VendorReview) => {
+                        return dayjs(b.createdAt).diff(dayjs(a.createdAt));
+                    }).map((review, key) => {
                         return (
                             <Review
                                 rating={review.rating}

@@ -5,12 +5,10 @@ import {
     useColorModeValue,
     Box,
     ButtonGroup,
-    Button,
+    Button, useDisclosure,
 } from '@chakra-ui/react';
-import { darken } from '@chakra-ui/theme-tools';
 import Card from '../../components/card/Card';
 import LanguageList from 'language-list';
-
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { Description, DescriptionWithLabel, Language, Vendor } from '../../interfaces/vendor';
@@ -27,7 +25,9 @@ import { UserData } from '../../interfaces/user';
 import { api } from '../../utils/api';
 import Contacts from './Contacts';
 import ReviewsCard from './reviews/ReviewsCard';
+import ReviewConfirmDialog from './reviews/ReviewConfirmDialog';
 import VendorImages from './VendorImages';
+import { TinyColor } from '@ctrl/tinycolor/dist';
 
 interface VendorDetailProps {
     vendor: Vendor;
@@ -41,11 +41,13 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
     const textColor = useColorModeValue('secondaryGray.900', 'white');
     const { t } = useTranslation();
 
-    const router = useRouter();
+    const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: false });
+    const { push, replace, query, locale, pathname } = useRouter();
     const goToPricings = (vendorId: string) => {
-        router.push(`/main/pricing?vendorId=${vendorId}`);
+        push(`/main/pricing?vendorId=${vendorId}`);
     }
 
+    const reviewConfirmedToken = query.confirmReviewToken;
     const [descriptions, setDescriptions] = useState<DescriptionWithLabel[]>([])
     const [currentDescription, setCurrentDescription] = useState<DescriptionWithLabel | null>(null)
 
@@ -68,7 +70,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
     }, [])
 
     useEffect(() => {
-        const d: DescriptionWithLabel | undefined = descriptions.find((e) => e.language === router.locale)
+        const d: DescriptionWithLabel | undefined = descriptions.find((e) => e.language === locale)
 
         if (d) {
             setCurrentDescription(d)
@@ -77,6 +79,19 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
 
         setCurrentDescription(descriptions[0])
     }, [descriptions])
+
+    useEffect(() => {
+        if (reviewConfirmedToken !== undefined
+            && !isOpen) {
+            onOpen();
+        }
+    }, [reviewConfirmedToken, isOpen])
+
+    const turnOffDialog = () => {
+        onClose();
+        delete query.confirmReviewToken;
+        replace({ pathname: pathname, query });
+    }
 
     return (
         <Flex direction='column' w='100%'>
@@ -96,6 +111,11 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                     ],
                     url: `https://weddmate-web.vercel.app/vendors/${vendor.alias}`,
                 }}
+            />
+            <ReviewConfirmDialog
+                token={reviewConfirmedToken}
+                isOpen={isOpen}
+                turnOffDialog={turnOffDialog}
             />
             <Card mt={{ sm: '50px', md: '75px' }} me={{ lg: '60px' }} mb={{ sm: '50px', md: '75px' }}>
                 <Flex direction='column' w='100%'>
@@ -121,9 +141,9 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                             </Tag>
                             : <Tag
                                 variant='solid'
-                                background='#E13784'
+                                background={'#e13784'}
                                 _hover={{
-                                    background: darken('#E13784', 5),
+                                    background: new TinyColor('#e13784').darken(5).toString(),
                                 }}
                                 backdropFilter='auto'
                                 backdropBlur='md'
@@ -137,7 +157,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                     </div>}
                     <Flex direction={{ sm: 'column', lg: 'column', xl: 'row' }}>
                         <VendorImages vendor={vendor} />
-                        <Flex direction='column'>
+                        <Flex direction='column' w='100%'>
                             <Text
                                 color={textColor}
                                 fontSize='3xl'
@@ -181,14 +201,14 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                                 </ButtonGroup>}
                             </Box>
                             <Contacts sendStats={sendStats} vendor={vendor} />
-                            <Text
+                            <Box
                                 color='secondaryGray.600'
                                 pe={{ base: '0px', '3xl': '200px' }}
                                 mb='40px'
                                 mt='20px'
                             >
                                 {currentDescription && <MarkdownReader source={currentDescription.value} />}
-                            </Text>
+                            </Box>
                             <Links vendor={vendor} />
                         </Flex>
                     </Flex>
