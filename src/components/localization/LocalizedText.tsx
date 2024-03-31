@@ -17,11 +17,12 @@ const LocalizedText: React.FC<LocalizedTextProps> = ({ content, language }) => {
     }, [lang, language]);
 
     const getCurrentTranslation = () => {
-        const translation = content.translations.find(e => e.languageISO === currentLang)?.translation
-        if (!translation) {
-            return content.translations.find(e => e.languageISO === lang)?.translation || content.translations[0].translation
-        }
-        return translation
+        // const translation = content.translations.find(e => e.languageISO === currentLang)?.translation
+        // if (!translation) {
+        //     return content.translations.find(e => e.languageISO === lang)?.translation || content.translations[0].translation
+        // }
+        // return translation
+        throw new Error("Fuck translations");
     }
 
     return (
