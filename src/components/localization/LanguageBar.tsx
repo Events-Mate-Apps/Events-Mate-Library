@@ -1,7 +1,7 @@
 import { Card, Flex, HStack } from "@chakra-ui/react";
 import { SetStateAction, Dispatch, useEffect } from "react";
 import LangButton from "./LangButton";
-import { extractLanguageISOCodesFromObject } from "../../service/LocalesService";
+// import { extractLanguageISOCodesFromObject } from "../../service/LocalesService";
 
 interface LanguageBarProps {
     obj: object,
@@ -10,6 +10,25 @@ interface LanguageBarProps {
 }
 
 const LanguageBar: React.FC<LanguageBarProps> = ({ obj, langToDisplay, setLangToDisplay }) => {
+    function extractLanguageISOCodesFromObject(obj: object): string[] {
+        let langs: string[] = [];
+      
+        function extractLanguages(obj: any) {
+          if (obj !== null && typeof obj === 'object') {
+            Object.entries(obj).forEach(([key, value]) => {
+              if (key === 'languageISO' && typeof value === 'string') {
+                !langs.includes(value) && langs.push(value);
+              } else if (typeof value === 'object') {
+                extractLanguages(value);
+              }
+            });
+          }
+        }
+      
+        extractLanguages(obj);
+        return langs;
+    }
+
     const langs = extractLanguageISOCodesFromObject(obj)
 
     useEffect(() => {
