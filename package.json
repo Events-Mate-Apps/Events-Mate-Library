@@ -35,6 +35,7 @@
     "@types/apple-mapkit-js-browser": "5.65.3",
     "axios": "^1.6.7",
     "browser-image-compression": "^2.0.2",
+    "chakra-react-select": "^4.7.6",
     "dayjs": "^1.11.10",
     "framer-motion": "^11.0.8",
     "hoist-non-react-statics": "^3.3.2",

@@ -28,6 +28,8 @@ import ReviewsCard from './reviews/ReviewsCard';
 import ReviewConfirmDialog from './reviews/ReviewConfirmDialog';
 import VendorImages from './VendorImages';
 import { TinyColor } from '@ctrl/tinycolor/dist';
+import LanguageBar from '../localization/LanguageBar';
+import LocalizedText from '../localization/LocalizedText';
 
 interface VendorDetailProps {
     vendor: Vendor;
@@ -48,37 +50,8 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
     }
 
     const reviewConfirmedToken = query.confirmReviewToken;
-    const [descriptions, setDescriptions] = useState<DescriptionWithLabel[]>([])
-    const [currentDescription, setCurrentDescription] = useState<DescriptionWithLabel | null>(null)
+    const [langToDisplay, setLangToDisplay] = useState<string | null>(null)
 
-    const getDescriptions = async (): Promise<void> => {
-        try {
-            const { data } = await api.get(`vendors/${vendor.id}/getDescriptions`);
-            setDescriptions(data.map((e: Description) => {
-                return {
-                    ...e,
-                    label: langs.find((l) => l.code === e.language)?.language || '',
-                }
-            }));
-        } catch (error) {
-            console.error('Error fetching descriptions: ', error);
-        }
-    }
-
-    useEffect(() => {
-        getDescriptions()
-    }, [])
-
-    useEffect(() => {
-        const d: DescriptionWithLabel | undefined = descriptions.find((e) => e.language === locale)
-
-        if (d) {
-            setCurrentDescription(d)
-            return
-        }
-
-        setCurrentDescription(descriptions[0])
-    }, [descriptions])
 
     useEffect(() => {
         if (reviewConfirmedToken !== undefined
@@ -154,8 +127,18 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                             >
                                 {t('vendors:detail.buySubscription')}
                             </Tag>}
+                            <LanguageBar
+                                obj={vendor.faq}
+                                langToDisplay={langToDisplay}
+                                setLangToDisplay={setLangToDisplay}
+                            />
                     </div>}
                     <Flex direction={{ sm: 'column', lg: 'column', xl: 'row' }}>
+                        <LanguageBar 
+                            obj={vendor}
+                            langToDisplay={langToDisplay}
+                            setLangToDisplay={setLangToDisplay}
+                        />
                         <VendorImages vendor={vendor} />
                         <Flex direction='column' w='100%'>
                             <Text
@@ -185,21 +168,6 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                                 ))}
                               </Flex>
                             */}
-                            <Box>
-                                {descriptions.length !== 1 && <ButtonGroup size='sm' isAttached variant='outline'>
-                                    {descriptions.map((e) => {
-                                        return (
-                                            <Button
-                                                key={e.id}
-                                                onClick={() => setCurrentDescription(e)}
-                                                variant={currentDescription?.id === e.id ? 'darkBrand' : 'outline'}
-                                            >
-                                                {e.label}
-                                            </Button>
-                                        )
-                                    })}
-                                </ButtonGroup>}
-                            </Box>
                             <Contacts sendStats={sendStats} vendor={vendor} />
                             <Box
                                 color='secondaryGray.600'
@@ -207,14 +175,24 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                                 mb='40px'
                                 mt='20px'
                             >
-                                {currentDescription && <MarkdownReader source={currentDescription.value} />}
+                                {(langToDisplay && vendor.descriptionContent) && <LocalizedText 
+                                    content={vendor.descriptionContent}
+                                    language={langToDisplay}
+                                />}
+                                    
                             </Box>
                             <Links vendor={vendor} />
                         </Flex>
                     </Flex>
                 </Flex>
             </Card>
-            {currentDescription && <VendorDescription desc={currentDescription} />}
+            {
+                (langToDisplay && vendor.descriptionContent) && 
+                <VendorDescription 
+                    description={vendor.descriptionContent}
+                    language={langToDisplay}
+                />
+            }
             {(vendor.faq.length !== 0 && vendor.isPremium) && <FAQ vendor={vendor} />}
             <DealsCard vendor={vendor} />
             <VendorLocation vendor={vendor} />

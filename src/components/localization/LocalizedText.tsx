@@ -2,7 +2,9 @@ import React, { useMemo, useState } from 'react';
 
 import { TranslationTextContent } from '../../interfaces/vendor';
 import useTranslation from 'next-translate/useTranslation';
-
+import { Box } from '@chakra-ui/react';
+import ReactMarkdown from 'react-markdown';
+import styles from 'styles/Markdown.module.scss';
 
 interface LocalizedTextProps  { 
     content: TranslationTextContent,
@@ -25,9 +27,11 @@ const LocalizedText: React.FC<LocalizedTextProps> = ({ content, language }) => {
     }
 
     return (
-        <>
-            {getCurrentTranslation()}
-        </>
+        <Box className={styles['markdown-reader']}>
+            <ReactMarkdown> 
+                {getCurrentTranslation()}
+            </ReactMarkdown>	
+        </Box>
     );
 }
 

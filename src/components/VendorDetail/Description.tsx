@@ -1,16 +1,16 @@
 import { Text, useColorModeValue } from '@chakra-ui/react';
 
 import Card from '../../components/card/Card';
-
-import MarkdownReader from './MarkdownReader';
-import { DescriptionWithLabel } from '../../interfaces/vendor';
+import { TranslationTextContent } from '../../interfaces/vendor';
 import useTranslation from 'next-translate/useTranslation';
+import LocalizedText from '../localization/LocalizedText';
 
 interface DescriptionProps { 
-	desc: DescriptionWithLabel
+	description: TranslationTextContent,
+	language: string
 }
 
-const VendorDescription: React.FC<DescriptionProps> = ({ desc }) => {
+const VendorDescription: React.FC<DescriptionProps> = ({ description, language }) => {
 	const textColor = useColorModeValue('secondaryGray.900', 'white');
 	const { t } = useTranslation();
 
@@ -19,7 +19,10 @@ const VendorDescription: React.FC<DescriptionProps> = ({ desc }) => {
 			<Text color={textColor} fontSize='2xl' fontWeight='700' mb='20px'>
 				{t('vendors:detail.aboutUs')}
 			</Text>
-			<MarkdownReader source={desc.value} />
+			<LocalizedText 
+				language={language}
+				content={description}
+			/>
 		</Card>
 	);
 }
