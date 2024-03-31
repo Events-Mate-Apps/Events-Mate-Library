@@ -1,7 +1,7 @@
 import { Card, Flex, HStack } from "@chakra-ui/react";
 import { SetStateAction, Dispatch, useEffect } from "react";
 import LangButton from "./LangButton";
-import { extractLanguageISOCodesFromObject } from "~/service/LocalesService";
+import { extractLanguageISOCodesFromObject } from "../../service/LocalesService";
 
 interface LanguageBarProps {
     obj: object,
