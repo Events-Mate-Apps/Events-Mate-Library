@@ -33,7 +33,7 @@ const Review: React.FC<ReviewProps> = ({
     const backgroundColor = useColorModeValue('white', 'navy.800');
     const borderColor = useColorModeValue('secondaryGray.200', 'navy.900');
 
-    const showDate = new Date(createDate).toLocaleDateString()
+    const showDate = new Date(createDate).toLocaleDateString('cs-CZ', { timeZone: 'UTC' });
 
     //TODO crop too long texts
     return (
