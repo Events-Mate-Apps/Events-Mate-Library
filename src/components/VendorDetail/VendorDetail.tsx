@@ -157,7 +157,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                     </div>}
                     <Flex direction={{ sm: 'column', lg: 'column', xl: 'row' }}>
                         <VendorImages vendor={vendor} />
-                        <Flex direction='column'>
+                        <Flex direction='column' w='100%'>
                             <Text
                                 color={textColor}
                                 fontSize='3xl'
