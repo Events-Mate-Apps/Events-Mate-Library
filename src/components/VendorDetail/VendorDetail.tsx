@@ -134,11 +134,6 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                             />
                     </div>}
                     <Flex direction={{ sm: 'column', lg: 'column', xl: 'row' }}>
-                        <LanguageBar 
-                            obj={vendor}
-                            langToDisplay={langToDisplay}
-                            setLangToDisplay={setLangToDisplay}
-                        />
                         <VendorImages vendor={vendor} />
                         <Flex direction='column' w='100%'>
                             <Text
