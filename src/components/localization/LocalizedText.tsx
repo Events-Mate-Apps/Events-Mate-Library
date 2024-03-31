@@ -8,10 +8,11 @@ import styles from 'styles/Markdown.module.scss';
 
 interface LocalizedTextProps  { 
     content: TranslationTextContent,
-    language?: string
+    language?: string,
+    markdown?: boolean,
 }
 
-const LocalizedText: React.FC<LocalizedTextProps> = ({ content, language }) => {
+const LocalizedText: React.FC<LocalizedTextProps> = ({ content, language, markdown }) => {
     const { lang } = useTranslation()
 
     const currentLang = useMemo<string>(() => {
@@ -27,12 +28,19 @@ const LocalizedText: React.FC<LocalizedTextProps> = ({ content, language }) => {
     }
 
     return (
-        <Box className={styles['markdown-reader']}>
-            <ReactMarkdown> 
-                {getCurrentTranslation()}
-            </ReactMarkdown>	
-        </Box>
+        <>
+            {markdown ? <Box className={styles['markdown-reader']}>
+                <ReactMarkdown> 
+                    {getCurrentTranslation()}
+                </ReactMarkdown>	
+            </Box>
+            : getCurrentTranslation()}
+        </>
     );
+}
+
+LocalizedText.defaultProps = {
+    markdown: false,
 }
 
 export default LocalizedText;
