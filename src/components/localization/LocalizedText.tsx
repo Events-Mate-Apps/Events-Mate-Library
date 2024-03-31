@@ -30,9 +30,7 @@ const LocalizedText: React.FC<LocalizedTextProps> = ({ content, language, markdo
     return (
         <>
             {markdown ? <Box className={styles['markdown-reader']}>
-                <ReactMarkdown> 
-                    {getCurrentTranslation()}
-                </ReactMarkdown>	
+                <ReactMarkdown children= {`${getCurrentTranslation()}`} /> 
             </Box>
             : getCurrentTranslation()}
         </>
