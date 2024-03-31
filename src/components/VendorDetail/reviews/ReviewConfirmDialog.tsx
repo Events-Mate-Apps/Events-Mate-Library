@@ -12,7 +12,7 @@ import {
 import { FaCheckCircle } from 'react-icons/fa';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useEffect } from 'react';
-import { BASE_URL, api } from '../../../utils/api';
+import { api } from '../../../utils/api';
 import { CustomError } from '~/interfaces/global';
 
 interface ReviewConfirmDialogProps {
@@ -32,7 +32,7 @@ const ReviewConfirmDialog: React.FC<ReviewConfirmDialogProps> = ({ token, isOpen
         try {
             if (token) {
                 const parsedToken = typeof token === 'string' ? token : token[0];
-                await api.post(`${BASE_URL}vendors/reviews/confirmReview?token=${parsedToken}`);
+                await api.post(`vendors/reviews/confirmReview?token=${parsedToken}`);
             }
         } catch (error) {
             const err = error as CustomError;
