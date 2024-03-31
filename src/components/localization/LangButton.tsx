@@ -1,7 +1,7 @@
 import { Box, Flex, Tag, TagLabel, useColorModeValue } from '@chakra-ui/react';
 import React from 'react';
 import { Vendor } from '../../interfaces/vendor';
-import { isEventsMate } from '~/utils/orientation';
+import { isEventsMate } from '../../utils/orientation';
 
 interface LangButtonProps {
   vendor?: Vendor,
