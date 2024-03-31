@@ -20,6 +20,7 @@ const VendorDescription: React.FC<DescriptionProps> = ({ description, language }
 				{t('vendors:detail.aboutUs')}
 			</Text>
 			<LocalizedText 
+				markdown
 				language={language}
 				content={description}
 			/>

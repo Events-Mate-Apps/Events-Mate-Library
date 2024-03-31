@@ -173,6 +173,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                                 {(langToDisplay && vendor.descriptionContent) && <LocalizedText 
                                     content={vendor.descriptionContent}
                                     language={langToDisplay}
+                                    markdown
                                 />}
                                     
                             </Box>
@@ -188,7 +189,10 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                     language={langToDisplay}
                 />
             }
-            {(vendor.faq.length !== 0 && vendor.isPremium) && <FAQ vendor={vendor} />}
+            {
+                (vendor.faq.length !== 0 && vendor.isPremium && langToDisplay) && 
+                <FAQ language={langToDisplay} vendor={vendor} />
+            }
             <DealsCard vendor={vendor} />
             <VendorLocation vendor={vendor} />
             <ReviewsCard vendor={vendor} />
