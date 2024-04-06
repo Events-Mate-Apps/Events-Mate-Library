@@ -1,7 +1,7 @@
 import { Card, Flex, HStack } from "@chakra-ui/react";
 import { SetStateAction, Dispatch, useEffect } from "react";
 import LangButton from "./LangButton";
-import { extractLanguageISOCodesFromObject } from "../../service/LocalesService";
+import { useLocalization } from "~/service/LocalizationService";
 
 interface LanguageBarProps {
     obj: object,
@@ -10,6 +10,8 @@ interface LanguageBarProps {
 }
 
 const LanguageBar: React.FC<LanguageBarProps> = ({ obj, langToDisplay, setLangToDisplay }) => {
+    const { extractLanguageISOCodesFromObject } = useLocalization()
+
     const langs = extractLanguageISOCodesFromObject(obj)
 
     useEffect(() => {

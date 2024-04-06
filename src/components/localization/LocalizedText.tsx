@@ -5,6 +5,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { Box } from '@chakra-ui/react';
 import ReactMarkdown from 'react-markdown';
 import styles from 'styles/Markdown.module.scss';
+import { useLocalization } from '~/service/LocalizationService';
 
 interface LocalizedTextProps  { 
     content: TranslationTextContent,
@@ -13,28 +14,16 @@ interface LocalizedTextProps  {
 }
 
 const LocalizedText: React.FC<LocalizedTextProps> = ({ content, language, markdown }) => {
-    const { lang } = useTranslation()
-
-    const currentLang = useMemo<string>(() => {
-        return language ? language : lang;
-    }, [lang, language]);
-
-    const getCurrentTranslation = () => {
-        const translation = content.translations.find(e => e.languageISO === currentLang)?.translation
-        if (!translation) {
-            return content.translations.find(e => e.languageISO === lang)?.translation || content.translations[0].translation
-        }
-        return translation
-    }
+    const { getCurrentTranslation } = useLocalization()
 
     return (
         <>
             {markdown ? <Box className={styles['markdown-reader']}>
                 <ReactMarkdown> 
-                    {getCurrentTranslation()}
+                    {getCurrentTranslation(content, language)}
                 </ReactMarkdown>	
             </Box>
-            : getCurrentTranslation()}
+            : getCurrentTranslation(content, language)}
         </>
     );
 }
