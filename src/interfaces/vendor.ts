@@ -61,7 +61,7 @@ export interface TranslationTextContent {
 
 export interface Translation {
   id?: string | number,
-  textContentId?: string,
+  textContentId?: string | number,
   translation: string,
   languageISO: string,
 }
