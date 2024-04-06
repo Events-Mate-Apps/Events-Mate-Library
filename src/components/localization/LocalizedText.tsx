@@ -5,7 +5,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { Box } from '@chakra-ui/react';
 import ReactMarkdown from 'react-markdown';
 import styles from 'styles/Markdown.module.scss';
-import { useLocalization } from '~/service/LocalizationService';
+import { useLocalization } from '../../service/LocalizationService';
 
 interface LocalizedTextProps  { 
     content: TranslationTextContent,
