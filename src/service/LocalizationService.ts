@@ -1,5 +1,4 @@
 import useTranslation from 'next-translate/useTranslation';
-import { useMemo } from 'react';
 import { TranslationTextContent } from '../interfaces/vendor';
 
 interface LocalizationMethods {

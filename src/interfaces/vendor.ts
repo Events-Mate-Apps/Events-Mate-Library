@@ -54,7 +54,7 @@ export interface FAQElement {
   id?: string
 }
 export interface TranslationTextContent {
-  id?: string,
+  id?: string | number,
   defaultTranslation: Translation | null,
   translations: Translation[]
 }
