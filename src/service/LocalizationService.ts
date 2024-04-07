@@ -11,13 +11,14 @@ export function useLocalization(): LocalizationMethods {
 
   const getCurrentTranslation = (content: TranslationTextContent, language?: string): string => {
     const currentLang = language ? language : lang;
-
-    const translation = content.translations.find(e => e.languageISO === currentLang)?.translation
+    
+    const translation = content.translations?.find(e => e.languageISO === currentLang)?.translation;
     if (!translation) {
-      return content.translations.find(e => e.languageISO === lang)?.translation || content.translations[0].translation
+      return content.translations?.find(e => e.languageISO === lang)?.translation || content.translations?.[0]?.translation || '';
     }
-    return translation
-  }
+    
+    return translation;
+  };
 
   function extractLanguageISOCodesFromObject(obj: object): string[] {
     const langs: string[] = [];
