@@ -11,12 +11,12 @@ import dayjs from '../../../utils/dayjs';
 import { useRouter } from 'next/router';
 import NextLink from 'next/link';
 import { AddIcon } from '@chakra-ui/icons';
-import { TinyColor } from '@ctrl/tinycolor/dist';
 import { api } from '../../../utils/api';
 import Deal from './Deal';
 import { DealType } from '../../../interfaces/deals';
 import { Vendor } from '../../../interfaces/vendor';
 import { isEventsMate } from '../../../utils/orientation';
+import { TinyColor } from '@ctrl/tinycolor/dist';
 
 const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
     const [isAnyActive, setIsAnyActive] = useState<boolean>(false);
@@ -30,8 +30,8 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
     const bgWm = useColorModeValue('#e13784', 'brand.400');
 
     const bgHoverEm = useColorModeValue(
-        { bg: 'brand.800' },
-        { bg: 'brand.300' });
+        { bg: '#11047A' },
+        { bg: '#11047A' });
     const bgEm = useColorModeValue('brand.900', 'brand.400');
 
     const router = useRouter();
@@ -51,6 +51,9 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
     useEffect(() => {
         getDeals()
     }, [])
+    useEffect(() => {
+        getDeals()
+    }, [vendor])
 
     const sortedDeals = deals?.slice().sort((a, b) => {
         const isPermanentComparison = b.isPermanent ? 1 : -1;
@@ -64,6 +67,7 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
 
     useEffect(() => {
         router.pathname.includes('edit') && setIsInDashboard(true);
+        console.log(isEventsMate())
     }, []);
 
     const handleIsNotActive = (newState: boolean) => {
@@ -76,7 +80,7 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
         <Card
             p='30px'
             mb={{ base: '20px', '2xl': '20px' }}
-            display={isAnyActive ? 'block' : 'none'}
+            display="block"
             bgColor={!isInDashboard ? 'navy.00' : 'transparent'}
         >
             <Flex w='100%' mb='20px'>
@@ -95,6 +99,7 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
                                 vendorId={vendor.id}
                                 isNotVisible={handleIsNotActive}
                                 isInDashboard={isInDashboard}
+                                onDelete={getDeals}
                             />
                         );
                     })}

@@ -1,13 +1,9 @@
-import {
-    Card,
-    CardBody, CardHeader,
-    Flex, Icon, Tag,
-    Text, useColorModeValue
-} from '@chakra-ui/react';
+// Import necessary components and libraries
+import React, { useEffect, useState } from 'react';
+import { Card, CardBody, CardHeader, Flex, Icon, Tag, Text, useColorModeValue } from '@chakra-ui/react';
 import { FaRegClock, FaEdit } from 'react-icons/fa';
 import { DealType } from '../../../interfaces/deals';
 import dayjs from '../../../utils/dayjs';
-import React, { useEffect, useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import NextLink from 'next/link';
 import DeleteDealDialog from './DeleteDealDialog';
@@ -19,11 +15,11 @@ interface DealProps {
     vendorId: string;
     isInDashboard: boolean;
     isNotVisible: (newState: boolean) => void;
+    onDelete: () => void; // Callback function for deal deletion
 }
 
-const Deal: React.FC<DealProps> = ({ deal, vendorId, isNotVisible, isInDashboard }) => {
+const Deal: React.FC<DealProps> = ({ deal, vendorId, isNotVisible, isInDashboard, onDelete }) => {
     const [isVisible, setIsVisible] = useState<boolean>(false);
-    const [isActive, setIsActive] = useState<boolean>(false);
 
     const textColor = useColorModeValue('secondaryGray.900', 'white');
     const backgroundColor = useColorModeValue('gray.100', 'navy.700');
@@ -32,9 +28,11 @@ const Deal: React.FC<DealProps> = ({ deal, vendorId, isNotVisible, isInDashboard
     const bgEm = useColorModeValue('brand.900', 'brand.400');
     const tagBorderColor = useColorModeValue('white', 'navy.700');
 
-    const { t } = useTranslation();
 
-    // For testing, use the following: dayjs('2023-01-30T16:02:00.000Z')
+    const [isActive, setIsActive] = useState<boolean>(false);
+    const { t } = useTranslation();
+    
+   // For testing, use the following: dayjs('2023-01-30T16:02:00.000Z')
     const date = dayjs(deal.endsAt);
     const today = dayjs(new Date());
 
@@ -105,14 +103,14 @@ const Deal: React.FC<DealProps> = ({ deal, vendorId, isNotVisible, isInDashboard
                         <NextLink href={`/app/vendors/edit/${vendorId}/deals/${deal.id}`}>
                             <Icon as={FaEdit} fontSize='18' color={isEventsMate() ? bgEm : bgWm} />
                         </NextLink>
-                        <DeleteDealDialog vendorId={vendorId} dealId={deal.id} />
+                        <DeleteDealDialog vendorId={vendorId} dealId={deal.id} onDelete={onDelete}/>
                     </Flex>}
                 </Flex>
             </CardHeader>
             <CardBody justifyContent='space-between' pt='0'>
                 <Text color={textColor}
                       fontSize='sm'
-                      fontWeight='300'>
+                      fontWeight='300'> 
                     {deal.description}
                 </Text>
                 <Flex alignItems='center' pt='3'>
@@ -125,7 +123,7 @@ const Deal: React.FC<DealProps> = ({ deal, vendorId, isNotVisible, isInDashboard
                 </Flex>
             </CardBody>
         </Card>
-    )
-}
+    );
+};
 
 export default Deal;
