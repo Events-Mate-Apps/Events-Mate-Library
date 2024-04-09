@@ -51,10 +51,7 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
     useEffect(() => {
         getDeals()
     }, [])
-    useEffect(() => {
-        getDeals()
-    }, [vendor])
-
+   
     const sortedDeals = deals?.slice().sort((a, b) => {
         const isPermanentComparison = b.isPermanent ? 1 : -1;
 

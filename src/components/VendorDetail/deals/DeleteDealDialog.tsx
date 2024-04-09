@@ -20,7 +20,7 @@ import { api } from '../../../utils/api';
 interface DeleteDealDialogProps {
     vendorId: string;
     dealId: string;
-    onDelete: () => void; // Callback function to trigger after deletion
+    onDelete: () => void; 
 }
 
 const DeleteDealDialog: React.FC<DeleteDealDialogProps> = ({ vendorId, dealId, onDelete }) => {
@@ -44,7 +44,7 @@ const DeleteDealDialog: React.FC<DeleteDealDialogProps> = ({ vendorId, dealId, o
                 status: 'success',
                 duration: 3000
             });
-            onDelete(); // Call the onDelete callback function
+            onDelete();
         } catch (e) {
             toast({
                 title: t('edit:dealDeleteError'),

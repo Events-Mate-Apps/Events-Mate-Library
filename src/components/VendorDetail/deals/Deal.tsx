@@ -1,4 +1,3 @@
-// Import necessary components and libraries
 import React, { useEffect, useState } from 'react';
 import { Card, CardBody, CardHeader, Flex, Icon, Tag, Text, useColorModeValue } from '@chakra-ui/react';
 import { FaRegClock, FaEdit } from 'react-icons/fa';
@@ -15,7 +14,7 @@ interface DealProps {
     vendorId: string;
     isInDashboard: boolean;
     isNotVisible: (newState: boolean) => void;
-    onDelete: () => void; // Callback function for deal deletion
+    onDelete: () => void; 
 }
 
 const Deal: React.FC<DealProps> = ({ deal, vendorId, isNotVisible, isInDashboard, onDelete }) => {
@@ -32,7 +31,6 @@ const Deal: React.FC<DealProps> = ({ deal, vendorId, isNotVisible, isInDashboard
     const [isActive, setIsActive] = useState<boolean>(false);
     const { t } = useTranslation();
     
-   // For testing, use the following: dayjs('2023-01-30T16:02:00.000Z')
     const date = dayjs(deal.endsAt);
     const today = dayjs(new Date());
 
