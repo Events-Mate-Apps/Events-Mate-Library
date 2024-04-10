@@ -16,6 +16,7 @@ import {
 import useTranslation from 'next-translate/useTranslation';
 import { FaTrash } from 'react-icons/fa';
 import { api } from '../../../utils/api';
+import { isEventsMate } from '../../../utils/orientation';
 
 interface DeleteDealDialogProps {
     vendorId: string;
@@ -28,6 +29,7 @@ const DeleteDealDialog: React.FC<DeleteDealDialogProps> = ({ vendorId, dealId, o
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { t } = useTranslation();
     const bgWm = useColorModeValue('#e13784', 'brand.400');
+    const bgEm = useColorModeValue('brand.900', 'brand.400');
 
     const toast = useToast();
 
@@ -66,7 +68,7 @@ const DeleteDealDialog: React.FC<DeleteDealDialogProps> = ({ vendorId, dealId, o
                 mt='1px'
                 fontSize='16'
                 cursor='pointer'
-                color={bgWm}
+                color={isEventsMate() ? bgEm : bgWm}
                 onClick={onOpen}
             />
             <AlertDialog
