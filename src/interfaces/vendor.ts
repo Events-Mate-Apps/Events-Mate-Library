@@ -54,14 +54,14 @@ export interface FAQElement {
   id?: string
 }
 export interface TranslationTextContent {
-  id?: string,
+  id?: string | number,
   defaultTranslation: Translation | null,
   translations: Translation[]
 }
 
 export interface Translation {
-  id?: string,
-  textContentId?: string,
+  id?: string | number,
+  textContentId?: string | number,
   translation: string,
   languageISO: string,
 }
