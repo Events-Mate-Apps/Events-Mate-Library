@@ -26,6 +26,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/pages/wedding/[id]/invite/[guest]"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/pages/wedding/[id]/invite/[guest]", "src/components/FontAwesomeIconWrapper.jsx"],
   "exclude": ["node_modules"]
 }
