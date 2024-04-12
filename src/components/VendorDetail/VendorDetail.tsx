@@ -64,6 +64,12 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
         replace({ pathname: pathname, query });
     }
 
+    const crownColor: Map<number, string> = new Map([
+        [2, 'bronze'],
+        [3, 'silver'],
+        [4, 'gold'],
+    ]);
+
     return (
         <Flex direction='column' w='100%'>
             <NextSeo
@@ -144,11 +150,11 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                                 >
                                     {vendor.name}
                                 </Text>
-                                <FontAwesomeIconWrapper 
+                                {crownColor.get(vendor.priority) && <FontAwesomeIconWrapper 
                                     icon='fa-solid fa-crown'
-                                    color='gold'
+                                    color={crownColor.get(vendor.priority) || 'black'}
                                     size='20px'
-                                />
+                                />}
                             </Flex>
                             <ReviewStars
                                 score={vendor.rating}
