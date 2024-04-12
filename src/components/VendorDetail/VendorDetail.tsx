@@ -142,6 +142,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                         <VendorImages vendor={vendor} />
                         <Flex direction='column' w='100%'>
                             <Flex 
+                                alignItems='center'
                                 mb='12px'
                                 mt={{ sm: '20px', md: '50px', '2xl': '20px', '3xl': '50px' }}
                             >
@@ -149,13 +150,14 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                                     color={textColor}
                                     fontSize='3xl'
                                     fontWeight='bold'
+                                    mr='15px'
                                 >
                                     {vendor.name}
                                 </Text>
                                 {crownColor.get(vendor.priority) && <FontAwesomeIconWrapper 
                                     icon='fa-solid fa-crown'
                                     color={crownColor.get(vendor.priority) || 'black'}
-                                    size='25px'
+                                    size='35px'
                                 />}
                             </Flex>
                             <ReviewStars
