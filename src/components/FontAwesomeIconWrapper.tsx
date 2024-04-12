@@ -13,7 +13,7 @@ interface FAWrapperProps {
 }
 
 const FontAwesomeIconWrapperComponent: FC<FAWrapperProps> = ({ icon, color, size }) => {
-  return <FontAwesomeIcon icon={icon as IconProp} color={color} size={size} />;
+  return FontAwesomeIcon ? <FontAwesomeIcon icon={icon as IconProp} color={color} size={size} /> : 'loading';
 };
 
 const FontAwesomeIconWrapper = memo(FontAwesomeIconWrapperComponent);
