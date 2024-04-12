@@ -65,9 +65,10 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
     }
 
     const crownColor: Map<number, string> = new Map([
-        [2, 'bronze'],
-        [3, 'silver'],
-        [4, 'gold'],
+        [1, '#11047A'],
+        [2, '#CD7F32'],
+        [3, '#C0C0C0'],
+        [4, '#FFD700'],
     ]);
 
     return (
