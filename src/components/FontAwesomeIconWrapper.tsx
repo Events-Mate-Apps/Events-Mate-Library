@@ -20,7 +20,7 @@ const FontAwesomeIconWrapper: FC<FAWrapperProps> = ({ icon, color, size }) => {
     setIsClient(true);
   }, []);
 
-  return isClient ? <FontAwesomeIcon icon={icon as IconProp} color={color} size={size} /> : <Progress isIndeterminate />
+  return isClient ? <FontAwesomeIcon icon={icon as IconProp} color={color} size={'xs'} /> : <Progress isIndeterminate />
 }
 
 export default FontAwesomeIconWrapper;
