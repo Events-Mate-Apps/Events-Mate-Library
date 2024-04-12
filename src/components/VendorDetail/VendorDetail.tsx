@@ -147,7 +147,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                                 <FontAwesomeIconWrapper 
                                     iconString='fa-solid fa-crown'
                                     color='red'
-                                    size='1x'
+                                    size='sm'
                                 />
                             </Flex>
                             <ReviewStars
