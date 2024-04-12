@@ -30,6 +30,7 @@ import VendorImages from './VendorImages';
 import { TinyColor } from '@ctrl/tinycolor/dist';
 import LanguageBar from '../localization/LanguageBar';
 import LocalizedText from '../localization/LocalizedText';
+import FontAwesomeIconWrapper from '../FontAwesomeIconWrapper'
 
 interface VendorDetailProps {
     vendor: Vendor;
@@ -141,6 +142,11 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                                 mt={{ sm: '20px', md: '50px', '2xl': '20px', '3xl': '50px' }}
                             >
                                 {vendor.name}
+                                <FontAwesomeIconWrapper 
+                                    iconString='fa-solid fa-crown'
+                                    color='red'
+                                    size='10x'
+                                />
                             </Text>
                             <ReviewStars
                                 score={vendor.rating}
