@@ -30,6 +30,7 @@ import VendorImages from './VendorImages';
 import { TinyColor } from '@ctrl/tinycolor/dist';
 import LanguageBar from '../localization/LanguageBar';
 import LocalizedText from '../localization/LocalizedText';
+import FontAwesomeIconWrapper from '../FontAwesomeIconWrapper'
 
 interface VendorDetailProps {
     vendor: Vendor;
@@ -62,6 +63,13 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
         delete query.confirmReviewToken;
         replace({ pathname: pathname, query });
     }
+
+    const crownColor: Map<number, string> = new Map([
+        [1, '#11047A'],
+        [2, '#CD7F32'],
+        [3, '#C0C0C0'],
+        [4, '#FFD700'],
+    ]);
 
     return (
         <Flex direction='column' w='100%'>
@@ -133,15 +141,25 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                     <Flex direction={{ sm: 'column', lg: 'column', xl: 'row' }}>
                         <VendorImages vendor={vendor} />
                         <Flex direction='column' w='100%'>
-                            <Text
-                                color={textColor}
-                                fontSize='3xl'
-                                fontWeight='bold'
+                            <Flex 
+                                alignItems='center'
                                 mb='12px'
                                 mt={{ sm: '20px', md: '50px', '2xl': '20px', '3xl': '50px' }}
                             >
-                                {vendor.name}
-                            </Text>
+                                <Text
+                                    color={textColor}
+                                    fontSize='3xl'
+                                    fontWeight='bold'
+                                    mr='15px'
+                                >
+                                    {vendor.name}
+                                </Text>
+                                {crownColor.get(vendor.priority) && <FontAwesomeIconWrapper 
+                                    icon='fa-solid fa-crown'
+                                    color={crownColor.get(vendor.priority) || 'black'}
+                                    size='35px'
+                                />}
+                            </Flex>
                             <ReviewStars
                                 score={vendor.rating}
                                 isPremium={!!vendor.isPremium && vendor.priority >= 2 && vendor.isPremium}
