@@ -26,6 +26,7 @@ import { TinyColor } from '@ctrl/tinycolor/dist';
 import LanguageBar from '../localization/LanguageBar';
 import LocalizedText from '../localization/LocalizedText';
 import FontAwesomeIconWrapper from '../FontAwesomeIconWrapper'
+import VendorPriorityBadge from '../VendorPriorityBadge';
 import VerificationDialog from '../fields/VerificationDialog';
 
 interface VendorDetailProps {
@@ -59,13 +60,6 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
         delete query.confirmReviewToken;
         replace({ pathname: pathname, query });
     }
-
-    const crownColor: Map<number, string> = new Map([
-        [1, '#11047A'],
-        [2, '#CD7F32'],
-        [3, '#C0C0C0'],
-        [4, '#FFD700'],
-    ]);
 
     return (
         <Flex direction='column' w='100%'>
@@ -151,11 +145,10 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                                 >
                                     {vendor.name}
                                 </Text>
-                                {crownColor.get(vendor.priority) && <FontAwesomeIconWrapper
-                                    icon='fa-solid fa-crown'
-                                    color={crownColor.get(vendor.priority) || 'black'}
+                                <VendorPriorityBadge
+                                    priority={vendor.priority}
                                     size='35px'
-                                />}
+                                />
                             </Flex>
                             <ReviewStars
                                 score={vendor.rating}

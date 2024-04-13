@@ -1,10 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconProp, SizeProp, library } from '@fortawesome/fontawesome-svg-core';
+import { IconProp, library } from '@fortawesome/fontawesome-svg-core';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { fal } from '@fortawesome/pro-light-svg-icons';
 import { fas } from '@fortawesome/pro-solid-svg-icons';
 import { FC, useEffect, useState } from 'react';
-import { Box, Progress } from '@chakra-ui/react';
+import { Flex, Progress } from '@chakra-ui/react';
 library.add(fas, far, fal);
 
 interface FAWrapperProps {
@@ -21,9 +21,9 @@ const FontAwesomeIconWrapper: FC<FAWrapperProps> = ({ icon, color, size }) => {
   }, []);
 
   return isClient ? 
-    <Box width={size} height={size}>
-      <FontAwesomeIcon icon={icon as IconProp} color={color} />
-    </Box>  
+    <Flex width={size} height={size} align="center" justify="center">
+      <FontAwesomeIcon icon={icon as IconProp} color={color} style={{ width: '100%', height: '100%' }} />
+    </Flex>  
     : <Progress isIndeterminate />
 }
 
