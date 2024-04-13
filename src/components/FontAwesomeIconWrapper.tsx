@@ -22,7 +22,7 @@ const FontAwesomeIconWrapper: FC<FAWrapperProps> = ({ icon, color, size }) => {
 
   return isClient ? 
     <Box width={size} height={size}>
-      <FontAwesomeIcon icon={icon as IconProp} color={color} />
+      <FontAwesomeIcon icon={icon as IconProp} color={color} size='10x' />
     </Box>  
     : <Progress isIndeterminate />
 }
