@@ -4,14 +4,12 @@ import {
     Text,
     useColorModeValue,
     Box,
-    ButtonGroup,
-    Button, useDisclosure,
+    useDisclosure,
 } from '@chakra-ui/react';
 import Card from '../../components/card/Card';
-import LanguageList from 'language-list';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { Description, DescriptionWithLabel, Language, Vendor } from '../../interfaces/vendor';
+import { Vendor } from '../../interfaces/vendor';
 import VendorDescription from './Description';
 import FAQ from './FAQ';
 import VendorLocation from './Location';
@@ -19,18 +17,16 @@ import useTranslation from 'next-translate/useTranslation';
 import Links from './Links';
 import ReviewStars from './ReviewStars';
 import { NextSeo } from 'next-seo';
-import MarkdownReader from './MarkdownReader';
 import DealsCard from './deals/DealsCard';
 import { UserData } from '../../interfaces/user';
-import { api } from '../../utils/api';
 import Contacts from './Contacts';
 import ReviewsCard from './reviews/ReviewsCard';
-import ReviewConfirmDialog from './reviews/ReviewConfirmDialog';
 import VendorImages from './VendorImages';
 import { TinyColor } from '@ctrl/tinycolor/dist';
 import LanguageBar from '../localization/LanguageBar';
 import LocalizedText from '../localization/LocalizedText';
 import FontAwesomeIconWrapper from '../FontAwesomeIconWrapper'
+import VerificationDialog from '../fields/VerificationDialog';
 
 interface VendorDetailProps {
     vendor: Vendor;
@@ -90,10 +86,11 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                     url: `https://weddmate-web.vercel.app/vendors/${vendor.alias}`,
                 }}
             />
-            <ReviewConfirmDialog
-                token={reviewConfirmedToken}
+            <VerificationDialog
+                path={`vendors/reviews/confirmReview?token=${reviewConfirmedToken}`}
                 isOpen={isOpen}
                 turnOffDialog={turnOffDialog}
+                desc={(t('vendors:detail.reviews.confirmText'))}
             />
             <Card mt={{ sm: '50px', md: '75px' }} me={{ lg: '60px' }} mb={{ sm: '50px', md: '75px' }}>
                 <Flex direction='column' w='100%'>
@@ -141,7 +138,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                     <Flex direction={{ sm: 'column', lg: 'column', xl: 'row' }}>
                         <VendorImages vendor={vendor} />
                         <Flex direction='column' w='100%'>
-                            <Flex 
+                            <Flex
                                 alignItems='center'
                                 mb='12px'
                                 mt={{ sm: '20px', md: '50px', '2xl': '20px', '3xl': '50px' }}
@@ -154,7 +151,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                                 >
                                     {vendor.name}
                                 </Text>
-                                {crownColor.get(vendor.priority) && <FontAwesomeIconWrapper 
+                                {crownColor.get(vendor.priority) && <FontAwesomeIconWrapper
                                     icon='fa-solid fa-crown'
                                     color={crownColor.get(vendor.priority) || 'black'}
                                     size='35px'
@@ -185,12 +182,12 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                                 mb='40px'
                                 mt='20px'
                             >
-                                {(langToDisplay && vendor.descriptionContent) && <LocalizedText 
+                                {(langToDisplay && vendor.descriptionContent) && <LocalizedText
                                     content={vendor.descriptionContent}
                                     language={langToDisplay}
                                     markdown
                                 />}
-                                    
+
                             </Box>
                             <Links vendor={vendor} />
                         </Flex>
@@ -198,14 +195,14 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                 </Flex>
             </Card>
             {
-                (langToDisplay && vendor.descriptionContent) && 
-                <VendorDescription 
+                (langToDisplay && vendor.descriptionContent) &&
+                <VendorDescription
                     description={vendor.descriptionContent}
                     language={langToDisplay}
                 />
             }
             {
-                (vendor.faq.length !== 0 && vendor.isPremium && langToDisplay) && 
+                (vendor.faq.length !== 0 && vendor.isPremium && langToDisplay) &&
                 <FAQ language={langToDisplay} vendor={vendor} />
             }
             <DealsCard vendor={vendor} />
