@@ -21,8 +21,8 @@ const FontAwesomeIconWrapper: FC<FAWrapperProps> = ({ icon, color, size }) => {
   }, []);
 
   return isClient ? 
-    <Flex width={size} height={size}>
-      <FontAwesomeIcon icon={icon as IconProp} color={color} />
+    <Flex width={size} height={size} align="center" justify="center">
+      <FontAwesomeIcon icon={icon as IconProp} color={color} style={{ width: '100%', height: '100%' }} />
     </Flex>  
     : <Progress isIndeterminate />
 }
