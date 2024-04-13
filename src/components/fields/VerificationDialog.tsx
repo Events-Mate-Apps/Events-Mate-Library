@@ -12,16 +12,16 @@ import {
 import { FaCheckCircle } from 'react-icons/fa';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useEffect } from 'react';
-import { api } from '../../../utils/api';
-import { CustomError } from '../../../interfaces/global';
+import { api } from '@/utils/api';
 
-interface ReviewConfirmDialogProps {
-    token?: string | string[];
+interface VerificationDialogProps {
+    path: string;
     isOpen: boolean;
     turnOffDialog: () => void;
+    desc: string;
 }
 
-const ReviewConfirmDialog: React.FC<ReviewConfirmDialogProps> = ({ token, isOpen, turnOffDialog }) => {
+const VerificationDialog: React.FC<VerificationDialogProps> = ({ path, isOpen, turnOffDialog, desc }) => {
     const cancelRef = React.useRef<HTMLButtonElement | null>(null);
 
     const toast = useToast();
@@ -30,10 +30,7 @@ const ReviewConfirmDialog: React.FC<ReviewConfirmDialogProps> = ({ token, isOpen
 
     const verification = async () => {
         try {
-            if (token) {
-                const parsedToken = typeof token === 'string' ? token : token[0];
-                await api.post(`vendors/reviews/confirmReview?token=${parsedToken}`);
-            }
+            await api.post(path);
         } catch (error) {
             const err = error as CustomError;
             console.error('Error occurred. Stack trace: ' + (err.raw?.message || err.message));
@@ -91,7 +88,7 @@ const ReviewConfirmDialog: React.FC<ReviewConfirmDialogProps> = ({ token, isOpen
                                 fontWeight='500'
                                 color='#E13784'
                             >
-                                {(t('vendors:detail.reviews.confirmText'))}
+                                {desc}
                             </Text>
                         </AlertDialogBody>
 
@@ -111,4 +108,4 @@ const ReviewConfirmDialog: React.FC<ReviewConfirmDialogProps> = ({ token, isOpen
     )
 }
 
-export default ReviewConfirmDialog;
+export default VerificationDialog;
