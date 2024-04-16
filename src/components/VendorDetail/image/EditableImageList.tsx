@@ -10,7 +10,7 @@ import DraggableImage from "./DraggableImage";
 
 interface EditableImageListProps {
     vendor: Vendor,
-    setCurrentImage: React.Dispatch<React.SetStateAction<string>>
+    setCurrentImage: React.Dispatch<React.SetStateAction<string>>,
 }
 
 const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurrentImage }) => {

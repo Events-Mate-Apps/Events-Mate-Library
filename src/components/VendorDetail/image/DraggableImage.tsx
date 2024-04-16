@@ -27,7 +27,7 @@ export interface DraggableImageProps {
 };
 
 const DraggableImage: React.FC<DraggableImageProps> = ({ 
-  index, moveImage, image, setCurrentImage 
+  index, moveImage, image, setCurrentImage
 }) => {
 
   const [, ref] = useDrag({
