@@ -11,10 +11,9 @@ import DraggableImage from "./DraggableImage";
 interface EditableImageListProps {
     vendor: Vendor,
     setCurrentImage: React.Dispatch<React.SetStateAction<string>>,
-    refetch: () => Promise<void> 
 }
 
-const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurrentImage, refetch }) => {
+const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurrentImage }) => {
     const { t } = useTranslation()
     const [images, setImages] = useState(vendor.images)
     const [isLoading, setLoading] = useState<boolean>(false);
@@ -72,7 +71,6 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
                         moveImage={moveImage}
                         key={index}
                         setCurrentImage={setCurrentImage}
-                        refetch={refetch}
                     />
                 ))}
 
