@@ -33,7 +33,6 @@ const DeleteDealDialog: React.FC<DeleteDialogProps> = ({ vendorId, dealId }) => 
     const cancelRef = React.useRef<HTMLButtonElement>(null);
     const toast = useToast();
     
-
     const deleteDeal = async () => {
         setLoading(true)
 
