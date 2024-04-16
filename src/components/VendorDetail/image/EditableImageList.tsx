@@ -10,10 +10,11 @@ import DraggableImage from "./DraggableImage";
 
 interface EditableImageListProps {
     vendor: Vendor,
-    setCurrentImage: React.Dispatch<React.SetStateAction<string>>
+    setCurrentImage: React.Dispatch<React.SetStateAction<string>>,
+    refetch: () => Promise<void> 
 }
 
-const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurrentImage }) => {
+const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurrentImage, refetch }) => {
     const { t } = useTranslation()
     const [images, setImages] = useState(vendor.images)
     const [isLoading, setLoading] = useState<boolean>(false);
@@ -93,7 +94,7 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
                 >   
                 {
                     (vendor.isPremium || images.length === 0) &&
-                    <AddImage vendorId={vendor.id} />
+                    <AddImage vendorId={vendor.id} refetch={refetch} />
                 }
                 </Flex>
             </Stack>
