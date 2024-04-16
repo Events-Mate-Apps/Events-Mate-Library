@@ -72,6 +72,7 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
                         moveImage={moveImage}
                         key={index}
                         setCurrentImage={setCurrentImage}
+                        refetch={refetch}
                     />
                 ))}
 
@@ -94,7 +95,7 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
                 >   
                 {
                     (vendor.isPremium || images.length === 0) &&
-                    <AddImage vendorId={vendor.id} refetch={refetch} />
+                    <AddImage vendorId={vendor.id} />
                 }
                 </Flex>
             </Stack>

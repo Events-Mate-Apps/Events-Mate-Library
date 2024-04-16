@@ -27,10 +27,9 @@ export interface Image {
 
 export interface AddImageProps {
   vendorId: string,
-  refetch: () => Promise<void> 
 }
 
-const AddImage: React.FC<AddImageProps> = ({ vendorId, refetch }) => {
+const AddImage: React.FC<AddImageProps> = ({ vendorId }) => {
   const toast = useToast();
   const { formState: { errors } } = useFormContext<NewVendorForValues>();
   const { t } = useTranslation();
@@ -64,7 +63,6 @@ const AddImage: React.FC<AddImageProps> = ({ vendorId, refetch }) => {
       });
     } finally {
       setUploading(false);
-      await refetch()
     }
   };
 

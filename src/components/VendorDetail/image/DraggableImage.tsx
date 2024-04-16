@@ -24,10 +24,11 @@ export interface DraggableImageProps {
   image: ImageType;
   moveImage: (fromIndex: number, toIndex: number) => void;
   setCurrentImage: React.Dispatch<React.SetStateAction<string>>,
+  refetch: () => Promise<void> 
 };
 
 const DraggableImage: React.FC<DraggableImageProps> = ({ 
-  index, moveImage, image, setCurrentImage 
+  index, moveImage, image, setCurrentImage, refetch
 }) => {
 
   const [, ref] = useDrag({
@@ -76,6 +77,8 @@ const DraggableImage: React.FC<DraggableImageProps> = ({
         description: `${t('edit:error')}: ${e}`,
         status: 'error',
       })
+    } finally {
+      await refetch()
     }
   }
 
