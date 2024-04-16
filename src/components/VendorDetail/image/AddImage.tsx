@@ -15,7 +15,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { NewVendorForValues } from '../../../interfaces/vendor';
-import { simpleUploadVendorImage, compressImage } from '../../../service/ImageService'; 
+import { useImage } from '~/service/ImageService';
 
 export interface Image {
   src: string;
@@ -33,26 +33,17 @@ const AddImage: React.FC<AddImageProps> = ({ vendorId }) => {
   const toast = useToast();
   const { formState: { errors } } = useFormContext<NewVendorForValues>();
   const { t } = useTranslation();
-  const [isUploading, setUploading] = useState(false);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const { uploadImage } = useImage()
 
-  const handleImageUpload = async (file: File, onChange: (value: Image | null) => void) => {
+  const [isUploading, setUploading] = useState(false);
+
+  const handleImageUpload = async (file: File) => {
     setUploading(true);
     try {
-      const MAX_SIZE = 700 * 1024; // 700 KB
-
-      let compressedFile = file;
-      if (file.size > MAX_SIZE) {
-        compressedFile = await compressImage(file, MAX_SIZE);
-      }
-
-      const imgResponse = await simpleUploadVendorImage(compressedFile, vendorId);
-
-      const img: Image = {
-        ...imgResponse,
-        alt: imgResponse.alt || 'Default Alt Text',
-      };
-      onChange(img);
+      uploadImage({
+        endpointPath: `images/vendors/${vendorId}`,
+        file
+      })
 
       toast({
         title: t('edit:success'),
@@ -103,11 +94,10 @@ const AddImage: React.FC<AddImageProps> = ({ vendorId }) => {
                     pt={"5px"}
                     pl={"5px"}
                     onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (file) {
-                        setSelectedFile(file);
-                        handleImageUpload(file, onChange);
-                    }
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        handleImageUpload(file);
+                      }
                     }}
                     style={{ display: 'none' }}
                     id="imageInput"
