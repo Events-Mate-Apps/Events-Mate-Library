@@ -1,4 +1,5 @@
 export type Vendor = {
+  status: string
   isPremium?: boolean;
   id: string;
   alias: string;
@@ -42,7 +43,8 @@ export type Vendor = {
     userId: string
     vendorId: string
   },
-  status: string
+  supportedCountries: SupportedCountry[]  
+  supportedAdministrativeArea: VendorAdministrativeArea[] 
 };
 
 export interface FAQElement {
@@ -157,9 +159,10 @@ export type VendorLink = {
 export type VendorPost = {
   address: {
     postalAddress: string;
-    additionalProp1: Object,
+    additionalProp1: object,
   };
   description: NewDescription,
+  descriptionContent: TranslationTextContent,
   name: string;
   phones: Phone[];
   categories: string[];
@@ -230,4 +233,22 @@ export interface VendorCategory {
   id: string;
   name: string;
   type: string;
+}
+
+export interface VendorAdministrativeArea {
+  countryIso: string
+  haveSVGMap: boolean
+  id: number,
+  isoCode: string
+  nameContent: TranslationTextContent,
+  subVendorAdministrativeArea?: VendorAdministrativeArea,
+  nameId: number
+}
+
+export interface SupportedCountry {
+  haveSVGMap: boolean,
+  iso: string,
+  nameContent: TranslationTextContent,
+  nameId: number,
+  administrativeAreas?: VendorAdministrativeArea[],
 }
