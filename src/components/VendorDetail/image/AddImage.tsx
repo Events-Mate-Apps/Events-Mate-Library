@@ -15,7 +15,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { NewVendorForValues } from '../../../interfaces/vendor';
-import { useImage } from '~/service/ImageService';
+import { useImage } from '../../../service/ImageService';
 
 export interface Image {
   src: string;
