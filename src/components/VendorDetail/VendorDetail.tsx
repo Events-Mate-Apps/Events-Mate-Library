@@ -5,9 +5,10 @@ import {
     useColorModeValue,
     Box,
     useDisclosure,
+    useQuery,
 } from '@chakra-ui/react';
 import Card from '../../components/card/Card';
-import { useRouter } from 'next/router';
+import { Router, useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { Vendor } from '../../interfaces/vendor';
 import VendorDescription from './Description';
@@ -28,7 +29,9 @@ import LocalizedText from '../localization/LocalizedText';
 import FontAwesomeIconWrapper from '../FontAwesomeIconWrapper'
 import VendorPriorityBadge from '../VendorPriorityBadge';
 import VerificationDialog from '../fields/VerificationDialog';
-
+import StartMesssage from './StartMessage';
+import { api } from '~/utils/api';
+import { Wedding} from "../../interfaces/wedding"
 interface VendorDetailProps {
     vendor: Vendor;
     user?: UserData,
@@ -38,13 +41,19 @@ interface VendorDetailProps {
 const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) => {
     const textColor = useColorModeValue('secondaryGray.900', 'white');
     const { t } = useTranslation();
+    const router = useRouter()
+    const [wedding, setWedding] = useState<Wedding>()
+    const { id } = router.query;
 
     const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: false });
     const { push, replace, query, pathname } = useRouter();
     const goToPricings = (vendorId: string) => {
         push(`/main/pricing?vendorId=${vendorId}`);
     }
-
+    const getWedding = async () => {
+        const data = await api.get(`weddings/${id}`)
+        setWedding(data.data)
+    }
     const reviewConfirmedToken = query.confirmReviewToken;
     const [langToDisplay, setLangToDisplay] = useState<string | null>(null)
 
@@ -55,6 +64,9 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
         }
     }, [reviewConfirmedToken, isOpen])
 
+    useEffect(()=>{
+        getWedding()
+    },[])
     const turnOffDialog = () => {
         onClose();
         delete query.confirmReviewToken;
@@ -169,6 +181,8 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                               </Flex>
                             */}
                             <Contacts sendStats={sendStats} vendor={vendor} />
+                            {wedding &&
+                            <StartMesssage vendorId={vendor.id} userId={user?.id || ""} weddingId={wedding.id}/>}
                             <Box
                                 color='secondaryGray.600'
                                 pe={{ base: '0px', '3xl': '200px' }}
