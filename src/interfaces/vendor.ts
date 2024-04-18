@@ -157,6 +157,7 @@ export type VendorPost = {
     latitude: number,
     longitude: number,
   },
+  images: []
 }
 
 export interface Description {
