@@ -24,13 +24,13 @@ export default function Contacts({ vendor, sendStats }: ContactsProps) {
 
     const handleEmail = () => {
         sendStats && sendStats(vendor.id, 'emailViewed')
-        window.location.href = `mailto:${vendor.emails[0].email}`
+        window.location.href = `mailto:${vendor.email}`
     };
 
     const handlePhone = async () => {
         try {
             sendStats && sendStats(vendor.id, 'phoneViewed')
-            setValue(vendor.phones[0].number); // Set the number to the state
+            setValue(vendor.phone);
             onCopy()
             toast({
                 title: t('vendors:detail.copied'),
@@ -70,7 +70,7 @@ export default function Contacts({ vendor, sendStats }: ContactsProps) {
                             color="secondaryGray.800"
                             fontWeight='normal'
                         >
-                            {vendor.emails[0].email}
+                            {vendor.email}
                         </Text>
                     </Button>
                 </Flex>
@@ -89,7 +89,7 @@ export default function Contacts({ vendor, sendStats }: ContactsProps) {
                             color="secondaryGray.800"
                             fontWeight='normal'
                         >
-                            {vendor.phones[0].number}
+                            {vendor.phone}
                         </Text>
                     </Button>
                 </Flex>
