@@ -213,3 +213,8 @@ export interface SupportedCountry {
   nameId: number,
   administrativeAreas?: VendorAdministrativeArea[],
 }
+
+export interface Language {
+  language: string,
+  code: string
+}
