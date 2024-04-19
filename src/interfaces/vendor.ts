@@ -237,3 +237,21 @@ export interface VendorCategory {
   name: string;
   type: string;
 }
+
+export interface VendorAdministrativeArea {
+  countryIso: string
+  haveSVGMap: boolean
+  id: number,
+  isoCode: string
+  nameContent: TranslationTextContent,
+  subVendorAdministrativeArea?: VendorAdministrativeArea,
+  nameId: number
+}
+
+export interface SupportedCountry {
+  haveSVGMap: boolean,
+  iso: string,
+  nameContent: TranslationTextContent,
+  nameId: number,
+  administrativeAreas?: VendorAdministrativeArea[],
+}
