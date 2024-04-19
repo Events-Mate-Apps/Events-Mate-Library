@@ -47,6 +47,19 @@ export interface Vendor {
   supportedAdministrativeArea: VendorAdministrativeArea[] 
 }
 
+export interface NewVendorForValues {
+  name: string;
+  descriptionContent: TranslationTextContent;
+  phone: string;
+  email: string;
+  latitude: number;
+  longitude: number;
+  links: VendorLink[];
+  category: { label: StaticRange, value: VendorCategory };
+  postalAddress: string;
+  image: Image
+}
+
 export interface FAQElement {
   question: TranslationTextContent
   questionId?: string,
@@ -217,4 +230,10 @@ export interface SupportedCountry {
 export interface Language {
   language: string,
   code: string
+}
+
+export interface VendorCategory {
+  id: string;
+  name: string;
+  type: string;
 }
