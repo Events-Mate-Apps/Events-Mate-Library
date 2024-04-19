@@ -6,7 +6,7 @@ export type Vendor = {
   categories: string[],
   userId: string,
   name: string,
-  phone: number,
+  phone: string,
   email: string,
   address: Address,
   latitude: number,
