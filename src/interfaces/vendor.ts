@@ -1,4 +1,4 @@
-export type Vendor = {
+export interface Vendor {
   status: string
   isPremium?: boolean,
   id: string,
@@ -84,7 +84,7 @@ export type Socials =
   | 'yelp'
   | 'youtube'
 
-export type Image = {
+export interface Image {
   src: string,
   alt?: string,
   hash: string,
@@ -119,7 +119,7 @@ export interface SmallVendor {
   webUrl?: string,
 }
 
-export type LandingVendor = {
+export interface LandingVendor {
   id: string,
   name: string,
   rating: number,
@@ -129,7 +129,7 @@ export type LandingVendor = {
   alias: string,
 }
 
-export type Category = {
+export interface Category {
   id: string,
   updatedAt?: string,
   createdAt?: string,
@@ -137,12 +137,12 @@ export type Category = {
   type: string,
 }
 
-export type VendorLink = {
+export interface VendorLink {
   type: Socials,
   url: string,
 }
 
-export type VendorPost = {
+export interface VendorPost {
   address: {
     postalAddress: string,
     additionalProp1: object,
