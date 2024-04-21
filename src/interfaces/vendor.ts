@@ -4,6 +4,7 @@ export interface Vendor {
   id: string,
   alias: string,
   categories: string[],
+  category: Category,
   userId: string,
   name: string,
   phone: string,
