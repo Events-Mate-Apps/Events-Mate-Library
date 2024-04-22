@@ -62,10 +62,11 @@ const AddImage: React.FC<AddImageProps> = ({ vendor, images }) => {
 
   const isVisible = () => {
     switch (vendor.priority) {
-      case 0 || 1:
-        return images.length < 2
+      case 0:
+      case 1:
+        return images.length > 2
       case 2:
-        return images.length < 11
+        return images.length > 11
       default:
         return true
     }
