@@ -14,22 +14,16 @@ import {
 import useTranslation from 'next-translate/useTranslation';
 import { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-import { NewVendorForValues } from '../../../interfaces/vendor';
+import { Image as ImageType, NewVendorForValues, Vendor } from '../../../interfaces/vendor';
 import { useImage } from '../../../service/ImageService';
 
-export interface Image {
-  src: string;
-  hash: string;
-  alt: string;
-  id?: string;
-  position?: number;
-};
-
 export interface AddImageProps {
-  vendorId: string,
+  vendor: Vendor,
+  images: ImageType[]
 }
 
-const AddImage: React.FC<AddImageProps> = ({ vendorId }) => {
+const AddImage: React.FC<AddImageProps> = ({ vendor, images }) => {
+  const vendorId = vendor
   const toast = useToast();
   const { formState: { errors } } = useFormContext<NewVendorForValues>();
   const { t } = useTranslation();
@@ -66,7 +60,18 @@ const AddImage: React.FC<AddImageProps> = ({ vendorId }) => {
     }
   };
 
-  return (
+  const isVisible = () => {
+    switch (vendor.priority) {
+      case 0 || 1:
+        return images.length < 2
+      case 2:
+        return images.length < 11
+      default:
+        return true
+    }
+  }
+
+  return isVisible() && (
     <FormControl isInvalid={errors['image'] != null}>
       <Flex h="100%" flexDir="column" alignItems="center">
         {errors['image'] && (

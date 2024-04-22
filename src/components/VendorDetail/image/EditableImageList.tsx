@@ -1,5 +1,5 @@
 import { Button, Flex, Stack, useToast } from "@chakra-ui/react";
-import { Vendor } from "../../../interfaces/vendor"
+import { Image, Vendor } from "../../../interfaces/vendor"
 import { useEffect, useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -15,7 +15,7 @@ interface EditableImageListProps {
 
 const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurrentImage }) => {
     const { t } = useTranslation()
-    const [images, setImages] = useState(vendor.images)
+    const [images, setImages] = useState<Image[]>(vendor.images)
     const [isLoading, setLoading] = useState<boolean>(false);
     const toast = useToast()
 
@@ -91,10 +91,10 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
                         '2xl': '130px',
                     }}
                 >   
-                {
-                    (vendor.isPremium || images.length === 0) &&
-                    <AddImage vendorId={vendor.id} />
-                }
+                <AddImage 
+                    vendor={vendor} 
+                    images={images}
+                />
                 </Flex>
             </Stack>
             <Button
