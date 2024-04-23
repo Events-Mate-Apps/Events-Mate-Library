@@ -178,8 +178,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
                               </Flex>
                             */}
                             <Contacts sendStats={sendStats} vendor={vendor} />
-                            {(userId && weddingId)&&
-                            <StartMesssage vendorId={vendor.id} userId={userId} weddingId={weddingId}/>}
+                            <StartMesssage vendorId={vendor.id} userId={userId} weddingId={weddingId}/>
                             <Box
                                 color='secondaryGray.600'
                                 pe={{ base: '0px', '3xl': '200px' }}
