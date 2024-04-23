@@ -16,6 +16,7 @@ import { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { Image as ImageType, NewVendorForValues, Vendor } from '../../../interfaces/vendor';
 import { useImage } from '../../../service/ImageService';
+import { useNotification } from '~/service/NotificationService';
 
 export interface AddImageProps {
   vendor: Vendor,
@@ -24,9 +25,7 @@ export interface AddImageProps {
 
 const AddImage: React.FC<AddImageProps> = ({ vendor, images }) => {
   const vendorId = vendor.id
-  const toast = useToast();
-  const { formState: { errors } } = useFormContext<NewVendorForValues>();
-  const { t } = useTranslation();
+  const { showError } = useNotification()
   const { uploadImage } = useImage()
 
   const [isUploading, setUploading] = useState(false);
@@ -38,82 +37,53 @@ const AddImage: React.FC<AddImageProps> = ({ vendor, images }) => {
         endpointPath: `images/vendors/${vendorId}`,
         file
       })
-
-      toast({
-        title: t('edit:success'),
-        description: t('edit:editHasBeenSuccessful'),
-        status: 'success',
-        duration: 3000,
-        isClosable: true,
-      });
-
-    } catch (e) {
-      toast({
-        title:  t('edit:error'),
-        description: `${t('edit:error')}: ${e}`,
-        status: 'error',
-        duration: 3000,
-        isClosable: false,
-      });
+    } catch (error) {
+      showError({ error })
     } finally {
       setUploading(false);
     }
   };
 
-  const isVisible = () => {
+  const isUserAbleToUploadAnotherImage = () => {
     switch (vendor.priority) {
       case 0:
       case 1:
         return images.length < 1
       case 2:
-        return images.length < 11
+        return images.length < 10
       default:
         return true
     }
   }
 
-  return isVisible() && (
-    <FormControl isInvalid={errors['image'] != null}>
-      <Flex h="100%" flexDir="column" alignItems="center">
-        {errors['image'] && (
-          <FormErrorMessage mb={4}>
-            {String(errors.image.message)}
-          </FormErrorMessage>
-        )}
-        <Controller
-          name="image"
-          render={({ field: { onChange, ref, value } }) => (
-            <>
-                <IconButton
-                    aria-label='Add'
-                    w="100%"
-                    h="100%"
-                    size='xl'
-                    fontSize="25px"
-                    isLoading={isUploading}
-                    onClick={() => document.getElementById('imageInput')?.click()}
-                    icon={<AddIcon />}
-                />
-                <Input
-                    type="file"
-                    accept="image/png, image/jpeg"
-                    pt={"5px"}
-                    pl={"5px"}
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file) {
-                        handleImageUpload(file);
-                      }
-                    }}
-                    style={{ display: 'none' }}
-                    id="imageInput"
-                />
-            </>
-          )}
-        />
-      </Flex>
-    </FormControl>
-  );
+  if (isUserAbleToUploadAnotherImage()) return (
+    <Flex h="100%" flexDir="column" alignItems="center">
+      <IconButton
+          aria-label='Add'
+          w="100%"
+          h="100%"
+          size='xl'
+          fontSize="25px"
+          isLoading={isUploading}
+          onClick={() => document.getElementById('imageInput')?.click()}
+          icon={<AddIcon />}
+      />
+      <Input
+          type="file"
+          accept="image/png, image/jpeg"
+          pt={"5px"}
+          pl={"5px"}
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file) {
+              handleImageUpload(file);
+            }
+          }}
+          style={{ display: 'none' }}
+          id="imageInput"
+      />
+    </Flex>
+  )
 }
 
 export default AddImage;
