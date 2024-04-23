@@ -62,7 +62,7 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
         <DndProvider backend={HTML5Backend}>
             <SimpleGrid
                 columns={4}
-                spacing={{ sm: '20px', md: '35px', lg: '20px' }}
+                spacingY={{ sm: '20px', md: '35px', lg: '20px' }}
                 justifyContent="flex-start"
                 width="100%"
             >
