@@ -16,7 +16,7 @@ import { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { Image as ImageType, NewVendorForValues, Vendor } from '../../../interfaces/vendor';
 import { useImage } from '../../../service/ImageService';
-import { useNotification } from '~/service/NotificationService';
+import { useNotification } from '../../../service/NotificationService';
 
 export interface AddImageProps {
   vendor: Vendor,
