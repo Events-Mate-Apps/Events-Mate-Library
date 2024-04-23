@@ -80,7 +80,7 @@ const DraggableImage: React.FC<DraggableImageProps> = ({
   }
 
   return (
-    <div>
+    <Box>
       <Box
         key={index}
         ref={(node) => ref(drop(node))}
@@ -151,7 +151,7 @@ const DraggableImage: React.FC<DraggableImageProps> = ({
           </AlertDialogContent>
         </AlertDialogOverlay>
       </AlertDialog>
-    </div>
+    </Box>
   );
 }
 
