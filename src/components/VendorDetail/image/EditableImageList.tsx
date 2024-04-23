@@ -63,7 +63,7 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
             <Wrap
                 spacing={{ sm: '10px', md: '20px' }}
                 justifyContent="flex-start"
-                width="fit-content"
+                width="500px"
             >
                 {images.map((image, index) => (
                     <DraggableImage
