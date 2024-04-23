@@ -80,26 +80,22 @@ const DraggableImage: React.FC<DraggableImageProps> = ({
   }
 
   return (
-    <Box>
+    <Box
+      w={{
+        sm: '42px',
+        md: '104px',
+        lg: '70px',
+        xl: '90px',
+        '2xl': '130px',
+      }}
+      aspectRatio={1 / 1}
+    >
       <Box
         key={index}
         ref={(node) => ref(drop(node))}
         cursor="move"
-
-        w={{
-          sm: '42px',
-          md: '104px',
-          lg: '70px',
-          xl: '90px',
-          '2xl': '130px',
-        }}
-        h={{
-          sm: '42px',
-          md: '104px',
-          lg: '70px',
-          xl: '90px',
-          '2xl': '130px',
-        }}
+        w='100%'
+        h='100%'
         justifyContent='center'
         position='relative'
       >
