@@ -23,7 +23,7 @@ export interface AddImageProps {
 }
 
 const AddImage: React.FC<AddImageProps> = ({ vendor, images }) => {
-  const vendorId = vendor
+  const vendorId = vendor.id
   const toast = useToast();
   const { formState: { errors } } = useFormContext<NewVendorForValues>();
   const { t } = useTranslation();
