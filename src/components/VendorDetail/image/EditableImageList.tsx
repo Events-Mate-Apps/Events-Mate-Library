@@ -91,10 +91,10 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
                         '2xl': '130px',
                     }}
                 >   
-                <AddImage 
-                    vendor={vendor} 
-                    images={images}
-                />
+                    <AddImage 
+                        vendor={vendor} 
+                        images={images}
+                    />
                 </Flex>
             </Stack>
             <Button

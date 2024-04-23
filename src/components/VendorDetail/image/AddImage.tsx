@@ -57,33 +57,31 @@ const AddImage: React.FC<AddImageProps> = ({ vendor, images }) => {
   }
 
   if (isUserAbleToUploadAnotherImage()) return (
-    <Flex h="100%" flexDir="column" alignItems="center">
-      <Box>
-        <IconButton
-            aria-label='Add'
-            w="100%"
-            h="100%"
-            size='xl'
-            fontSize="25px"
-            isLoading={isUploading}
-            onClick={() => document.getElementById('imageInput')?.click()}
-            icon={<AddIcon />}
-        />
-        <Input
-            type="file"
-            accept="image/png, image/jpeg"
-            pt={"5px"}
-            pl={"5px"}
-            onChange={(e) => {
-              const file = e.target.files?.[0];
-              if (file) {
-                handleImageUpload(file);
-              }
-            }}
-            style={{ display: 'none' }}
-            id="imageInput"
-        />
-      </Box>
+    <Flex h="100%" w='100%' flexDir="column" alignItems="center">
+      <IconButton
+          aria-label='Add'
+          w="100%"
+          h="100%"
+          size='xl'
+          fontSize="25px"
+          isLoading={isUploading}
+          onClick={() => document.getElementById('imageInput')?.click()}
+          icon={<AddIcon />}
+      />
+      <Input
+          type="file"
+          accept="image/png, image/jpeg"
+          pt={"5px"}
+          pl={"5px"}
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file) {
+              handleImageUpload(file);
+            }
+          }}
+          style={{ display: 'none' }}
+          id="imageInput"
+      />
     </Flex>
   )
 }
