@@ -55,6 +55,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
     const getWedding = async () => {
         const data = await api.get(`weddings/${id}`)
         setWedding(data.data)
+        console.log(wedding)
     }
     const reviewConfirmedToken = query.confirmReviewToken;
     const [langToDisplay, setLangToDisplay] = useState<string | null>(null)
