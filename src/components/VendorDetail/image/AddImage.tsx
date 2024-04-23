@@ -57,7 +57,19 @@ const AddImage: React.FC<AddImageProps> = ({ vendor, images }) => {
   }
 
   if (isUserAbleToUploadAnotherImage()) return (
-    <Flex h="100%" w='100%' flexDir="column" alignItems="center">
+    <Flex
+      cursor="pointer"
+      w={{
+        sm: '80px',
+        md: '104px',
+        lg: '70px',
+        xl: '90px',
+        '2xl': '130px',
+      }}
+      aspectRatio={1 / 1}
+      flexDir="column" 
+      alignItems="center"
+    >
       <IconButton
           aria-label='Add'
           w="100%"

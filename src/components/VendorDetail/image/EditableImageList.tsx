@@ -74,23 +74,10 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
                         setCurrentImage={setCurrentImage}
                     />
                 ))}
-
-                <Flex
-                    cursor="pointer"
-                    w={{
-                        sm: '80px',
-                        md: '104px',
-                        lg: '70px',
-                        xl: '90px',
-                        '2xl': '130px',
-                    }}
-                    aspectRatio={1 / 1}
-                >   
-                    <AddImage 
-                        vendor={vendor} 
-                        images={images}
-                    />
-                </Flex>
+                <AddImage 
+                    vendor={vendor} 
+                    images={images}
+                />
             </Wrap>
             <Button
                 variant="darkBrand"
