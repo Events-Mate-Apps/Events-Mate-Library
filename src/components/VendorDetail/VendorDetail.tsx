@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import Card from '../../components/card/Card';
 import { Router, useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Vendor } from '../../interfaces/vendor';
 import VendorDescription from './Description';
 import FAQ from './FAQ';
@@ -35,10 +35,11 @@ import { Wedding} from "../../interfaces/wedding"
 interface VendorDetailProps {
     vendor: Vendor;
     user?: UserData,
-    sendStats?: (vendorId: string, event: string) => Promise<void>
+    sendStats?: (vendorId: string, event: string) => Promise<void>,
+    userId: string
 }
 
-const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) => {
+const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, userId }) => {
     const textColor = useColorModeValue('secondaryGray.900', 'white');
     const { t } = useTranslation();
     const router = useRouter()
@@ -50,6 +51,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
     const goToPricings = (vendorId: string) => {
         push(`/main/pricing?vendorId=${vendorId}`);
     }
+
     const getWedding = async () => {
         const data = await api.get(`weddings/${id}`)
         setWedding(data.data)
@@ -181,8 +183,8 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                               </Flex>
                             */}
                             <Contacts sendStats={sendStats} vendor={vendor} />
-                            {wedding &&
-                            <StartMesssage vendorId={vendor.id} userId={user?.id || ""} weddingId={wedding.id}/>}
+                            {(userId && wedding)&&
+                            <StartMesssage vendorId={vendor.id} userId={userId} weddingId={wedding.id}/>}
                             <Box
                                 color='secondaryGray.600'
                                 pe={{ base: '0px', '3xl': '200px' }}
