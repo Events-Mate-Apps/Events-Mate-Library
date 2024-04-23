@@ -23,7 +23,9 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
         setLoading(true)
 
         try {
-            await api.put(`vendors/${vendor.id}`, images)
+            await api.put(`vendors/${vendor.id}`, {
+                images
+            })
 
             toast({
                 title: t('edit:success'),
