@@ -1,4 +1,4 @@
-import { Button, Flex, SimpleGrid, Stack, useToast } from "@chakra-ui/react";
+import { Button, Flex, SimpleGrid, Stack, Wrap, useToast } from "@chakra-ui/react";
 import { Image, Vendor } from "../../../interfaces/vendor"
 import { useEffect, useState } from "react";
 import { DndProvider } from "react-dnd";
@@ -60,8 +60,7 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
 
     return (
         <DndProvider backend={HTML5Backend}>
-            <SimpleGrid
-                columns={4}
+            <Wrap
                 spacing={{ sm: '15px', md: '20px' }}
                 justifyContent="flex-start"
                 width="100%"
@@ -98,7 +97,7 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
                         images={images}
                     />
                 </Flex>
-            </SimpleGrid>
+            </Wrap>
             <Button
                 variant="darkBrand"
                 fontSize="sm"
