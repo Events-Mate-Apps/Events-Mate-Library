@@ -82,7 +82,7 @@ const DraggableImage: React.FC<DraggableImageProps> = ({
   return (
     <Box
       w={{
-        sm: '42px',
+        sm: '80px',
         md: '104px',
         lg: '70px',
         xl: '90px',

@@ -61,7 +61,7 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
     return (
         <DndProvider backend={HTML5Backend}>
             <Wrap
-                spacing={{ sm: '15px', md: '20px' }}
+                spacing={{ sm: '10px', md: '20px' }}
                 justifyContent="flex-start"
                 width="100%"
             >
@@ -77,13 +77,6 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
 
                 <Flex
                     cursor="pointer"
-                    h={{
-                        sm: '80px',
-                        md: '104px',
-                        lg: '70px',
-                        xl: '90px',
-                        '2xl': '130px',
-                    }}
                     w={{
                         sm: '80px',
                         md: '104px',
@@ -91,6 +84,7 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
                         xl: '90px',
                         '2xl': '130px',
                     }}
+                    aspectRatio={1 / 1}
                 >   
                     <AddImage 
                         vendor={vendor} 
