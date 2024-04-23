@@ -1,22 +1,14 @@
-import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
+import { AddIcon } from '@chakra-ui/icons';
 import {
-  Box,
-  Button,
   Flex,
-  FormControl,
-  FormErrorMessage,
   IconButton,
-  Image,
   Input,
-  useColorModeValue,
-  useToast,
 } from '@chakra-ui/react';
-import useTranslation from 'next-translate/useTranslation';
 import { useState } from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
-import { Image as ImageType, NewVendorForValues, Vendor } from '../../../interfaces/vendor';
+import { Image as ImageType, Vendor } from '../../../interfaces/vendor';
 import { useImage } from '../../../service/ImageService';
 import { useNotification } from '../../../service/NotificationService';
+import Upsell from '../../../components/upsell/Upsell';
 
 export interface AddImageProps {
   vendor: Vendor,
@@ -56,21 +48,25 @@ const AddImage: React.FC<AddImageProps> = ({ vendor, images }) => {
     }
   }
 
-  if (isUserAbleToUploadAnotherImage()) return (
-    <Flex
-      cursor="pointer"
-      w={{
-        sm: '80px',
-        md: '104px',
-        lg: '70px',
-        xl: '90px',
-        '2xl': '130px',
-      }}
-      aspectRatio={1 / 1}
-      flexDir="column" 
-      alignItems="center"
+  return (
+    <Upsell
+      vendor={vendor}
+      isEnabled={!isUserAbleToUploadAnotherImage}
     >
-      <IconButton
+      <Flex
+        cursor="pointer"
+        w={{
+          sm: '80px',
+          md: '104px',
+          lg: '70px',
+          xl: '90px',
+          '2xl': '130px',
+        }}
+        aspectRatio={1 / 1}
+        flexDir="column" 
+        alignItems="center"
+      >
+        <IconButton
           aria-label='Add'
           w="100%"
           h="100%"
@@ -79,8 +75,8 @@ const AddImage: React.FC<AddImageProps> = ({ vendor, images }) => {
           isLoading={isUploading}
           onClick={() => document.getElementById('imageInput')?.click()}
           icon={<AddIcon />}
-      />
-      <Input
+        />
+        <Input
           type="file"
           accept="image/png, image/jpeg"
           pt={"5px"}
@@ -93,8 +89,9 @@ const AddImage: React.FC<AddImageProps> = ({ vendor, images }) => {
           }}
           style={{ display: 'none' }}
           id="imageInput"
-      />
-    </Flex>
+        />
+      </Flex>
+    </Upsell>
   )
 }
 
