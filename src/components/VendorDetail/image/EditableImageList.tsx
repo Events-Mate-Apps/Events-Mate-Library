@@ -78,19 +78,13 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
                 <Flex
                     cursor="pointer"
                     w={{
-                        sm: '42px',
+                        sm: '80px',
                         md: '104px',
                         lg: '70px',
                         xl: '90px',
                         '2xl': '130px',
                     }}
-                    h={{
-                        sm: '42px',
-                        md: '104px',
-                        lg: '70px',
-                        xl: '90px',
-                        '2xl': '130px',
-                    }}
+                    aspectRatio={1 / 1}
                 >   
                     <AddImage 
                         vendor={vendor} 
