@@ -77,7 +77,7 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
 
                 <Flex
                     cursor="pointer"
-                    w={{
+                    h={{
                         sm: '80px',
                         md: '104px',
                         lg: '70px',
