@@ -1,4 +1,4 @@
-import { useToast } from '@chakra-ui/react';
+import { AlertStatus, useToast } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
 
 interface Options {
@@ -20,7 +20,7 @@ export function useNotification(): NotificationMethods {
     const toast = useToast();
     const { t } = useTranslation();
 
-    const plainToast = (status: 'error' | 'success' | 'info' | 'warning') => {
+    const plainToast = (status: AlertStatus) => {
         toast({
             title: t(`notification:${status}`),
             status,
