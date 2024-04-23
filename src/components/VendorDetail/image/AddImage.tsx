@@ -34,7 +34,7 @@ const AddImage: React.FC<AddImageProps> = ({ vendor, images }) => {
   const handleImageUpload = async (file: File) => {
     setUploading(true);
     try {
-      uploadImage({
+      await uploadImage({
         endpointPath: `images/vendors/${vendorId}`,
         file
       })
