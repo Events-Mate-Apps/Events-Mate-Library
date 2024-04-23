@@ -63,7 +63,7 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
             <Wrap
                 spacing={{ sm: '10px', md: '20px' }}
                 justifyContent="flex-start"
-                width="100%"
+                width="fit-content"
             >
                 {images.map((image, index) => (
                     <DraggableImage
@@ -74,7 +74,7 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
                         setCurrentImage={setCurrentImage}
                     />
                 ))}
-                <AddImage 
+                <AddImage
                     vendor={vendor} 
                     images={images}
                 />
