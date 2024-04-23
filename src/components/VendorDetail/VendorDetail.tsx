@@ -32,6 +32,7 @@ import VerificationDialog from '../fields/VerificationDialog';
 import StartMesssage from './StartMessage';
 import { api } from '~/utils/api';
 import { Wedding} from "../../interfaces/wedding"
+import axios from 'axios';
 interface VendorDetailProps {
     vendor: Vendor;
     user?: UserData,
@@ -53,7 +54,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
     }
 
     const getWedding = async () => {
-        const data = await api.get(`weddings/${id}`)
+        const data = await axios.get(`weddings/${id}`)
         setWedding(data.data)
         console.log(wedding)
     }
