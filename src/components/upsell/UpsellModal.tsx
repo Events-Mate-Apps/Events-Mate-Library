@@ -174,14 +174,14 @@ const UpsellModal: React.FC<UpsellModalProps> = ({ vendor, onClose, isOpen }) =>
                     textAlign='center'
                     fontSize='1.25rem'
                   >
-                    {t('common:upsell:yourSubscriptionIsNotEnoughForThisFeature')}
+                    {t('common:upsell.yourSubscriptionIsNotEnoughForThisFeature')}
                   </Text>
                   <Text
                     color={textColorSecondary}
                     textAlign='center'
                     mb='20px'
                   >
-                    {t('common:upsell:butDontYouWorryHereIsAnUpgrade')}
+                    {t('common:upsell.butDontYouWorryHereIsAnUpgrade')}
                   </Text>
                   <Flex
                     gap='25px'
