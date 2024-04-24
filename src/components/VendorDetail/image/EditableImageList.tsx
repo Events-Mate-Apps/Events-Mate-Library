@@ -28,7 +28,6 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
 
         try {
             await api.put(`vendors/${vendor.id}`, { images })
-            await refetch()
             showSuccess({
                 description: t('edit:editHasBeenSuccessful'),
             })
@@ -36,8 +35,7 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
             showError({error})
         } finally {
             setLoading(false)
-            setIsNewImagesOrder(false)
-            setImages(vendor.images)
+            location.reload()
         }        
     }
     const moveImage = (fromIndex: number, toIndex: number) => {
@@ -56,10 +54,6 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
         images.forEach((e, idx) => e.position = (idx + 1))
         if (vendor.images !== images) setIsNewImagesOrder(true)
     }, [images])
-
-    useEffect(() => {
-        setImages(vendor.images)
-    }, [vendor])
     
 
     return (
@@ -79,7 +73,6 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
                     />
                 ))}
                 <AddImage
-                    refetch={refetch}
                     vendor={vendor} 
                     images={images}
                 />
@@ -90,7 +83,7 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
                     fontSize="sm"
                     borderRadius="16px"
                     w='fit-content'
-                    isDisabled={!isNewImagesOrder}
+                    isDisabled={isNewImagesOrder} 
                     h="46px"
                     mt="10px"
                     onClick={() => sendNewImagesOrder()}

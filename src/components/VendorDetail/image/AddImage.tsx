@@ -13,10 +13,9 @@ import Upsell from '../../../components/upsell/Upsell';
 export interface AddImageProps {
   vendor: Vendor,
   images: ImageType[],
-  refetch: () => Promise<void> 
 }
 
-const AddImage: React.FC<AddImageProps> = ({ vendor, images, refetch }) => {
+const AddImage: React.FC<AddImageProps> = ({ vendor, images }) => {
   const vendorId = vendor.id
   const { showError } = useNotification()
   const { uploadImage } = useImage()
@@ -30,12 +29,11 @@ const AddImage: React.FC<AddImageProps> = ({ vendor, images, refetch }) => {
         endpointPath: `images/vendors/${vendorId}`,
         file
       })
-      await refetch()
     } catch (error) {
       showError({ error })
     } finally {
       setUploading(false);
-      // location.reload()
+      location.reload()
     }
   };
 
