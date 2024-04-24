@@ -33,6 +33,7 @@ const AddImage: React.FC<AddImageProps> = ({ vendor, images }) => {
       showError({ error })
     } finally {
       setUploading(false);
+      location.reload()
     }
   };
 
