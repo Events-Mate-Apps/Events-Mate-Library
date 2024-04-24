@@ -49,55 +49,51 @@ const AddImage: React.FC<AddImageProps> = ({ vendor, images }) => {
   }
 
   return (
-    <Upsell
-      vendor={vendor}
-      isEnabled={!isUserAbleToUploadAnotherImage()}
+    <Flex
+      cursor="pointer"
+      w={{
+        sm: '80px',
+        md: '104px',
+        lg: '70px',
+        xl: '90px',
+        '2xl': '130px',
+      }}
+      aspectRatio={1 / 1}
+      flexDir="column" 
+      alignItems="center"
     >
-      <Flex
-        cursor="pointer"
-        w={{
-          sm: '80px',
-          md: '104px',
-          lg: '70px',
-          xl: '90px',
-          '2xl': '130px',
-        }}
-        h={{
-          sm: '80px',
-          md: '104px',
-          lg: '70px',
-          xl: '90px',
-          '2xl': '130px',
-        }}
-        flexDir="column" 
-        alignItems="center"
+      <Upsell
+        vendor={vendor}
+        isEnabled={!isUserAbleToUploadAnotherImage()}
       >
-        <IconButton
-          aria-label='Add'
-          w="100%"
-          h="100%"
-          size='xl'
-          fontSize="25px"
-          isLoading={isUploading}
-          onClick={() => document.getElementById('imageInput')?.click()}
-          icon={<AddIcon />}
-        />
-        <Input
-          type="file"
-          accept="image/png, image/jpeg"
-          pt={'5px'}
-          pl={'5px'}
-          onChange={(e) => {
-            const file = e.target.files?.[0];
-            if (file) {
-              handleImageUpload(file);
-            }
-          }}
-          style={{ display: 'none' }}
-          id="imageInput"
-        />
-      </Flex>
-    </Upsell>
+        <>
+          <IconButton
+            aria-label='Add'
+            w="100%"
+            h="100%"
+            size='xl'
+            fontSize="25px"
+            isLoading={isUploading}
+            onClick={() => document.getElementById('imageInput')?.click()}
+            icon={<AddIcon />}
+          />
+          <Input
+            type="file"
+            accept="image/png, image/jpeg"
+            pt={'5px'}
+            pl={'5px'}
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) {
+                handleImageUpload(file);
+              }
+            }}
+            style={{ display: 'none' }}
+            id="imageInput"
+          />
+        </>
+      </Upsell>
+    </Flex>
   )
 }
 
