@@ -49,7 +49,6 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
         push(`/main/pricing?vendorId=${vendorId}`);
     }
 
-   
     const reviewConfirmedToken = query.confirmReviewToken;
     const [langToDisplay, setLangToDisplay] = useState<string | null>(null)
 
@@ -60,7 +59,6 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
         }
     }, [reviewConfirmedToken, isOpen])
 
-   
     const turnOffDialog = () => {
         onClose();
         delete query.confirmReviewToken;

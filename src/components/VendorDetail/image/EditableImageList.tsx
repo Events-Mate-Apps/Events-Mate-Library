@@ -56,6 +56,10 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
         images.forEach((e, idx) => e.position = (idx + 1))
         if (vendor.images !== images) setIsNewImagesOrder(true)
     }, [images])
+
+    useEffect(() => {
+        setImages(vendor.images)
+    }, [vendor])
     
 
     return (
