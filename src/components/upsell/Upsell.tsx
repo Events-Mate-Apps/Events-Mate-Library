@@ -43,7 +43,13 @@ const Upsell: FC<UpsellProps> = ({ vendor, children, isEnabled, onClick }) => {
       h='100%'
     >
       <Box
-        onClick={() => isEnabled && handleOpen()}
+        onClick={() => {
+          if (isEnabled) {
+            handleOpen()
+            return
+          }
+          onClick && onClick()
+        }}
         w='100%'
         h='100%'
       >
