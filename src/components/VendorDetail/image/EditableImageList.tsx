@@ -80,7 +80,7 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
                     images={images}
                 />
             </Wrap>
-            <Tooltip isDisabled={!isNewImagesOrder} label='You can change order of you images by Drag and Drop system'>
+            <Tooltip isDisabled={isNewImagesOrder} label='You can change order of you images by Drag and Drop system'>
                 <Button
                     variant="darkBrand"
                     fontSize="sm"
