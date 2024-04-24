@@ -200,5 +200,28 @@
     "description": "Description",
     "quantity": "Quantity",
     "price": "Price"
+  },
+  "messages":{
+    "messages": "Messages",
+    "messagevendor": "Message vendor",
+    "yourchats": "Your chats",
+    "writeyourmessage": "Write your message...",
+    "nomessages": "No messages",
+    "yourmessages": "Your Messages",
+    "notopenmessages": "You don't have any open conversations",
+    "months": {
+      "01": "Jan",
+      "02": "Feb",
+      "03": "Mar",
+      "04": "Apr",
+      "05": "May",
+      "06": "Jun",
+      "07": "Jul",
+      "08": "Aug",
+      "09": "Sep",
+      "10": "Oct",
+      "11": "Nov",
+      "12": "Dec"
+    }
   }
 }

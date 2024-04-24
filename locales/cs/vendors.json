@@ -200,5 +200,27 @@
     "description": "Popis",
     "quantity": "Množství",
     "price": "Cena"
+  },
+  "messages":{
+    "messagevendor": "Napsat zprávu",
+    "yourchats": "Vaše chaty",
+    "writeyourmessage": "Napiš zprávu",
+    "nomessages": "Žádné zprávy",
+    "yourmessages": "Vaše zprávy",
+    "notopenmessages": "Nemáte otevřenou žádnou konverzaci",
+    "months": {
+      "01": "Led",
+      "02": "Ún",
+      "03": "Bře",
+      "04": "Dub",
+      "05": "Kvě",
+      "06": "Čer",
+      "07": "Čvc",
+      "08": "Srp",
+      "09": "Zář",
+      "10": "Říj",
+      "11": "Lis",
+      "12": "Pro"
+    }
   }
 }
