@@ -76,13 +76,13 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
                 variant="darkBrand"
                 fontSize="sm"
                 borderRadius="16px"
-                w={{ base: '128px', md: '148px' }}
+                w='100%'
                 h="46px"
                 mt="10px"
                 onClick={() => sendNewImagesOrder()}
                 isLoading={isLoading}
             >
-                {t('edit:saveNewImagesOrders')}
+                {t('edit:saveNewImagesOrder')}
             </Button>
         </DndProvider>
     )
