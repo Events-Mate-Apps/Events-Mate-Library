@@ -61,6 +61,7 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
     return (
         <DndProvider backend={HTML5Backend}>
             <Wrap
+                width='100%'
                 spacing={{ sm: '10px', md: '20px' }}
                 justifyContent="flex-start"
             >
