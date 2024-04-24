@@ -53,7 +53,9 @@ const Upsell: FC<UpsellProps> = ({ vendor, children, isEnabled, onClick }) => {
         w='100%'
         h='100%'
       >
-        {children}
+        <Box pointerEvents={isEnabled ? 'none' : 'all'}>
+          {children}
+        </Box>
       </Box>
       {(isOpen && isEnabled) && <UpsellModal
         isOpen={isOpen}
