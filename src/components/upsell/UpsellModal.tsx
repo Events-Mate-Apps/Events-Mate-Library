@@ -174,7 +174,7 @@ const UpsellModal: React.FC<UpsellModalProps> = ({ vendor, onClose, isOpen }) =>
                     textAlign='center'
                     fontSize='1.25rem'
                   >
-                    {t('common:upsell.yourSubscriptionIsNotEnoughForThisFeature')}
+                    {t('common:upsell.yourSubscriptionIsNotEnoughForThisFeature')} 😔
                   </Text>
                   <Text
                     color={textColorSecondary}
