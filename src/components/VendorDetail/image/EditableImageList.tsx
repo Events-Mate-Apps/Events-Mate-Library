@@ -1,4 +1,4 @@
-import { Button, Flex, SimpleGrid, Stack, Wrap, useToast } from "@chakra-ui/react";
+import { Button, Flex, SimpleGrid, Stack, Tooltip, Wrap, useToast } from "@chakra-ui/react";
 import { Image, Vendor } from "../../../interfaces/vendor"
 import { useEffect, useState } from "react";
 import { DndProvider } from "react-dnd";
@@ -8,17 +8,20 @@ import { api } from "../../../utils/api";
 import AddImage from "./AddImage";
 import DraggableImage from "./DraggableImage";
 import { useNotification } from "../../../service/NotificationService";
+import { InfoOutlineIcon } from "@chakra-ui/icons";
 
 interface EditableImageListProps {
     vendor: Vendor,
     setCurrentImage: React.Dispatch<React.SetStateAction<string>>,
+    refetch: () => Promise<void> 
 }
 
-const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurrentImage }) => {
+const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurrentImage, refetch  }) => {
     const { t } = useTranslation()
     const [images, setImages] = useState<Image[]>(vendor.images)
     const [isLoading, setLoading] = useState<boolean>(false);
     const { showSuccess, showError } = useNotification()
+    const [isNewImagesOrder, setIsNewImagesOrder] = useState<boolean>(false)
 
     const sendNewImagesOrder = async () => {
         setLoading(true)
@@ -32,7 +35,10 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
         } catch (error) {
             showError({error})
         } finally {
+            refetch()
             setLoading(false)
+            setIsNewImagesOrder(false)
+            setImages(vendor.images)
         }        
     }
     const moveImage = (fromIndex: number, toIndex: number) => {
@@ -49,7 +55,9 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
 
     useEffect(() => {
         images.forEach((e, idx) => e.position = (idx + 1))
+        if (vendor.images !== images) setIsNewImagesOrder(true)
     }, [images])
+    
 
     return (
         <DndProvider backend={HTML5Backend}>
@@ -72,18 +80,21 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
                     images={images}
                 />
             </Wrap>
-            <Button
-                variant="darkBrand"
-                fontSize="sm"
-                borderRadius="16px"
-                w='100%'
-                h="46px"
-                mt="10px"
-                onClick={() => sendNewImagesOrder()}
-                isLoading={isLoading}
-            >
-                {t('edit:saveNewImagesOrder')}
-            </Button>
+            <Tooltip isDisabled={!isNewImagesOrder} label='You can change order of you images by Drag and Drop system'>
+                <Button
+                    variant="darkBrand"
+                    fontSize="sm"
+                    borderRadius="16px"
+                    w='fit-content'
+                    h="46px"
+                    mt="10px"
+                    onClick={() => sendNewImagesOrder()}
+                    isLoading={isLoading}
+                    rightIcon={<InfoOutlineIcon />}
+                >
+                    {t('edit:saveNewImagesOrder')}
+                </Button>
+            </Tooltip>
         </DndProvider>
     )
 }
