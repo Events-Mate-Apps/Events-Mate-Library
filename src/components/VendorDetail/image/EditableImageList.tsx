@@ -86,6 +86,7 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
                     fontSize="sm"
                     borderRadius="16px"
                     w='fit-content'
+                    isDisabled={!isNewImagesOrder}
                     h="46px"
                     mt="10px"
                     onClick={() => sendNewImagesOrder()}
