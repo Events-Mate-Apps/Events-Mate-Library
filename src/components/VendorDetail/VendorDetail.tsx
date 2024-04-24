@@ -8,8 +8,8 @@ import {
     useQuery,
 } from '@chakra-ui/react';
 import Card from '../../components/card/Card';
-import { Router, useRouter } from 'next/router';
-import React, { useContext, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 import { Vendor } from '../../interfaces/vendor';
 import VendorDescription from './Description';
 import FAQ from './FAQ';
@@ -26,19 +26,16 @@ import VendorImages from './VendorImages';
 import { TinyColor } from '@ctrl/tinycolor/dist';
 import LanguageBar from '../localization/LanguageBar';
 import LocalizedText from '../localization/LocalizedText';
-import FontAwesomeIconWrapper from '../FontAwesomeIconWrapper'
 import VendorPriorityBadge from '../VendorPriorityBadge';
 import VerificationDialog from '../fields/VerificationDialog';
 import StartMesssage from './StartMessage';
-import { api } from '~/utils/api';
-import { Wedding} from "../../interfaces/wedding"
-import axios from 'axios';
+
 interface VendorDetailProps {
     vendor: Vendor;
     user?: UserData,
     sendStats?: (vendorId: string, event: string) => Promise<void>,
     userId: string,
-    weddingId: string
+    weddingId?: string
 }
 
 const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, userId, weddingId }) => {
@@ -178,7 +175,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
                               </Flex>
                             */}
                             <Contacts sendStats={sendStats} vendor={vendor} />
-                            <StartMesssage vendorId={vendor.id} userId={userId} weddingId={weddingId}/>
+                            {weddingId && <StartMesssage vendorId={vendor.id} userId={userId} weddingId={weddingId}/>}
                             <Box
                                 color='secondaryGray.600'
                                 pe={{ base: '0px', '3xl': '200px' }}
