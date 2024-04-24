@@ -168,8 +168,19 @@ const UpsellModal: React.FC<UpsellModalProps> = ({ vendor, onClose, isOpen }) =>
                   justifyContent='center'
                   flexFlow='column'
                 >
-                  <Text>Your subscription type is not enough for this feature...</Text>
-                  <Text>But don`t worry, here`s an offer for you!</Text>
+                  <Text
+                    color={textColor}
+                    fontWeight='bolder'
+                    textAlign='center'
+                    fontSize='1.5rem'
+                  >
+                    Your Subscription type isn`t enough for this feature...</Text>
+                  <Text
+                    color={textColorSecondary}
+                    textAlign='center'
+                  >
+                    But don`t you worry, here`s an offer for you!
+                  </Text>
                   <Flex
                     gap='25px'
                     flexFlow={flexFlow}
