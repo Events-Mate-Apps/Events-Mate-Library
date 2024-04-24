@@ -42,14 +42,14 @@ const Upsell: FC<UpsellProps> = ({ vendor, children, isEnabled, onClick }) => {
       {!isEnabled && <Box
         onClick={onClick}
       >
-        {children}!
+        {children}
       </Box>}
       {isEnabled && <Box
         onClick={() => handleOpen()}
         w='fit-content'
         h='fit-content'
       >
-        {children}!!
+        {children}
       </Box>}
       {(isOpen && isEnabled) && <UpsellModal
         isOpen={isOpen}
