@@ -26,13 +26,10 @@ import VendorImages from './VendorImages';
 import { TinyColor } from '@ctrl/tinycolor/dist';
 import LanguageBar from '../localization/LanguageBar';
 import LocalizedText from '../localization/LocalizedText';
-import FontAwesomeIconWrapper from '../FontAwesomeIconWrapper'
 import VendorPriorityBadge from '../VendorPriorityBadge';
 import VerificationDialog from '../fields/VerificationDialog';
 import StartMesssage from './StartMessage';
-import { api } from '~/utils/api';
-import { Wedding} from "../../interfaces/wedding"
-import axios from 'axios';
+
 interface VendorDetailProps {
     vendor: Vendor;
     user?: UserData,
