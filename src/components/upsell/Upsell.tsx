@@ -39,8 +39,8 @@ const Upsell: FC<UpsellProps> = ({ vendor, children, isEnabled, onClick }) => {
 
   return (
     <Box
-      w='100%'
-      h='100%'
+      w='fit-content'
+      h='fit-content'
     >
       <Box
         onClick={(e) => {
@@ -51,8 +51,8 @@ const Upsell: FC<UpsellProps> = ({ vendor, children, isEnabled, onClick }) => {
           }
           onClick && onClick()
         }}
-        w='100%'
-        h='100%'
+        w='fit-content'
+        h='fit-content'
       >
         {children}
       </Box>
