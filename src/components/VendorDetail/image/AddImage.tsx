@@ -49,10 +49,10 @@ const AddImage: React.FC<AddImageProps> = ({ vendor, images }) => {
   }
 
   return (
-    // <Upsell
-    //   vendor={vendor}
-    //   isEnabled={!isUserAbleToUploadAnotherImage()}
-    // >
+    <Upsell
+      vendor={vendor}
+      isEnabled={!isUserAbleToUploadAnotherImage()}
+    >
       <Flex
         cursor="pointer"
         w={{
@@ -86,8 +86,8 @@ const AddImage: React.FC<AddImageProps> = ({ vendor, images }) => {
         <Input
           type="file"
           accept="image/png, image/jpeg"
-          pt={"5px"}
-          pl={"5px"}
+          pt={'5px'}
+          pl={'5px'}
           onChange={(e) => {
             const file = e.target.files?.[0];
             if (file) {
@@ -98,7 +98,7 @@ const AddImage: React.FC<AddImageProps> = ({ vendor, images }) => {
           id="imageInput"
         />
       </Flex>
-    // </Upsell>
+    </Upsell>
   )
 }
 
