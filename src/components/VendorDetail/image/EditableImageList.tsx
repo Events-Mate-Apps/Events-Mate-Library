@@ -28,14 +28,13 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
 
         try {
             await api.put(`vendors/${vendor.id}`, { images })
-
+            await refetch()
             showSuccess({
                 description: t('edit:editHasBeenSuccessful'),
             })
         } catch (error) {
             showError({error})
         } finally {
-            refetch()
             setLoading(false)
             setIsNewImagesOrder(false)
             setImages(vendor.images)
@@ -76,6 +75,7 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
                     />
                 ))}
                 <AddImage
+                    refetch={refetch}
                     vendor={vendor} 
                     images={images}
                 />
