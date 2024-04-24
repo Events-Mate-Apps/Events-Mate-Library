@@ -18,7 +18,7 @@ import { useDrag, useDrop } from 'react-dnd';
 import { Image as ImageType } from '../../../interfaces/vendor';
 import { api } from '../../../utils/api';
 import Image from '../../image/Image';
-import { useNotification } from '~/service/NotificationService';
+import { useNotification } from '../../../service/NotificationService';
 
 export interface DraggableImageProps {
   index: number;

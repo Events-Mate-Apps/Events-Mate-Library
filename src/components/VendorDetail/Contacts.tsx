@@ -8,7 +8,7 @@ import {
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import { Vendor } from '../../interfaces/vendor';
-import { useNotification } from '~/service/NotificationService';
+import { useNotification } from '../../service/NotificationService';
 
 interface ContactsProps {
     vendor: Vendor;

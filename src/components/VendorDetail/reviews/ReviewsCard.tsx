@@ -13,11 +13,10 @@ import NextLink from 'next/link';
 import { api } from '~/utils/api';
 import { TinyColor } from '@ctrl/tinycolor/dist';
 import { VendorReview, VendorReviewResponse } from '../../../interfaces/types/review';
-import { CustomError } from '../../../interfaces/global';
 import { Vendor } from '../../../interfaces/vendor';
 import { isEventsMate } from '../../../utils/orientation';
 import dayjs from 'dayjs';
-import { useNotification } from '~/service/NotificationService';
+import { useNotification } from '../../../service/NotificationService';
 
 const ReviewsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
     const textColor = useColorModeValue('secondaryGray.900', 'white');

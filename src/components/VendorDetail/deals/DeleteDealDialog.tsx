@@ -16,7 +16,7 @@ import React, { useState } from 'react';
 import { BASE_URL, api } from '../../../utils/api';
 import { FaTrash } from 'react-icons/fa';
 import { isEventsMate } from '../../../utils/orientation';
-import { useNotification } from '~/service/NotificationService';
+import { useNotification } from '../../../service/NotificationService';
 
 interface DeleteDialogProps {
     vendorId: string,

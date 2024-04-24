@@ -7,7 +7,7 @@ import useTranslation from "next-translate/useTranslation";
 import { api } from "../../../utils/api";
 import AddImage from "./AddImage";
 import DraggableImage from "./DraggableImage";
-import { useNotification } from "~/service/NotificationService";
+import { useNotification } from "../../../service/NotificationService";
 
 interface EditableImageListProps {
     vendor: Vendor,
