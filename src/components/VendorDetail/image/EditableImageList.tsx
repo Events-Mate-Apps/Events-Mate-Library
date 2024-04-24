@@ -77,7 +77,6 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
                     vendor={vendor} 
                     images={images}
                 />
-                c
             </Wrap>
             <Button
                 variant="darkBrand"

@@ -49,10 +49,10 @@ const AddImage: React.FC<AddImageProps> = ({ vendor, images }) => {
   }
 
   return (
-    // <Upsell
-    //   vendor={vendor}
-    //   isEnabled={!isUserAbleToUploadAnotherImage()}
-    // >
+    <Upsell
+      vendor={vendor}
+      isEnabled={!isUserAbleToUploadAnotherImage()}
+    >
       <Flex
         cursor="pointer"
         w={{
@@ -92,7 +92,7 @@ const AddImage: React.FC<AddImageProps> = ({ vendor, images }) => {
           id="imageInput"
         />
       </Flex>
-    // </Upsell>
+    </Upsell>
   )
 }
 
