@@ -10,10 +10,11 @@ import Image from '../image/Image';
 
 interface VendorImagesProps  { 
     vendor: Vendor, 
-    editable?: boolean 
+    editable?: boolean,
+    refetch?: () => Promise<void> 
 }
 
-const VendorImages: React.FC<VendorImagesProps> = ({ vendor, editable }) => {
+const VendorImages: React.FC<VendorImagesProps> = ({ vendor, editable, refetch }) => {
     const [currentImage, setCurrentImage] = useState(vendor.images[0]?.src || '/placeholder.png');
 
     return (
@@ -56,10 +57,11 @@ const VendorImages: React.FC<VendorImagesProps> = ({ vendor, editable }) => {
                 />
             </Box>
                 {
-                    editable ? (
+                    (editable && refetch) ? (
                         <EditableImageList
                             vendor={vendor} 
                             setCurrentImage={setCurrentImage}
+                            refetch={refetch}
                         />
                     ) : (
                         <ImageList
