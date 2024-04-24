@@ -69,7 +69,6 @@ const AddImage: React.FC<AddImageProps> = ({ vendor, images }) => {
           xl: '90px',
           '2xl': '130px',
         }}
-        border='1px solid red'
         flexDir="column" 
         alignItems="center"
       >

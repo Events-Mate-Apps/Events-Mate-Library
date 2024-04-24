@@ -18,7 +18,6 @@ const VendorImages: React.FC<VendorImagesProps> = ({ vendor, editable }) => {
 
     return (
         <Flex
-            border='1px solid red'
             direction="column"
             me={editable ? { lg: '0px', xl: '0px' } : { lg: '40px', xl: '60px' }}
             mb={{ sm: '24px', lg: '0px' }}
