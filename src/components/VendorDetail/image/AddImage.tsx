@@ -51,7 +51,7 @@ const AddImage: React.FC<AddImageProps> = ({ vendor, images }) => {
   return (
     <Upsell
       vendor={vendor}
-      isEnabled={!isUserAbleToUploadAnotherImage()}
+      isEnabled={isUserAbleToUploadAnotherImage()}
     >
       <Flex
         cursor="pointer"
