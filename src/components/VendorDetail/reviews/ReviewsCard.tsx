@@ -17,27 +17,21 @@ import { CustomError } from '../../../interfaces/global';
 import { Vendor } from '../../../interfaces/vendor';
 import { isEventsMate } from '../../../utils/orientation';
 import dayjs from 'dayjs';
+import { useNotification } from '~/service/NotificationService';
 
 const ReviewsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
     const textColor = useColorModeValue('secondaryGray.900', 'white');
     const [reviews, setReviews] = useState<VendorReviewResponse>();
     const { t } = useTranslation();
 
-    const toast = useToast();
+    const { showError } = useNotification();
 
     const getReviews = async () => {
         try {
             const { data } = await api.get(`vendors/${vendor.id}/reviews?take=5&skip=0`);
             setReviews(data);
         } catch (error) {
-            const err = error as CustomError;
-            console.error('Error occurred. Stack trace: ' + err.raw?.message || err.message);
-
-            toast({
-                title: t('common:error'),
-                description: t('editors:add.error.title') + ' ' + (err.raw?.message || err.message),
-                status: 'error',
-            });
+            showError({ error });
         }
     }
 

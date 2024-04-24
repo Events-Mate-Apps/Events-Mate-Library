@@ -7,6 +7,7 @@ import useTranslation from "next-translate/useTranslation";
 import { api } from "../../../utils/api";
 import AddImage from "./AddImage";
 import DraggableImage from "./DraggableImage";
+import { useNotification } from "~/service/NotificationService";
 
 interface EditableImageListProps {
     vendor: Vendor,
@@ -17,27 +18,19 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
     const { t } = useTranslation()
     const [images, setImages] = useState<Image[]>(vendor.images)
     const [isLoading, setLoading] = useState<boolean>(false);
-    const toast = useToast()
+    const { showSuccess, showError } = useNotification()
 
     const sendNewImagesOrder = async () => {
         setLoading(true)
 
         try {
-            await api.put(`vendors/${vendor.id}`, {
-                images
-            })
+            await api.put(`vendors/${vendor.id}`, { images })
 
-            toast({
-                title: t('edit:success'),
+            showSuccess({
                 description: t('edit:editHasBeenSuccessful'),
-                status: 'success',
             })
-        } catch (e) {
-            toast({
-                title: t('edit:error'),
-                description: `${t('edit:error')}: ${e}`,
-                status: 'error',
-            })
+        } catch (error) {
+            showError({error})
         } finally {
             setLoading(false)
         }        
@@ -89,7 +82,7 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
                 onClick={() => sendNewImagesOrder()}
                 isLoading={isLoading}
             >
-                {t('edit:saveChanges')}
+                {t('edit:saveNewImagesOrders')}
             </Button>
         </DndProvider>
     )
