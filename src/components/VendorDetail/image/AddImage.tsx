@@ -62,7 +62,13 @@ const AddImage: React.FC<AddImageProps> = ({ vendor, images }) => {
           xl: '90px',
           '2xl': '130px',
         }}
-        aspectRatio={1 / 1}
+        h={{
+          sm: '80px',
+          md: '104px',
+          lg: '70px',
+          xl: '90px',
+          '2xl': '130px',
+        }}
         border='1px solid red'
         flexDir="column" 
         alignItems="center"
