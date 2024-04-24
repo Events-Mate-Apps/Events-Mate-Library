@@ -38,19 +38,17 @@ const Upsell: FC<UpsellProps> = ({ vendor, children, isEnabled, onClick }) => {
   }
 
   return (
-    <Box>
-      {!isEnabled && <Box
-        onClick={onClick}
+    <Box
+      w='100%'
+      h='100%'
+    >
+      <Box
+        onClick={() => isEnabled && handleOpen()}
+        w='100%'
+        h='100%'
       >
         {children}
-      </Box>}
-      {isEnabled && <Box
-        onClick={() => handleOpen()}
-        w='fit-content'
-        h='fit-content'
-      >
-        {children}
-      </Box>}
+      </Box>
       {(isOpen && isEnabled) && <UpsellModal
         isOpen={isOpen}
         onClose={onClose}
