@@ -51,7 +51,7 @@ export function useNotification(): NotificationMethods {
             ...options,
             title: options.title || `${t('notification:error')}!`,
             description: options.description,
-            status: 'success',
+            status: 'error',
         });
     };
 
