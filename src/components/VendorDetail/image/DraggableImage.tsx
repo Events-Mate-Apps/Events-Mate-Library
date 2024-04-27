@@ -87,7 +87,11 @@ const DraggableImage: React.FC<DraggableImageProps> = ({
     >
       <Box
         key={index}
-        ref={(node) => ref(drop(node))}
+        ref={(node: HTMLDivElement | null) => {
+          if (node) {
+            ref(drop(node));
+          }
+        }}
         cursor="move"
         w='100%'
         h='100%'
