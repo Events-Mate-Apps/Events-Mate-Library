@@ -4,7 +4,7 @@ import { FC } from 'react';
 import { Vendor } from '../../interfaces/vendor';
 import UpsellModal from './UpsellModal';
 import { useRouter } from 'next/router';
-import { useNotification } from '~/service/NotificationService';
+import { useNotification } from '../../service/NotificationService';
 import useTranslation from 'next-translate/useTranslation';
 
 interface TrackEventParams {
