@@ -1,6 +1,6 @@
 // Upsell.tsx
 import { Box, useDisclosure } from '@chakra-ui/react';
-import React, { FC, forwardRef } from 'react';
+import React, { ReactNode, forwardRef } from 'react';
 import { Vendor } from '../../interfaces/vendor';
 import UpsellModal from './UpsellModal';
 import { useRouter } from 'next/router';
@@ -9,14 +9,14 @@ import useTranslation from 'next-translate/useTranslation';
 
 interface UpsellProps {
   vendor: Vendor,
-  children?: JSX.Element,
+  children?: ReactNode
   isEnabled?: boolean,
   onClick?: () => any,
   w?: string,
   h?: string,
 }
 
-const Upsell: FC<UpsellProps> = forwardRef<HTMLDivElement, UpsellProps>(({ 
+const Upsell = forwardRef<HTMLDivElement, UpsellProps>(({ 
   vendor, 
   children, 
   isEnabled, 
@@ -62,6 +62,6 @@ const Upsell: FC<UpsellProps> = forwardRef<HTMLDivElement, UpsellProps>(({
   );
 });
 
-Upsell.displayName = 'Upsell'
+Upsell.displayName = 'Upsell';
 
 export default Upsell;
