@@ -37,8 +37,8 @@ const Upsell: FC<UpsellProps> = ({ vendor, children, isEnabled, onClick }) => {
     if (vendor.premiumSubscription === null) {
       push(`/main/pricing?vendorId=${vendor.id}`);
       showInfo({
-        title: t('upsell:yourSubscriptionIsNotEnoughForThisFeature'),
-        description: t('upsell:butDontYouWorryHereIsAnUpgrade'),
+        title: t('common:upsell.yourSubscriptionIsNotEnoughForThisFeature'),
+        description: t('common:upsell.butDontYouWorryHereIsAnUpgrade'),
         position: 'top',
         duration: 7500
       })
