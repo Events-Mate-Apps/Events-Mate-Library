@@ -8,11 +8,11 @@ import { useNotification } from '../../service/NotificationService';
 import useTranslation from 'next-translate/useTranslation';
 
 interface TrackEventParams {
-    category?: string;
-    action: string;
-    label: string;
-    page: string;
-    params?: Record<string, any>
+  category?: string;
+  action: string;
+  label: string;
+  page: string;
+  params?: Record<string, any>
 }
 
 interface UpsellProps {
@@ -33,6 +33,8 @@ const Upsell: FC<UpsellProps> = ({ vendor, children, isEnabled, onClick }) => {
   const { t } = useTranslation()
   const { push } = useRouter()
 
+  const borderRadius = { borderTopLeftRadius: '3xl', borderTopRightRadius: '3xl' } 
+
   const handleOpen = () => {
     if (vendor.premiumSubscription === null) {
       push(`/main/pricing?vendorId=${vendor.id}`);
@@ -52,6 +54,7 @@ const Upsell: FC<UpsellProps> = ({ vendor, children, isEnabled, onClick }) => {
     <Box
       w='fit-content'
       h='fit-content'
+      {...borderRadius}
     >
       <Box
         onClick={(e) => {
