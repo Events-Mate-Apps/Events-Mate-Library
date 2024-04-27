@@ -17,6 +17,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { FaTrash } from 'react-icons/fa';
 import { api } from '../../../utils/api';
 import { isEventsMate } from '../../../utils/orientation';
+import { useNotification } from '../../../service/NotificationService';
 
 interface DeleteDealDialogProps {
     vendorId: string;
@@ -31,29 +32,17 @@ const DeleteDealDialog: React.FC<DeleteDealDialogProps> = ({ vendorId, dealId, o
     const bgWm = useColorModeValue('#e13784', 'brand.400');
     const bgEm = useColorModeValue('brand.900', 'brand.400');
 
-    const toast = useToast();
-
     const cancelRef = React.useRef<HTMLButtonElement>(null);
-
-
+    const { showError, showSuccess } = useNotification();
+    
     const deleteDeal = async () => {
         setLoading(true);
 
         try {
-            await api.delete(`vendors/${vendorId}/deals/${dealId}`);
-            toast({
-                title: t('edit:vendorDeleteSuccess'),
-                status: 'success',
-                duration: 3000
-            });
-            onDelete();
-        } catch (e) {
-            toast({
-                title: t('edit:dealDeleteError'),
-                description: `${t('edit:dealDeleteError')}: ${e}`,
-                status: 'error',
-                duration: 3000
-            });
+            await api.delete(`vendors/${vendorId}/deals/${dealId}`)
+            showSuccess();
+        } catch (error) {
+            showError({ error });
         } finally {
             onClose();
             setLoading(false);

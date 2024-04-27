@@ -1,5 +1,5 @@
-import { Button, Flex, Stack, useToast } from "@chakra-ui/react";
-import { Vendor } from "../../../interfaces/vendor"
+import { Button, Flex, SimpleGrid, Stack, Tooltip, Wrap, useToast } from "@chakra-ui/react";
+import { Image, Vendor } from "../../../interfaces/vendor"
 import { useEffect, useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -7,37 +7,35 @@ import useTranslation from "next-translate/useTranslation";
 import { api } from "../../../utils/api";
 import AddImage from "./AddImage";
 import DraggableImage from "./DraggableImage";
+import { useNotification } from "../../../service/NotificationService";
+import { InfoOutlineIcon } from "@chakra-ui/icons";
 
 interface EditableImageListProps {
     vendor: Vendor,
-    setCurrentImage: React.Dispatch<React.SetStateAction<string>>
+    setCurrentImage: React.Dispatch<React.SetStateAction<string>>,
+    refetch: () => Promise<void> 
 }
 
-const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurrentImage }) => {
+const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurrentImage, refetch  }) => {
     const { t } = useTranslation()
-    const [images, setImages] = useState(vendor.images)
+    const [images, setImages] = useState<Image[]>(vendor.images)
     const [isLoading, setLoading] = useState<boolean>(false);
-    const toast = useToast()
+    const { showSuccess, showError } = useNotification()
+    const [isNewImagesOrder, setIsNewImagesOrder] = useState<boolean>(false)
 
     const sendNewImagesOrder = async () => {
         setLoading(true)
 
         try {
-            await api.put(`vendors/${vendor.id}`, images)
-
-            toast({
-                title: t('edit:success'),
+            await api.put(`vendors/${vendor.id}`, { images })
+            showSuccess({
                 description: t('edit:editHasBeenSuccessful'),
-                status: 'success',
             })
-        } catch (e) {
-            toast({
-                title: t('edit:error'),
-                description: `${t('edit:error')}: ${e}`,
-                status: 'error',
-            })
+        } catch (error) {
+            showError({error})
         } finally {
             setLoading(false)
+            location.reload()
         }        
     }
     const moveImage = (fromIndex: number, toIndex: number) => {
@@ -54,15 +52,16 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
 
     useEffect(() => {
         images.forEach((e, idx) => e.position = (idx + 1))
+        if (vendor.images !== images) setIsNewImagesOrder(true)
     }, [images])
+    
 
     return (
         <DndProvider backend={HTML5Backend}>
-            <Stack
-                direction="row"
-                spacing={{ sm: '20px', md: '35px', lg: '20px' }}
+            <Wrap
+                width='100%'
+                spacing={{ sm: '10px', md: '20px' }}
                 justifyContent="flex-start"
-                width="fit-content"
             >
                 {images.map((image, index) => (
                     <DraggableImage
@@ -73,42 +72,27 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
                         setCurrentImage={setCurrentImage}
                     />
                 ))}
-
-                <Flex
-                    cursor="pointer"
-                    w={{
-                        sm: '42px',
-                        md: '104px',
-                        lg: '70px',
-                        xl: '90px',
-                        '2xl': '130px',
-                    }}
-                    h={{
-                        sm: '42px',
-                        md: '104px',
-                        lg: '70px',
-                        xl: '90px',
-                        '2xl': '130px',
-                    }}
-                >   
-                {
-                    (vendor.isPremium || images.length === 0) &&
-                    <AddImage vendorId={vendor.id} />
-                }
-                </Flex>
-            </Stack>
-            <Button
-                variant="darkBrand"
-                fontSize="sm"
-                borderRadius="16px"
-                w={{ base: '128px', md: '148px' }}
-                h="46px"
-                mt="10px"
-                onClick={() => sendNewImagesOrder()}
-                isLoading={isLoading}
-            >
-                {t('edit:saveChanges')}
-            </Button>
+                <AddImage
+                    vendor={vendor} 
+                    images={images}
+                />
+            </Wrap>
+            <Tooltip label={t(`edit:saveNewImagesOrderInfo`)}>
+                <Button
+                    variant="darkBrand"
+                    fontSize="sm"
+                    borderRadius="16px"
+                    w='fit-content'
+                    isDisabled={!isNewImagesOrder} 
+                    h="46px"
+                    mt="10px"
+                    onClick={() => sendNewImagesOrder()}
+                    isLoading={isLoading}
+                    rightIcon={<InfoOutlineIcon />}
+                >
+                    {t('edit:saveNewImagesOrder')}
+                </Button>
+            </Tooltip>
         </DndProvider>
     )
 }

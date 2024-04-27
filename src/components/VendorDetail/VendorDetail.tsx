@@ -4,14 +4,13 @@ import {
     Text,
     useColorModeValue,
     Box,
-    ButtonGroup,
-    Button, useDisclosure,
+    useDisclosure,
+    useQuery,
 } from '@chakra-ui/react';
 import Card from '../../components/card/Card';
-import LanguageList from 'language-list';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { Description, DescriptionWithLabel, Language, Vendor } from '../../interfaces/vendor';
+import { Vendor } from '../../interfaces/vendor';
 import VendorDescription from './Description';
 import FAQ from './FAQ';
 import VendorLocation from './Location';
@@ -19,27 +18,30 @@ import useTranslation from 'next-translate/useTranslation';
 import Links from './Links';
 import ReviewStars from './ReviewStars';
 import { NextSeo } from 'next-seo';
-import MarkdownReader from './MarkdownReader';
 import DealsCard from './deals/DealsCard';
 import { UserData } from '../../interfaces/user';
-import { api } from '../../utils/api';
 import Contacts from './Contacts';
 import ReviewsCard from './reviews/ReviewsCard';
-import ReviewConfirmDialog from './reviews/ReviewConfirmDialog';
 import VendorImages from './VendorImages';
 import { TinyColor } from '@ctrl/tinycolor/dist';
 import LanguageBar from '../localization/LanguageBar';
 import LocalizedText from '../localization/LocalizedText';
+import VendorPriorityBadge from '../VendorPriorityBadge';
+import VerificationDialog from '../fields/VerificationDialog';
+import StartMesssage from './StartMessage';
 
 interface VendorDetailProps {
     vendor: Vendor;
     user?: UserData,
-    sendStats?: (vendorId: string, event: string) => Promise<void>
+    sendStats?: (vendorId: string, event: string) => Promise<void>,
+    userId?: string,
+    weddingId?: string
 }
 
-const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) => {
+const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, userId, weddingId }) => {
     const textColor = useColorModeValue('secondaryGray.900', 'white');
     const { t } = useTranslation();
+    const router = useRouter()
 
     const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: false });
     const { push, replace, query, pathname } = useRouter();
@@ -82,10 +84,11 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                     url: `https://weddmate-web.vercel.app/vendors/${vendor.alias}`,
                 }}
             />
-            <ReviewConfirmDialog
-                token={reviewConfirmedToken}
+            <VerificationDialog
+                path={`vendors/reviews/confirmReview?token=${reviewConfirmedToken}`}
                 isOpen={isOpen}
                 turnOffDialog={turnOffDialog}
+                desc={(t('vendors:detail.reviews.confirmText'))}
             />
             <Card mt={{ sm: '50px', md: '75px' }} me={{ lg: '60px' }} mb={{ sm: '50px', md: '75px' }}>
                 <Flex direction='column' w='100%'>
@@ -133,15 +136,24 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                     <Flex direction={{ sm: 'column', lg: 'column', xl: 'row' }}>
                         <VendorImages vendor={vendor} />
                         <Flex direction='column' w='100%'>
-                            <Text
-                                color={textColor}
-                                fontSize='3xl'
-                                fontWeight='bold'
+                            <Flex
+                                alignItems='center'
                                 mb='12px'
                                 mt={{ sm: '20px', md: '50px', '2xl': '20px', '3xl': '50px' }}
                             >
-                                {vendor.name}
-                            </Text>
+                                <Text
+                                    color={textColor}
+                                    fontSize='3xl'
+                                    fontWeight='bold'
+                                    mr='15px'
+                                >
+                                    {vendor.name}
+                                </Text>
+                                <VendorPriorityBadge
+                                    priority={vendor.priority}
+                                    size='35px'
+                                />
+                            </Flex>
                             <ReviewStars
                                 score={vendor.rating}
                                 isPremium={!!vendor.isPremium && vendor.priority >= 2 && vendor.isPremium}
@@ -161,18 +173,20 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                               </Flex>
                             */}
                             <Contacts sendStats={sendStats} vendor={vendor} />
+                            {userId &&
+                            <StartMesssage vendorId={vendor.id} userId={userId|| ""} weddingId={weddingId || ""}/>}
                             <Box
                                 color='secondaryGray.600'
                                 pe={{ base: '0px', '3xl': '200px' }}
                                 mb='40px'
                                 mt='20px'
                             >
-                                {(langToDisplay && vendor.descriptionContent) && <LocalizedText 
+                                {(langToDisplay && vendor.descriptionContent) && <LocalizedText
                                     content={vendor.descriptionContent}
                                     language={langToDisplay}
                                     markdown
                                 />}
-                                    
+
                             </Box>
                             <Links vendor={vendor} />
                         </Flex>
@@ -180,14 +194,14 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                 </Flex>
             </Card>
             {
-                (langToDisplay && vendor.descriptionContent) && 
-                <VendorDescription 
+                (langToDisplay && vendor.descriptionContent) &&
+                <VendorDescription
                     description={vendor.descriptionContent}
                     language={langToDisplay}
                 />
             }
             {
-                (vendor.faq.length !== 0 && vendor.isPremium && langToDisplay) && 
+                (vendor.faq.length !== 0 && vendor.isPremium && langToDisplay) &&
                 <FAQ language={langToDisplay} vendor={vendor} />
             }
             <DealsCard vendor={vendor} />

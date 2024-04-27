@@ -200,5 +200,27 @@
     "description": "Popis",
     "quantity": "Množstvo",
     "price": "Cena"
+  },
+  "messages":{
+    "messagevendor": "Poslať správu predajcovi",
+    "yourchats": "Vaše chaty",
+    "writeyourmessage": "Napíšte vašu správu",
+    "nomessages": "Žiadne správy",
+    "yourmessages": "Vaše správy",
+    "notopenmessages": "Nemáte otvorenú žiadnu konverzáciu",
+    "months": {
+      "01": "Jan",
+      "02": "Feb",
+      "03": "Mar",
+      "04": "Apr",
+      "05": "Máj",
+      "06": "Jún",
+      "07": "Júl",
+      "08": "Aug",
+      "09": "Sep",
+      "10": "Okt",
+      "11": "Nov",
+      "12": "Dec"
+    }
   }
 }
