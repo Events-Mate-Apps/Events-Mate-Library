@@ -1,6 +1,6 @@
-
+// Upsell.tsx
 import { Box, useDisclosure } from '@chakra-ui/react';
-import { FC } from 'react';
+import React, { FC, forwardRef } from 'react';
 import { Vendor } from '../../interfaces/vendor';
 import UpsellModal from './UpsellModal';
 import { useRouter } from 'next/router';
@@ -9,23 +9,25 @@ import useTranslation from 'next-translate/useTranslation';
 
 interface UpsellProps {
   vendor: Vendor,
-  children?: JSX.Element
+  children?: JSX.Element,
   isEnabled?: boolean,
   onClick?: () => any,
   w?: string,
-  h?: string
+  h?: string,
 }
 
-export enum Interval {
-  MONTHLY = 'monthly',
-  YEARLY = 'yearly'
-}
-
-const Upsell: FC<UpsellProps> = ({ vendor, children, isEnabled, onClick, h, w }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const { showInfo } = useNotification()
-  const { t } = useTranslation()
-  const { push } = useRouter()
+const Upsell: FC<UpsellProps> = forwardRef<HTMLDivElement, UpsellProps>(({ 
+  vendor, 
+  children, 
+  isEnabled, 
+  onClick, 
+  h, 
+  w 
+}, ref) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { showInfo } = useNotification();
+  const { t } = useTranslation();
+  const { push } = useRouter();
 
   const handleOpen = () => {
     if (vendor.premiumSubscription === null) {
@@ -36,38 +38,30 @@ const Upsell: FC<UpsellProps> = ({ vendor, children, isEnabled, onClick, h, w })
         position: 'top',
         duration: 10000,
         isClosable: true,
-      })
-      return
+      });
+      return;
     }
-    onOpen()
-  }
+    onOpen();
+  };
 
   return (
-    <Box
-      w={w ? w : 'fit-content'}
-      h={h ? h : 'fit-content'}
-    >
-      <Box
-        onClick={(e) => {
+    <Box w={w ? w : 'fit-content'} h={h ? h : 'fit-content'}>
+      <Box ref={ref} onClick={(e) => {
           if (isEnabled) {
-            e.preventDefault()
-            handleOpen()
-            return
+            e.preventDefault();
+            handleOpen();
+            return;
           }
-          onClick && onClick()
+          onClick && onClick();
         }}
-        w={w ? w : 'fit-content'}
-        h={h ? h : 'fit-content'}
-      >
+        w={w ? w : 'fit-content'} h={h ? h : 'fit-content'}>
         {children}
       </Box>
-      {(isOpen && isEnabled) && <UpsellModal
-        isOpen={isOpen}
-        onClose={onClose}
-        vendor={vendor}
-      />}
+      {(isOpen && isEnabled) && <UpsellModal isOpen={isOpen} onClose={onClose} vendor={vendor} />}
     </Box>
   );
-}
+});
+
+Upsell.displayName = 'Upsell'
 
 export default Upsell;
