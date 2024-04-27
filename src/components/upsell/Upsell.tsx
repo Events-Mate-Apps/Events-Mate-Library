@@ -39,8 +39,9 @@ const Upsell: FC<UpsellProps> = ({ vendor, children, isEnabled, onClick }) => {
       showInfo({
         title: t('common:upsell.yourSubscriptionIsNotEnoughForThisFeature'),
         description: t('common:upsell.butDontYouWorryHereIsAnUpgrade'),
-        position: 'top',
-        duration: 7500
+        position: 'bottom',
+        duration: 10000,
+        isClosable: true,
       })
       return
     }
