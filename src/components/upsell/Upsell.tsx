@@ -47,14 +47,14 @@ const Upsell: FC<UpsellProps> = forwardRef<HTMLDivElement, UpsellProps>(({
   return (
     <Box w={w ? w : 'fit-content'} h={h ? h : 'fit-content'}>
       <Box ref={ref} onClick={(e) => {
-          if (isEnabled) {
-            e.preventDefault();
-            handleOpen();
-            return;
-          }
-          onClick && onClick();
-        }}
-        w={w ? w : 'fit-content'} h={h ? h : 'fit-content'}>
+        if (isEnabled) {
+          e.preventDefault();
+          handleOpen();
+          return;
+        }
+        onClick && onClick();
+      }}
+      w={w ? w : 'fit-content'} h={h ? h : 'fit-content'}>
         {children}
       </Box>
       {(isOpen && isEnabled) && <UpsellModal isOpen={isOpen} onClose={onClose} vendor={vendor} />}
