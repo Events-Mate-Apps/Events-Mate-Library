@@ -7,19 +7,13 @@ import { useRouter } from 'next/router';
 import { useNotification } from '../../service/NotificationService';
 import useTranslation from 'next-translate/useTranslation';
 
-interface TrackEventParams {
-  category?: string;
-  action: string;
-  label: string;
-  page: string;
-  params?: Record<string, any>
-}
-
 interface UpsellProps {
   vendor: Vendor,
   children?: JSX.Element
   isEnabled?: boolean,
   onClick?: () => any,
+  w?: string,
+  h?: string
 }
 
 export enum Interval {
@@ -27,7 +21,7 @@ export enum Interval {
   YEARLY = 'yearly'
 }
 
-const Upsell: FC<UpsellProps> = ({ vendor, children, isEnabled, onClick }) => {
+const Upsell: FC<UpsellProps> = ({ vendor, children, isEnabled, onClick, h, w }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { showInfo } = useNotification()
   const { t } = useTranslation()
@@ -50,8 +44,8 @@ const Upsell: FC<UpsellProps> = ({ vendor, children, isEnabled, onClick }) => {
 
   return (
     <Box
-      w='fit-content'
-      h='fit-content'
+      w={w ? w : 'fit-content'}
+      h={h ? h : 'fit-content'}
     >
       <Box
         onClick={(e) => {
@@ -62,8 +56,8 @@ const Upsell: FC<UpsellProps> = ({ vendor, children, isEnabled, onClick }) => {
           }
           onClick && onClick()
         }}
-        w='fit-content'
-        h='fit-content'
+        w={w ? w : 'fit-content'}
+        h={h ? h : 'fit-content'}
       >
         {children}
       </Box>
