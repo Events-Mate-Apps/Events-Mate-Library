@@ -33,8 +33,6 @@ const Upsell: FC<UpsellProps> = ({ vendor, children, isEnabled, onClick }) => {
   const { t } = useTranslation()
   const { push } = useRouter()
 
-  const borderRadius = { borderTopLeftRadius: '3xl', borderTopRightRadius: '3xl' } 
-
   const handleOpen = () => {
     if (vendor.premiumSubscription === null) {
       push(`/main/pricing?vendorId=${vendor.id}`);
@@ -54,7 +52,6 @@ const Upsell: FC<UpsellProps> = ({ vendor, children, isEnabled, onClick }) => {
     <Box
       w='fit-content'
       h='fit-content'
-      {...borderRadius}
     >
       <Box
         onClick={(e) => {
