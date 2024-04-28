@@ -62,7 +62,7 @@ const Deal: React.FC<DealProps> = ({ deal, vendorId, isNotVisible, isInDashboard
 
     const formattedDate = date.format('dddd, MMMM D, YYYY');
 
-    return (
+    if (isVisible) return (
         <Card
             w={{ base: '98%', xl: '49%', '2xl': '32%' }}
             mb='2%'
@@ -71,7 +71,6 @@ const Deal: React.FC<DealProps> = ({ deal, vendorId, isNotVisible, isInDashboard
             borderRadius={`25px`}
             borderColor={borderColor}
             opacity={isActive ? '1' : '0.5'}
-            display={isVisible ? 'block' : 'none'}
         >
             <CardHeader>
                 <Flex flexDirection='row'>

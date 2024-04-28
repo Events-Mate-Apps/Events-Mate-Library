@@ -3,6 +3,7 @@ import {
   Button,
   Flex,
   Text,
+  Wrap,
   useColorModeValue
 } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
@@ -32,8 +33,16 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
   const getDeals = async (): Promise<void> => {
     try {
       const { data } = await api.get(`vendors/${vendor.id}/deals`)
-      setDeals(data)
-      console.log(data)
+      const sortedDeals = (data as DealType[]).slice().sort((a, b) => {
+        const isPermanentComparison = b.isPermanent ? 1 : -1;
+    
+        if (a.isPermanent !== b.isPermanent) {
+          return isPermanentComparison;
+        }
+        
+        return dayjs(b.endsAt).diff(dayjs(a.endsAt));
+      });
+      setDeals(sortedDeals)
     } catch (error) {
       showError({ error })
     }
@@ -42,17 +51,6 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
   useEffect(() => {
     getDeals()
   }, [])
-
-  const sortedDeals = deals?.slice().sort((a, b) => {
-    const isPermanentComparison = b.isPermanent ? 1 : -1;
-
-    if (a.isPermanent !== b.isPermanent) {
-      return isPermanentComparison;
-    }
-    
-    console.log(dayjs(b.endsAt).diff(dayjs(a.endsAt)), 'test')
-    return dayjs(b.endsAt).diff(dayjs(a.endsAt));
-  });
 
   useEffect(() => {
     router.pathname.includes('edit') && setIsInDashboard(true);
@@ -76,7 +74,7 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
           fontSize="2xl"
           fontWeight="600"
         >
-          {sortedDeals?.length == 1 ? t('vendors:detail.deals.titleSingular') : t('vendors:detail.deals.titleMultiple')}
+          {deals.length == 1 ? t('vendors:detail.deals.titleSingular') : t('vendors:detail.deals.titleMultiple')}
         </Text>
         {isInDashboard && <Text 
           mb="6"
@@ -85,10 +83,9 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
           {t('edit:dealsSubTitle')}
         </Text>}
       </Box> 
-      <Flex 
+      <Wrap 
         w='100%' 
         justify='space-between' 
-        flexWrap='wrap'
       >
         {deals[0] &&
           deals.map((deal, key) => {
@@ -102,7 +99,7 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
               />
             );
           })}
-      </Flex>
+      </Wrap>
       {isInDashboard &&
         <Flex w='100%' justifyContent='center'>
           <Upsell
