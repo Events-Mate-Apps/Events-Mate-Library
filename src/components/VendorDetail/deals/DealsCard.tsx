@@ -17,6 +17,7 @@ import Deal from './Deal';
 import { DealType } from '../../../interfaces/deals';
 import { Vendor } from '../../../interfaces/vendor';
 import { isEventsMate } from '../../../utils/orientation';
+import Upsell from '../../../components/upsell/Upsell';
 
 const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
   const [isAnyActive, setIsAnyActive] = useState<boolean>(false);
@@ -38,8 +39,6 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
 
   const [deals, setDeals] = useState<DealType[]>([])
   const getDeals = async (): Promise<void> => {
-    if (!vendor.isPremium) return
-
     try {
       const { data } = await api.get(`vendors/${vendor.id}/deals`)
       setDeals(data)
@@ -101,19 +100,24 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
       </Flex>
       {isInDashboard &&
         <Flex w='100%'>
-          <Button
-            as={NextLink}
-            href={`${vendor.id}/deals/new`}
-            color='white'
-            background={isEventsMate() ? bgEm : bgWm}
-            _hover={isEventsMate() ? bgHoverEm : bgHoverWm}
-            leftIcon={<AddIcon />}
-            letterSpacing='normal'
-            size='md'
-            m='auto'
+          <Upsell
+            vendor={vendor}
+            isEnabled={vendor.priority < 2}
           >
-            {t('vendors:detail.deals.create.header')}
-          </Button>
+            <Button
+              as={NextLink}
+              href={`${vendor.id}/deals/new`}
+              color='white'
+              background={isEventsMate() ? bgEm : bgWm}
+              _hover={isEventsMate() ? bgHoverEm : bgHoverWm}
+              leftIcon={<AddIcon />}
+              letterSpacing='normal'
+              size='md'
+              m='auto'
+            >
+              {t('vendors:detail.deals.create.header')}
+            </Button>
+          </Upsell>
         </Flex>
       }
     </Card>
