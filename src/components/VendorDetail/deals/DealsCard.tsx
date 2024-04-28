@@ -86,10 +86,11 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
       </Box> 
       <SimpleGrid
         columns={
-          isInDashboard ? 1 : 
-          { base: 1, lg: 2, xl: 3 }
+          isInDashboard ? 1 : { 
+            base: 1, lg: 2, xl: 3 
+          }
         }
-        spacing='10px'
+        spacing='15px'
       >
         {deals[0] &&
           deals.map((deal, key) => {
@@ -105,7 +106,7 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
           })}
       </SimpleGrid>
       {isInDashboard &&
-        <Flex w='100%' justifyContent='center'>
+        <Flex w='100%' justifyContent='center' mt='15px'>
           <Upsell
             vendor={vendor}
             isEnabled={vendor.priority < 2}
