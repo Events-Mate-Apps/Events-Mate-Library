@@ -84,8 +84,7 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
         >
           {t('edit:dealsSubTitle')}
         </Text>}
-      </Box>
-      {isAnyActive && 
+      </Box> 
       <Flex 
         w='100%' 
         justify='space-between' 
@@ -103,7 +102,7 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
               />
             );
           })}
-      </Flex>}
+      </Flex>
       {isInDashboard &&
         <Flex w='100%' justifyContent='center'>
           <Upsell
