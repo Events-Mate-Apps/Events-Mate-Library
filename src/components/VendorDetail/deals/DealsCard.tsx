@@ -101,6 +101,7 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
       </Flex>
       {isInDashboard &&
         <Flex w='100%'>
+          y
           <Upsell
             vendor={vendor}
             isEnabled={vendor.priority < 2}
