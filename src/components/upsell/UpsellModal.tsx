@@ -27,7 +27,7 @@ const UpsellModal: React.FC<UpsellModalProps> = ({ vendor, onClose, isOpen }) =>
 
   const closeModal = () => {
     onClose()
-    location.reload()
+    if (currentTab === 2) location.reload()
   }
 
   const { t, lang } = useTranslation();
