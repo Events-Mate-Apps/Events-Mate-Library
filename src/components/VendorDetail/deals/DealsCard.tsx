@@ -79,9 +79,6 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
       bgColor={!isInDashboard ? 'navy.00' : 'transparent'}
     >
       <Box w='100%' mb='20px'>
-        {/* <Text color={textColor} fontSize='2xl' fontWeight='700'>
-          {sortedDeals?.length == 1 ? t('vendors:detail.deals.titleSingular') : t('vendors:detail.deals.titleMultiple')}
-        </Text> */}
         <Text 
           ml="2"
           fontSize="2xl"
@@ -126,8 +123,8 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
               as={NextLink}
               href={`${vendor.id}/deals/new`}
               color='white'
-              background={isEventsMate() ? bgEm : bgWm}
-              _hover={isEventsMate() ? bgHoverEm : bgHoverWm}
+              background='brand.900'
+              _hover={{ color: 'brand.600' }}
               leftIcon={<AddIcon />}
               letterSpacing='normal'
               size='md'
