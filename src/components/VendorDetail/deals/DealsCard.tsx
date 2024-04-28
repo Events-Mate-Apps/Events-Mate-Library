@@ -4,8 +4,6 @@ import {
   Flex,
   SimpleGrid,
   Text,
-  Wrap,
-  useColorModeValue
 } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
 import Card from '../../../components/card/Card';
@@ -18,7 +16,6 @@ import { api } from '../../../utils/api';
 import Deal from './Deal';
 import { DealType } from '../../../interfaces/deals';
 import { Vendor } from '../../../interfaces/vendor';
-import { isEventsMate } from '../../../utils/orientation';
 import Upsell from '../../../components/upsell/Upsell';
 import { useNotification } from '../../../service/NotificationService';
 
