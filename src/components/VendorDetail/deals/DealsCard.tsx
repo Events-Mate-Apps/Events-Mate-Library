@@ -124,7 +124,7 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
               href={`${vendor.id}/deals/new`}
               color='white'
               background='brand.900'
-              _hover={{ color: 'brand.600' }}
+              _hover={{ bgColor: 'brand.600' }}
               leftIcon={<AddIcon />}
               letterSpacing='normal'
               size='md'
