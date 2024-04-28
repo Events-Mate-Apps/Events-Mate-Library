@@ -63,7 +63,7 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
 
   useEffect(() => {
     router.pathname.includes('edit') && setIsInDashboard(true);
-    console.log('test')
+    console.log(isInDashboard, 'isInDashboard')
   }, []);
 
   const handleIsNotActive = (newState: boolean) => {
@@ -101,7 +101,6 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
       </Flex>
       {isInDashboard &&
         <Flex w='100%'>
-          y
           <Upsell
             vendor={vendor}
             isEnabled={vendor.priority < 2}
