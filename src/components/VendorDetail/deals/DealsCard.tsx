@@ -91,8 +91,8 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
         justify='space-between' 
         flexWrap='wrap'
       >
-        {sortedDeals[0] &&
-          sortedDeals?.map((deal, key) => {
+        {deals[0] &&
+          deals.map((deal, key) => {
             return (
               <Deal
                 deal={deal}
