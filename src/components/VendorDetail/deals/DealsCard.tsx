@@ -76,29 +76,30 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
     <Card
       p='30px'
       mb={{ base: '20px', '2xl': '20px' }}
-      display={isAnyActive ? 'block' : 'none'}
       bgColor={!isInDashboard ? 'navy.00' : 'transparent'}
     >
-      <Flex w='100%' mb='20px'>
-        <Text color={textColor} fontSize='2xl' fontWeight='700'>
-          {sortedDeals?.length == 1 ? t('vendors:detail.deals.titleSingular') : t('vendors:detail.deals.titleMultiple')}
-        </Text>
-      </Flex>
-      <Flex w='100%' justify='space-between' flexWrap='wrap'>
-        {sortedDeals != undefined &&
-          sortedDeals?.length > 0 &&
-          sortedDeals?.map((deal, key) => {
-            return (
-              <Deal
-                deal={deal}
-                key={key}
-                vendorId={vendor.id}
-                isNotVisible={handleIsNotActive}
-                isInDashboard={isInDashboard}
-              />
-            );
-          })}
-      </Flex>
+      {isAnyActive && <>
+        <Flex w='100%' mb='20px'>
+          <Text color={textColor} fontSize='2xl' fontWeight='700'>
+            {sortedDeals?.length == 1 ? t('vendors:detail.deals.titleSingular') : t('vendors:detail.deals.titleMultiple')}
+          </Text>
+        </Flex>
+        <Flex w='100%' justify='space-between' flexWrap='wrap'>
+          {sortedDeals != undefined &&
+            sortedDeals?.length > 0 &&
+            sortedDeals?.map((deal, key) => {
+              return (
+                <Deal
+                  deal={deal}
+                  key={key}
+                  vendorId={vendor.id}
+                  isNotVisible={handleIsNotActive}
+                  isInDashboard={isInDashboard}
+                />
+              );
+            })}
+        </Flex>
+      </>}
       {isInDashboard &&
         <Flex w='100%'>
           <Upsell
