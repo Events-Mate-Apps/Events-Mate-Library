@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Flex,
+  SimpleGrid,
   Text,
   Wrap,
   useColorModeValue
@@ -83,9 +84,9 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
           {t('edit:dealsSubTitle')}
         </Text>}
       </Box> 
-      <Wrap 
-        w='100%' 
-        justify='space-between' 
+      <SimpleGrid
+        columns={{ base: 1, lg: 2 }}
+        spacing='10px'
       >
         {deals[0] &&
           deals.map((deal, key) => {
@@ -99,7 +100,7 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
               />
             );
           })}
-      </Wrap>
+      </SimpleGrid>
       {isInDashboard &&
         <Flex w='100%' justifyContent='center'>
           <Upsell

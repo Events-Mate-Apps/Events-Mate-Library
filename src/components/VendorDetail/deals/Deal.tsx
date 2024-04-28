@@ -64,8 +64,7 @@ const Deal: React.FC<DealProps> = ({ deal, vendorId, isNotVisible, isInDashboard
 
     if (isVisible) return (
         <Card
-            w={{ base: '98%', xl: '49%', '2xl': '32%' }}
-            mb='2%'
+            w='100%'
             background={backgroundColor}
             border={`1px solid`}
             borderRadius={`25px`}
