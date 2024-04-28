@@ -12,29 +12,19 @@ import dayjs from '../../../utils/dayjs';
 import { useRouter } from 'next/router';
 import NextLink from 'next/link';
 import { AddIcon } from '@chakra-ui/icons';
-import { TinyColor } from '@ctrl/tinycolor/dist';
 import { api } from '../../../utils/api';
 import Deal from './Deal';
 import { DealType } from '../../../interfaces/deals';
 import { Vendor } from '../../../interfaces/vendor';
 import { isEventsMate } from '../../../utils/orientation';
 import Upsell from '../../../components/upsell/Upsell';
+import { useNotification } from '../../../service/NotificationService';
 
 const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
   const [isAnyActive, setIsAnyActive] = useState<boolean>(false);
   const [isInDashboard, setIsInDashboard] = useState<boolean>(false);
   const { t } = useTranslation();
-
-  const textColor = useColorModeValue('secondaryGray.900', 'white');
-  const bgHoverWm = useColorModeValue(
-    { bg: new TinyColor('#e13784').darken(5).toString() },
-    { bg: 'brand.300' });
-  const bgWm = useColorModeValue('#e13784', 'brand.400');
-
-  const bgHoverEm = useColorModeValue(
-    { bg: 'brand.800' },
-    { bg: 'brand.300' });
-  const bgEm = useColorModeValue('brand.900', 'brand.400');
+  const { showError } = useNotification()
 
   const router = useRouter();
 
@@ -43,8 +33,9 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
     try {
       const { data } = await api.get(`vendors/${vendor.id}/deals`)
       setDeals(data)
-    } catch (e) {
-      console.error(e)
+      console.log(data)
+    } catch (error) {
+      showError({ error })
     }
   }
 
