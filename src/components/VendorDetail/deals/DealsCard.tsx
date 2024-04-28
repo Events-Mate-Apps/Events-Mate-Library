@@ -85,7 +85,7 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
         </Text>}
       </Box> 
       <SimpleGrid
-        columns={{ base: 1, lg: 2 }}
+        columns={{ base: 1, xl: 3 }}
         spacing='10px'
       >
         {deals[0] &&
