@@ -49,7 +49,8 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
     if (a.isPermanent !== b.isPermanent) {
       return isPermanentComparison;
     }
-
+    
+    console.log(dayjs(b.endsAt).diff(dayjs(a.endsAt)), 'test')
     return dayjs(b.endsAt).diff(dayjs(a.endsAt));
   });
 
