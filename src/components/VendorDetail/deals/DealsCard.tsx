@@ -63,6 +63,7 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
 
   useEffect(() => {
     router.pathname.includes('edit') && setIsInDashboard(true);
+    console.log('test')
   }, []);
 
   const handleIsNotActive = (newState: boolean) => {
