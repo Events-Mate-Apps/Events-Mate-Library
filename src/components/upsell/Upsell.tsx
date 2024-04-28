@@ -45,7 +45,7 @@ const Upsell = forwardRef<HTMLDivElement, UpsellProps>(({
   };
 
   return (
-    <Box w={w ? w : 'fit-content'} h={h ? h : 'fit-content'}>
+    <Box w={w ? w : 'fit-content'} h={h ? h : 'fit-content'} cursor='pointer'>
       <Box ref={ref} onClick={(e) => {
         if (isEnabled) {
           e.preventDefault();

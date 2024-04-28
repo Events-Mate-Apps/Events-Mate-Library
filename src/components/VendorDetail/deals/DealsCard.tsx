@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Flex,
   Text,
@@ -77,19 +78,31 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
       mb={{ base: '20px', '2xl': '20px' }}
       bgColor={!isInDashboard ? 'navy.00' : 'transparent'}
     >
-      <Flex w='100%' mb='20px'>
-        <Text color={textColor} fontSize='2xl' fontWeight='700'>
+      <Box w='100%' mb='20px'>
+        {/* <Text color={textColor} fontSize='2xl' fontWeight='700'>
+          {sortedDeals?.length == 1 ? t('vendors:detail.deals.titleSingular') : t('vendors:detail.deals.titleMultiple')}
+        </Text> */}
+        <Text 
+          ml="2"
+          fontSize="2xl"
+          fontWeight="600"
+        >
           {sortedDeals?.length == 1 ? t('vendors:detail.deals.titleSingular') : t('vendors:detail.deals.titleMultiple')}
         </Text>
-      </Flex>
+        {isInDashboard && <Text 
+          mb="6"
+          ml="2"
+        >
+          {t('edit:dealsSubTitle')}
+        </Text>}
+      </Box>
       {isAnyActive && 
       <Flex 
         w='100%' 
         justify='space-between' 
         flexWrap='wrap'
       >
-        {sortedDeals != undefined &&
-          sortedDeals?.length > 0 &&
+        {sortedDeals[0] &&
           sortedDeals?.map((deal, key) => {
             return (
               <Deal
