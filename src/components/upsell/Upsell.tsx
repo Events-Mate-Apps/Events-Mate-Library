@@ -1,4 +1,3 @@
-// Upsell.tsx
 import { Box, useDisclosure } from '@chakra-ui/react';
 import React, { ReactNode, forwardRef } from 'react';
 import { Vendor } from '../../interfaces/vendor';
