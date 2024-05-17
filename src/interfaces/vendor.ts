@@ -58,7 +58,16 @@ export interface NewVendorForValues {
   links: VendorLink[];
   category: { label: StaticRange, value: VendorCategory };
   postalAddress: string;
-  image: Image
+  image: Image,
+  registrationNo: string
+  vatNo: string
+  variableSymbol: string
+  currency: string
+  language: string,
+  street: string
+  city: string
+  zip: string
+  country: string
 }
 
 export interface FAQElement {
