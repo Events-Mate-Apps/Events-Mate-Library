@@ -16,6 +16,7 @@ import React, { useState } from 'react';
 import { BASE_URL, api } from '../../../utils/api';
 import { FaTrash } from 'react-icons/fa';
 import { isEventsMate } from '../../../utils/orientation';
+import { useNotification } from '../../../service/NotificationService';
 
 interface DeleteDialogProps {
     vendorId: string,
@@ -31,26 +32,16 @@ const DeleteDealDialog: React.FC<DeleteDialogProps> = ({ vendorId, dealId }) => 
     const { t } = useTranslation();
 
     const cancelRef = React.useRef<HTMLButtonElement>(null);
-    const toast = useToast();
-
+    const { showError, showSuccess } = useNotification();
+    
     const deleteDeal = async () => {
         setLoading(true)
 
         try {
-            await api.delete(`${BASE_URL}vendors/${vendorId}/deals/${dealId}`)
-
-            toast({
-                title: t('edit:vendorDeleteSuccess'),
-                status: 'success',
-                duration: 3000
-            });
-        } catch (e) {
-            toast({
-                title: t('edit:dealDeleteError'),
-                description: `${t('edit:dealDeleteError')}: ${e}`,
-                status: 'error',
-                duration: 3000
-            });
+            await api.delete(`vendors/${vendorId}/deals/${dealId}`)
+            showSuccess();
+        } catch (error) {
+            showError({ error });
         } finally {
             onClose();
             setLoading(false);

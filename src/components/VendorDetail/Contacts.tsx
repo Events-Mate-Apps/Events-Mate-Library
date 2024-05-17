@@ -4,11 +4,11 @@ import {
     Text,
     useClipboard,
     useColorModeValue,
-    useToast,
 } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import { Vendor } from '../../interfaces/vendor';
+import { useNotification } from '../../service/NotificationService';
 
 interface ContactsProps {
     vendor: Vendor;
@@ -17,27 +17,31 @@ interface ContactsProps {
 
 export default function Contacts({ vendor, sendStats }: ContactsProps) {
     const textColor = useColorModeValue('secondaryGray.900', 'white');
-    const toast = useToast()
+    const { showSuccess, showError } = useNotification()
     const { onCopy, setValue } = useClipboard('');
 
     const { t } = useTranslation()
 
-    const handleEmail = () => {
-        sendStats && sendStats(vendor.id, 'emailViewed')
-        window.location.href = `mailto:${vendor.emails[0].email}`
+    const handleEmail = async () => {
+        try {
+            sendStats && await sendStats(vendor.id, 'emailViewed')
+        } catch (error) {
+            showError({ error })
+        } finally { 
+            window.location.href = `mailto:${vendor.email}`
+        }
     };
 
     const handlePhone = async () => {
         try {
-            sendStats && sendStats(vendor.id, 'phoneViewed')
-            setValue(vendor.phones[0].number); // Set the number to the state
+            sendStats && await sendStats(vendor.id, 'phoneViewed')
+            setValue(vendor.phone);
             onCopy()
-            toast({
+            showSuccess({
                 title: t('vendors:detail.copied'),
-                status: 'success',
             })
-        } catch (e) {
-            return
+        } catch (error) {
+            showError({ error })
         }
     }
     
@@ -70,7 +74,7 @@ export default function Contacts({ vendor, sendStats }: ContactsProps) {
                             color="secondaryGray.800"
                             fontWeight='normal'
                         >
-                            {vendor.emails[0].email}
+                            {vendor.email}
                         </Text>
                     </Button>
                 </Flex>
@@ -89,7 +93,7 @@ export default function Contacts({ vendor, sendStats }: ContactsProps) {
                             color="secondaryGray.800"
                             fontWeight='normal'
                         >
-                            {vendor.phones[0].number}
+                            {vendor.phone}
                         </Text>
                     </Button>
                 </Flex>
