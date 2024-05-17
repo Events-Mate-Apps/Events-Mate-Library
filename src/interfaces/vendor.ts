@@ -261,8 +261,8 @@ export interface BusinessInfo {
   name: string
   registrationNo: string
   vatNo: string
-  variableSymbol: string
-  currency: string
+  variableSymbol?: string // TODO: Should be required
+  currency?: string  // TODO: Should be required
   language: string
   createdAt?: string
   updatedAt?: string
@@ -274,7 +274,8 @@ export interface BusinessAddress {
   street: string
   city: string
   zip: string
-  country: string
+  country: string,
+  nazevUlice: string
   createdAt?: string
   updatedAt?: string
   vendor?: string
