@@ -170,6 +170,8 @@ export type VendorPost = {
     longitude: number;
   };
   images: string[];
+  businessInfo: BusinessInfo,
+  businessAddress: BusinessAddress
 };
 
 export interface NewDescription {
@@ -230,4 +232,29 @@ export interface VendorCategory {
   id: string;
   name: string;
   type: string;
+}
+
+export interface BusinessInfo {
+  id?: string
+  fakturoidId?: string
+  name: string
+  registrationNo: string
+  vatNo: string
+  variableSymbol: string
+  currency: string
+  language: string
+  createdAt?: string
+  updatedAt?: string
+  vendor?: string
+}
+
+export interface BusinessAddress {
+  id?: string
+  street: string
+  city: string
+  zip: string
+  country: string
+  createdAt?: string
+  updatedAt?: string
+  vendor?: string
 }
