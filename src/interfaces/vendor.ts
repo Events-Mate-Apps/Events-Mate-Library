@@ -68,6 +68,7 @@ export interface NewVendorForValues {
   city: string
   zip: string
   country: string
+  nazevUlice: string
 }
 
 export interface FAQElement {
@@ -275,7 +276,6 @@ export interface BusinessAddress {
   city: string
   zip: string
   country: string,
-  nazevUlice: string
   createdAt?: string
   updatedAt?: string
   vendor?: string
