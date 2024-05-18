@@ -263,7 +263,7 @@ export interface BusinessInfo {
   registrationNo: string
   vatNo: string
   variableSymbol?: string // TODO: Should be required
-  currency?: string  // TODO: Should be required
+  currency: string,
   language: string
   createdAt?: string
   updatedAt?: string
