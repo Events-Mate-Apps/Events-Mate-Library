@@ -45,7 +45,9 @@ export interface Vendor {
     vendorId: string
   },
   supportedCountries: SupportedCountry[]  
-  supportedAdministrativeArea: VendorAdministrativeArea[] 
+  supportedAdministrativeArea: VendorAdministrativeArea[],
+  businessInfo: BusinessInfo,
+  businessAddress: BusinessAddress
 }
 
 export interface NewVendorForValues {
