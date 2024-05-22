@@ -45,7 +45,9 @@ export interface Vendor {
     vendorId: string
   },
   supportedCountries: SupportedCountry[]  
-  supportedAdministrativeArea: VendorAdministrativeArea[] 
+  supportedAdministrativeArea: VendorAdministrativeArea[],
+  businessInfo: BusinessInfo,
+  businessAddress: BusinessAddress
 }
 
 export interface NewVendorForValues {
@@ -58,7 +60,17 @@ export interface NewVendorForValues {
   links: VendorLink[];
   category: { label: StaticRange, value: VendorCategory };
   postalAddress: string;
-  image: Image
+  image: Image,
+  registrationNo: string
+  vatNo: string
+  variableSymbol: string
+  currency: string
+  language: string,
+  street: string
+  city: string
+  zip: string
+  country: string
+  nazevUlice: string
 }
 
 export interface FAQElement {
@@ -168,10 +180,17 @@ export interface VendorPost {
   categories: string[],
   links: VendorLink[],
   location: {
-    latitude: number,
-    longitude: number,
-  },
-  images: []
+    latitude: number;
+    longitude: number;
+  };
+  images: string[];
+  businessInfo: BusinessInfo,
+  businessAddress: BusinessAddress
+};
+
+export interface NewDescription {
+  code: string,
+  text: string
 }
 
 export interface Description {
@@ -237,6 +256,31 @@ export interface VendorCategory {
   id: string;
   name: string;
   type: string;
+}
+
+export interface BusinessInfo {
+  id?: string
+  fakturoidId?: string
+  name: string
+  registrationNo: string
+  vatNo: string
+  variableSymbol?: string
+  currency: string,
+  language: string
+  createdAt?: string
+  updatedAt?: string
+  vendor?: string
+}
+
+export interface BusinessAddress {
+  id?: string
+  street: string
+  city: string
+  zip: string
+  country: string,
+  createdAt?: string
+  updatedAt?: string
+  vendor?: string
 }
 
 export interface VendorAdministrativeArea {
