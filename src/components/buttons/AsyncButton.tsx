@@ -2,7 +2,7 @@ import { Button as ChakraButton, ButtonProps, forwardRef } from '@chakra-ui/reac
 import { FC, useState } from 'react';
 
 interface AsyncButtonProps extends ButtonProps {
-  onClick: () => Promise<void>;
+  onClick?: () => Promise<void>;
 }
 
 const AsyncButton: FC<AsyncButtonProps> = forwardRef(({ onClick, ...props }, ref) => {
@@ -11,7 +11,7 @@ const AsyncButton: FC<AsyncButtonProps> = forwardRef(({ onClick, ...props }, ref
   const handleClick = async () => {
     setIsLoading(true);
     try {
-      await onClick();
+      onClick && await onClick();
     } finally {
       setIsLoading(false);
     }
