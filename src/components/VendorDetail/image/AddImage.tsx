@@ -66,6 +66,8 @@ const AddImage: React.FC<AddImageProps> = ({ vendor, images }) => {
       <Upsell
         vendor={vendor}
         isEnabled={!isUserAbleToUploadAnotherImage()}
+        w='100%'
+        h='100%'
       >
         <>
           <IconButton

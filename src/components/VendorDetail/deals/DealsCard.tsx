@@ -1,8 +1,9 @@
 import {
-    Button,
-    Flex,
-    Text,
-    useColorModeValue
+  Box,
+  Button,
+  Flex,
+  SimpleGrid,
+  Text,
 } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
 import Card from '../../../components/card/Card';
@@ -15,111 +16,116 @@ import { api } from '../../../utils/api';
 import Deal from './Deal';
 import { DealType } from '../../../interfaces/deals';
 import { Vendor } from '../../../interfaces/vendor';
-import { isEventsMate } from '../../../utils/orientation';
-import { TinyColor } from '@ctrl/tinycolor/dist';
+import Upsell from '../../../components/upsell/Upsell';
+import { useNotification } from '../../../service/NotificationService';
 
 const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
-    const [isAnyActive, setIsAnyActive] = useState<boolean>(false);
-    const [isInDashboard, setIsInDashboard] = useState<boolean>(false);
-    const { t } = useTranslation();
+  const [isAnyActive, setIsAnyActive] = useState<boolean>(false);
+  const [isInDashboard, setIsInDashboard] = useState<boolean>(false);
+  const { t } = useTranslation();
+  const { showError } = useNotification()
 
-    const textColor = useColorModeValue('secondaryGray.900', 'white');
-    const bgHoverWm = useColorModeValue(
-        { bg: new TinyColor('#e13784').darken(5).toString() },
-        { bg: 'brand.300' });
-    const bgWm = useColorModeValue('#e13784', 'brand.400');
+  const router = useRouter();
 
-    const bgHoverEm = useColorModeValue(
-        { bg: '#11047A' },
-        { bg: '#11047A' });
-    const bgEm = useColorModeValue('brand.900', 'brand.400');
-
-    const router = useRouter();
-
-    const [deals, setDeals] = useState<DealType[]>([])
-    const getDeals = async (): Promise<void> => {
-        if (!vendor.isPremium) return
-
-        try {
-            const { data } = await api.get(`vendors/${vendor.id}/deals`)
-            setDeals(data)
-        } catch (e) {
-            console.error(e)
-        }
-    }
-
-    useEffect(() => {
-        getDeals()
-    }, [])
-   
-    const sortedDeals = deals?.slice().sort((a, b) => {
+  const [deals, setDeals] = useState<DealType[]>([])
+  const getDeals = async (): Promise<void> => {
+    try {
+      const { data } = await api.get(`vendors/${vendor.id}/deals`)
+      const sortedDeals = (data as DealType[]).slice().sort((a, b) => {
         const isPermanentComparison = b.isPermanent ? 1 : -1;
-
+    
         if (a.isPermanent !== b.isPermanent) {
-            return isPermanentComparison;
+          return isPermanentComparison;
         }
-
+        
         return dayjs(b.endsAt).diff(dayjs(a.endsAt));
-    });
+      });
+      setDeals(sortedDeals)
+    } catch (error) {
+      showError({ error })
+    }
+  }
 
-    useEffect(() => {
-        router.pathname.includes('edit') && setIsInDashboard(true);
-        console.log(isEventsMate())
-    }, []);
+  useEffect(() => {
+    getDeals()
+  }, [])
 
-    const handleIsNotActive = (newState: boolean) => {
-        if (!isAnyActive) {
-            setIsAnyActive(newState);
-        }
-    };
+  useEffect(() => {
+    router.pathname.includes('edit') && setIsInDashboard(true);
+  }, []);
 
-    return (
-        <Card
-            p='30px'
-            mb={{ base: '20px', '2xl': '20px' }}
-            display="block"
-            bgColor={!isInDashboard ? 'navy.00' : 'transparent'}
+  const handleIsNotActive = (newState: boolean) => {
+    if (!isAnyActive) {
+      setIsAnyActive(newState);
+    }
+  };
+
+  return (
+    <Card
+      p='30px'
+      mb={{ base: '20px', '2xl': '20px' }}
+      bgColor={!isInDashboard ? 'navy.00' : 'transparent'}
+    >
+      <Box w='100%' mb='20px'>
+        <Text 
+          ml="2"
+          fontSize="2xl"
+          fontWeight="600"
         >
-            <Flex w='100%' mb='20px'>
-                <Text color={textColor} fontSize='2xl' fontWeight='700'>
-                    {sortedDeals?.length == 1 ? t('vendors:detail.deals.titleSingular') : t('vendors:detail.deals.titleMultiple')}
-                </Text>
-            </Flex>
-            <Flex w='100%' justify='space-between' flexWrap='wrap'>
-                {sortedDeals != undefined &&
-                    sortedDeals?.length > 0 &&
-                    sortedDeals?.map((deal, key) => {
-                        return (
-                            <Deal
-                                deal={deal}
-                                key={key}
-                                vendorId={vendor.id}
-                                isNotVisible={handleIsNotActive}
-                                isInDashboard={isInDashboard}
-                                onDelete={getDeals}
-                            />
-                        );
-                    })}
-            </Flex>
-            {isInDashboard &&
-                <Flex w='100%'>
-                    <Button
-                        as={NextLink}
-                        href={`${vendor.id}/deals/new`}
-                        color='white'
-                        background={isEventsMate() ? bgEm : bgWm}
-                        _hover={isEventsMate() ? bgHoverEm : bgHoverWm}
-                        leftIcon={<AddIcon />}
-                        letterSpacing='normal'
-                        size='md'
-                        m='auto'
-                    >
-                        {t('vendors:detail.deals.create.header')}
-                    </Button>
-                </Flex>
-            }
-        </Card>
-    );
+          {deals.length == 1 ? t('vendors:detail.deals.titleSingular') : t('vendors:detail.deals.titleMultiple')}
+        </Text>
+        {isInDashboard && <Text 
+          mb="6"
+          ml="2"
+        >
+          {t('edit:dealsSubTitle')}
+        </Text>}
+      </Box> 
+      <SimpleGrid
+        columns={
+          isInDashboard ? 1 : { 
+            base: 1, lg: 2, xl: 3 
+          }
+        }
+        spacing='15px'
+      >
+        {deals[0] &&
+          deals.map((deal, key) => {
+            return (
+              <Deal
+                deal={deal}
+                key={key}
+                vendorId={vendor.id}
+                isNotVisible={handleIsNotActive}
+                isInDashboard={isInDashboard}
+                refetch={getDeals}
+              />
+            );
+          })}
+      </SimpleGrid>
+      {isInDashboard &&
+        <Flex w='100%' justifyContent='center' mt='15px'>
+          <Upsell
+            vendor={vendor}
+            isEnabled={vendor.priority < 2}
+          >
+            <Button
+              pointerEvents={vendor.priority < 2 ? 'none' : 'all'}
+              as={NextLink}
+              href={`${vendor.id}/deals/new`}
+              variant='darkBrand'
+              leftIcon={<AddIcon />}
+              letterSpacing='normal'
+              size='md'
+              m='auto'
+            >
+              {t('vendors:detail.deals.create.header')}
+            </Button>
+          </Upsell>
+        </Flex>
+      }
+    </Card>
+  );
 }
 
 export default DealsCard;

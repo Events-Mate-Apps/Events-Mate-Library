@@ -14,10 +14,10 @@ interface DealProps {
     vendorId: string;
     isInDashboard: boolean;
     isNotVisible: (newState: boolean) => void;
-    onDelete: () => void; 
+    refetch: () => void; 
 }
 
-const Deal: React.FC<DealProps> = ({ deal, vendorId, isNotVisible, isInDashboard, onDelete }) => {
+const Deal: React.FC<DealProps> = ({ deal, vendorId, isNotVisible, isInDashboard, refetch }) => {
     const [isVisible, setIsVisible] = useState<boolean>(false);
 
     const textColor = useColorModeValue('secondaryGray.900', 'white');
@@ -58,16 +58,14 @@ const Deal: React.FC<DealProps> = ({ deal, vendorId, isNotVisible, isInDashboard
 
     const formattedDate = date.format('dddd, MMMM D, YYYY');
 
-    return (
+    if (isVisible) return (
         <Card
-            w={{ base: '98%', xl: '49%', '2xl': '32%' }}
-            mb='2%'
+            w='100%'
             background={backgroundColor}
             border={`1px solid`}
             borderRadius={`25px`}
             borderColor={borderColor}
             opacity={isActive ? '1' : '0.5'}
-            display={isVisible ? 'block' : 'none'}
         >
             <CardHeader>
                 <Flex flexDirection='row'>
@@ -101,7 +99,7 @@ const Deal: React.FC<DealProps> = ({ deal, vendorId, isNotVisible, isInDashboard
                         <NextLink href={`/app/vendors/edit/${vendorId}/deals/${deal.id}`}>
                             <Icon as={FaEdit} fontSize='18' color={isEventsMate() ? bgEm : bgWm} />
                         </NextLink>
-                        <DeleteDealDialog vendorId={vendorId} dealId={deal.id} onDelete={onDelete}/>
+                        <DeleteDealDialog vendorId={vendorId} dealId={deal.id} onDelete={refetch}/>
                     </Flex>}
                 </Flex>
             </CardHeader>

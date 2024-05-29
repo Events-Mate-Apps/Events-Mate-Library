@@ -1,11 +1,12 @@
-import { AlertStatus, useToast } from '@chakra-ui/react';
+import { AlertStatus, ToastPosition, useToast } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
 
 interface Options {
     title?: string, 
     description?: string,
     duration?: number,
-    isClosable?: boolean
+    isClosable?: boolean,
+    position?: ToastPosition
 }
 
 interface NotificationMethods {
@@ -40,7 +41,7 @@ export function useNotification(): NotificationMethods {
             description: `${t('notification:error')}: ${err.raw?.message || err.message}`,
             status: 'error',
             duration: options.duration,
-            isClosable: options.isClosable
+            isClosable: options.isClosable,
         });
     };
 
@@ -50,7 +51,7 @@ export function useNotification(): NotificationMethods {
             ...options,
             title: options.title || `${t('notification:error')}!`,
             description: options.description,
-            status: 'success',
+            status: 'error',
         });
     };
 
