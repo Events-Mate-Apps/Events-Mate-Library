@@ -1,9 +1,8 @@
 
 import { CheckIcon } from '@chakra-ui/icons';
-import { Box, Button, Flex, Icon, Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, Progress, Stat, StatHelpText, StatNumber, TabPanel, TabPanels, Tabs, Text, useBreakpointValue, useColorModeValue } from '@chakra-ui/react';
+import { Box, Button, Card, Flex, Icon, Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, Progress, Stat, StatHelpText, StatNumber, TabPanel, TabPanels, Tabs, Text, useBreakpointValue, useColorModeValue } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useEffect, useMemo, useState } from 'react';
-import Card from '~/components/card/Card';
 import { useNotification } from '../../service/NotificationService';
 import { Invoice, Price, ProductWithPrices } from '../../interfaces/stripe';
 import { Vendor } from '../../interfaces/vendor';
