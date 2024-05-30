@@ -1,6 +1,4 @@
-import { Text, useColorModeValue } from '@chakra-ui/react';
-
-import Card from '../../components/card/Card';
+import { Card, Text, useColorModeValue } from '@chakra-ui/react';
 import { TranslationTextContent } from '../../interfaces/vendor';
 import useTranslation from 'next-translate/useTranslation';
 import LocalizedText from '../localization/LocalizedText';
