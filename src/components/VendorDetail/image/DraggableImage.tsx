@@ -1,9 +1,7 @@
 import { DeleteIcon } from '@chakra-ui/icons';
 import {
   Box,
-  ImageProps as ChakraImageProps,
   IconButton,
-  useToast,
   Button,
   AlertDialog,
   AlertDialogBody,
@@ -25,7 +23,7 @@ export interface DraggableImageProps {
   image: ImageType;
   moveImage: (fromIndex: number, toIndex: number) => void;
   setCurrentImage: React.Dispatch<React.SetStateAction<string>>,
-};
+}
 
 const DraggableImage: React.FC<DraggableImageProps> = ({ 
   index, moveImage, image, setCurrentImage
@@ -41,6 +39,8 @@ const DraggableImage: React.FC<DraggableImageProps> = ({
     hover: (dragged: { index: number }) => {
       if (dragged.index !== index) {
         moveImage(dragged.index, index);
+        // TODO:
+        // eslint-disable-next-line
         dragged.index = index;
       }
     },

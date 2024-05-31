@@ -16,7 +16,7 @@ const StartMessage: React.FC<StartMessageProps> = ({ vendorId, userId, weddingId
   const router = useRouter();
   
   const startConversation = async () => {
-    await api.post("messages/conversations", {
+    await api.post('messages/conversations', {
       userId: userId,
       vendorId: vendorId,
       weddingId: weddingId
