@@ -11,7 +11,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
   useEffect(()=>{
     console.log(user)
   },[])
-
+  //sync
   return (
     <Card mb="20px">
       <Flex align="center">
