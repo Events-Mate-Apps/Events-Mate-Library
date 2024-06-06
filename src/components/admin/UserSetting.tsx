@@ -10,7 +10,7 @@ import Sessions from './adminComponents/Sessions';
 import Socials from './adminComponents/Socials';
 import TwoFactor from './adminComponents/TwoFactor';
 
-export default function Settings() {
+export default function UserSettings() {
   return (
     <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
       <SimpleGrid
