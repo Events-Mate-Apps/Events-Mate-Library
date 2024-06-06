@@ -1,14 +1,16 @@
 import { Flex, Text, useColorModeValue, Avatar } from '@chakra-ui/react';
 import Card from '../../card/Card';
 import { User } from '@sentry/nextjs';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 
 interface ProfileProps {
   user: User;
 }
 
 const Profile: FC<ProfileProps> = ({ user }) => {
-
+  useEffect(()=>{
+    console.log(user)
+  },[])
   return (
     <Card mb="20px">
       <Flex align="center">
