@@ -1,6 +1,5 @@
 
 import { Flex, Text, useColorModeValue, Avatar } from '@chakra-ui/react';
-import profileAvatar from '/public/img/avatars/avatar4.png';
 import Card from '../../card/Card';
 
 export default function Profile(props: { [x: string]: any }) {
@@ -11,7 +10,7 @@ export default function Profile(props: { [x: string]: any }) {
   return (
     <Card mb="20px" {...rest}>
       <Flex align="center">
-        <Avatar src={profileAvatar.src} h="87px" w="87px" me="20px" />
+        {/* <Avatar src={profileAvatar.src} h="87px" w="87px" me="20px" /> */}
         <Flex direction="column">
           <Text color={textColorPrimary} fontWeight="bold" fontSize="2xl">
             Adela Parkson
