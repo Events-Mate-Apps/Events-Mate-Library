@@ -1,16 +1,21 @@
-
 import { Box, Flex, SimpleGrid } from '@chakra-ui/react';
 import Connected from '../admin/adminComponents/Connected';
 import Delete from './adminComponents/Delete';
-import Information from './adminComponents/Information'
+import Information from './adminComponents/Information';
 import Newsletter from './adminComponents/Newsletter';
 import Password from './adminComponents/Password';
 import Profile from './adminComponents/Profile';
 import Sessions from './adminComponents/Sessions';
 import Socials from './adminComponents/Socials';
 import TwoFactor from './adminComponents/TwoFactor';
+import { User } from '@sentry/nextjs';
+import { FC } from 'react';
 
-export default function UserSettings() {
+interface UserSettingsProps {
+  user: User;
+}
+
+const UserSettings: FC<UserSettingsProps> = ({ user }) => {
   return (
     <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
       <SimpleGrid
@@ -19,7 +24,7 @@ export default function UserSettings() {
         spacing={{ base: '20px', xl: '20px' }}
       >
         <Flex direction="column">
-          <Profile />
+          <Profile user={user} />
           <Information />
           <Socials />
           <Password />
@@ -34,4 +39,6 @@ export default function UserSettings() {
       </SimpleGrid>
     </Box>
   );
-}
+};
+
+export default UserSettings;
