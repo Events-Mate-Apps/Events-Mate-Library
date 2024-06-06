@@ -1,4 +1,4 @@
-import { Flex, Text, useColorModeValue, Avatar } from '@chakra-ui/react';
+import { Flex, Text, Avatar } from '@chakra-ui/react';
 import Card from '../../card/Card';
 import { User } from '@sentry/nextjs';
 import { FC, useEffect } from 'react';
