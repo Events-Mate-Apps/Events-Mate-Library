@@ -26,11 +26,11 @@ const Information: FC<InformationProps> = (props) => {
         </Flex>
         <SimpleGrid columns={{ sm: 1, md: 2 }} spacing={{ base: '20px', xl: '20px' }}>
           <Box mb="0px" me="30px">
-            <FormLabel htmlFor="username">Username</FormLabel>
+            <FormLabel htmlFor="username">{t('common:username')}</FormLabel>
             <Input id="username" placeholder="@simmmple.web" />
           </Box>
           <Box mb="0px">
-            <FormLabel htmlFor="email">Email Address</FormLabel>
+            <FormLabel htmlFor="email">{t('common:emailAddress')}</FormLabel>
             <Input id="email" placeholder="mail@simmmple.com" />
           </Box>
           <Box mb="20px" me="30px">
