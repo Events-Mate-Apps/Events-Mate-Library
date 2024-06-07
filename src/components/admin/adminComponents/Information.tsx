@@ -18,10 +18,10 @@ const Information: FC<InformationProps> = (props) => {
       <Card mb="20px" {...rest}>
         <Flex direction="column" mb="30px" ms="10px">
           <Text fontSize="xl" color={textColorPrimary} fontWeight="bold">
-            Account Settings
+            {t('user:settings.accountSettings')}
           </Text>
           <Text fontSize="md" color={textColorSecondary}>
-            Here you can change user account information
+            {t('user:settings.changeInformation')}
           </Text>
         </Flex>
         <SimpleGrid columns={{ sm: 1, md: 2 }} spacing={{ base: '20px', xl: '20px' }}>
