@@ -5,6 +5,7 @@ import Information from './adminComponents/Information';
 import Newsletter from './adminComponents/Newsletter';
 import Password from './adminComponents/Password';
 import Profile from './adminComponents/Profile';
+import LanguageSettings from './adminComponents/Language';
 import { FC } from 'react';
 import { UserData } from '~/interfaces/user';
 
@@ -26,6 +27,7 @@ const UserSettings: FC<UserSettingsProps> = ({ user }) => {
           <Password />
         </Flex>
         <Flex direction="column">
+          <LanguageSettings />
           <Newsletter mb="20px" />
           <Connected mb="20px" />
           <Delete />
