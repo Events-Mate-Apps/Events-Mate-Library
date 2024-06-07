@@ -3,6 +3,11 @@ import { Box, Heading, Text, Select, FormControl } from "@chakra-ui/react";
 import Card from '../../card/Card';
 import axios from 'axios';
 
+interface Language {
+  iso: string;
+  name: string;
+}
+
 interface Currency {
   ISOdigits: number;
   ISOnum: number;
@@ -20,8 +25,17 @@ interface Currency {
 }
 
 const LanguageSettings: FC = () => {
-  const [languages, setLanguages] = useState<string[]>([]);
+  const [languages, setLanguages] = useState<Language[]>([]);
   const [currencies, setCurrencies] = useState<Currency[]>([]);
+
+  const fetchLanguages = async () => {
+    try {
+      const { data } = await axios.get('/api/support/languages');
+      setLanguages(data);
+    } catch (error) {
+      console.error("Error fetching languages:", error);
+    }
+  };
 
   const fetchCurrencies = async () => {
     try {
@@ -33,6 +47,7 @@ const LanguageSettings: FC = () => {
   };
 
   useEffect(() => {
+    fetchLanguages();
     fetchCurrencies();
   }, []);
 
@@ -46,9 +61,11 @@ const LanguageSettings: FC = () => {
         <Box mb={4}>
           <Text mb={2}>Language</Text>
           <Select placeholder="Select Language">
-            <option value="english">English</option>
-            <option value="spanish">Spanish</option>
-            <option value="french">French</option>
+            {languages.map((language) => (
+              <option key={language.iso} value={language.iso}>
+                {language.name}
+              </option>
+            ))}
           </Select>
         </Box>
         <Box mb={4}>
