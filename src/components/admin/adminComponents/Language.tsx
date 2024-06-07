@@ -39,9 +39,9 @@ const LanguageSettings: FC = () => {
         <Box mb={4}>
           <Text mb={2}>Currency</Text>
           <Select placeholder="Select Currency">
-            {currencies.map((currency) => (
+            {/* {currencies.map((currency) => (
               <option key={currency} value={currency}>{currency}</option>
-            ))}
+            ))} */}
           </Select>
         </Box>
       </Card>
