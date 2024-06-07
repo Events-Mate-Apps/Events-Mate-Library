@@ -34,11 +34,11 @@ const Information: FC<InformationProps> = (props) => {
             <Input id="email" placeholder="mail@simmmple.com" />
           </Box>
           <Box mb="20px" me="30px">
-            <FormLabel htmlFor="first_name">First Name</FormLabel>
+            <FormLabel htmlFor="first_name">{t('guest:form.firstName')}</FormLabel>
             <Input id="first_name" placeholder="John" />
           </Box>
           <Box mb="20px">
-            <FormLabel htmlFor="last_name">Last Name</FormLabel>
+            <FormLabel htmlFor="last_name">{t('guest:form.lastName')}</FormLabel>
             <Input id="last_name" placeholder="William" />
           </Box>
         </SimpleGrid>

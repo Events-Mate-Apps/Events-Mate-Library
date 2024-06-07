@@ -6,7 +6,6 @@ import Newsletter from './adminComponents/Newsletter';
 import Password from './adminComponents/Password';
 import Profile from './adminComponents/Profile';
 import Sessions from './adminComponents/Sessions';
-import TwoFactor from './adminComponents/TwoFactor';
 import { FC } from 'react';
 import { UserData } from '~/interfaces/user';
 
@@ -28,7 +27,6 @@ const UserSettings: FC<UserSettingsProps> = ({ user }) => {
           <Password />
         </Flex>
         <Flex direction="column">
-          <TwoFactor mb="20px" />
           <Newsletter mb="20px" />
           <Sessions mb="20px" />
           <Connected mb="20px" />
