@@ -1,5 +1,4 @@
 import { Box, Flex, SimpleGrid } from '@chakra-ui/react';
-import Connected from '../admin/adminComponents/Connected';
 import Delete from './adminComponents/Delete';
 import Information from './adminComponents/Information';
 import Newsletter from './adminComponents/Newsletter';
@@ -29,7 +28,6 @@ const UserSettings: FC<UserSettingsProps> = ({ user }) => {
         <Flex direction="column">
           <LanguageSettings />
           <Newsletter mb="20px" />
-          <Connected mb="20px" />
           <Delete />
         </Flex>
       </SimpleGrid>

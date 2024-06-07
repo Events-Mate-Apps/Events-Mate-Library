@@ -24,10 +24,14 @@ interface Currency {
   symbol: string;
   symbolNative: string;
 }
-
+interface UserSettings {
+  language: string;
+  currency: string;
+}
 const LanguageSettings: FC = () => {
   const [languages, setLanguages] = useState<Language[]>([]);
   const [currencies, setCurrencies] = useState<Currency[]>([]);
+  const [userSettings, setUserSettings] = useState<UserSettings | null>(null);
 
   const { t } = useTranslation()
 
@@ -48,10 +52,19 @@ const LanguageSettings: FC = () => {
       console.error("Error fetching currencies:", error);
     }
   };
+  const fetchUserSettings = async () => {
+    try {
+      const { data } = await api.get<UserSettings>('users/settings');
+      setUserSettings(data);
+    } catch (error) {
+      console.error("Error fetching user settings:", error);
+    }
+  };
 
   useEffect(() => {
     fetchLanguages();
     fetchCurrencies();
+    fetchUserSettings();
   }, []);
 
   return (
