@@ -6,13 +6,12 @@ import Newsletter from './adminComponents/Newsletter';
 import Password from './adminComponents/Password';
 import Profile from './adminComponents/Profile';
 import Sessions from './adminComponents/Sessions';
-import Socials from './adminComponents/Socials';
 import TwoFactor from './adminComponents/TwoFactor';
-import { User } from '@sentry/nextjs';
 import { FC } from 'react';
+import { UserData } from '~/interfaces/user';
 
 interface UserSettingsProps {
-  user: User;
+  user: UserData;
 }
 
 const UserSettings: FC<UserSettingsProps> = ({ user }) => {
@@ -26,7 +25,6 @@ const UserSettings: FC<UserSettingsProps> = ({ user }) => {
         <Flex direction="column">
           <Profile user={user} />
           <Information />
-          <Socials />
           <Password />
         </Flex>
         <Flex direction="column">
