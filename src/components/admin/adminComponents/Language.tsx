@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from "react";
-import { Box, Heading, Text, Select, FormControl } from "@chakra-ui/react";
+import { Box, Heading, Text, Select, FormControl, Flex } from "@chakra-ui/react";
 import Card from '../../card/Card';
 import { api } from "~/utils/api";
 
@@ -58,26 +58,28 @@ const LanguageSettings: FC = () => {
           Account Settings
         </Heading>
         <Text mb={6}>Here you can change your account information</Text>
-        <Box mb={4}>
-          <Text mb={2}>Language</Text>
-          <Select placeholder="Select Language">
-            {languages.map((language) => (
-              <option key={language.iso} value={language.iso}>
-                {language.name}
-              </option>
-            ))}
-          </Select>
-        </Box>
-        <Box mb={4}>
-          <Text mb={2}>Currency</Text>
-          <Select placeholder="Select Currency">
-            {currencies.map((currency) => (
-              <option key={currency.iso} value={currency.iso}>
-                {currency.name}
-              </option>
-            ))}
-          </Select>
-        </Box>
+        <Flex mb={4} gap={4}>
+          <Box flex="1">
+            <Text mb={2}>Language</Text>
+            <Select placeholder="Select Language">
+              {languages.map((language) => (
+                <option key={language.iso} value={language.iso}>
+                  {language.name}
+                </option>
+              ))}
+            </Select>
+          </Box>
+          <Box flex="1">
+            <Text mb={2}>Currency</Text>
+            <Select placeholder="Select Currency">
+              {currencies.map((currency) => (
+                <option key={currency.iso} value={currency.iso}>
+                  {currency.name}
+                </option>
+              ))}
+            </Select>
+          </Box>
+        </Flex>
       </Card>
     </FormControl>
   );
