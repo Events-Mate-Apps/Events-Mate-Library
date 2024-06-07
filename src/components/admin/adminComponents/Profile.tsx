@@ -9,8 +9,8 @@ interface ProfileProps {
 
 const Profile: FC<ProfileProps> = ({ user }) => {
   useEffect(()=>{
-    console.log(user.email)
-  },[])
+    console.log(user)
+  },[user])
   //sync
   return (
     <Card mb="20px">
