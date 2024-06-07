@@ -1,10 +1,11 @@
 import React, { FC } from "react";
-import { ChakraProvider, Box, Heading, Text, Select } from "@chakra-ui/react";
+import { Box, Heading, Text, Select, FormControl } from "@chakra-ui/react";
+import Card from '../../card/Card';
 
 const LanguageSettings: FC = () => {
   return (
-    <ChakraProvider>
-      <Box
+    <FormControl>
+      <Card
         maxW="md"
         mx="auto"
         mt={8}
@@ -17,7 +18,7 @@ const LanguageSettings: FC = () => {
           Account Settings
         </Heading>
         <Text mb={6}>Here you can change your account information</Text>
-        <Box mb={4}>
+        <Box mb={4} >
           <Text mb={2}>Language</Text>
           <Select placeholder="Select Language">
             <option value="english">English</option>
@@ -35,8 +36,8 @@ const LanguageSettings: FC = () => {
             {/* Add more currencies as needed */}
           </Select>
         </Box>
-      </Box>
-    </ChakraProvider>
+      </Card>
+    </FormControl>
   );
 }
 
