@@ -2,6 +2,7 @@ import React, { FC, useState, useEffect } from "react";
 import { Box, Heading, Text, Select, FormControl, Flex } from "@chakra-ui/react";
 import Card from '../../card/Card';
 import { api } from "~/utils/api";
+import useTranslation from "next-translate/useTranslation";
 
 interface Language {
   iso: string;
@@ -27,6 +28,8 @@ interface Currency {
 const LanguageSettings: FC = () => {
   const [languages, setLanguages] = useState<Language[]>([]);
   const [currencies, setCurrencies] = useState<Currency[]>([]);
+
+  const { t } = useTranslation()
 
   const fetchLanguages = async () => {
     try {
@@ -55,9 +58,11 @@ const LanguageSettings: FC = () => {
     <FormControl>
       <Card mb="20px">
         <Heading as="h2" size="lg" mb={4}>
-          Account Settings
+          {t('user:settings.accountSettings')}
         </Heading>
-        <Text mb={6}>Here you can change your account information</Text>
+        <Text mb={6}>
+          {t('user:settings.changeInformation')}
+        </Text>
         <Flex mb={4} gap={4}>
           <Box flex="1">
             <Text mb={2}>Language</Text>

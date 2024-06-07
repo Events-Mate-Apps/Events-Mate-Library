@@ -58,19 +58,6 @@ export default function Newsletter(props: { [x: string]: any }) {
             desc='Get personalized offers and emails based on your activity.'
           />
         </SimpleGrid>
-        <SwitchField
-          mb='25px'
-          me='30px'
-          id='3'
-          label='Promotional emails'
-          desc='Get personalized offers and emails based on your orders & preferences.'
-        />
-        <SwitchField
-          me='30px'
-          id='4'
-          label='Product updates'
-          desc='Checking this will allow us to notify you when we make updates to products you have downloaded/purchased.'
-        />
       </Card>
     </FormControl>
   );
