@@ -21,5 +21,9 @@
 			"title": "Change Icon of your Your App 🥳"
 		},
 		"title": "Hello 👋"
+	},
+	"settings": {
+		"accountSettings": "Account Settings",
+		"changeInformation": "Here you can change user account information"
 	}
 }

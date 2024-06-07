@@ -21,5 +21,9 @@
 			"title": "Zmena ikony vašej aplikácie 🥳"
 		},
 		"title": "Dobrý deň 👋"
+	},
+	"settings": {
+		"accountSettings": "Nastavenia účtu",
+		"changeInformation": "Tu môžete zmeniť informácie o používateľskom účte"
 	}
 }

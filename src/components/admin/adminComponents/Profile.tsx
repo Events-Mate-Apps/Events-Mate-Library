@@ -2,7 +2,6 @@ import { Flex, Text, Avatar } from '@chakra-ui/react';
 import Card from '../../card/Card';
 import { FC, useEffect } from 'react';
 import { UserData } from '~/interfaces/user';
-import { User } from '@sentry/nextjs';
 
 interface ProfileProps {
   user: UserData;

@@ -21,5 +21,9 @@
 			"title": "Změna ikony vaší aplikace 🥳"
 		},
 		"title": "Ahoj 👋"
+	},
+	"settings": {
+		"accountSettings": "Nastavení účtu",
+		"changeInformation": "Zde můžete změnit informace o uživatelském účtu"
 	}
 }

@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Flex, FormControl, SimpleGrid, Text, useColorModeValue, Input, Textarea, FormLabel, Box } from '@chakra-ui/react';
 import Card from '../../card/Card';
+import useTranslation from 'next-translate/useTranslation';
 
 interface InformationProps {
   [key: string]: any;
@@ -10,7 +11,8 @@ const Information: FC<InformationProps> = (props) => {
   const { ...rest } = props;
   const textColorPrimary = useColorModeValue('secondaryGray.900', 'white');
   const textColorSecondary = 'secondaryGray.600';
-
+  const { t } = useTranslation()
+  
   return (
     <FormControl>
       <Card mb="20px" {...rest}>
