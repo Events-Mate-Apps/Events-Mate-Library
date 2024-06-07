@@ -30,7 +30,7 @@ const LanguageSettings: FC = () => {
 
   const fetchLanguages = async () => {
     try {
-      const { data } = await api.get<Language[]>('/api/support/languages');
+      const { data } = await api.get<Language[]>('support/languages');
       setLanguages(data);
     } catch (error) {
       console.error("Error fetching languages:", error);
@@ -39,7 +39,7 @@ const LanguageSettings: FC = () => {
 
   const fetchCurrencies = async () => {
     try {
-      const { data } = await api.get<Currency[]>('/api/support/currencies');
+      const { data } = await api.get<Currency[]>('support/currencies');
       setCurrencies(data);
     } catch (error) {
       console.error("Error fetching currencies:", error);
