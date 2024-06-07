@@ -9,7 +9,7 @@ interface ProfileProps {
 
 const Profile: FC<ProfileProps> = ({ user }) => {
   useEffect(()=>{
-    console.log(user)
+    console.log(user.email)
   },[])
   //sync
   return (
