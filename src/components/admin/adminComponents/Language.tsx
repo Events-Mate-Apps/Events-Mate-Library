@@ -1,17 +1,32 @@
 import React, { FC, useState, useEffect } from "react";
 import { Box, Heading, Text, Select, FormControl } from "@chakra-ui/react";
 import Card from '../../card/Card';
-import { api } from "~/utils/api";
+import axios from 'axios';
+
+interface Currency {
+  ISOdigits: number;
+  ISOnum: number;
+  decimals: number;
+  demonym: string;
+  iso: string;
+  majorPlural: string;
+  majorSingle: string;
+  minorPlural: string;
+  minorSingle: string;
+  name: string;
+  numToBasic: number;
+  symbol: string;
+  symbolNative: string;
+}
 
 const LanguageSettings: FC = () => {
   const [languages, setLanguages] = useState<string[]>([]);
-  const [currencies, setCurrencies] = useState<string[]>([]);
+  const [currencies, setCurrencies] = useState<Currency[]>([]);
 
   const fetchCurrencies = async () => {
     try {
-      const { data } = await api.get('support/currencies');
+      const { data } = await axios.get('/api/support/currencies');
       setCurrencies(data);
-      console.log(data)
     } catch (error) {
       console.error("Error fetching currencies:", error);
     }
@@ -39,9 +54,11 @@ const LanguageSettings: FC = () => {
         <Box mb={4}>
           <Text mb={2}>Currency</Text>
           <Select placeholder="Select Currency">
-            {/* {currencies.map((currency) => (
-              <option key={currency} value={currency}>{currency}</option>
-            ))} */}
+            {currencies.map((currency) => (
+              <option key={currency.iso} value={currency.iso}>
+                {currency.name}
+              </option>
+            ))}
           </Select>
         </Box>
       </Card>
