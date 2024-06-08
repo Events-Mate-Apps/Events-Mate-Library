@@ -84,6 +84,7 @@ const LanguageSettings: FC = () => {
           <Box flex="1">
             <Text mb={2}>Language</Text>
             <Select placeholder="Select Language" textColor="black">
+              <Text>Ahoj</Text>
               {languages.map((language) => (
                 <option key={language.iso} value={language.iso}>
                   {language.name}
