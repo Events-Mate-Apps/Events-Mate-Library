@@ -3,7 +3,6 @@ import { Box, Heading, Text, Select, FormControl, Flex, Button } from "@chakra-u
 import Card from '../../card/Card';
 import { api } from "~/utils/api";
 import useTranslation from "next-translate/useTranslation";
-import UserSettings from "../UserSetting";
 
 interface Language {
   iso: string;
@@ -30,7 +29,7 @@ interface UserSettings {
   language: string;
   currency: string;
   allowMarketingEmails: boolean;
-  allowSystemEmails: boolean
+  allowSystemEmails: boolean;
 }
 
 const LanguageSettings: FC = () => {
@@ -74,17 +73,20 @@ const LanguageSettings: FC = () => {
   };
 
   const handleSaveChanges = async () => {
-    try {
-      await api.put('users/settings/', {
-       
-        allowMarketingEmails: userSettings?.allowMarketingEmails,  
-        allowSystemEmails: userSettings?.allowSystemEmails,     
-        preferredLanguageISO: selectedLanguage,
-        preferredCurrencyISO: selectedCurrency,
-      });
-      setUserSettings(prev => prev ? { ...prev, language: selectedLanguage!, currency: selectedCurrency! } : null);
-    } catch (error) {
-      console.error("Error updating user settings:", error);
+    if (selectedLanguage && selectedCurrency) {
+      try {
+        await api.put('users/settings/', {
+          allowMarketingEmails: userSettings?.allowMarketingEmails,
+          allowSystemEmails: userSettings?.allowSystemEmails,
+          preferredLanguageISO: selectedLanguage,
+          preferredCurrencyISO: selectedCurrency,
+        });
+        setUserSettings(prev => prev ? { ...prev, language: selectedLanguage, currency: selectedCurrency } : null);
+      } catch (error) {
+        console.error("Error updating user settings:", error);
+      }
+    } else {
+      console.error("Language or Currency not selected");
     }
   };
 
@@ -95,7 +97,7 @@ const LanguageSettings: FC = () => {
   const handleCurrencyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCurrency(event.target.value);
   };
-  
+
   useEffect(() => {
     fetchLanguages();
     fetchCurrencies();
