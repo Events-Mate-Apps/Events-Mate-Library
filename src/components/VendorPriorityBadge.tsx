@@ -12,7 +12,7 @@ const VendorPriorityBadge: FC<VendorPriorityBadgeProps> = ({ priority, size }) =
     [2, '#CD7F32'],
     [3, '#C0C0C0'],
     [4, '#FFD700'],
-]);
+  ]);
 
   return color.get(priority) && <FontAwesomeIconWrapper
     icon='fa-solid fa-crown'

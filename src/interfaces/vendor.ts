@@ -186,7 +186,7 @@ export interface VendorPost {
   images: string[];
   businessInfo: BusinessInfo,
   businessAddress: BusinessAddress
-};
+}
 
 export interface NewDescription {
   code: string,

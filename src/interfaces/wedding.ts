@@ -1,10 +1,10 @@
-import { QueryObserverResult, RefetchOptions, RefetchQueryFilters } from '@tanstack/react-query';
+import { QueryObserverResult, RefetchOptions } from '@tanstack/react-query';
 import { Budget } from './budget';
 import { ChecklistCategory } from './checklist';
 import { Guest } from './guest';
 import { Timeline } from './timeline';
 import { SmallVendor, Vendor } from './vendor';
-import { Editor } from "./editor";
+import { Editor } from './editor';
 
 export interface BuffetOption {
   id: string,
@@ -38,7 +38,7 @@ export interface Menu {
   createdAt: string,
   updatedAt: string,
   position: number
-};
+}
 
 export type Wedding = {
   createdAt: string;

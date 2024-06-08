@@ -1,12 +1,13 @@
 import {
   Box,
   Button,
+  Card,
   Flex,
   SimpleGrid,
   Text,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
-import Card from '../../../components/card/Card';
 import React, { useEffect, useState } from 'react';
 import dayjs from '../../../utils/dayjs';
 import { useRouter } from 'next/router';
@@ -24,6 +25,18 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
   const [isInDashboard, setIsInDashboard] = useState<boolean>(false);
   const { t } = useTranslation();
   const { showError } = useNotification()
+
+  const borderStyles = useColorModeValue({
+    boxShadow: '14px 17px 40px 4px rgba(112, 144, 176, 0.08)',
+    borderWidth: '0px',
+    background: 'none',
+  },
+  {
+    borderColor: 'whiteAlpha.100',
+    boxShadow: 'unset',
+    borderWidth: '1px',
+    background: 'navy.800',
+  })
 
   const router = useRouter();
 
@@ -62,7 +75,9 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
 
   return (
     <Card
+      {...(isInDashboard && borderStyles)}
       p='30px'
+      borderRadius='3xl'
       mb={{ base: '20px', '2xl': '20px' }}
       bgColor={!isInDashboard ? 'navy.00' : 'transparent'}
     >
