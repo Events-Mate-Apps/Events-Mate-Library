@@ -39,6 +39,8 @@ const LanguageSettings: FC = () => {
     try {
       const { data } = await api.get<Language[]>('support/languages');
       setLanguages(data);
+      console.log(data)
+
     } catch (error) {
       console.error("Error fetching languages:", error);
     }
@@ -57,7 +59,6 @@ const LanguageSettings: FC = () => {
     try {
       const { data } = await api.get<UserSettings>('users/settings');
       setUserSettings(data);
-      console.log(data)
 
     } catch (error) {
       console.error("Error fetching user settings:", error);
