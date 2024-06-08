@@ -1,8 +1,8 @@
-import React, { FC, useState, useEffect } from "react";
-import { Box, Heading, Text, Select, FormControl, Flex, Button } from "@chakra-ui/react";
+import React, { FC, useState, useEffect } from 'react';
+import { Box, Heading, Text, Select, FormControl, Flex, Button } from '@chakra-ui/react';
 import Card from '../../card/Card';
-import { api } from "~/utils/api";
-import useTranslation from "next-translate/useTranslation";
+import { api } from '~/utils/api';
+import useTranslation from 'next-translate/useTranslation';
 
 interface Language {
   iso: string;
@@ -47,7 +47,7 @@ const LanguageSettings: FC = () => {
       setLanguages(data);
       console.log(data);
     } catch (error) {
-      console.error("Error fetching languages:", error);
+      console.error('Error fetching languages:', error);
     }
   };
 
@@ -57,7 +57,7 @@ const LanguageSettings: FC = () => {
       setCurrencies(data);
       console.log(data);
     } catch (error) {
-      console.error("Error fetching currencies:", error);
+      console.error('Error fetching currencies:', error);
     }
   };
 
@@ -68,7 +68,7 @@ const LanguageSettings: FC = () => {
       setSelectedLanguage(data.language);
       setSelectedCurrency(data.currency);
     } catch (error) {
-      console.error("Error fetching user settings:", error);
+      console.error('Error fetching user settings:', error);
     }
   };
 
@@ -85,10 +85,10 @@ const LanguageSettings: FC = () => {
         await api.post('users/settings/', requestBody);
         setUserSettings(prev => prev ? { ...prev, language: selectedLanguage, currency: selectedCurrency } : null);
       } catch (error) {
-        console.error("Error updating user settings:", error);
+        console.error('Error updating user settings:', error);
       }
     } else {
-      console.error("Language or Currency not selected");
+      console.error('Language or Currency not selected');
     }
   };
 
@@ -119,7 +119,7 @@ const LanguageSettings: FC = () => {
           <Box flex="1">
             <Text mb={2}>Language</Text>
             <Select 
-              placeholder={userSettings?.language ?? "Select Language"} 
+              placeholder={userSettings?.language ?? 'Select Language'} 
               onChange={handleLanguageChange}
               value={selectedLanguage}
             >
@@ -133,7 +133,7 @@ const LanguageSettings: FC = () => {
           <Box flex="1">
             <Text mb={2}>Currency</Text>
             <Select 
-              placeholder={userSettings?.currency ?? "Select Currency"} 
+              placeholder={userSettings?.currency ?? 'Select Currency'} 
               onChange={handleCurrencyChange}
               value={selectedCurrency}
               color="black" 
