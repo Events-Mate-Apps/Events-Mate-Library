@@ -28,19 +28,19 @@ interface UserSettings {
   language: string;
   currency: string;
 }
+
 const LanguageSettings: FC = () => {
   const [languages, setLanguages] = useState<Language[]>([]);
   const [currencies, setCurrencies] = useState<Currency[]>([]);
   const [userSettings, setUserSettings] = useState<UserSettings | null>(null);
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const fetchLanguages = async () => {
     try {
       const { data } = await api.get<Language[]>('support/languages');
       setLanguages(data);
-      console.log(data)
-
+      console.log(data);
     } catch (error) {
       console.error("Error fetching languages:", error);
     }
@@ -50,19 +50,38 @@ const LanguageSettings: FC = () => {
     try {
       const { data } = await api.get<Currency[]>('support/currencies');
       setCurrencies(data);
-      console.log(data)
+      console.log(data);
     } catch (error) {
       console.error("Error fetching currencies:", error);
     }
   };
+
   const fetchUserSettings = async () => {
     try {
       const { data } = await api.get<UserSettings>('users/settings');
       setUserSettings(data);
-
     } catch (error) {
       console.error("Error fetching user settings:", error);
     }
+  };
+
+  const updateUserSettings = async (settings: Partial<UserSettings>) => {
+    try {
+      await api.put('/api/users/settings/', settings);
+      setUserSettings(prev => prev ? { ...prev, ...settings } : null);
+    } catch (error) {
+      console.error("Error updating user settings:", error);
+    }
+  };
+
+  const handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedLanguage = event.target.value;
+    updateUserSettings({ language: selectedLanguage });
+  };
+
+  const handleCurrencyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedCurrency = event.target.value;
+    updateUserSettings({ currency: selectedCurrency });
   };
 
   useEffect(() => {
@@ -83,8 +102,11 @@ const LanguageSettings: FC = () => {
         <Flex mb={4} gap={4}>
           <Box flex="1">
             <Text mb={2}>Language</Text>
-            <Select placeholder="Select Language" textColor="black">
-              <Text>Ahoj</Text>
+            <Select 
+              placeholder={userSettings?.language ?? "Select Language"} 
+              onChange={handleLanguageChange}
+              value={userSettings?.language}
+            >
               {languages.map((language) => (
                 <option key={language.iso} value={language.iso}>
                   {language.name}
@@ -94,7 +116,12 @@ const LanguageSettings: FC = () => {
           </Box>
           <Box flex="1">
             <Text mb={2}>Currency</Text>
-            <Select placeholder={userSettings?.currency ?? "Select Currency"} color="black" >
+            <Select 
+              placeholder={userSettings?.currency ?? "Select Currency"} 
+              onChange={handleCurrencyChange}
+              value={userSettings?.currency}
+              color="black" 
+            >
               {currencies.map((currency) => (
                 <option key={currency.iso} value={currency.iso}>
                   {currency.name}
