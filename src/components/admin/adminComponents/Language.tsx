@@ -74,13 +74,15 @@ const LanguageSettings: FC = () => {
 
   const handleSaveChanges = async () => {
     if (selectedLanguage && selectedCurrency) {
+      const requestBody = {
+        allowMarketingEmails: userSettings?.allowMarketingEmails,
+        allowSystemEmails: userSettings?.allowSystemEmails,
+        preferredLanguageISO: selectedLanguage,
+        preferredCurrencyISO: selectedCurrency,
+      };
+
       try {
-        await api.put('users/settings/', {
-          allowMarketingEmails: userSettings?.allowMarketingEmails,
-          allowSystemEmails: userSettings?.allowSystemEmails,
-          preferredLanguageISO: selectedLanguage,
-          preferredCurrencyISO: selectedCurrency,
-        });
+        await api.post('users/settings/', requestBody);
         setUserSettings(prev => prev ? { ...prev, language: selectedLanguage, currency: selectedCurrency } : null);
       } catch (error) {
         console.error("Error updating user settings:", error);
