@@ -1,8 +1,9 @@
 import React, { FC, useState, useEffect } from "react";
-import { Box, Heading, Text, Select, FormControl, Flex } from "@chakra-ui/react";
+import { Box, Heading, Text, Select, FormControl, Flex, Button } from "@chakra-ui/react";
 import Card from '../../card/Card';
 import { api } from "~/utils/api";
 import useTranslation from "next-translate/useTranslation";
+import UserSettings from "../UserSetting";
 
 interface Language {
   iso: string;
@@ -24,15 +25,20 @@ interface Currency {
   symbol: string;
   symbolNative: string;
 }
+
 interface UserSettings {
   language: string;
   currency: string;
+  allowMarketingEmails: boolean;
+  allowSystemEmails: boolean
 }
 
 const LanguageSettings: FC = () => {
   const [languages, setLanguages] = useState<Language[]>([]);
   const [currencies, setCurrencies] = useState<Currency[]>([]);
   const [userSettings, setUserSettings] = useState<UserSettings | null>(null);
+  const [selectedLanguage, setSelectedLanguage] = useState<string | undefined>(undefined);
+  const [selectedCurrency, setSelectedCurrency] = useState<string | undefined>(undefined);
 
   const { t } = useTranslation();
 
@@ -60,30 +66,35 @@ const LanguageSettings: FC = () => {
     try {
       const { data } = await api.get<UserSettings>('users/settings');
       setUserSettings(data);
+      setSelectedLanguage(data.language);
+      setSelectedCurrency(data.currency);
     } catch (error) {
       console.error("Error fetching user settings:", error);
     }
   };
 
-  const updateUserSettings = async (settings: Partial<UserSettings>) => {
+  const handleSaveChanges = async () => {
     try {
-      await api.put('/api/users/settings/', settings);
-      setUserSettings(prev => prev ? { ...prev, ...settings } : null);
+      await api.put('users/settings/', {
+        preferredLanguageISO: selectedLanguage,
+        preferredCurrencyISO: selectedCurrency,
+        allowMarketingEmails: userSettings?.allowMarketingEmails,  // Example value, adjust as necessary
+        allowSystemEmails: userSettings?.allowSystemEmails      // Example value, adjust as necessary
+      });
+      setUserSettings(prev => prev ? { ...prev, language: selectedLanguage!, currency: selectedCurrency! } : null);
     } catch (error) {
       console.error("Error updating user settings:", error);
     }
   };
 
   const handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedLanguage = event.target.value;
-    updateUserSettings({ language: selectedLanguage });
+    setSelectedLanguage(event.target.value);
   };
 
   const handleCurrencyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedCurrency = event.target.value;
-    updateUserSettings({ currency: selectedCurrency });
+    setSelectedCurrency(event.target.value);
   };
-
+  
   useEffect(() => {
     fetchLanguages();
     fetchCurrencies();
@@ -105,7 +116,7 @@ const LanguageSettings: FC = () => {
             <Select 
               placeholder={userSettings?.language ?? "Select Language"} 
               onChange={handleLanguageChange}
-              value={userSettings?.language}
+              value={selectedLanguage}
             >
               {languages.map((language) => (
                 <option key={language.iso} value={language.iso}>
@@ -119,7 +130,7 @@ const LanguageSettings: FC = () => {
             <Select 
               placeholder={userSettings?.currency ?? "Select Currency"} 
               onChange={handleCurrencyChange}
-              value={userSettings?.currency}
+              value={selectedCurrency}
               color="black" 
             >
               {currencies.map((currency) => (
@@ -130,6 +141,9 @@ const LanguageSettings: FC = () => {
             </Select>
           </Box>
         </Flex>
+        <Button mt={4} colorScheme="teal" onClick={handleSaveChanges}>
+          Save Changes
+        </Button>
       </Card>
     </FormControl>
   );
