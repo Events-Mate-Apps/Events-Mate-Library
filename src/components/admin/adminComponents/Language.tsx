@@ -48,6 +48,7 @@ const LanguageSettings: FC = () => {
     try {
       const { data } = await api.get<Currency[]>('support/currencies');
       setCurrencies(data);
+      console.log(data)
     } catch (error) {
       console.error("Error fetching currencies:", error);
     }
@@ -56,6 +57,8 @@ const LanguageSettings: FC = () => {
     try {
       const { data } = await api.get<UserSettings>('users/settings');
       setUserSettings(data);
+      console.log(data)
+
     } catch (error) {
       console.error("Error fetching user settings:", error);
     }
@@ -79,7 +82,7 @@ const LanguageSettings: FC = () => {
         <Flex mb={4} gap={4}>
           <Box flex="1">
             <Text mb={2}>Language</Text>
-            <Select placeholder="Select Language" textColor="black" p="0">
+            <Select placeholder="Select Language" textColor="black">
               {languages.map((language) => (
                 <option key={language.iso} value={language.iso}>
                   {language.name}
