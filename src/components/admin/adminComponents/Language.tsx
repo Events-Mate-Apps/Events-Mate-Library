@@ -89,7 +89,7 @@ const LanguageSettings: FC = () => {
           </Box>
           <Box flex="1">
             <Text mb={2}>Currency</Text>
-            <Select placeholder="Select Currency">
+            <Select placeholder={userSettings?.currency ?? "Select Currency"}>
               {currencies.map((currency) => (
                 <option key={currency.iso} value={currency.iso}>
                   {currency.name}

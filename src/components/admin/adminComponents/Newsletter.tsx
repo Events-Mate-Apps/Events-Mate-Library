@@ -1,5 +1,4 @@
-'use client'
-// Chakra imports
+
 import { Flex, SimpleGrid, Text, useColorModeValue, Switch, FormLabel, FormControl, Box } from '@chakra-ui/react';
 import Card from '../../card/Card';
 
@@ -16,8 +15,7 @@ const SwitchField = ({ id, label, desc, mb, me }: SwitchFieldProps) => {
   const textColorSecondary = useColorModeValue('secondaryGray.600', 'secondaryGray.400');
 
   return (
-    <FormControl display='flex' alignItems='center' mb={mb} me={me}>
-      <Switch id={id} />
+    <FormControl display='flex' alignItems='center' justifyContent='space-between' mb={mb} me={me}>
       <Box ms='10px'>
         <FormLabel htmlFor={id} mb='0' fontSize='md' fontWeight='bold' color={textColorPrimary}>
           {label}
@@ -26,6 +24,7 @@ const SwitchField = ({ id, label, desc, mb, me }: SwitchFieldProps) => {
           {desc}
         </Text>
       </Box>
+      <Switch id={id} />
     </FormControl>
   );
 };
