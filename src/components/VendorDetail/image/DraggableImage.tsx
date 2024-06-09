@@ -1,9 +1,7 @@
 import { DeleteIcon } from '@chakra-ui/icons';
 import {
   Box,
-  ImageProps as ChakraImageProps,
   IconButton,
-  useToast,
   Button,
   AlertDialog,
   AlertDialogBody,
@@ -18,16 +16,17 @@ import { useDrag, useDrop } from 'react-dnd';
 import { Image as ImageType } from '../../../interfaces/vendor';
 import { api } from '../../../utils/api';
 import Image from '../../image/Image';
+import { useNotification } from '../../../service/NotificationService';
 
 export interface DraggableImageProps {
   index: number;
   image: ImageType;
   moveImage: (fromIndex: number, toIndex: number) => void;
   setCurrentImage: React.Dispatch<React.SetStateAction<string>>,
-};
+}
 
 const DraggableImage: React.FC<DraggableImageProps> = ({ 
-  index, moveImage, image, setCurrentImage 
+  index, moveImage, image, setCurrentImage
 }) => {
 
   const [, ref] = useDrag({
@@ -40,12 +39,14 @@ const DraggableImage: React.FC<DraggableImageProps> = ({
     hover: (dragged: { index: number }) => {
       if (dragged.index !== index) {
         moveImage(dragged.index, index);
+        // TODO:
+        // eslint-disable-next-line
         dragged.index = index;
       }
     },
   });
 
-  const toast = useToast()
+  const { showError, showSuccess } = useNotification()
   const { t } = useTranslation()
 
   const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
@@ -65,41 +66,31 @@ const DraggableImage: React.FC<DraggableImageProps> = ({
     try {
       await api.delete(`vendors/images/${id}`)
 
-      toast({
-        title: t('edit:success'),
+      showSuccess({
         description: t('edit:editHasBeenSuccessful'),
-        status: 'success',
       })
-    } catch (e) {
-      toast({
-        title: t('edit:error'),
-        description: `${t('edit:error')}: ${e}`,
-        status: 'error',
-      })
+    } catch (error) {
+      showError({error})
     }
   }
 
   return (
-    <div>
+    <Box
+      w={{
+        sm: '80px',
+        md: '104px',
+        lg: '70px',
+        xl: '90px',
+        '2xl': '130px',
+      }}
+      aspectRatio={1 / 1}
+    >
       <Box
         key={index}
         ref={(node) => ref(drop(node))}
         cursor="move"
-
-        w={{
-          sm: '42px',
-          md: '104px',
-          lg: '70px',
-          xl: '90px',
-          '2xl': '130px',
-        }}
-        h={{
-          sm: '42px',
-          md: '104px',
-          lg: '70px',
-          xl: '90px',
-          '2xl': '130px',
-        }}
+        w='100%'
+        h='100%'
         justifyContent='center'
         position='relative'
       >
@@ -151,7 +142,7 @@ const DraggableImage: React.FC<DraggableImageProps> = ({
           </AlertDialogContent>
         </AlertDialogOverlay>
       </AlertDialog>
-    </div>
+    </Box>
   );
 }
 

@@ -1,4 +1,5 @@
 import {
+<<<<<<< HEAD
     Tag,
     Flex,
     Text,
@@ -9,9 +10,19 @@ import {
     Card,
 } from '@chakra-ui/react';
 import LanguageList from 'language-list';
+=======
+  Tag,
+  Flex,
+  Text,
+  useColorModeValue,
+  Box,
+  useDisclosure,
+  Card,
+} from '@chakra-ui/react';
+>>>>>>> a503a74a29195e4b8f413f6787658b7c4f2c3815
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { Description, DescriptionWithLabel, Language, Vendor } from '../../interfaces/vendor';
+import { Vendor } from '../../interfaces/vendor';
 import VendorDescription from './Description';
 import FAQ from './FAQ';
 import VendorLocation from './Location';
@@ -19,159 +30,146 @@ import useTranslation from 'next-translate/useTranslation';
 import Links from './Links';
 import ReviewStars from './ReviewStars';
 import { NextSeo } from 'next-seo';
-import MarkdownReader from './MarkdownReader';
 import DealsCard from './deals/DealsCard';
 import { UserData } from '../../interfaces/user';
-import { api } from '../../utils/api';
 import Contacts from './Contacts';
 import ReviewsCard from './reviews/ReviewsCard';
-import ReviewConfirmDialog from './reviews/ReviewConfirmDialog';
 import VendorImages from './VendorImages';
 import { TinyColor } from '@ctrl/tinycolor/dist';
+import LanguageBar from '../localization/LanguageBar';
+import LocalizedText from '../localization/LocalizedText';
+import VendorPriorityBadge from '../VendorPriorityBadge';
+import VerificationDialog from '../fields/VerificationDialog';
+import StartMesssage from './StartMessage';
 
 interface VendorDetailProps {
-    vendor: Vendor;
-    user?: UserData,
-    sendStats?: (vendorId: string, event: string) => Promise<void>
+  vendor: Vendor;
+  user?: UserData,
+  sendStats?: (vendorId: string, event: string) => Promise<void>,
+  userId?: string,
+  weddingId?: string
 }
 
-const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) => {
-    const languages: Language[] = LanguageList().getData();
-    const langs = [{ code: 'all', language: 'All' }, ...languages]
-    const textColor = useColorModeValue('secondaryGray.900', 'white');
-    const { t } = useTranslation();
+const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, userId, weddingId }) => {
+  const textColor = useColorModeValue('secondaryGray.900', 'white');
+  const { t } = useTranslation();
 
-    const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: false });
-    const { push, replace, query, locale, pathname } = useRouter();
-    const goToPricings = (vendorId: string) => {
-        push(`/main/pricing?vendorId=${vendorId}`);
-    }
+  const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: false });
+  const { push, replace, query, pathname } = useRouter();
+  const goToPricings = (vendorId: string) => {
+    push(`/main/pricing?vendorId=${vendorId}`);
+  }
 
-    const reviewConfirmedToken = query.confirmReviewToken;
-    const [descriptions, setDescriptions] = useState<DescriptionWithLabel[]>([])
-    const [currentDescription, setCurrentDescription] = useState<DescriptionWithLabel | null>(null)
+  const reviewConfirmedToken = query.confirmReviewToken;
+  const [langToDisplay, setLangToDisplay] = useState<string | null>(null)
 
-    const getDescriptions = async (): Promise<void> => {
-        try {
-            const { data } = await api.get(`vendors/${vendor.id}/getDescriptions`);
-            setDescriptions(data.map((e: Description) => {
-                return {
-                    ...e,
-                    label: langs.find((l) => l.code === e.language)?.language || '',
-                }
-            }));
-        } catch (error) {
-            console.error('Error fetching descriptions: ', error);
-        }
-    }
-
-    useEffect(() => {
-        getDescriptions()
-    }, [])
-
-    useEffect(() => {
-        const d: DescriptionWithLabel | undefined = descriptions.find((e) => e.language === locale)
-
-        if (d) {
-            setCurrentDescription(d)
-            return
-        }
-
-        setCurrentDescription(descriptions[0])
-    }, [descriptions])
-
-    useEffect(() => {
-        if (reviewConfirmedToken !== undefined
+  useEffect(() => {
+    if (reviewConfirmedToken !== undefined
             && !isOpen) {
-            onOpen();
-        }
-    }, [reviewConfirmedToken, isOpen])
-
-    const turnOffDialog = () => {
-        onClose();
-        delete query.confirmReviewToken;
-        replace({ pathname: pathname, query });
+      onOpen();
     }
+  }, [reviewConfirmedToken, isOpen])
 
-    return (
-        <Flex direction='column' w='100%'>
-            <NextSeo
-                title={vendor.name}
-                openGraph={{
-                    title: vendor.name,
-                    images: [
-                        {
-                            url:
+  const turnOffDialog = () => {
+    onClose();
+    delete query.confirmReviewToken;
+    replace({ pathname: pathname, query });
+  }
+
+  return (
+    <Flex direction='column' w='100%'>
+      <NextSeo
+        title={vendor.name}
+        openGraph={{
+          title: vendor.name,
+          images: [
+            {
+              url:
                                 `https://www.weddmate.com/api/vendors/${vendor.id}/og` ??
                                 vendor.images[0]?.src,
-                            width: 630,
-                            height: 1200,
-                            alt: '',
-                        },
-                    ],
-                    url: `https://weddmate-web.vercel.app/vendors/${vendor.alias}`,
+              width: 630,
+              height: 1200,
+              alt: '',
+            },
+          ],
+          url: `https://weddmate-web.vercel.app/vendors/${vendor.alias}`,
+        }}
+      />
+      <VerificationDialog
+        path={`vendors/reviews/confirmReview?token=${reviewConfirmedToken}`}
+        isOpen={isOpen}
+        turnOffDialog={turnOffDialog}
+        desc={(t('vendors:detail.reviews.confirmText'))}
+      />
+      <Card mt={{ sm: '50px', md: '75px' }} me={{ lg: '60px' }} mb={{ sm: '50px', md: '75px' }}>
+        <Flex direction='column' w='100%'>
+          {user && vendor.userId === user.id && <div>
+            <Tag
+              variant='solid'
+              bgColor='blackAlpha.500'
+              backdropFilter='auto'
+              backdropBlur='md'
+              float='right'
+            >
+              {t('vendors:detail.myVendor')}
+            </Tag>
+            {vendor.isPremium ? <Tag
+              variant='solid'
+              bgColor='whiteAlpha.500'
+              backdropFilter='auto'
+              backdropBlur='md'
+              float='right'
+              marginRight='1'
+            >
+              {t('vendors:detail.subscriptionActive')}
+            </Tag>
+              : <Tag
+                variant='solid'
+                background={'#e13784'}
+                _hover={{
+                  background: new TinyColor('#e13784').darken(5).toString(),
                 }}
-            />
-            <ReviewConfirmDialog
-                token={reviewConfirmedToken}
-                isOpen={isOpen}
-                turnOffDialog={turnOffDialog}
-            />
-            <Card mt={{ sm: '50px', md: '75px' }} me={{ lg: '60px' }} mb={{ sm: '50px', md: '75px' }}>
-                <Flex direction='column' w='100%'>
-                    {user && vendor.userId === user.id && <div>
-                        <Tag
-                            variant='solid'
-                            bgColor='blackAlpha.500'
-                            backdropFilter='auto'
-                            backdropBlur='md'
-                            float='right'
-                        >
-                            {t('vendors:detail.myVendor')}
-                        </Tag>
-                        {vendor.isPremium ? <Tag
-                                variant='solid'
-                                bgColor='whiteAlpha.500'
-                                backdropFilter='auto'
-                                backdropBlur='md'
-                                float='right'
-                                marginRight='1'
-                            >
-                                {t('vendors:detail.subscriptionActive')}
-                            </Tag>
-                            : <Tag
-                                variant='solid'
-                                background={'#e13784'}
-                                _hover={{
-                                    background: new TinyColor('#e13784').darken(5).toString(),
-                                }}
-                                backdropFilter='auto'
-                                backdropBlur='md'
-                                float='right'
-                                marginRight='1'
-                                cursor='pointer'
-                                onClick={() => goToPricings(vendor.id)}
-                            >
-                                {t('vendors:detail.buySubscription')}
-                            </Tag>}
-                    </div>}
-                    <Flex direction={{ sm: 'column', lg: 'column', xl: 'row' }}>
-                        <VendorImages vendor={vendor} />
-                        <Flex direction='column' w='100%'>
-                            <Text
-                                color={textColor}
-                                fontSize='3xl'
-                                fontWeight='bold'
-                                mb='12px'
-                                mt={{ sm: '20px', md: '50px', '2xl': '20px', '3xl': '50px' }}
-                            >
-                                {vendor.name}
-                            </Text>
-                            <ReviewStars
-                                score={vendor.rating}
-                                isPremium={!!vendor.isPremium && vendor.priority >= 2 && vendor.isPremium}
-                            />
-                            {/* <Flex gap='5px' flexWrap='wrap' mb='20px'>
+                backdropFilter='auto'
+                backdropBlur='md'
+                float='right'
+                marginRight='1'
+                cursor='pointer'
+                onClick={() => goToPricings(vendor.id)}
+              >
+                {t('vendors:detail.buySubscription')}
+              </Tag>}
+          </div>}
+          <LanguageBar
+            obj={vendor.faq}
+            langToDisplay={langToDisplay}
+            setLangToDisplay={setLangToDisplay}
+          />
+          <Flex direction={{ sm: 'column', lg: 'column', xl: 'row' }}>
+            <VendorImages vendor={vendor} />
+            <Flex direction='column' w='100%'>
+              <Flex
+                alignItems='center'
+                mb='12px'
+                mt={{ sm: '20px', md: '50px', '2xl': '20px', '3xl': '50px' }}
+              >
+                <Text
+                  color={textColor}
+                  fontSize='3xl'
+                  fontWeight='bold'
+                  mr='15px'
+                >
+                  {vendor.name}
+                </Text>
+                <VendorPriorityBadge
+                  priority={vendor.priority}
+                  size='35px'
+                />
+              </Flex>
+              <ReviewStars
+                score={vendor.rating}
+                isPremium={!!vendor.isPremium && vendor.priority >= 2 && vendor.isPremium}
+              />
+              {/* <Flex gap='5px' flexWrap='wrap' mb='20px'>
                                 {vendor.categories.map((cat) => (
                                   <Tag
                                     variant='solid'
@@ -185,42 +183,43 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats }) 
                                 ))}
                               </Flex>
                             */}
-                            <Box>
-                                {descriptions.length !== 1 && <ButtonGroup size='sm' isAttached variant='outline'>
-                                    {descriptions.map((e) => {
-                                        return (
-                                            <Button
-                                                key={e.id}
-                                                onClick={() => setCurrentDescription(e)}
-                                                variant={currentDescription?.id === e.id ? 'darkBrand' : 'outline'}
-                                            >
-                                                {e.label}
-                                            </Button>
-                                        )
-                                    })}
-                                </ButtonGroup>}
-                            </Box>
-                            <Contacts sendStats={sendStats} vendor={vendor} />
-                            <Box
-                                color='secondaryGray.600'
-                                pe={{ base: '0px', '3xl': '200px' }}
-                                mb='40px'
-                                mt='20px'
-                            >
-                                {currentDescription && <MarkdownReader source={currentDescription.value} />}
-                            </Box>
-                            <Links vendor={vendor} />
-                        </Flex>
-                    </Flex>
-                </Flex>
-            </Card>
-            {currentDescription && <VendorDescription desc={currentDescription} />}
-            {(vendor.faq.length !== 0 && vendor.isPremium) && <FAQ vendor={vendor} />}
-            <DealsCard vendor={vendor} />
-            <VendorLocation vendor={vendor} />
-            <ReviewsCard vendor={vendor} />
+              <Contacts sendStats={sendStats} vendor={vendor} />
+              {userId &&
+                            <StartMesssage vendorId={vendor.id} userId={userId|| ''} weddingId={weddingId || ''}/>}
+              <Box
+                color='secondaryGray.600'
+                pe={{ base: '0px', '3xl': '200px' }}
+                mb='40px'
+                mt='20px'
+              >
+                {(langToDisplay && vendor.descriptionContent) && <LocalizedText
+                  content={vendor.descriptionContent}
+                  language={langToDisplay}
+                  markdown
+                />}
+
+              </Box>
+              <Links vendor={vendor} />
+            </Flex>
+          </Flex>
         </Flex>
-    );
+      </Card>
+      {
+        (langToDisplay && vendor.descriptionContent) &&
+                <VendorDescription
+                  description={vendor.descriptionContent}
+                  language={langToDisplay}
+                />
+      }
+      {
+        (vendor.faq.length !== 0 && vendor.isPremium && langToDisplay) &&
+                <FAQ language={langToDisplay} vendor={vendor} />
+      }
+      <DealsCard vendor={vendor} />
+      <VendorLocation vendor={vendor} />
+      <ReviewsCard vendor={vendor} />
+    </Flex>
+  );
 }
 
 export default VendorDetail;

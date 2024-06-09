@@ -4,13 +4,13 @@ import ReactMarkdown from 'react-markdown';
 import styles from 'styles/Markdown.module.scss';
 
 const MarkdownReader = ({ source }: { source: string }) => {
-    return (
-      <Box className={styles['markdown-reader']}>
-        <ReactMarkdown> 
-          {source}
-        </ReactMarkdown>	
-      </Box>
-    );
+  return (
+    <Box className={styles['markdown-reader']}>
+      <ReactMarkdown> 
+        {source}
+      </ReactMarkdown>	
+    </Box>
+  );
 };
 
 export default MarkdownReader;

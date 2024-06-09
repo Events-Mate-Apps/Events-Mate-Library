@@ -1,49 +1,77 @@
-export type Vendor = {
-  isPremium?: boolean;
-  id: string;
-  alias: string;
-  categories: string[];
-  userId: string;
-  name: string;
-  phones: Phone[];
-  emails: Email[];
-  address: Address;
-  latitude: number;
-  longitude: number;
+export interface Vendor {
+  status: string
+  isPremium?: boolean,
+  id: string,
+  alias: string,
+  categories: string[],
+  category: Category,
+  userId: string,
+  name: string,
+  phone: string,
+  email: string,
+  address: Address,
+  latitude: number,
+  longitude: number,
   location?: {
-    latitude: number;
-    longitude: number;
-  };
-  features: string[];
-  faq: FAQElement[];
+    latitude: number,
+    longitude: number,
+  },
+  features: string[],
+  faq: FAQElement[],
   links: {
-    type: Socials;
-    url: string;
-  }[];
-  rating: number;
+    type: Socials,
+    url: string,
+  }[],
+  rating: number,
   statistics: {
     views: {
-      [key: string]: number;
-      total: number;
-    };
-  };
-  images: Image[];
-  seoImageLink?: string;
-  priority: number;
+      [key: string]: number,
+      total: number,
+    },
+  },
+  images: Image[],
+  seoImageLink?: string,
+  priority: number,
   descriptionContent?: TranslationTextContent,
   premiumSubscription: {
-    id: string;
-    priority: number;
-    status: string;
+    id: string,
+    priority: number,
+    status: string,
     stripeCustomerId: string, 
     stripePriceId: string,
     stripeProductId: string,  
-    subscriptionId: string;
+    subscriptionId: string,
     userId: string
     vendorId: string
   },
-  status: string
-};
+  supportedCountries: SupportedCountry[]  
+  supportedAdministrativeArea: VendorAdministrativeArea[],
+  businessInfo: BusinessInfo,
+  businessAddress: BusinessAddress
+}
+
+export interface NewVendorForValues {
+  name: string;
+  descriptionContent: TranslationTextContent;
+  phone: string;
+  email: string;
+  latitude: number;
+  longitude: number;
+  links: VendorLink[];
+  category: { label: StaticRange, value: VendorCategory };
+  postalAddress: string;
+  image: Image,
+  registrationNo: string
+  vatNo: string
+  variableSymbol: string
+  currency: string
+  language: string,
+  street: string
+  city: string
+  zip: string
+  country: string
+  nazevUlice: string
+}
 
 export interface FAQElement {
   question: TranslationTextContent
@@ -53,36 +81,22 @@ export interface FAQElement {
   vendorId: string
   id?: string
 }
+
 export interface TranslationTextContent {
-  id?: string,
+  id?: string | number,
   defaultTranslation: Translation | null,
   translations: Translation[]
 }
 
 export interface Translation {
-  id?: string,
-  textContentId?: string,
+  id?: string | number,
+  textContentId?: string | number,
   translation: string,
   languageISO: string,
 }
 
 export interface DescriptionWithLabel extends Description {
   label: string
-}
-
-export interface Language {
-  language: string,
-  code: string
-}
-
-export interface Phone {
-  number: string;
-  description?: string;
-}
-
-export interface Email {
-  email: string;
-  description?: string;
 }
 
 export type Socials =
@@ -94,83 +108,85 @@ export type Socials =
   | 'tikTok'
   | 'tripAdvisor'
   | 'yelp'
-  | 'youtube';
+  | 'youtube'
 
-export type Image = {
-  src: string;
-  alt?: string;
-  hash: string;
-  position: number;
+export interface Image {
+  src: string,
+  alt?: string,
+  hash: string,
+  position: number,
   id?: string,
   vendorId?: string
-};
+}
 
 
 export type Address = Partial<{
-  postalCode: string;
-  administrativeArea: string;
-  locality: string;
-  subThoroughfare: string;
-  postalAddress: string;
-  areasOfInterest: string[];
-  country: string;
-  isoCountryCode: string;
-  name: string;
-  thoroughfare: string;
-}>;
+  postalCode: string,
+  administrativeArea: string,
+  locality: string,
+  subThoroughfare: string,
+  postalAddress: string,
+  areasOfInterest: string[],
+  country: string,
+  isoCountryCode: string,
+  name: string,
+  thoroughfare: string,
+}>
 
 export interface SmallVendor {
-  id?: string;
-  name: string;
-  categories: string[];
-  email?: string;
-  phone?: string;
-  weddingId: string;
-  imageUrl?: string;
-  address?: string;
-  webUrl?: string;
+  id?: string,
+  name: string,
+  categories: string[],
+  email?: string,
+  phone?: string,
+  weddingId: string,
+  imageUrl?: string,
+  address?: string,
+  webUrl?: string,
 }
 
-export type LandingVendor = {
-  id: string;
-  name: string;
-  rating: number;
-  image: Image;
-  address: Partial<Address>;
-  categories: Category[];
-  alias: string;
-};
-
-export type Category = {
-  id: string;
-  updatedAt?: string;
-  createdAt?: string;
-  name: string;
-  type: string;
-};
-
-export type VendorLink = {
-  type: Socials;
-  url: string;
+export interface LandingVendor {
+  id: string,
+  name: string,
+  rating: number,
+  image: Image,
+  address: Partial<Address>,
+  categories: Category[],
+  alias: string,
 }
 
-export type VendorPost = {
+export interface Category {
+  id: string,
+  updatedAt?: string,
+  createdAt?: string,
+  name: string,
+  type: string,
+}
+
+export interface VendorLink {
+  type: Socials,
+  url: string,
+}
+
+export interface VendorPost {
   address: {
-    postalAddress: string;
-    additionalProp1: Object,
-  };
-  description: NewDescription,
-  name: string;
-  phones: Phone[];
-  categories: string[];
-  emails: Email[];
-  links: VendorLink[];
+    postalAddress: string,
+    additionalProp1: object,
+  },
+  descriptionContent: TranslationTextContent,
+  name: string,
+  phone: string,
+  email: string,
+  categories: string[],
+  links: VendorLink[],
   location: {
     latitude: number;
     longitude: number;
   };
   images: string[];
-};
+  businessInfo: BusinessInfo,
+  businessAddress: BusinessAddress
+}
 
 export interface NewDescription {
   code: string,
@@ -183,21 +199,21 @@ export interface Description {
   language: string,
   id: number
 }
-  
+ 
 export interface VendorStatisticProperties {
-  icon: string;
+  icon: string,
   code?: VendorStatCodes
 }
 
 export interface VendorStatistics {
-  addedToFavCount: number;
-  addedToTeamCount: number; 
-  detailViews: number;
-  emailViewedCount: number;
-  listedCount: number;
-  messagesWrittenCount: number;
-  phoneViewedCount: number;
-  socialMedViewedCount: number;
+  addedToFavCount: number,
+  addedToTeamCount: number, 
+  detailViews: number,
+  emailViewedCount: number,
+  listedCount: number,
+  messagesWrittenCount: number,
+  phoneViewedCount: number,
+  socialMedViewedCount: number,
   vendorId: string,
   id: string
 }
@@ -213,21 +229,74 @@ export enum VendorStatCodes {
   socialMedViewedCount = 'socialMedViewedCount',
 }
 
-export interface NewVendorForValues {
-  name: string;
-  description: Description;
-  phone: string;
-  email: string;
-  latitude: number;
-  longitude: number;
-  links: VendorLink[];
-  category: { label: StaticRange, value: VendorCategory };
-  postalAddress: string;
-  image: Image
+export interface VendorAdministrativeArea {
+  countryIso: string
+  haveSVGMap: boolean
+  id: number,
+  isoCode: string
+  nameContent: TranslationTextContent,
+  subVendorAdministrativeArea?: VendorAdministrativeArea,
+  nameId: number
+}
+
+export interface SupportedCountry {
+  haveSVGMap: boolean,
+  iso: string,
+  nameContent: TranslationTextContent,
+  nameId: number,
+  administrativeAreas?: VendorAdministrativeArea[],
+}
+
+export interface Language {
+  language: string,
+  code: string
 }
 
 export interface VendorCategory {
   id: string;
   name: string;
   type: string;
+}
+
+export interface BusinessInfo {
+  id?: string
+  fakturoidId?: string
+  name: string
+  registrationNo: string
+  vatNo: string
+  variableSymbol?: string
+  currency: string,
+  language: string
+  createdAt?: string
+  updatedAt?: string
+  vendor?: string
+}
+
+export interface BusinessAddress {
+  id?: string
+  street: string
+  city: string
+  zip: string
+  country: string,
+  createdAt?: string
+  updatedAt?: string
+  vendor?: string
+}
+
+export interface VendorAdministrativeArea {
+  countryIso: string
+  haveSVGMap: boolean
+  id: number,
+  isoCode: string
+  nameContent: TranslationTextContent,
+  subVendorAdministrativeArea?: VendorAdministrativeArea,
+  nameId: number
+}
+
+export interface SupportedCountry {
+  haveSVGMap: boolean,
+  iso: string,
+  nameContent: TranslationTextContent,
+  nameId: number,
+  administrativeAreas?: VendorAdministrativeArea[],
 }
