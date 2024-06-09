@@ -5,12 +5,11 @@ import {
     AccordionItem,
     AccordionPanel,
     Box,
+    Card,
     Text,
     useColorModeValue
 } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
-
-import Card from '../../components/card/Card';
 
 import { Vendor } from '../../interfaces/vendor';
 import LocalizedText from '../localization/LocalizedText';

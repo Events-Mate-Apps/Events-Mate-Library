@@ -1,6 +1,4 @@
-import { Text, useColorModeValue } from '@chakra-ui/react';
-
-import Card from '../../components/card/Card';
+import { Card, Text, useColorModeValue } from '@chakra-ui/react';
 
 import MarkdownReader from './MarkdownReader';
 import { DescriptionWithLabel } from '../../interfaces/vendor';

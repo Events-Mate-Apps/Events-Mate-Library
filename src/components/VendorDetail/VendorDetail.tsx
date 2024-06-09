@@ -6,8 +6,8 @@ import {
     Box,
     ButtonGroup,
     Button, useDisclosure,
+    Card,
 } from '@chakra-ui/react';
-import Card from '../../components/card/Card';
 import LanguageList from 'language-list';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';

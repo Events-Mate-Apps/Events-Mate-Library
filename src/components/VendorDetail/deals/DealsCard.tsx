@@ -1,11 +1,11 @@
 import {
     Button,
+    Card,
     Flex,
     Text,
     useColorModeValue
 } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
-import Card from '../../../components/card/Card';
 import React, { useEffect, useState } from 'react';
 import dayjs from '../../../utils/dayjs';
 import { useRouter } from 'next/router';

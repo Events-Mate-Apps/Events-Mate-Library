@@ -1,12 +1,12 @@
 import {
     Button,
+    Card,
     Flex,
     Spacer,
     Text,
     useColorModeValue, useToast
 } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
-import Card from '~/components/card/Card';
 import React, { useEffect, useState } from 'react';
 import Review from './Review';
 import NextLink from 'next/link';
