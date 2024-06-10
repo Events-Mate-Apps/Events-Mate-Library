@@ -11,10 +11,10 @@ const QQuestionDisplay: FC<{ question: Question }> = ({ question }) => {
 
   return (
     <Box p='5px 10px'>
-      {(question.titleContent && question.titleContent.translations) && <Text color={textColor} fontSize='16px' fontWeight='700' mb='20px'>
+      {(question.titleContent && question.titleContent.translations) && <Text color={textColor} fontSize='16px' fontWeight='700'>
         {getCurrentTranslation(question.titleContent)}
       </Text>}
-      {(question.descriptionContent && question.descriptionContent.translations) && <Text color={secondaryTextColor} fontSize='16px' fontWeight='500' mb='20px'>
+      {(question.descriptionContent && question.descriptionContent.translations) && <Text color={secondaryTextColor} fontSize='16px' fontWeight='500'>
         {getCurrentTranslation(question.descriptionContent)}
       </Text>}
       <p>{question.responses && JSON.stringify(question.responses[0])}</p>
