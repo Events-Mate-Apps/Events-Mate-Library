@@ -2,16 +2,16 @@ import { Dispatch, SetStateAction } from 'react';
 import { TranslationTextContent, Vendor } from '../interfaces/vendor';
 
 export enum QuestionType {
-  SINGLE_CHOICE = 'SINGLE_CHOICE',
-  MULTIPLE_CHOICE = 'MULTIPLE_CHOICE',
-  TEXT = 'TEXT',
-  NUMERIC = 'NUMERIC',
-  DATE_TIME = 'DATE_TIME',
-  FILE_UPLOAD = 'FILE_UPLOAD',
+  SINGLE_CHOICE = 'SINGLE_CHOICE', // icon
+  MULTIPLE_CHOICE = 'MULTIPLE_CHOICE', // icon
+  TEXT = 'TEXT', // text
+  NUMERIC = 'NUMERIC', // text
+  DATE_TIME = 'DATE_TIME', 
+  FILE_UPLOAD = 'FILE_UPLOAD', 
   SLIDER = 'SLIDER',
-  YES_NO = 'YES_NO',
-  PRICE_ENTRY = 'PRICE_ENTRY',
-  VENDOR_LINK = 'VENDOR_LINK',
+  YES_NO = 'YES_NO', // text
+  PRICE_ENTRY = 'PRICE_ENTRY', // price
+  VENDOR_LINK = 'VENDOR_LINK', // link
 }
 
 export enum PriceUnitType {
@@ -85,7 +85,7 @@ export interface Price {
 
 export interface QuestionResponse {
   id?: string,
-  questionType: string,
+  questionType: QuestionType,
   numericResponse: number,
   booleanResponse: boolean | null,
   dateResponse: string,
