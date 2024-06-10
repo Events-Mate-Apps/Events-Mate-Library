@@ -207,7 +207,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
       <VendorLocation vendor={vendor} />
       <ReviewsCard vendor={vendor} />
       <div>
-        <VendorDetailQuestionnaireResponses />
+        <VendorDetailQuestionnaireResponses vendor={vendor} />
       </div>
     </Flex>
   );
