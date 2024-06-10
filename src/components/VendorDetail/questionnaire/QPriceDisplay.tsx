@@ -6,7 +6,7 @@ const QPriceDisplay: FC<{ response: QuestionResponse }> = ({ response }) => {
 
   return (
     <Box p='10px'>
-      <p>{JSON.stringify(response.optionIds)}</p>
+      <p>{JSON.stringify(response.plans)}</p>
     </Box>
   );
 }
