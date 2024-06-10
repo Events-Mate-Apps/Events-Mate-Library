@@ -10,7 +10,7 @@ const QQuestionDisplay: FC<{ question: Question }> = ({ question }) => {
   const secondaryTextColor = useColorModeValue('secondaryGray.700', 'white');
 
   return (
-    <Box p='5px 10px'>
+    <Box p='10px'>
       {(question.titleContent && question.titleContent.translations) && <Text color={textColor} fontSize='16px' fontWeight='700'>
         {getCurrentTranslation(question.titleContent)}
       </Text>}
