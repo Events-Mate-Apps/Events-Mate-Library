@@ -28,6 +28,7 @@ import LocalizedText from '../localization/LocalizedText';
 import VendorPriorityBadge from '../VendorPriorityBadge';
 import VerificationDialog from '../fields/VerificationDialog';
 import StartMesssage from './StartMessage';
+import VendorDetailQuestionnaireResponses from './questionnaire/VendorDetailQuestionnaireResponses';
 
 interface VendorDetailProps {
   vendor: Vendor;
@@ -72,8 +73,8 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
           images: [
             {
               url:
-                                `https://www.weddmate.com/api/vendors/${vendor.id}/og` ??
-                                vendor.images[0]?.src,
+                `https://www.weddmate.com/api/vendors/${vendor.id}/og` ??
+                vendor.images[0]?.src,
               width: 630,
               height: 1200,
               alt: '',
@@ -205,6 +206,9 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
       <DealsCard vendor={vendor} />
       <VendorLocation vendor={vendor} />
       <ReviewsCard vendor={vendor} />
+      <div>
+        <VendorDetailQuestionnaireResponses />
+      </div>
     </Flex>
   );
 }
