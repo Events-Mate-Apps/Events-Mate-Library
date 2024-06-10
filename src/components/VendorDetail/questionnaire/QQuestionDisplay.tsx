@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Question } from '../../../interfaces/questionnaire';
-import { Card, Text, useColorModeValue } from '@chakra-ui/react';
+import { Box, Text, useColorModeValue } from '@chakra-ui/react';
 import { useLocalization } from '../../../service/LocalizationService';  
 
 
@@ -10,7 +10,7 @@ const QQuestionDisplay: FC<{ question: Question }> = ({ question }) => {
   const secondaryTextColor = useColorModeValue('secondaryGray.700', 'white');
 
   return (
-    <Card p='30px' mb={{ base: '20px', '2xl': '20px' }}>
+    <Box p='30px' mb={{ base: '20px', '2xl': '20px' }}>
       {(question.titleContent && question.titleContent.translations) && <Text color={textColor} fontSize='xl' fontWeight='700' mb='20px'>
         {getCurrentTranslation(question.titleContent)}
       </Text>}
@@ -19,7 +19,7 @@ const QQuestionDisplay: FC<{ question: Question }> = ({ question }) => {
       </Text>}
       <p>{question.responses && JSON.stringify(question.responses[0])}</p>
       {question.subQuestions && question.subQuestions.map((q) => <QQuestionDisplay question={q} key={q.id} />)}
-    </Card>
+    </Box>
   );
 }
   
