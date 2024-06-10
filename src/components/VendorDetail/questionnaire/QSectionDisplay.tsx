@@ -12,10 +12,10 @@ const QSectionDisplay: FC<{ section: Section }> = ({ section }) => {
 
   return (
     <Card p='30px' mb={{ base: '20px', '2xl': '20px' }}>
-      {section.titleContent.translations && <Text color={textColor} fontSize='xl' fontWeight='700' mb='20px'>
+      {(section.titleContent && section.titleContent.translations) && <Text color={textColor} fontSize='xl' fontWeight='700' mb='20px'>
         {getCurrentTranslation(section.titleContent)}
       </Text>}
-      {section.descriptionContent.translations && <Text color={secondaryTextColor} fontSize='lg' fontWeight='500' mb='20px'>
+      {(section.descriptionContent && section.descriptionContent.translations) && <Text color={secondaryTextColor} fontSize='lg' fontWeight='500' mb='20px'>
         {getCurrentTranslation(section.descriptionContent)}
       </Text>}
       <p>questions</p>
