@@ -12,12 +12,12 @@ const QuestionnaireResponsesContainer: FC<{ questionnaire: Questionnaire }> = ({
 
   return (
     <Card p='30px' mb={{ base: '20px', '2xl': '20px' }}>
-      <Text color={textColor} fontSize='xl' fontWeight='700' mb='20px'>
+      {questionnaire.titleContent.translations && <Text color={textColor} fontSize='xl' fontWeight='700' mb='20px'>
         {getCurrentTranslation(questionnaire.titleContent)}
-      </Text>
-      <Text color={textColor} fontSize='36px' fontWeight='700' mb='20px'>
-        {getCurrentTranslation(questionnaire.titleContent)}
-      </Text>
+      </Text>}
+      {questionnaire.descriptionContent.translations && <Text color={textColor} fontSize='36px' fontWeight='700' mb='20px'>
+        {getCurrentTranslation(questionnaire.descriptionContent)}
+      </Text>}
       {questionnaire.sections.map(section => (<QSectionDisplay section={section} key={section.id} />))}
     </Card>
   );
