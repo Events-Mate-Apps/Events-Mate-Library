@@ -34,7 +34,7 @@ const VendorDetailQuestionnaireResponses: FC<{ vendor: Vendor }> = ({ vendor }) 
   }, [])
 
   return (
-    <Card p='10px' mb='10px'>
+    <Card p='20px' mb='20px'>
       <Text color={textColor} fontSize='2xl' fontWeight='700' mb='20px'>
         {t('Questionnaires')}
       </Text>
