@@ -11,7 +11,7 @@ const QuestionnaireResponsesContainer: FC<{ questionnaire: Questionnaire }> = ({
   const textColor = useColorModeValue('secondaryGray.900', 'white');
 
   return (
-    <Box p='30px' mb={{ base: '20px', '2xl': '20px' }}>
+    <Box p='10px' mb='10px'>
       {(questionnaire.titleContent && questionnaire.titleContent.translations) && <Text color={textColor} fontSize='xl' fontWeight='700' mb='20px'>
         {getCurrentTranslation(questionnaire.titleContent)}
       </Text>}
