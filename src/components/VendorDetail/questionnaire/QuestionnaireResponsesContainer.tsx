@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Questionnaire } from '../../../interfaces/questionnaire';
-import { Box, Text, useColorModeValue } from '@chakra-ui/react';
+import { Card, Text, useColorModeValue } from '@chakra-ui/react';
 import { useLocalization } from '../../../service/LocalizationService';
 import QSectionDisplay from './QSectionDisplay';
   
@@ -11,15 +11,15 @@ const QuestionnaireResponsesContainer: FC<{ questionnaire: Questionnaire }> = ({
   const textColor = useColorModeValue('secondaryGray.900', 'white');
 
   return (
-    <Box p='10px' mb='10px'>
-      {(questionnaire.titleContent && questionnaire.titleContent.translations) && <Text color={textColor} fontSize='32px' fontWeight='700' mb='20px'>
+    <Card p='20x' mb='20px'>
+      {(questionnaire.titleContent && questionnaire.titleContent.translations) && <Text color={textColor} fontSize='20px' fontWeight='700' mb='20px'>
         {getCurrentTranslation(questionnaire.titleContent)}
       </Text>}
-      {(questionnaire.descriptionContent && questionnaire.descriptionContent.translations) && <Text color={textColor} fontSize='32px' fontWeight='700' mb='20px'>
+      {(questionnaire.descriptionContent && questionnaire.descriptionContent.translations) && <Text color={textColor} fontSize='20px' fontWeight='700' mb='20px'>
         {getCurrentTranslation(questionnaire.descriptionContent)}
       </Text>}
       {questionnaire.sections.map(section => (<QSectionDisplay section={section} key={section.id} />))}
-    </Box>
+    </Card>
   );
 }
   
