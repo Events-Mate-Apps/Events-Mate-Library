@@ -10,7 +10,7 @@ const QSectionDisplay: FC<{ section: Section }> = ({ section }) => {
   const secondaryTextColor = useColorModeValue('secondaryGray.700', 'white');
 
   return (
-    <Box p='10px 5px'>
+    <Box p='5px 10px'>
       {(section.titleContent && section.titleContent.translations) && <Text color={textColor} fontSize='16px' fontWeight='700' mb='20px'>
         {getCurrentTranslation(section.titleContent)}
       </Text>}
