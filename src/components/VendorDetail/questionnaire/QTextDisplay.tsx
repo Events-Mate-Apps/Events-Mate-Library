@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { QuestionResponse, QuestionType } from '../../../interfaces/questionnaire';
 import { Box } from '@chakra-ui/react';
-import { useLocalization } from '~/service/LocalizationService';
+import { useLocalization } from '../../../service/LocalizationService';
 
 
 const QTextDisplay: FC<{ response: QuestionResponse }> = ({ response }) => {
