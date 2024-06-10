@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Questionnaire } from '../../../interfaces/questionnaire';
 import { Card, Text, useColorModeValue } from '@chakra-ui/react';
 import { useLocalization } from '../../../service/LocalizationService';
+import QSectionDisplay from './QSectionDisplay';
   
 
 
@@ -14,7 +15,10 @@ const QuestionnaireResponsesContainer: FC<{ questionnaire: Questionnaire }> = ({
       <Text color={textColor} fontSize='xl' fontWeight='700' mb='20px'>
         {getCurrentTranslation(questionnaire.titleContent)}
       </Text>
-      <p>xvjefniwugjwr</p>
+      <Text color={textColor} fontSize='36px' fontWeight='700' mb='20px'>
+        {getCurrentTranslation(questionnaire.titleContent)}
+      </Text>
+      {questionnaire.sections.map(section => (<QSectionDisplay section={section} key={section.id} />))}
     </Card>
   );
 }
