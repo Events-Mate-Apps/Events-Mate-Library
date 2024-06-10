@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { Questionnaire } from '~/interfaces/questionnaire';
+import { Questionnaire } from '../../../interfaces/questionnaire';
 import { Card, Text, useColorModeValue } from '@chakra-ui/react';
-import { useLocalization } from '~/service/LocalizationService';
+import { useLocalization } from '../../../service/LocalizationService';
   
 
 
