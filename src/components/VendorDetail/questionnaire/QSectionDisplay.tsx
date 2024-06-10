@@ -11,10 +11,10 @@ const QSectionDisplay: FC<{ section: Section }> = ({ section }) => {
 
   return (
     <Box p='10px' mb='10px'>
-      {(section.titleContent && section.titleContent.translations) && <Text color={textColor} fontSize='xl' fontWeight='700' mb='20px'>
+      {(section.titleContent && section.titleContent.translations) && <Text color={textColor} fontSize='24px' fontWeight='700' mb='20px'>
         {getCurrentTranslation(section.titleContent)}
       </Text>}
-      {(section.descriptionContent && section.descriptionContent.translations) && <Text color={secondaryTextColor} fontSize='lg' fontWeight='500' mb='20px'>
+      {(section.descriptionContent && section.descriptionContent.translations) && <Text color={secondaryTextColor} fontSize='20px' fontWeight='500' mb='20px'>
         {getCurrentTranslation(section.descriptionContent)}
       </Text>}
       {section.questions.map((question) => <QQuesstionDisplay question={question} key={question.id} />)}
