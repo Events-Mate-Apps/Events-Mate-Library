@@ -3,6 +3,7 @@ import { Box, Heading, Text, Select, FormControl, Flex, Button } from '@chakra-u
 import Card from '../../card/Card';
 import { api } from '~/utils/api';
 import useTranslation from 'next-translate/useTranslation';
+import { isEventsMate } from '../../../utils/orientation';
 
 interface Language {
   iso: string;
@@ -117,7 +118,11 @@ const LanguageSettings: FC = () => {
         </Text>
         <Flex mb={4} gap={4}>
           <Box flex="1">
-            <Text mb={2}>Language</Text>
+            <Text 
+              mb={2}
+            >
+              {t('common:language')}
+            </Text>
             <Select 
               placeholder="Select Language" 
               onChange={handleLanguageChange}
@@ -131,7 +136,11 @@ const LanguageSettings: FC = () => {
             </Select>
           </Box>
           <Box flex="1">
-            <Text mb={2}>Currency</Text>
+            <Text 
+              mb={2}
+            >
+              {t('common:currency')}
+            </Text>
             <Select 
               placeholder="Select Currency" 
               onChange={handleCurrencyChange}
@@ -148,8 +157,16 @@ const LanguageSettings: FC = () => {
             </Select>
           </Box>
         </Flex>
-        <Button mt={4} colorScheme="teal" onClick={handleSaveChanges}>
-          Save Changes
+        <Button 
+          mt={4} 
+          colorScheme="teal" 
+          onClick={handleSaveChanges}
+          backgroundColor={isEventsMate() ? 'brand.900' : '#e13784'}
+          color="white"
+          _hover={{ backgroundColor: isEventsMate() ? 'brand.900' : '#e13784' }}
+          _active={{ backgroundColor: isEventsMate() ? 'brand.900' : '#e13784' }}
+        >
+          {t('edit:saveChanges')}
         </Button>
       </Card>
     </FormControl>
