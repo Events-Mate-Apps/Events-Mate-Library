@@ -1,6 +1,7 @@
 import React, { FC, useState, useEffect } from 'react';
-import { Box, Heading, Text, Select, FormControl, Flex, Button } from '@chakra-ui/react';
+import { Box, Heading, Text, FormControl, Flex, Button } from '@chakra-ui/react';
 import Card from '../../card/Card';
+import { Select } from 'chakra-react-select';
 import { api } from '~/utils/api';
 import useTranslation from 'next-translate/useTranslation';
 import { isEventsMate } from '../../../utils/orientation';
@@ -46,7 +47,6 @@ const LanguageSettings: FC = () => {
     try {
       const { data } = await api.get<Language[]>('support/languages');
       setLanguages(data);
-      console.log(data);
     } catch (error) {
       console.error('Error fetching languages:', error);
     }
@@ -56,7 +56,6 @@ const LanguageSettings: FC = () => {
     try {
       const { data } = await api.get<Currency[]>('support/currencies');
       setCurrencies(data);
-      console.log(data);
     } catch (error) {
       console.error('Error fetching currencies:', error);
     }
@@ -93,12 +92,16 @@ const LanguageSettings: FC = () => {
     }
   };
 
-  const handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedLanguage(event.target.value);
+  const handleLanguageChange = (selectedOption: { value: string; label: string } | null) => {
+    if (selectedOption) {
+      setSelectedLanguage(selectedOption.value);
+    }
   };
 
-  const handleCurrencyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedCurrency(event.target.value);
+  const handleCurrencyChange = (selectedOption: { value: string; label: string } | null) => {
+    if (selectedOption) {
+      setSelectedCurrency(selectedOption.value);
+    }
   };
 
   useEffect(() => {
@@ -118,43 +121,34 @@ const LanguageSettings: FC = () => {
         </Text>
         <Flex mb={4} gap={4}>
           <Box flex="1">
-            <Text 
-              mb={2}
-            >
+            <Text mb={2}>
               {t('common:language')}
             </Text>
-            <Select 
-              placeholder="Select Language" 
+            <Select
+              placeholder="Select language..."
+              options={languages.map((language) => ({
+                label: language.name,
+                value: language.iso
+              }))}
+              menuPortalTarget={document.getElementById('menu-portal')}
               onChange={handleLanguageChange}
-              value={selectedLanguage}
-            >
-              {languages.map((language) => (
-                <option key={language.iso} value={language.iso}>
-                  {language.name}
-                </option>
-              ))}
-            </Select>
+              value={selectedLanguage ? { label: languages.find(lang => lang.iso === selectedLanguage)?.name || '', value: selectedLanguage } : null}
+            />
           </Box>
           <Box flex="1">
-            <Text 
-              mb={2}
-            >
+            <Text mb={2}>
               {t('common:currency')}
             </Text>
-            <Select 
-              placeholder="Select Currency" 
+            <Select
+              placeholder="Select currency..."
+              options={currencies.map((currency) => ({
+                label: currency.name,
+                value: currency.iso
+              }))}
+              menuPortalTarget={document.getElementById('menu-portal')}
               onChange={handleCurrencyChange}
-              value={selectedCurrency}
-              _placeholder={{ color: 'black' }}
-              color="black"
-
-            >
-              {currencies.map((currency) => (
-                <option key={currency.iso} value={currency.iso}>
-                  {currency.name}
-                </option>
-              ))}
-            </Select>
+              value={selectedCurrency ? { label: currencies.find(curr => curr.iso === selectedCurrency)?.name || '', value: selectedCurrency } : null}
+            />
           </Box>
         </Flex>
         <Button 
