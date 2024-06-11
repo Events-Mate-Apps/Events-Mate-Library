@@ -119,7 +119,7 @@ const LanguageSettings: FC = () => {
           <Box flex="1">
             <Text mb={2}>Language</Text>
             <Select 
-              placeholder={userSettings?.language ?? 'Select Language'} 
+              placeholder="Select Language" 
               onChange={handleLanguageChange}
               value={selectedLanguage}
             >
@@ -133,10 +133,12 @@ const LanguageSettings: FC = () => {
           <Box flex="1">
             <Text mb={2}>Currency</Text>
             <Select 
-              placeholder={userSettings?.currency ?? 'Select Currency'} 
+              placeholder="Select Currency" 
               onChange={handleCurrencyChange}
               value={selectedCurrency}
-              color="black" 
+              _placeholder={{ color: 'black' }}
+              color="black"
+
             >
               {currencies.map((currency) => (
                 <option key={currency.iso} value={currency.iso}>
