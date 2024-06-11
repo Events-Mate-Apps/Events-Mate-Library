@@ -68,6 +68,9 @@ const Information: FC<InformationProps> = (props) => {
         </SimpleGrid>
         <Button
           backgroundColor={isEventsMate() ? 'brand.900' : '#e13784'}
+          color="white"
+          _hover={{ backgroundColor: isEventsMate() ? 'brand.900' : '#e13784' }}
+          _active={{ backgroundColor: isEventsMate() ? 'brand.900' : '#e13784' }}
         >
           {t('edit:saveChanges')}
         </Button>
