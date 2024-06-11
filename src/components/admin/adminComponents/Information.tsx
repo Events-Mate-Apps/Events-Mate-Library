@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Flex, FormControl, SimpleGrid, Text, useColorModeValue, Input, FormLabel, Box, Button } from '@chakra-ui/react';
 import Card from '../../card/Card';
 import useTranslation from 'next-translate/useTranslation';
+import { isEventsMate } from '~/utils/orientation';
 
 interface InformationProps {
   [key: string]: any;
@@ -67,6 +68,7 @@ const Information: FC<InformationProps> = (props) => {
           </Box>
         </SimpleGrid>
         <Button
+          backgroundColor={isEventsMate() ? 'brand.900' : '#e13784'}
         >
           {t('edit:saveChanges')}
         </Button>
