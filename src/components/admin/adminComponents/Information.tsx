@@ -58,12 +58,12 @@ const Information: FC<InformationProps> = (props) => {
             <Input id="email" placeholder="mail@simmmple.com" />
           </Box>
           <Box mb="20px" me="30px">
-            <FormLabel htmlFor="first_name">{t('guest:form.firstName')}</FormLabel>
-            <Input id="first_name" placeholder={t('guest:form.firstName')}/>
+            <FormLabel htmlFor="first_name">{t('guests:form.firstName')}</FormLabel>
+            <Input id="first_name" placeholder={t('guests:form.firstName')}/>
           </Box>
           <Box mb="20px">
-            <FormLabel htmlFor="last_name">{t('guest:form.lastName')}</FormLabel>
-            <Input id="last_name" placeholder={t('guest:form.lastName')}/>
+            <FormLabel htmlFor="last_name">{t('guests:form.lastName')}</FormLabel>
+            <Input id="last_name" placeholder={t('guests:form.lastName')}/>
           </Box>
         </SimpleGrid>
         <Button
