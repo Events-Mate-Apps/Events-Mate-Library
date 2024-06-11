@@ -1,5 +1,6 @@
 import { Button, Flex, FormControl, FormLabel, Input, Text, useColorModeValue } from '@chakra-ui/react';
 import Card from '../../card/Card';
+import { isEventsMate } from '../../../utils/orientation';
 
 interface InputFieldProps {
   id: string;
@@ -65,12 +66,12 @@ export default function Password(props: { [x: string]: any }) {
         ms="auto"
         mt="33px"
         variant="brand"
-        color="white"
         fontSize="sm"
         fontWeight="500"
-        _hover={{ bg: 'brand.600' }}
-        _active={{ bg: 'brand.500' }}
-        _focus={{ bg: 'brand.500' }}
+        backgroundColor={isEventsMate() ? 'brand.900' : '#e13784'}
+        color="white"
+        _hover={{ backgroundColor: isEventsMate() ? 'brand.900' : '#e13784' }}
+        _active={{ backgroundColor: isEventsMate() ? 'brand.900' : '#e13784' }}
       >
         Change Password
       </Button>
