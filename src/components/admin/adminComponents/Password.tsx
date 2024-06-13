@@ -1,6 +1,6 @@
-import { Button, Flex, FormControl, FormLabel, Input, Text, useColorModeValue } from '@chakra-ui/react';
-import Card from '../../card/Card';
+import { Button, Flex, FormControl, FormLabel, Input, Text, useColorModeValue, Card } from '@chakra-ui/react';
 import { isEventsMate } from '../../../utils/orientation';
+import { FC } from 'react';
 
 interface InputFieldProps {
   id: string;
@@ -9,7 +9,7 @@ interface InputFieldProps {
   mb?: string;
 }
 
-const InputField = ({ id, label, placeholder, mb }: InputFieldProps) => {
+const InputField: FC<InputFieldProps> = ({ id, label, placeholder, mb }) => {
   const textColorPrimary = useColorModeValue('secondaryGray.900', 'white');
   
   return (
@@ -22,13 +22,16 @@ const InputField = ({ id, label, placeholder, mb }: InputFieldProps) => {
   );
 };
 
-export default function Password(props: { [x: string]: any }) {
-  const { ...rest } = props;
+interface PasswordProps {
+  [key: string]: any;
+}
+
+const Password: FC<PasswordProps> = () => {
   const textColorPrimary = useColorModeValue('secondaryGray.900', 'white');
   const textColorSecondary = 'secondaryGray.600';
-  // Chakra Color Mode
+
   return (
-    <Card {...rest}>
+    <Card>
       <Flex direction="column" mb="30px" ms="10px">
         <Text fontSize="xl" color={textColorPrimary} fontWeight="bold">
           Change password
@@ -77,4 +80,6 @@ export default function Password(props: { [x: string]: any }) {
       </Button>
     </Card>
   );
-}
+};
+
+export default Password;

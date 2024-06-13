@@ -1,5 +1,4 @@
-import { Flex, Text, Avatar } from '@chakra-ui/react';
-import Card from '../../card/Card';
+import { Flex, Text, Avatar, Card } from '@chakra-ui/react';
 import { FC, useEffect } from 'react';
 import { UserData } from '~/interfaces/user';
 

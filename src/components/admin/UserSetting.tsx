@@ -27,8 +27,8 @@ const UserSettings: FC<UserSettingsProps> = ({ user }) => {
         </Flex>
         <Flex direction="column">
           <LanguageSettings />
-          <Newsletter mb="20px" />
-          <Delete />
+          <Newsletter/>
+          <Delete user={user}/>
         </Flex>
       </SimpleGrid>
     </Box>

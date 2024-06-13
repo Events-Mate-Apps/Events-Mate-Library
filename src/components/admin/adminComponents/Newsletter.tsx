@@ -1,6 +1,15 @@
-
-import { Flex, SimpleGrid, Text, useColorModeValue, Switch, FormLabel, FormControl, Box } from '@chakra-ui/react';
-import Card from '../../card/Card';
+import {
+  Flex,
+  SimpleGrid,
+  Text,
+  useColorModeValue,
+  Switch,
+  FormLabel,
+  FormControl,
+  Box,
+  Card,
+} from '@chakra-ui/react';
+import { FC } from 'react';
 
 interface SwitchFieldProps {
   id: string;
@@ -10,7 +19,7 @@ interface SwitchFieldProps {
   me?: string;
 }
 
-const SwitchField = ({ id, label, desc, mb, me }: SwitchFieldProps) => {
+const SwitchField: FC<SwitchFieldProps> = ({ id, label, desc, mb, me }) => {
   const textColorPrimary = useColorModeValue('secondaryGray.900', 'white');
   const textColorSecondary = useColorModeValue('secondaryGray.600', 'secondaryGray.400');
 
@@ -29,13 +38,12 @@ const SwitchField = ({ id, label, desc, mb, me }: SwitchFieldProps) => {
   );
 };
 
-export default function Newsletter(props: { [x: string]: any }) {
-  const { ...rest } = props;
+const Newsletter: FC = () => {
   const textColorPrimary = useColorModeValue('secondaryGray.900', 'white');
-  // Chakra Color Mode
+
   return (
     <FormControl>
-      <Card p='30px' mb='20px' {...rest}>
+      <Card p='30px' mb='20px'>
         <Flex mb='40px' justify='space-between' align='center'>
           <Text fontSize='2xl' color={textColorPrimary} fontWeight='bold'>
             Newsletter
@@ -60,4 +68,6 @@ export default function Newsletter(props: { [x: string]: any }) {
       </Card>
     </FormControl>
   );
-}
+};
+
+export default Newsletter;

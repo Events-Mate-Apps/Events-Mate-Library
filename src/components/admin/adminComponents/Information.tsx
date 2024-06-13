@@ -1,21 +1,19 @@
 import { FC } from 'react';
-import { Flex, FormControl, SimpleGrid, Text, useColorModeValue, Input, FormLabel, Box, Button } from '@chakra-ui/react';
-import Card from '../../card/Card';
+import { Flex, FormControl, SimpleGrid, Text, useColorModeValue, Input, FormLabel, Box, Button, Card } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
 import { isEventsMate } from '../../../utils/orientation';
 interface InformationProps {
   [key: string]: any;
 }
 
-const Information: FC<InformationProps> = (props) => {
-  const { ...rest } = props;
+const Information: FC<InformationProps> = () => {
   const textColorPrimary = useColorModeValue('secondaryGray.900', 'white');
   const textColorSecondary = 'secondaryGray.600';
   const { t } = useTranslation()
   
   return (
     <FormControl>
-      <Card mb="20px" {...rest}>
+      <Card mb="20px">
         <Flex 
           direction="column" 
           mb="30px"
