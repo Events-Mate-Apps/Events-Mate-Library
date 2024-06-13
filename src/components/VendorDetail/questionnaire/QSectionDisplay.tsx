@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Section } from '../../../interfaces/questionnaire';
 import { Box, Text, useColorModeValue } from '@chakra-ui/react';
 import { useLocalization } from '../../../service/LocalizationService';
-import QQuesstionDisplay from './QQuestionDisplay'
+import QQuestionDisplay from './QQuestionDisplay'
 
 const QSectionDisplay: FC<{ section: Section }> = ({ section }) => {
   const { getCurrentTranslation } = useLocalization()
@@ -17,7 +17,7 @@ const QSectionDisplay: FC<{ section: Section }> = ({ section }) => {
       {(section.descriptionContent && section.descriptionContent.translations) && <Text color={secondaryTextColor} fontSize='16px' fontWeight='500'>
         {getCurrentTranslation(section.descriptionContent)}
       </Text>}
-      {section.questions.map((question) => <QQuesstionDisplay question={question} key={question.id} />)}
+      {section.questions.map((question) => <QQuestionDisplay question={question} key={question.id} />)}
     </Box>
   );
 }

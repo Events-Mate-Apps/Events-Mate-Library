@@ -13,7 +13,7 @@ const QQuestionDisplay: FC<{ question: Question }> = ({ question }) => {
   const ResponseComponent = QUESTION_DISPLAY_COMPONENT[question.type];
 
   return (
-    <Box p='10px'>
+    <Box py='10px' pl='10px'>
       <Box 
         display={ResponseComponent === QTextDisplay ? 'flex' : 'block'} 
         alignItems='center'
