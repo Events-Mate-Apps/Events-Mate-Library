@@ -1,10 +1,11 @@
 import { FC, useEffect, useState } from 'react';
 import { QDisplayComponentProps } from '../../../interfaces/questionnaire';
-import { HStack, Tag } from '@chakra-ui/react';
+import { HStack, Tag, TagLabel, TagRightIcon } from '@chakra-ui/react';
 import { api } from '../../../utils/api';
 import { Vendor } from '../../../interfaces/vendor';
 import { useNotification } from '../../../service/NotificationService';
 import { useRouter } from 'next/router';
+import { ExternalLinkIcon } from '@chakra-ui/icons';
 
 const QLinkDisplay: FC<QDisplayComponentProps> = ({ responses }) => {
   const [vendors, setVendors] = useState<Vendor[]>([])
@@ -35,8 +36,12 @@ const QLinkDisplay: FC<QDisplayComponentProps> = ({ responses }) => {
           colorScheme='brand'
           key={e.id}
           onClick={() => push(`/vendors/${e.id}`)}
+          cursor='pointer'
         >
-          {e.name}
+          <TagLabel>
+            {e.name}
+          </TagLabel>
+          <TagRightIcon as={ExternalLinkIcon} />
         </Tag>
       ))}
     </HStack>
