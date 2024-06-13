@@ -169,5 +169,6 @@ export interface QuestionnairePickerItem {
 export interface QDisplayComponentProps {
   responses: QuestionResponse[],
   options?: QuestionOption[],
-  fs?: number,
+  fsTitle?: number,
+  fsDesc?: number,
 }

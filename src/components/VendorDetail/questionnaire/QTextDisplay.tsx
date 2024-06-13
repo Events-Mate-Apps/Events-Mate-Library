@@ -5,7 +5,7 @@ import { useLocalization } from '../../../service/LocalizationService';
 import useTranslation from 'next-translate/useTranslation';
 
 
-const QTextDisplay: FC<QDisplayComponentProps> = ({ responses, fs }) => {
+const QTextDisplay: FC<QDisplayComponentProps> = ({ responses, fsTitle }) => {
   const { getCurrentTranslation } = useLocalization()
   const { t } = useTranslation()
   const displayedValue = (() => {
@@ -23,7 +23,7 @@ const QTextDisplay: FC<QDisplayComponentProps> = ({ responses, fs }) => {
   
   return (
     <Box p='10px'>
-      <Text as='p' color='brand.900' fontWeight='bold' fontSize={fs}>{displayedValue}</Text>
+      <Text as='p' color='brand.900' fontWeight='bold' fontSize={fsTitle}>{displayedValue}</Text>
     </Box>
   );
 }

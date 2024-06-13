@@ -21,7 +21,12 @@ const QSectionDisplay: FC<{ section: Section }> = ({ section }) => {
         columns={{ base: 1, lg: 2 }}
         spacingX='50px'
       >
-        {section.questions.map((question) => <QQuestionDisplay fs={18} question={question} key={question.id} />)}
+        {section.questions.map((question) => <QQuestionDisplay 
+          fsTitle={18}
+          fsDesc={16}
+          question={question}
+          key={question.id} 
+        />)}
       </SimpleGrid>
     </Box>
   );
