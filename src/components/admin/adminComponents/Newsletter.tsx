@@ -10,7 +10,7 @@ import {
   Card,
 } from '@chakra-ui/react';
 import { FC } from 'react';
-
+import useTranslation from 'next-translate/useTranslation';
 interface SwitchFieldProps {
   id: string;
   label: string;
@@ -20,6 +20,7 @@ interface SwitchFieldProps {
 }
 
 const SwitchField: FC<SwitchFieldProps> = ({ id, label, desc, mb, me }) => {
+  const { t } = useTranslation();
   const textColorPrimary = useColorModeValue('secondaryGray.900', 'white');
   const textColorSecondary = useColorModeValue('secondaryGray.600', 'secondaryGray.400');
 
@@ -27,10 +28,10 @@ const SwitchField: FC<SwitchFieldProps> = ({ id, label, desc, mb, me }) => {
     <FormControl display='flex' alignItems='center' justifyContent='space-between' mb={mb} me={me}>
       <Box ms='10px'>
         <FormLabel htmlFor={id} mb='0' fontSize='md' fontWeight='bold' color={textColorPrimary}>
-          {label}
+          {t(`user:settings.${label}`)}
         </FormLabel>
         <Text fontSize='sm' color={textColorSecondary}>
-          {desc}
+          {t(`user:settings.${desc}`)}
         </Text>
       </Box>
       <Switch id={id} />
@@ -39,6 +40,7 @@ const SwitchField: FC<SwitchFieldProps> = ({ id, label, desc, mb, me }) => {
 };
 
 const Newsletter: FC = () => {
+  const { t } = useTranslation();
   const textColorPrimary = useColorModeValue('secondaryGray.900', 'white');
 
   return (
@@ -46,7 +48,7 @@ const Newsletter: FC = () => {
       <Card p='30px' mb='20px'>
         <Flex mb='40px' justify='space-between' align='center'>
           <Text fontSize='2xl' color={textColorPrimary} fontWeight='bold'>
-            Newsletter
+            {t('user:settings.newsletter')}
           </Text>
         </Flex>
         <SimpleGrid columns={{ sm: 1, md: 1, xl: 1 }} spacing={{ base: '20px', xl: '0px' }}>
@@ -54,15 +56,15 @@ const Newsletter: FC = () => {
             mb='25px'
             me='30px'
             id='1'
-            label='Weekly newsletter'
-            desc='Get notified about articles, discounts and new products.'
+            label='weeklyNewsletter'
+            desc='newsletterDescription'
           />
           <SwitchField
             mb='25px'
             me='30px'
             id='2'
-            label='Lifecycle emails'
-            desc='Get personalized offers and emails based on your activity.'
+            label='lifecycleEmails'
+            desc='lifecycleEmailsDescription'
           />
         </SimpleGrid>
       </Card>
