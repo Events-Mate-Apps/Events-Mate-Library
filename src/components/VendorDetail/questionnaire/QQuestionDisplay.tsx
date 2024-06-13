@@ -23,10 +23,10 @@ const QQuestionDisplay: FC<{ question: Question }> = ({ question }) => {
           {getCurrentTranslation(question.descriptionContent)}
         </Text>
       )}
-      {question.responses && <ResponseComponent 
+      {question.responses ? <ResponseComponent 
         responses={question.responses}
         options={question.options} 
-      />}
+      /> : 'No Responses'}
       {question.subQuestions && question.subQuestions.map((q) => (
         <QQuestionDisplay question={q} key={q.id} />
       ))}
