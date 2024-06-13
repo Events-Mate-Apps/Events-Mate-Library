@@ -34,7 +34,7 @@ const QQuestionDisplay: FC<{ question: Question, fsTitle: number, fsDesc: number
         {question.responses ? <ResponseComponent 
           responses={question.responses}
           options={question.options} 
-          fsTitle={fsTitle - fsTitle}
+          fsTitle={fsTitle - 2}
         /> : 'No Responses'}
       </Box>
       <Divider borderColor='darkgray' h='1px' />

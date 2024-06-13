@@ -170,5 +170,4 @@ export interface QDisplayComponentProps {
   responses: QuestionResponse[],
   options?: QuestionOption[],
   fsTitle?: number,
-  fsDesc?: number,
 }
