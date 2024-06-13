@@ -11,16 +11,16 @@ const QSectionDisplay: FC<{ section: Section }> = ({ section }) => {
 
   return (
     <Box p='10px'>
-      {(section.titleContent && section.titleContent.translations) && <Text color={textColor} fontSize='16px' fontWeight='700'>
+      {(section.titleContent && section.titleContent.translations) && <Text color={textColor} fontSize='20px' fontWeight='700'>
         {getCurrentTranslation(section.titleContent)}
       </Text>}
-      {(section.descriptionContent && section.descriptionContent.translations) && <Text color={secondaryTextColor} fontSize='16px' fontWeight='500'>
+      {(section.descriptionContent && section.descriptionContent.translations) && <Text color={secondaryTextColor} fontSize='20px' fontWeight='500'>
         {getCurrentTranslation(section.descriptionContent)}
       </Text>}
       <SimpleGrid
         columns={{ base: 1, lg: 2 }}
       >
-        {section.questions.map((question) => <QQuestionDisplay question={question} key={question.id} />)}
+        {section.questions.map((question) => <QQuestionDisplay fs={18} question={question} key={question.id} />)}
       </SimpleGrid>
     </Box>
   );

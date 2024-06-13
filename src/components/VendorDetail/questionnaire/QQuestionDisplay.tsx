@@ -5,7 +5,7 @@ import { useLocalization } from '../../../service/LocalizationService';
 import { QUESTION_DISPLAY_COMPONENT } from '../../../constants/questionnaire';
 import QTextDisplay from './QTextDisplay';
 
-const QQuestionDisplay: FC<{ question: Question }> = ({ question }) => {
+const QQuestionDisplay: FC<{ question: Question, fs: number }> = ({ question, fs }) => {
   const { getCurrentTranslation } = useLocalization()
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const secondaryTextColor = useColorModeValue('secondaryGray.700', 'white');
@@ -21,12 +21,12 @@ const QQuestionDisplay: FC<{ question: Question }> = ({ question }) => {
       >
         <Box>
           {(question.titleContent && question.titleContent.translations) && (
-            <Text color={textColor} fontSize='16px' fontWeight='700'>
+            <Text color={textColor} fontSize={`${fs}px`} fontWeight='700'>
               {getCurrentTranslation(question.titleContent)}
             </Text>
           )}
           {(question.descriptionContent && question.descriptionContent.translations) && (
-            <Text color={secondaryTextColor} fontSize='16px' fontWeight='500'>
+            <Text color={secondaryTextColor} fontSize='18px' fontWeight='500'>
               {getCurrentTranslation(question.descriptionContent)}
             </Text>
           )}
@@ -38,7 +38,7 @@ const QQuestionDisplay: FC<{ question: Question }> = ({ question }) => {
       </Box>
       <Divider />
       {question.subQuestions && question.subQuestions.map((q) => (
-        <QQuestionDisplay question={q} key={q.id} />
+        <QQuestionDisplay fs={fs - 2} question={q} key={q.id} />
       ))}
     </Box>
   );

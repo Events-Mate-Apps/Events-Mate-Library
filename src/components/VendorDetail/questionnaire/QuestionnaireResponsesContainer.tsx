@@ -12,10 +12,10 @@ const QuestionnaireResponsesContainer: FC<{ questionnaire: Questionnaire }> = ({
 
   return (
     <Box p='10px'>
-      {(questionnaire.titleContent && questionnaire.titleContent.translations) && <Text color={textColor} fontSize='20px' fontWeight='700'>
+      {(questionnaire.titleContent && questionnaire.titleContent.translations) && <Text color={textColor} fontSize='22px' fontWeight='700'>
         {getCurrentTranslation(questionnaire.titleContent)}
       </Text>}
-      {(questionnaire.descriptionContent && questionnaire.descriptionContent.translations) && <Text color={textColor} fontSize='20px' fontWeight='700'>
+      {(questionnaire.descriptionContent && questionnaire.descriptionContent.translations) && <Text color={textColor} fontSize='22px' fontWeight='700'>
         {getCurrentTranslation(questionnaire.descriptionContent)}
       </Text>}
       {questionnaire.sections.map(section => (<QSectionDisplay section={section} key={section.id} />))}
