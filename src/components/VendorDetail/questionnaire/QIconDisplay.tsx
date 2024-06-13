@@ -29,7 +29,8 @@ const QIconDisplay: FC<QDisplayComponentProps> = ({ responses, options }) => {
       justifyContent='center'
       alignItems='center'
       flexFlow='column'
-      gap='10px'
+      gap='5px'
+      my='10px'
     >
       <Wrap
         spacing='20px'
