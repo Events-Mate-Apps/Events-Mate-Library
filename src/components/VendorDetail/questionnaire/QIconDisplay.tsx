@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { QDisplayComponentProps } from '../../../interfaces/questionnaire';
 import { Flex, Text, VStack, Wrap, useColorModeValue } from '@chakra-ui/react';
-import FontAwesomeIconWrapper from '~/components/FontAwesomeIconWrapper';
-import { useLocalization } from '~/service/LocalizationService';
+import FontAwesomeIconWrapper from '../../../components/FontAwesomeIconWrapper';
+import { useLocalization } from '../../../service/LocalizationService';
 
 const QIconDisplay: FC<QDisplayComponentProps> = ({ responses, options }) => {
   const { getCurrentTranslation } = useLocalization()
