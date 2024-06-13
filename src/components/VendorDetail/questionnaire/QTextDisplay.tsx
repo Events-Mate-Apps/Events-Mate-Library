@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { QDisplayComponentProps, QuestionType } from '../../../interfaces/questionnaire';
-import { Box } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 import { useLocalization } from '../../../service/LocalizationService';
 import useTranslation from 'next-translate/useTranslation';
 
@@ -23,7 +23,7 @@ const QTextDisplay: FC<QDisplayComponentProps> = ({ responses }) => {
   
   return (
     <Box p='10px'>
-      <p>{displayedValue}</p>
+      <Text color='brand.900' fontWeight='bold' fontSize='lg'>{displayedValue}</Text>
     </Box>
   );
 }

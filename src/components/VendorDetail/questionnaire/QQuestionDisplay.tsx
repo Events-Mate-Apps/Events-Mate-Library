@@ -14,7 +14,11 @@ const QQuestionDisplay: FC<{ question: Question }> = ({ question }) => {
 
   return (
     <Box p='10px'>
-      <Box display={ResponseComponent === QTextDisplay ? 'flex' : 'block'} alignItems='center'>
+      <Box 
+        display={ResponseComponent === QTextDisplay ? 'flex' : 'block'} 
+        alignItems='center'
+        justifyContent='space-between'
+      >
         <Box>
           {(question.titleContent && question.titleContent.translations) && (
             <Text color={textColor} fontSize='16px' fontWeight='700'>
