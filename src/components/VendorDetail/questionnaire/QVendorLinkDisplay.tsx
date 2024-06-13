@@ -1,12 +1,14 @@
 import { FC, useEffect, useState } from 'react';
 import { QDisplayComponentProps } from '../../../interfaces/questionnaire';
-import { Box } from '@chakra-ui/react';
+import { HStack, Tag } from '@chakra-ui/react';
 import { api } from '../../../utils/api';
 import { Vendor } from '../../../interfaces/vendor';
 import { useNotification } from '../../../service/NotificationService';
+import { useRouter } from 'next/router';
 
 const QLinkDisplay: FC<QDisplayComponentProps> = ({ responses }) => {
   const [vendors, setVendors] = useState<Vendor[]>([])
+  const { push } = useRouter()
   const { showError } = useNotification()
 
   const getVendors = async () => {
@@ -25,9 +27,19 @@ const QLinkDisplay: FC<QDisplayComponentProps> = ({ responses }) => {
   }, [])
 
   return (
-    <Box p='10px'>
-      <p>{JSON.stringify(vendors.map(e => e.name))}</p>
-    </Box>
+    <HStack spacing={4}>
+      {vendors.map(e => (
+        <Tag
+          borderRadius='full'
+          variant='solid'
+          colorScheme='brand'
+          key={e.id}
+          onClick={() => push(`/vendors/${e.id}`)}
+        >
+          {e.name}
+        </Tag>
+      ))}
+    </HStack>
   );
 }
   
