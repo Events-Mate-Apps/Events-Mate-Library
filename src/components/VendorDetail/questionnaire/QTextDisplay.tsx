@@ -8,12 +8,18 @@ import useTranslation from 'next-translate/useTranslation';
 const QTextDisplay: FC<QDisplayComponentProps> = ({ responses }) => {
   const { getCurrentTranslation } = useLocalization()
   const { t } = useTranslation()
-  // TODO: There's should be map when we'll need more than 3 text displays
-  const displayedValue = responses && (
-    responses[0].questionType === QuestionType.TEXT ? 
-      getCurrentTranslation(responses[0].textResponseContent) : 
-      responses[0].numericResponse
-  )
+  const displayedValue = (() => {
+    switch (responses[0].questionType) {
+      case QuestionType.TEXT:
+        return getCurrentTranslation(responses[0].textResponseContent);
+      case QuestionType.NUMERIC:
+        return responses[0].numericResponse;
+      case QuestionType.YES_NO:
+        return responses[0].booleanResponse ? t('vendors:questionnaire.yes') : t('vendors:questionnaire.no');
+      default:
+        return 'No response';
+    }
+  })();
   
   return (
     <Box p='10px'>
