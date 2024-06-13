@@ -7,6 +7,19 @@ import { useLocalization } from '../../../service/LocalizationService';
 const QIconDisplay: FC<QDisplayComponentProps> = ({ responses, options }) => {
   const { getCurrentTranslation } = useLocalization()
   const textColorDesc = useColorModeValue('gray.500', 'white');
+  const iconColor = useColorModeValue('#718096', '#ffffff');
+
+  const borderStyles = useColorModeValue({
+    boxShadow: 'lg',
+    borderWidth: '0px',
+    background: 'none',
+  },
+  {
+    borderColor: 'whiteAlpha.100',
+    boxShadow: 'unset',
+    borderWidth: '1px',
+    background: 'navy.800',
+  })
 
   if (!options) return (<Text>No options were selected... :(</Text>)
   const selectedOptions = options.filter(e => responses[0].optionIds.includes(e.id))
@@ -29,12 +42,12 @@ const QIconDisplay: FC<QDisplayComponentProps> = ({ responses, options }) => {
             flexFlow='column'
             justifyContent='center'
             alignItems='center'
-            w='220px'
-            h='160px'
+            w='165px'
+            h='120px'
             fontSize='16px'
             fontWeight='semibold'
             borderRadius='3xl'
-            // {...borderStyles} TODO: Global BorderStyles?
+            {...borderStyles}
             placeContent='left'
             cursor='pointer'
             bg='white'
@@ -42,8 +55,8 @@ const QIconDisplay: FC<QDisplayComponentProps> = ({ responses, options }) => {
           >
             {e.faIcon && <FontAwesomeIconWrapper
               icon={e.faIcon}
-              color='brand.900'
-              size='75px'
+              color={iconColor}
+              size='50px'
             />}
             <Text pt='10px'>
               {getCurrentTranslation(e.titleContent)}
@@ -53,7 +66,6 @@ const QIconDisplay: FC<QDisplayComponentProps> = ({ responses, options }) => {
             </Text>}
           </VStack>
         )}
-        <p>{JSON.stringify(responses.map(e => e.optionIds))}</p>
       </Wrap>
     </Flex>
   );
