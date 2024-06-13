@@ -6,7 +6,7 @@ const QLinkDisplay: FC<QDisplayComponentProps> = ({ responses }) => {
 
   return (
     <Box p='10px'>
-      <p>{JSON.stringify(responses[0].vendorPartnerships)}</p>
+      <p>{JSON.stringify(responses[0].partnerVendorIds)}</p>
     </Box>
   );
 }
