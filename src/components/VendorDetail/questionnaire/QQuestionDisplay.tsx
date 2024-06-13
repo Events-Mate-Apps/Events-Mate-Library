@@ -1,30 +1,15 @@
 import { FC } from 'react';
-import { Question, QuestionType } from '../../../interfaces/questionnaire';
+import { Question } from '../../../interfaces/questionnaire';
 import { Box, Text, useColorModeValue } from '@chakra-ui/react';
 import { useLocalization } from '../../../service/LocalizationService';  
-import QTextDisplay from './QTextDisplay';
-import QIconDisplay from './QIconDisplay';
-import QPriceDisplay from './QPriceDisplay';
-import QLinkDisplay from './QLinkDisplay';
+import { QUESTION_COMPONENT } from '~/constants/questionnaire';
 
 const QQuestionDisplay: FC<{ question: Question }> = ({ question }) => {
   const { getCurrentTranslation } = useLocalization()
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const secondaryTextColor = useColorModeValue('secondaryGray.700', 'white');
 
-  const getResponseComponent = () => {
-    if ([QuestionType.TEXT, QuestionType.YES_NO, QuestionType.NUMERIC].includes(question.type)) {
-      return QTextDisplay;
-    }
-    if ([QuestionType.MULTIPLE_CHOICE, QuestionType.SINGLE_CHOICE].includes(question.type)) {
-      return QIconDisplay;
-    }
-    if (question.type === QuestionType.PRICE_ENTRY) return QPriceDisplay;
-    if (question.type === QuestionType.VENDOR_LINK) return QLinkDisplay;
-    return QTextDisplay;
-  };
-
-  const ResponseComponent = getResponseComponent();
+  const ResponseComponent = QUESTION_COMPONENT[question.type];
 
   return (
     <Box p='10px'>
@@ -38,9 +23,10 @@ const QQuestionDisplay: FC<{ question: Question }> = ({ question }) => {
           {getCurrentTranslation(question.descriptionContent)}
         </Text>
       )}
-      {question.responses && question.responses.map((response, index) => (
-        <ResponseComponent response={response} key={index} />
-      ))}
+      {question.responses && <ResponseComponent 
+        responses={question.responses}
+        options={question.options} 
+      />}
       {question.subQuestions && question.subQuestions.map((q) => (
         <QQuestionDisplay question={q} key={q.id} />
       ))}
