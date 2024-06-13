@@ -23,7 +23,7 @@ const QTextDisplay: FC<QDisplayComponentProps> = ({ responses, fsTitle }) => {
   
   return (
     <Box p='10px'>
-      <Text as='p' color='brand.900' fontWeight='bold' fontSize={fsTitle}>{displayedValue}</Text>
+      <Text as='p' color='brand.900' fontWeight='bold' fontSize={`${fsTitle}px`}>{displayedValue}</Text>
     </Box>
   );
 }
