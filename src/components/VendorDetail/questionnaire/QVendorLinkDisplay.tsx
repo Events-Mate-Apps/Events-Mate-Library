@@ -28,12 +28,12 @@ const QLinkDisplay: FC<QDisplayComponentProps> = ({ responses }) => {
   }, [])
 
   return (
-    <HStack spacing={4}>
+    <HStack spacing={2} py='5px'>
       {vendors.map(e => (
         <Tag
           borderRadius='full'
           variant='solid'
-          colorScheme='brand'
+          bg='brand.900'
           key={e.id}
           onClick={() => push(`/vendors/${e.id}`)}
           cursor='pointer'
