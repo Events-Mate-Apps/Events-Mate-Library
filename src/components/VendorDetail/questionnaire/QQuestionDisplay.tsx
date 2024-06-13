@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Question } from '../../../interfaces/questionnaire';
-import { Box, Text, useColorModeValue } from '@chakra-ui/react';
+import { Box, Divider, Text, useColorModeValue } from '@chakra-ui/react';
 import { useLocalization } from '../../../service/LocalizationService';  
 import { QUESTION_DISPLAY_COMPONENT } from '../../../constants/questionnaire';
 import QTextDisplay from './QTextDisplay';
@@ -35,6 +35,7 @@ const QQuestionDisplay: FC<{ question: Question }> = ({ question }) => {
           responses={question.responses}
           options={question.options} 
         /> : 'No Responses'}
+        <Divider />
       </Box>
       {question.subQuestions && question.subQuestions.map((q) => (
         <QQuestionDisplay question={q} key={q.id} />
