@@ -31,7 +31,7 @@ const Delete: FC<DeleteProps> = ({ user }) => {
 
   const deleteUser = async () => {
     try {
-      await api.delete(`auth/delete_account/${user.id}`);
+      await api.delete(`auth/delete-account/${user.id}`);
     } catch (error) {
       console.error('Error deleting user:', error);
     }
