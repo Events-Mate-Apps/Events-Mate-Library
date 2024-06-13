@@ -19,6 +19,7 @@ const QSectionDisplay: FC<{ section: Section }> = ({ section }) => {
       </Text>}
       <SimpleGrid
         columns={{ base: 1, lg: 2 }}
+        spacingX='50px'
       >
         {section.questions.map((question) => <QQuestionDisplay fs={18} question={question} key={question.id} />)}
       </SimpleGrid>

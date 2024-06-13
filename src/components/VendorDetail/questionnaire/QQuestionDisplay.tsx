@@ -37,7 +37,7 @@ const QQuestionDisplay: FC<{ question: Question, fs: number }> = ({ question, fs
           fs={fs - 2}
         /> : 'No Responses'}
       </Box>
-      <Divider />
+      <Divider borderColor='darkgray' h='1px' />
       {question.subQuestions && question.subQuestions.map((q) => (
         <QQuestionDisplay fs={fs - 2} question={q} key={q.id} />
       ))}
