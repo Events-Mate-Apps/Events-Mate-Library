@@ -58,10 +58,10 @@ const QIconDisplay: FC<QDisplayComponentProps> = ({ responses, options }) => {
               color={iconColor}
               size='50px'
             />}
-            <Text pt='10px'>
+            <Text pt='5px'>
               {getCurrentTranslation(e.titleContent)}
             </Text>
-            {e.descriptionContent && <Text color={textColorDesc} pt='10px'>
+            {e.descriptionContent && <Text color={textColorDesc} pt='5px'>
               {getCurrentTranslation(e.descriptionContent)}
             </Text>}
           </VStack>
