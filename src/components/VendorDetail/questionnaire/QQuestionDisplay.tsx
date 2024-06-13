@@ -2,14 +2,14 @@ import { FC } from 'react';
 import { Question } from '../../../interfaces/questionnaire';
 import { Box, Text, useColorModeValue } from '@chakra-ui/react';
 import { useLocalization } from '../../../service/LocalizationService';  
-import { QUESTION_COMPONENT } from '~/constants/questionnaire';
+import { QUESTION_DISPLAY_COMPONENT } from '../../../constants/questionnaire';
 
 const QQuestionDisplay: FC<{ question: Question }> = ({ question }) => {
   const { getCurrentTranslation } = useLocalization()
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const secondaryTextColor = useColorModeValue('secondaryGray.700', 'white');
 
-  const ResponseComponent = QUESTION_COMPONENT[question.type];
+  const ResponseComponent = QUESTION_DISPLAY_COMPONENT[question.type];
 
   return (
     <Box p='10px'>
