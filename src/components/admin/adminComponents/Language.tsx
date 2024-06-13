@@ -159,7 +159,7 @@ const LanguageSettings: FC = () => {
           _hover={{ backgroundColor: isEventsMate() ? 'brand.900' : '#e13784' }}
           _active={{ backgroundColor: isEventsMate() ? 'brand.900' : '#e13784' }}
         >
-          {t('edit:saveChanges')}
+          {t('common:saveChanges')}
         </Button>
       </Card>
     </FormControl>

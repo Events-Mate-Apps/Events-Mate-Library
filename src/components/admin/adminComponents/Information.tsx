@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Flex, FormControl, SimpleGrid, Text, useColorModeValue, Input, FormLabel, Box, Button, Card } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
 import { isEventsMate } from '../../../utils/orientation';
+
 interface InformationProps {
   [key: string]: any;
 }
@@ -70,7 +71,7 @@ const Information: FC<InformationProps> = () => {
           _hover={{ backgroundColor: isEventsMate() ? 'brand.900' : '#e13784' }}
           _active={{ backgroundColor: isEventsMate() ? 'brand.900' : '#e13784' }}
         >
-          {t('edit:saveChanges')}
+          {t('common:saveChanges')}
         </Button>
       </Card>
     </FormControl>
