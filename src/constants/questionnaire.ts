@@ -16,7 +16,7 @@ export const QUESTION_DISPLAY_COMPONENT: QuestionDisplayHandler = {
   [QuestionType.DATE_TIME]: QTextDisplay,
   [QuestionType.FILE_UPLOAD]: QTextDisplay,
   [QuestionType.SLIDER]: QTextDisplay,
-  [QuestionType.YES_NO]: QIconDisplay,
+  [QuestionType.YES_NO]: QTextDisplay,
   [QuestionType.PRICE_ENTRY]: QPriceDisplay,
   [QuestionType.VENDOR_LINK]: QLinkDisplay,
 }
