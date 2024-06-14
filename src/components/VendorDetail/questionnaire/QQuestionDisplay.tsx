@@ -20,8 +20,8 @@ const QQuestionDisplay: FC<{ question: Question, fsTitle: number, fsDesc: number
           alignItems='center'
           justifyContent='space-between'
         >
-          <AccordionButton pointerEvents={!question.subQuestions || question.subQuestions.length > 0 ? 'all' : 'none'}>
-            {!question.subQuestions || question.subQuestions.length > 0 && <AccordionIcon />}
+          <AccordionButton pointerEvents={question.subQuestions && question.subQuestions.length > 0 ? 'all' : 'none'}>
+            {(question.subQuestions && question.subQuestions.length > 0) && <AccordionIcon />}
             <Box>
               {(question.titleContent && question.titleContent.translations) && (
                 <Text color={textColor} fontSize={`${fsTitle}px`} fontWeight='700'>
