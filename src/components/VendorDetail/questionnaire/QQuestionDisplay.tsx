@@ -12,8 +12,6 @@ const QQuestionDisplay: FC<{ question: Question, fsTitle: number, fsDesc: number
 
   const ResponseComponent = QUESTION_DISPLAY_COMPONENT[question.type];
 
-  // const Component = question.subQuestions[0] ? AccordionItem : AccordionPanel
-
   return (
     <Accordion py='10px' pl='10px' allowToggle>
       <AccordionItem>
@@ -43,16 +41,15 @@ const QQuestionDisplay: FC<{ question: Question, fsTitle: number, fsDesc: number
             /> : 'No Responses'}
           </AccordionButton>
         </Box>
-        <AccordionPanel>
-          {question.subQuestions && question.subQuestions.map((q) => (
+        {question.subQuestions && question.subQuestions.map((q) => (
+          <AccordionPanel key={q.id}>
             <QQuestionDisplay
               fsTitle={fsTitle - 2}
               fsDesc={fsDesc - 2}
               question={q}
-              key={q.id}
             />
-          ))}
-        </AccordionPanel>
+          </AccordionPanel>
+        ))}
       </AccordionItem>
     </Accordion>
   );
