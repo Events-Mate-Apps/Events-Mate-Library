@@ -27,6 +27,7 @@ const QSectionDisplay: FC<{ section: Section }> = ({ section }) => {
           index={index}
           question={question}
           key={question.id} 
+          isRoot
         />)}
       </SimpleGrid>
     </Box>

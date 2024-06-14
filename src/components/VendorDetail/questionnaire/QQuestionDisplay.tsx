@@ -5,7 +5,15 @@ import { useLocalization } from '../../../service/LocalizationService';
 import { QUESTION_DISPLAY_COMPONENT } from '../../../constants/questionnaire';
 import QTextDisplay from './QTextDisplay';
 
-const QQuestionDisplay: FC<{ question: Question, fsTitle: number, fsDesc: number, index: number }> = ({ question, fsTitle, fsDesc, index }) => {
+interface QQuestionDisplayProps {
+  question: Question,
+  fsTitle: number,
+  fsDesc: number,
+  index: number,
+  isRoot: boolean
+}
+
+const QQuestionDisplay: FC<QQuestionDisplayProps> = ({ question, fsTitle, fsDesc, index, isRoot }) => {
   const { getCurrentTranslation } = useLocalization()
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const secondaryTextColor = useColorModeValue('secondaryGray.700', 'white');
@@ -14,8 +22,12 @@ const QQuestionDisplay: FC<{ question: Question, fsTitle: number, fsDesc: number
 
   return (
     <Accordion allowToggle>
-      <AccordionItem textAlign='left' borderColor='gray.300' borderTop={`${index < 2 ? 0 : 1}px`} borderBottom='none !important'>
-        <p>item index {index}</p>
+      <AccordionItem 
+        textAlign='left' 
+        borderColor='gray.300' 
+        borderTop={`${(index < 2 && isRoot) ? 0 : 1}px`} 
+        borderBottom='none !important'
+      >
         <Box 
           display={ResponseComponent === QTextDisplay ? 'flex' : 'block'} 
         >
@@ -57,6 +69,7 @@ const QQuestionDisplay: FC<{ question: Question, fsTitle: number, fsDesc: number
               fsTitle={fsTitle - 2}
               fsDesc={fsDesc - 2}
               question={q}
+              isRoot={false}
             />
           </AccordionPanel>
         ))}
