@@ -21,9 +21,10 @@ const QSectionDisplay: FC<{ section: Section }> = ({ section }) => {
         columns={{ base: 1, lg: 2 }}
         spacingX='50px'
       >
-        {section.questions.map((question) => <QQuestionDisplay 
+        {section.questions.map((question, index) => <QQuestionDisplay 
           fsTitle={18}
           fsDesc={16}
+          index={index}
           question={question}
           key={question.id} 
         />)}

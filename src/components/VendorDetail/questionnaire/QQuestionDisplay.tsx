@@ -5,7 +5,7 @@ import { useLocalization } from '../../../service/LocalizationService';
 import { QUESTION_DISPLAY_COMPONENT } from '../../../constants/questionnaire';
 import QTextDisplay from './QTextDisplay';
 
-const QQuestionDisplay: FC<{ question: Question, fsTitle: number, fsDesc: number }> = ({ question, fsTitle, fsDesc }) => {
+const QQuestionDisplay: FC<{ question: Question, fsTitle: number, fsDesc: number, index: number }> = ({ question, fsTitle, fsDesc, index }) => {
   const { getCurrentTranslation } = useLocalization()
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const secondaryTextColor = useColorModeValue('secondaryGray.700', 'white');
@@ -15,6 +15,7 @@ const QQuestionDisplay: FC<{ question: Question, fsTitle: number, fsDesc: number
   return (
     <Accordion allowToggle>
       <AccordionItem textAlign='left' borderTop='1px solid red !important' borderBottom='none !important'>
+        <p>item index {index}</p>
         <Box 
           display={ResponseComponent === QTextDisplay ? 'flex' : 'block'} 
         >
@@ -49,9 +50,10 @@ const QQuestionDisplay: FC<{ question: Question, fsTitle: number, fsDesc: number
             fsTitle={fsTitle - 2}
           /> : 'No Responses')}
         </Box>
-        {(question.subQuestions && question.subQuestions[0]) && question.subQuestions.map((q) => (
+        {(question.subQuestions && question.subQuestions[0]) && question.subQuestions.map((q, questionIndex) => (
           <AccordionPanel key={q.id} p='0'>
             <QQuestionDisplay
+              index={questionIndex}
               fsTitle={fsTitle - 2}
               fsDesc={fsDesc - 2}
               question={q}
