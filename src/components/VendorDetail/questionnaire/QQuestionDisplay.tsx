@@ -37,17 +37,17 @@ const QQuestionDisplay: FC<{ question: Question, fsTitle: number, fsDesc: number
                 </Text>
               )}
             </Box>
-            {question.responses && ResponseComponent === QTextDisplay ? <ResponseComponent 
+            {ResponseComponent === QTextDisplay && (question.responses ? <ResponseComponent 
               responses={question.responses}
               options={question.options} 
               fsTitle={fsTitle - 2}
-            /> : 'No Responses'}
+            /> : 'No Responses')}
           </AccordionButton>
-          {question.responses && ResponseComponent !== QTextDisplay ? <ResponseComponent 
+          {ResponseComponent !== QTextDisplay && (question.responses ? <ResponseComponent 
             responses={question.responses}
             options={question.options} 
             fsTitle={fsTitle - 2}
-          /> : 'No Responses'}
+          /> : 'No Responses')}
         </Box>
         {(question.subQuestions && question.subQuestions[0]) && question.subQuestions.map((q) => (
           <AccordionPanel key={q.id}>
