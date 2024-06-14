@@ -18,7 +18,12 @@ const QuestionnaireResponsesContainer: FC<{ questionnaire: Questionnaire }> = ({
       {(questionnaire.descriptionContent && questionnaire.descriptionContent.translations) && <Text color={textColor} fontSize='22px' fontWeight='700'>
         {getCurrentTranslation(questionnaire.descriptionContent)}
       </Text>}
-      {questionnaire.sections.map(section => (<QSectionDisplay section={section} key={section.id} />))}
+      {questionnaire.sections.map((section, index) => (
+        <QSectionDisplay
+          section={section}
+          key={section.id}
+          isLast={questionnaire.sections.length - 1 === index}
+        />))}
     </Box>
   );
 }

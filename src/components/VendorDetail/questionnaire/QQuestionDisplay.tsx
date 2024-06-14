@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Question } from '../../../interfaces/questionnaire';
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Flex, Text, useColorModeValue } from '@chakra-ui/react';
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Flex, Text, useBreakpointValue, useColorModeValue } from '@chakra-ui/react';
 import { useLocalization } from '../../../service/LocalizationService';  
 import { QUESTION_DISPLAY_COMPONENT } from '../../../constants/questionnaire';
 import QTextDisplay from './QTextDisplay';
@@ -17,6 +17,7 @@ const QQuestionDisplay: FC<QQuestionDisplayProps> = ({ question, fsTitle, fsDesc
   const { getCurrentTranslation } = useLocalization()
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const secondaryTextColor = useColorModeValue('secondaryGray.700', 'white');
+  const columns = useBreakpointValue({ base: 1, lg: 2 })
 
   const ResponseComponent = QUESTION_DISPLAY_COMPONENT[question.type];
 
@@ -25,7 +26,7 @@ const QQuestionDisplay: FC<QQuestionDisplayProps> = ({ question, fsTitle, fsDesc
       <AccordionItem 
         textAlign='left' 
         borderColor='gray.300' 
-        borderTop={`${(index < 2 && isRoot) ? 0 : 1}px`} 
+        borderTop={`${(index < (columns as number) && isRoot) ? 0 : 1}px`} 
         borderBottom='none !important'
       >
         <Box 

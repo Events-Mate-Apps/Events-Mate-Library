@@ -4,13 +4,18 @@ import { Box, SimpleGrid, Text, useColorModeValue } from '@chakra-ui/react';
 import { useLocalization } from '../../../service/LocalizationService';
 import QQuestionDisplay from './QQuestionDisplay'
 
-const QSectionDisplay: FC<{ section: Section }> = ({ section }) => {
+const QSectionDisplay: FC<{ section: Section, isLast: boolean }> = ({ section, isLast }) => {
   const { getCurrentTranslation } = useLocalization()
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const secondaryTextColor = useColorModeValue('secondaryGray.700', 'white');
 
   return (
-    <Box p='10px' mb='30px'>
+    <Box 
+      p='10px'
+      mb='30px'
+      borderBottom={`${isLast ? 0 : 1}px`}
+      borderColor='gray.300'
+    >
       {(section.titleContent && section.titleContent.translations) && <Text color={textColor} fontSize='20px' fontWeight='700'>
         {getCurrentTranslation(section.titleContent)}
       </Text>}
@@ -22,10 +27,10 @@ const QSectionDisplay: FC<{ section: Section }> = ({ section }) => {
         spacingX='50px'
         pb='20px'
       >
-        {section.questions.map((question, index) => <QQuestionDisplay 
+        {section.questions.map((question, questionIndex) => <QQuestionDisplay 
           fsTitle={18}
           fsDesc={16}
-          index={index}
+          index={questionIndex}
           question={question}
           key={question.id} 
           isRoot
