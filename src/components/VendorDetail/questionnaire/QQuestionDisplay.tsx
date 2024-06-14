@@ -14,7 +14,7 @@ const QQuestionDisplay: FC<{ question: Question, fsTitle: number, fsDesc: number
 
   return (
     <Accordion allowToggle>
-      <AccordionItem textAlign='left' borderTop='1px solid red !important' borderBottom='none !important'>
+      <AccordionItem textAlign='left' borderColor='gray.300' borderTop={`${index === (0 || 1) ? 0 : 1}px`} borderBottom='none !important'>
         <p>item index {index}</p>
         <Box 
           display={ResponseComponent === QTextDisplay ? 'flex' : 'block'} 
