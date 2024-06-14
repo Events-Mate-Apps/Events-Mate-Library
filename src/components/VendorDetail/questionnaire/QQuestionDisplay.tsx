@@ -14,7 +14,7 @@ const QQuestionDisplay: FC<{ question: Question, fsTitle: number, fsDesc: number
 
   return (
     <Accordion py='10px' pl='10px' allowToggle>
-      <AccordionItem>
+      <AccordionItem bg='tomato'>
         <Box 
           display={ResponseComponent === QTextDisplay ? 'flex' : 'block'} 
           alignItems='center'
