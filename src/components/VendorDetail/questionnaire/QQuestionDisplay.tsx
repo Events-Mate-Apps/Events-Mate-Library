@@ -58,7 +58,10 @@ const QQuestionDisplay: FC<QQuestionDisplayProps> = ({ question, fsTitle, fsDesc
                 fsTitle={fsTitle - 2}
               /> : 'No Responses')}
             </Flex>
-            {(question.subQuestions && question.subQuestions.length > 0) && <AccordionIcon />}
+            
+            <Box w='30px' h='30px'>
+              {(question.subQuestions && question.subQuestions.length > 0) && <AccordionIcon />}
+            </Box>
           </AccordionButton>
           {ResponseComponent !== QTextDisplay && (question.responses ? <ResponseComponent 
             responses={question.responses}
