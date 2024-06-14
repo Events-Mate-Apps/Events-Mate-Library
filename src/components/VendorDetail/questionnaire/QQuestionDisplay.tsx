@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Question } from '../../../interfaces/questionnaire';
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Divider, Text, useColorModeValue } from '@chakra-ui/react';
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Text, useColorModeValue } from '@chakra-ui/react';
 import { useLocalization } from '../../../service/LocalizationService';  
 import { QUESTION_DISPLAY_COMPONENT } from '../../../constants/questionnaire';
 import QTextDisplay from './QTextDisplay';
@@ -13,7 +13,7 @@ const QQuestionDisplay: FC<{ question: Question, fsTitle: number, fsDesc: number
   const ResponseComponent = QUESTION_DISPLAY_COMPONENT[question.type];
 
   return (
-    <Accordion py='10px' pl='10px'>
+    <Accordion py='10px' pl='10px' allowToggle>
       <AccordionItem>
         <Box 
           display={ResponseComponent === QTextDisplay ? 'flex' : 'block'} 
@@ -41,7 +41,6 @@ const QQuestionDisplay: FC<{ question: Question, fsTitle: number, fsDesc: number
             /> : 'No Responses'}
           </AccordionButton>
         </Box>
-        <Divider borderColor='darkgray' h='1px' />
         <AccordionPanel>
           {question.subQuestions && question.subQuestions.map((q) => (
             <QQuestionDisplay
