@@ -13,7 +13,7 @@ const QQuestionDisplay: FC<{ question: Question, fsTitle: number, fsDesc: number
   const ResponseComponent = QUESTION_DISPLAY_COMPONENT[question.type];
 
   return (
-    <Accordion pl='10px' allowToggle borderColor='red'>
+    <Accordion allowToggle borderColor='red' borderBottom='0'>
       <AccordionItem textAlign='left' >
         <Box 
           display={ResponseComponent === QTextDisplay ? 'flex' : 'block'} 
@@ -25,7 +25,7 @@ const QQuestionDisplay: FC<{ question: Question, fsTitle: number, fsDesc: number
             display='flex'
           >
             {(question.subQuestions && question.subQuestions.length > 0) && <AccordionIcon />}
-            <Box>
+            <Box ml='10px'>
               {(question.titleContent && question.titleContent.translations) && (
                 <Text color={textColor} fontSize={`${fsTitle}px`} fontWeight='700'>
                   {getCurrentTranslation(question.titleContent)}
