@@ -25,7 +25,7 @@ const QQuestionDisplay: FC<QQuestionDisplayProps> = ({ question, fsTitle, fsDesc
     <Accordion allowToggle>
       <AccordionItem 
         textAlign='left' 
-        borderColor='gray.300' 
+        borderColor='chakra-border-color._dark'
         borderTop={`${(index < (columns as number) && isRoot) ? 0 : 1}px`} 
         borderBottom='none !important'
       >

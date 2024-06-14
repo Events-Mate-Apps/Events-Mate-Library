@@ -12,9 +12,9 @@ const QSectionDisplay: FC<{ section: Section, isLast: boolean }> = ({ section, i
   return (
     <Box 
       p='10px'
-      mb='30px'
+      pb='30px'
       borderBottom={`${isLast ? 0 : 1}px`}
-      borderColor='gray.300'
+      borderColor='chakra-border-color._dark'
     >
       {(section.titleContent && section.titleContent.translations) && <Text color={textColor} fontSize='20px' fontWeight='700'>
         {getCurrentTranslation(section.titleContent)}
