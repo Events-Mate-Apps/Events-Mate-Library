@@ -12,11 +12,11 @@ const QQuestionDisplay: FC<{ question: Question, fsTitle: number, fsDesc: number
 
   const ResponseComponent = QUESTION_DISPLAY_COMPONENT[question.type];
 
-  const Component = question.subQuestions[0] ? AccordionItem : AccordionPanel
+  // const Component = question.subQuestions[0] ? AccordionItem : AccordionPanel
 
   return (
     <Accordion py='10px' pl='10px' allowToggle>
-      <Component>
+      <AccordionItem>
         <Box 
           display={ResponseComponent === QTextDisplay ? 'flex' : 'block'} 
           alignItems='center'
@@ -53,7 +53,7 @@ const QQuestionDisplay: FC<{ question: Question, fsTitle: number, fsDesc: number
             />
           ))}
         </AccordionPanel>
-      </Component>
+      </AccordionItem>
     </Accordion>
   );
 }
