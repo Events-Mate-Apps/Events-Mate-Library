@@ -11,8 +11,8 @@ const QSectionDisplay: FC<{ section: Section, isLast: boolean }> = ({ section, i
 
   return (
     <Box 
-      p='10px'
-      pb='30px'
+      px='10px'
+      pt='10xp'
       borderBottom={`${isLast ? 0 : 1}px`}
       borderColor='chakra-border-color._dark'
     >
@@ -25,7 +25,7 @@ const QSectionDisplay: FC<{ section: Section, isLast: boolean }> = ({ section, i
       <SimpleGrid
         columns={{ base: 1, lg: 2 }}
         spacingX='50px'
-        pb='20px'
+        mb='20px'
       >
         {section.questions.map((question, questionIndex) => <QQuestionDisplay 
           fsTitle={18}
