@@ -29,7 +29,6 @@ const QIconDisplay: FC<QDisplayComponentProps> = ({ responses, options }) => {
       justifyContent='center'
       alignItems='center'
       flexFlow='column'
-      gap='5px'
       mt='10px'
       mb='20px'
     >
@@ -44,8 +43,8 @@ const QIconDisplay: FC<QDisplayComponentProps> = ({ responses, options }) => {
             flexFlow='column'
             justifyContent='center'
             alignItems='center'
-            w='165px'
-            h='120px'
+            w='110px'
+            h='80px'
             fontSize='16px'
             fontWeight='semibold'
             borderRadius='3xl'
@@ -53,14 +52,13 @@ const QIconDisplay: FC<QDisplayComponentProps> = ({ responses, options }) => {
             placeContent='left'
             cursor='pointer'
             bg='white'
-            p='15px'
           >
             {e.faIcon && <FontAwesomeIconWrapper
               icon={e.faIcon}
               color={iconColor}
-              size='50px'
+              size='25px'
             />}
-            <Text pt='5px'>
+            <Text fontSize='16px'>
               {getCurrentTranslation(e.titleContent)}
             </Text>
             {e.descriptionContent && <Text color={textColorDesc} pt='5px'>
