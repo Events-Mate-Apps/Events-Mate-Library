@@ -21,7 +21,7 @@ const QQuestionDisplay: FC<{ question: Question, fsTitle: number, fsDesc: number
           justifyContent='space-between'
         >
           <AccordionButton pointerEvents={question.subQuestions[0] ? 'all' : 'none'}>
-            {question.subQuestions[0] && <AccordionIcon />}
+            {!!question.subQuestions[0] && <AccordionIcon />}
             <Box>
               {(question.titleContent && question.titleContent.translations) && (
                 <Text color={textColor} fontSize={`${fsTitle}px`} fontWeight='700'>
@@ -41,7 +41,7 @@ const QQuestionDisplay: FC<{ question: Question, fsTitle: number, fsDesc: number
             /> : 'No Responses'}
           </AccordionButton>
         </Box>
-        {question.subQuestions[0] && question.subQuestions.map((q) => (
+        {!!question.subQuestions[0] && question.subQuestions.map((q) => (
           <AccordionPanel key={q.id}>
             <QQuestionDisplay
               fsTitle={fsTitle - 2}
