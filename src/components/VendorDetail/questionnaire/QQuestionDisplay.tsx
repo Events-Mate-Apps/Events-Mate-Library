@@ -50,7 +50,7 @@ const QQuestionDisplay: FC<{ question: Question, fsTitle: number, fsDesc: number
           /> : 'No Responses')}
         </Box>
         {(question.subQuestions && question.subQuestions[0]) && question.subQuestions.map((q) => (
-          <AccordionPanel key={q.id} py='0'>
+          <AccordionPanel key={q.id} py='0' pr='0'>
             <QQuestionDisplay
               fsTitle={fsTitle - 2}
               fsDesc={fsDesc - 2}
