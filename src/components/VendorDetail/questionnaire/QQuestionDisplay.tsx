@@ -34,8 +34,6 @@ const QQuestionDisplay: FC<QQuestionDisplayProps> = ({ question, fsTitle, fsDesc
           <AccordionButton   
             pointerEvents={question.subQuestions && question.subQuestions.length > 0 ? 'all' : 'none'}
             display='flex'
-            flexDir='column'
-            alignItems='center'
           >
             <Flex
               alignItems='center'
