@@ -13,7 +13,7 @@ const QSectionDisplay: FC<{ section: Section, isLast: boolean }> = ({ section, i
     <Box 
       px='10px'
       pt='10xp'
-      mb='30px'
+      mb='60px'
       borderBottom={`${isLast ? 0 : 1}px`}
       borderColor='chakra-border-color._dark'
     >
