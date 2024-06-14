@@ -121,7 +121,7 @@ export interface Question {
   publicTitleContent: TranslationTextContent,
   publicTitleId: number, 
   sectionId: string,
-  subQuestions: Question[],
+  subQuestions?: Question[],
   type: QuestionType, 
   updatedAt: string,
   responses?: QuestionResponse[]

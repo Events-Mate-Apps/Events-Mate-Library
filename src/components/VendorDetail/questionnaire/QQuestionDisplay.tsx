@@ -12,8 +12,6 @@ const QQuestionDisplay: FC<{ question: Question, fsTitle: number, fsDesc: number
 
   const ResponseComponent = QUESTION_DISPLAY_COMPONENT[question.type];
 
-  if (!question.subQuestions) return (<>{JSON.stringify(question)}</>)
-
   return (
     <Accordion py='10px' pl='10px' allowToggle>
       <AccordionItem>
@@ -22,8 +20,8 @@ const QQuestionDisplay: FC<{ question: Question, fsTitle: number, fsDesc: number
           alignItems='center'
           justifyContent='space-between'
         >
-          <AccordionButton pointerEvents={question.subQuestions.length > 0 ? 'all' : 'none'}>
-            {question.subQuestions.length > 0 && <AccordionIcon />}
+          <AccordionButton pointerEvents={!question.subQuestions || question.subQuestions.length > 0 ? 'all' : 'none'}>
+            {!question.subQuestions || question.subQuestions.length > 0 && <AccordionIcon />}
             <Box>
               {(question.titleContent && question.titleContent.translations) && (
                 <Text color={textColor} fontSize={`${fsTitle}px`} fontWeight='700'>
@@ -43,7 +41,7 @@ const QQuestionDisplay: FC<{ question: Question, fsTitle: number, fsDesc: number
             /> : 'No Responses'}
           </AccordionButton>
         </Box>
-        {question.subQuestions.length > 0 && question.subQuestions.map((q) => (
+        {(question.subQuestions && question.subQuestions.length < 0) && question.subQuestions.map((q) => (
           <AccordionPanel key={q.id}>
             <QQuestionDisplay
               fsTitle={fsTitle - 2}
