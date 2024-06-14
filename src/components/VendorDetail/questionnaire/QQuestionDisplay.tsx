@@ -12,7 +12,7 @@ const QQuestionDisplay: FC<{ question: Question, fsTitle: number, fsDesc: number
 
   const ResponseComponent = QUESTION_DISPLAY_COMPONENT[question.type];
 
-  if (!question.subQuestions) return (<>{question}</>)
+  if (!question.subQuestions) return (<>{JSON.stringify(question)}</>)
 
   return (
     <Accordion py='10px' pl='10px' allowToggle>
