@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Question } from '../../../interfaces/questionnaire';
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Text, useColorModeValue } from '@chakra-ui/react';
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Flex, Text, useColorModeValue } from '@chakra-ui/react';
 import { useLocalization } from '../../../service/LocalizationService';  
 import { QUESTION_DISPLAY_COMPONENT } from '../../../constants/questionnaire';
 import QTextDisplay from './QTextDisplay';
@@ -31,30 +31,33 @@ const QQuestionDisplay: FC<QQuestionDisplayProps> = ({ question, fsTitle, fsDesc
         <Box 
           display={ResponseComponent === QTextDisplay ? 'flex' : 'block'} 
         >
-          <AccordionButton 
+          <AccordionButton   
             pointerEvents={question.subQuestions && question.subQuestions.length > 0 ? 'all' : 'none'}
-            alignItems='center'
-            justifyContent='space-between'
             display='flex'
           >
+            <Flex
+              alignItems='center'
+              justifyContent='space-between'
+            >
+              <Box textAlign='left'>
+                {(question.titleContent && question.titleContent.translations) && (
+                  <Text color={textColor} fontSize={`${fsTitle}px`} fontWeight='700'>
+                    {getCurrentTranslation(question.titleContent)}
+                  </Text>
+                )}
+                {(question.descriptionContent && question.descriptionContent.translations) && (
+                  <Text color={secondaryTextColor} fontSize={`${fsDesc}px`} fontWeight='500'>
+                    {getCurrentTranslation(question.descriptionContent)}
+                  </Text>
+                )}
+              </Box>
+              {ResponseComponent === QTextDisplay && (question.responses ? <ResponseComponent 
+                responses={question.responses}
+                options={question.options} 
+                fsTitle={fsTitle - 2}
+              /> : 'No Responses')}
+            </Flex>
             {(question.subQuestions && question.subQuestions.length > 0) && <AccordionIcon />}
-            <Box>
-              {(question.titleContent && question.titleContent.translations) && (
-                <Text color={textColor} fontSize={`${fsTitle}px`} fontWeight='700'>
-                  {getCurrentTranslation(question.titleContent)}
-                </Text>
-              )}
-              {(question.descriptionContent && question.descriptionContent.translations) && (
-                <Text color={secondaryTextColor} fontSize={`${fsDesc}px`} fontWeight='500'>
-                  {getCurrentTranslation(question.descriptionContent)}
-                </Text>
-              )}
-            </Box>
-            {ResponseComponent === QTextDisplay && (question.responses ? <ResponseComponent 
-              responses={question.responses}
-              options={question.options} 
-              fsTitle={fsTitle - 2}
-            /> : 'No Responses')}
           </AccordionButton>
           {ResponseComponent !== QTextDisplay && (question.responses ? <ResponseComponent 
             responses={question.responses}

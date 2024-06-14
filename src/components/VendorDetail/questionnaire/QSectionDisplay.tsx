@@ -20,6 +20,7 @@ const QSectionDisplay: FC<{ section: Section }> = ({ section }) => {
       <SimpleGrid
         columns={{ base: 1, lg: 2 }}
         spacingX='50px'
+        pb='20px'
       >
         {section.questions.map((question, index) => <QQuestionDisplay 
           fsTitle={18}
