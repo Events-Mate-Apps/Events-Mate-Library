@@ -13,8 +13,8 @@ const QQuestionDisplay: FC<{ question: Question, fsTitle: number, fsDesc: number
   const ResponseComponent = QUESTION_DISPLAY_COMPONENT[question.type];
 
   return (
-    <Accordion py='10px' pl='10px' allowToggle>
-      <AccordionItem bg='tomato'>
+    <Accordion pl='10px' allowToggle>
+      <AccordionItem textAlign='left'>
         <Box 
           display={ResponseComponent === QTextDisplay ? 'flex' : 'block'} 
         >
