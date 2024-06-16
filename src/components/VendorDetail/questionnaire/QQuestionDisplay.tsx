@@ -65,7 +65,13 @@ const QQuestionDisplay: FC<QQuestionDisplayProps> = ({ question, fsTitle, fsDesc
                   /> : 'No Responses')}
                 </Flex>
               
-                <Box w='30px' h='30px'>
+                <Box 
+                  w='30px'
+                  h='30px'
+                  display='grid'
+                  placeContent='center'
+                  fontSize='15px'
+                >
                   {(question.subQuestions && question.subQuestions.length > 0) && <AccordionIcon />}
                 </Box>
               </AccordionButton>

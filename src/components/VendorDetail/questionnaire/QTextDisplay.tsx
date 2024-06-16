@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { QDisplayComponentProps, QuestionType } from '../../../interfaces/questionnaire';
-import { Box, Text } from '@chakra-ui/react';
+import { Box, Text, useColorModeValue } from '@chakra-ui/react';
 import { useLocalization } from '../../../service/LocalizationService';
 import useTranslation from 'next-translate/useTranslation';
 
@@ -8,6 +8,8 @@ import useTranslation from 'next-translate/useTranslation';
 const QTextDisplay: FC<QDisplayComponentProps> = ({ responses, fsTitle }) => {
   const { getCurrentTranslation } = useLocalization()
   const { t } = useTranslation()
+  const brandColor = useColorModeValue('brand.900', 'brand.400')
+
   const displayedValue = (() => {
     switch (responses[0].questionType) {
       case QuestionType.TEXT:
@@ -20,10 +22,16 @@ const QTextDisplay: FC<QDisplayComponentProps> = ({ responses, fsTitle }) => {
         return 'No response';
     }
   })();
+
+  const color = responses[0].questionType !== QuestionType.YES_NO ? (
+    brandColor
+  ) : (
+    responses[0].booleanResponse ? 'green.200' : 'red.500'
+  )
   
   return (
     <Box p='10px'>
-      <Text as='p' color='brand.900' fontWeight='bold' fontSize={`${fsTitle}px`}>{displayedValue}</Text>
+      <Text as='p' color={color} fontWeight='bold' fontSize={`${fsTitle}px`}>{displayedValue}</Text>
     </Box>
   );
 }
