@@ -26,7 +26,7 @@ const QTextDisplay: FC<QDisplayComponentProps> = ({ responses, fsTitle }) => {
   const color = responses[0].questionType !== QuestionType.YES_NO ? (
     brandColor
   ) : (
-    responses[0].booleanResponse ? 'green.200' : 'red.500'
+    responses[0].booleanResponse ? 'green.300' : 'red.500'
   )
   
   return (
