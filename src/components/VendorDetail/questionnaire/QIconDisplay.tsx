@@ -18,7 +18,7 @@ const QIconDisplay: FC<QDisplayComponentProps> = ({ responses, options }) => {
     borderColor: 'whiteAlpha.100',
     boxShadow: 'unset',
     borderWidth: '1px',
-    background: 'navy.800 !important',
+    background: 'navy.700 !important',
   })
 
   if (!options) return (<Text>No options were selected... :(</Text>)
