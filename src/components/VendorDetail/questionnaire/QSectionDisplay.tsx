@@ -4,7 +4,7 @@ import { Box, Text, useColorModeValue } from '@chakra-ui/react';
 import { useLocalization } from '../../../service/LocalizationService';
 import QQuestionDisplay from './QQuestionDisplay'
 
-const QSectionDisplay: FC<{ section: Section, isLast: boolean }> = ({ section, isLast }) => {
+const QSectionDisplay: FC<{ section: Section, isLast: boolean }> = ({ section }) => {
   const { getCurrentTranslation } = useLocalization()
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const secondaryTextColor = useColorModeValue('secondaryGray.700', 'white');
@@ -24,13 +24,11 @@ const QSectionDisplay: FC<{ section: Section, isLast: boolean }> = ({ section, i
         {getCurrentTranslation(section.descriptionContent)}
       </Text>}
       <Box>
-        {section.questions.map((question, questionIndex) => <QQuestionDisplay 
+        {section.questions.map((question) => <QQuestionDisplay 
           fsTitle={18}
           fsDesc={16}
-          index={questionIndex}
           question={question}
           key={question.id} 
-          isRoot={questionIndex === 0}
         />)}
       </Box>
     </Box>
