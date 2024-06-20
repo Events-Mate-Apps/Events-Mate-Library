@@ -16,6 +16,7 @@ const QSectionDisplay: FC<{ section: Section, isLast: boolean }> = ({ section })
       mb='60px'
       w={{ base: '100%' }}
       borderColor='chakra-border-color._dark'
+      borderBottom='1px'
     >
       {(section.titleContent && section.titleContent.translations) && <Text color={textColor} fontSize='20px' fontWeight='700'>
         {getCurrentTranslation(section.titleContent)}
@@ -23,17 +24,13 @@ const QSectionDisplay: FC<{ section: Section, isLast: boolean }> = ({ section })
       {(section.descriptionContent && section.descriptionContent.translations) && <Text color={secondaryTextColor} fontSize='20px' fontWeight='500'>
         {getCurrentTranslation(section.descriptionContent)}
       </Text>}
-      <Box>
-        {section.questions.map((question, questionIndex) => <Box borderBottom='1px solid red' key={question.id}>
-          <QQuestionDisplay 
-            fsTitle={18}
-            fsDesc={16}
-            question={question}
-            key={question.id} 
-            isFirst={questionIndex === 0}
-          />
-        </Box>)}
-      </Box>
+      {section.questions.map((question, questionIndex) => <QQuestionDisplay 
+        fsTitle={18}
+        fsDesc={16}
+        question={question}
+        key={question.id} 
+        isFirst={questionIndex === 0}
+      />)}
     </Box>
   );
 }
