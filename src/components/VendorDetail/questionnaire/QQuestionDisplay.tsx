@@ -3,7 +3,6 @@ import { Question, QuestionType } from '../../../interfaces/questionnaire';
 import { Accordion, AccordionButton, AccordionItem, AccordionPanel, Box, Flex, Text, useColorModeValue } from '@chakra-ui/react';
 import { useLocalization } from '../../../service/LocalizationService';  
 import { QUESTION_DISPLAY_COMPONENT } from '../../../constants/questionnaire';
-import QTextDisplay from './QTextDisplay';
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 
 interface QQuestionDisplayProps {
@@ -35,7 +34,7 @@ const QQuestionDisplay: FC<QQuestionDisplayProps> = ({ question, fsTitle, fsDesc
           
           return (<>
             <Box 
-              display={ResponseComponent === QTextDisplay ? 'flex' : 'block'} 
+              display={isBooleanOrNumeric ? 'flex' : 'block'} 
             >
               <AccordionButton   
                 pointerEvents={question.subQuestions && question.subQuestions.length > 0 ? 'all' : 'none'}
@@ -75,7 +74,7 @@ const QQuestionDisplay: FC<QQuestionDisplayProps> = ({ question, fsTitle, fsDesc
                   {(question.subQuestions && question.subQuestions.length > 0) && <AccordionIcon />}
                 </Box>
               </AccordionButton>
-              {isBooleanOrNumeric && (question.responses ? <ResponseComponent 
+              {!isBooleanOrNumeric && (question.responses ? <ResponseComponent 
                 responses={question.responses}
                 options={question.options} 
                 fsTitle={fsTitle - 2}
