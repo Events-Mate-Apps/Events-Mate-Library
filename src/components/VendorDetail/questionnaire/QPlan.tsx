@@ -31,7 +31,7 @@ const QPlan: FC<QPlanProps> = ({ plan }) => {
         )}
       </Box>
       <Text fontWeight='700'>
-        {plan.unitVolume} {t(`questionnaire:priceUnits:${plan.unit}`)} /{' '}
+        {plan.unitVolume} {t(`questionnaire:priceUnits.${plan.unit}`)} /{' '}
         {currentPrice?.amount ? currentPrice.amount : 'No amount :P'}{' '}
         {currentPrice?.currencyISO ? currentPrice.currencyISO : 'No ISO :P'}
       </Text>
