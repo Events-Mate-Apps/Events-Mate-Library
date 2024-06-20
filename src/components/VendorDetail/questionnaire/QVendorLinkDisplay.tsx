@@ -28,7 +28,7 @@ const QLinkDisplay: FC<QDisplayComponentProps> = ({ responses }) => {
   }, [])
 
   return (
-    <HStack spacing={2} py='5px'>
+    <HStack spacing={2} pb='10px'>
       {vendors.map(e => (
         <Tag
           borderRadius='full'
