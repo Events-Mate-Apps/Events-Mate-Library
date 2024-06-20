@@ -30,7 +30,7 @@ const QSectionDisplay: FC<{ section: Section, isLast: boolean }> = ({ section, i
           index={questionIndex}
           question={question}
           key={question.id} 
-          isRoot
+          isRoot={questionIndex === 0}
         />)}
       </Box>
     </Box>
