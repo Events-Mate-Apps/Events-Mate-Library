@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Questionnaire } from '../../../interfaces/questionnaire';
-import { Box, Flex, Text, useColorModeValue } from '@chakra-ui/react';
+import { Box, SimpleGrid, Text, useColorModeValue } from '@chakra-ui/react';
 import { useLocalization } from '../../../service/LocalizationService';
 import QSectionDisplay from './QSectionDisplay';
   
@@ -18,14 +18,14 @@ const QuestionnaireResponsesContainer: FC<{ questionnaire: Questionnaire }> = ({
       {(questionnaire.descriptionContent && questionnaire.descriptionContent.translations) && <Text color={textColor} fontSize='22px' fontWeight='700'>
         {getCurrentTranslation(questionnaire.descriptionContent)}
       </Text>}
-      <Flex flexWrap='wrap'>
+      <SimpleGrid columns={{ base: 1, lg: 2 }}>
         {questionnaire.sections.map((section, index) => (
           <QSectionDisplay
             section={section}
             key={section.id}
             isLast={questionnaire.sections.length - 1 === index}
           />))}
-      </Flex>
+      </SimpleGrid>
     </Box>
   );
 }

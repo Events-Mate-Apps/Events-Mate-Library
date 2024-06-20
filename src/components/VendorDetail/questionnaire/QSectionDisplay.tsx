@@ -14,7 +14,7 @@ const QSectionDisplay: FC<{ section: Section, isLast: boolean }> = ({ section, i
       px='10px'
       pt='10xp'
       mb='60px'
-      w={{ base: '100%', lg: '50%' }}
+      w={{ base: '100%' }}
       borderBottom={`${isLast ? 0 : 1}px`}
       borderColor='chakra-border-color._dark'
     >
