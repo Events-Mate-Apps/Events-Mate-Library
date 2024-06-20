@@ -50,7 +50,6 @@ const QIconDisplay: FC<QDisplayComponentProps> = ({ responses, options }) => {
             borderRadius='3xl'
             {...borderStyles}
             placeContent='left'
-            bg='white'
           >
             {e.faIcon && <FontAwesomeIconWrapper
               icon={e.faIcon}
