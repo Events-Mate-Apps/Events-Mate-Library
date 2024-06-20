@@ -20,6 +20,8 @@ const QQuestionDisplay: FC<QQuestionDisplayProps> = ({ question, fsTitle, fsDesc
 
   const ResponseComponent = QUESTION_DISPLAY_COMPONENT[question.type];
 
+  const isBooleanOrNumeric = question.type === QuestionType.YES_NO || question.type === QuestionType.NUMERIC
+
   return (
     <Accordion allowToggle>
       <AccordionItem 
@@ -56,7 +58,7 @@ const QQuestionDisplay: FC<QQuestionDisplayProps> = ({ question, fsTitle, fsDesc
                       </Text>
                     )}
                   </Box>
-                  {question.type === (QuestionType.YES_NO || QuestionType.NUMERIC) && (question.responses ? <ResponseComponent 
+                  {isBooleanOrNumeric && (question.responses ? <ResponseComponent 
                     responses={question.responses}
                     options={question.options} 
                     fsTitle={fsTitle - 2}
@@ -73,7 +75,7 @@ const QQuestionDisplay: FC<QQuestionDisplayProps> = ({ question, fsTitle, fsDesc
                   {(question.subQuestions && question.subQuestions.length > 0) && <AccordionIcon />}
                 </Box>
               </AccordionButton>
-              {question.type !== (QuestionType.YES_NO || QuestionType.NUMERIC) && (question.responses ? <ResponseComponent 
+              {isBooleanOrNumeric && (question.responses ? <ResponseComponent 
                 responses={question.responses}
                 options={question.options} 
                 fsTitle={fsTitle - 2}
