@@ -27,8 +27,8 @@ const QPlan: FC<QPlanProps> = ({ plan }) => {
         {plan.unitVolume} 
         {plan.unit} 
         / 
-        {plan.prices ? getCurrentPrice(plan.prices).amount : 'No price :P'} 
-        {plan.prices ? getCurrentPrice(plan.prices).currencyISO : 'No price :P'}</Text>
+        {getCurrentPrice(plan.prices).amount ? getCurrentPrice(plan.prices).amount : 'No amount :P'} 
+        {getCurrentPrice(plan.prices).currencyISO ? getCurrentPrice(plan.prices).currencyISO : 'No ISO :P'}</Text>
     </Flex>
   );
 }
