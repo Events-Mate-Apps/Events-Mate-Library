@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Section } from '../../../interfaces/questionnaire';
-import { Box, SimpleGrid, Text, useColorModeValue } from '@chakra-ui/react';
+import { Box, Text, useColorModeValue } from '@chakra-ui/react';
 import { useLocalization } from '../../../service/LocalizationService';
 import QQuestionDisplay from './QQuestionDisplay'
 
@@ -14,6 +14,7 @@ const QSectionDisplay: FC<{ section: Section, isLast: boolean }> = ({ section, i
       px='10px'
       pt='10xp'
       mb='60px'
+      w={{ base: '100%', lg: '50%' }}
       borderBottom={`${isLast ? 0 : 1}px`}
       borderColor='chakra-border-color._dark'
     >
@@ -23,10 +24,7 @@ const QSectionDisplay: FC<{ section: Section, isLast: boolean }> = ({ section, i
       {(section.descriptionContent && section.descriptionContent.translations) && <Text color={secondaryTextColor} fontSize='20px' fontWeight='500'>
         {getCurrentTranslation(section.descriptionContent)}
       </Text>}
-      <SimpleGrid
-        columns={{ base: 1, lg: 2 }}
-        spacingX='50px'
-      >
+      <Box>
         {section.questions.map((question, questionIndex) => <QQuestionDisplay 
           fsTitle={18}
           fsDesc={16}
@@ -35,7 +33,7 @@ const QSectionDisplay: FC<{ section: Section, isLast: boolean }> = ({ section, i
           key={question.id} 
           isRoot
         />)}
-      </SimpleGrid>
+      </Box>
     </Box>
   );
 }
