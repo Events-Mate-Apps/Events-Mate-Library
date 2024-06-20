@@ -12,7 +12,7 @@ const QPlan: FC<QPlanProps> = ({ plan }) => {
   const secondaryTextColor = useColorModeValue('secondaryGray.700', 'white');
 
   const { getCurrentTranslation, getCurrentPrice } = useLocalization()
-
+  console.log(getCurrentPrice(plan.prices))
   return (
     <Flex p='10px' justifyContent='space-between'>
       <Box>
@@ -23,7 +23,8 @@ const QPlan: FC<QPlanProps> = ({ plan }) => {
           {getCurrentTranslation(plan.descriptionContent)}
         </Text>}
       </Box>
-      <Text fontSize='2xl'>{plan.unitVolume} {plan.unit} / {getCurrentPrice(plan.prices).amount} {getCurrentPrice(plan.prices).currencyISO}</Text>
+      <Text fontSize='2xl'>{plan.unitVolume} {plan.unit}</Text>
+      {/* <Text fontSize='2xl'>{plan.unitVolume} {plan.unit} / {getCurrentPrice(plan.prices).amount} {getCurrentPrice(plan.prices).currencyISO}</Text> */}
     </Flex>
   );
 }
