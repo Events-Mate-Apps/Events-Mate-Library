@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Question } from '../../../interfaces/questionnaire';
+import { Question, QuestionType } from '../../../interfaces/questionnaire';
 import { Accordion, AccordionButton, AccordionItem, AccordionPanel, Box, Flex, Text, useColorModeValue } from '@chakra-ui/react';
 import { useLocalization } from '../../../service/LocalizationService';  
 import { QUESTION_DISPLAY_COMPONENT } from '../../../constants/questionnaire';
@@ -56,7 +56,7 @@ const QQuestionDisplay: FC<QQuestionDisplayProps> = ({ question, fsTitle, fsDesc
                       </Text>
                     )}
                   </Box>
-                  {ResponseComponent === QTextDisplay && (question.responses ? <ResponseComponent 
+                  {question.type === (QuestionType.YES_NO || QuestionType.NUMERIC) && (question.responses ? <ResponseComponent 
                     responses={question.responses}
                     options={question.options} 
                     fsTitle={fsTitle - 2}
@@ -73,7 +73,7 @@ const QQuestionDisplay: FC<QQuestionDisplayProps> = ({ question, fsTitle, fsDesc
                   {(question.subQuestions && question.subQuestions.length > 0) && <AccordionIcon />}
                 </Box>
               </AccordionButton>
-              {ResponseComponent !== QTextDisplay && (question.responses ? <ResponseComponent 
+              {question.type !== (QuestionType.YES_NO || QuestionType.NUMERIC) && (question.responses ? <ResponseComponent 
                 responses={question.responses}
                 options={question.options} 
                 fsTitle={fsTitle - 2}
