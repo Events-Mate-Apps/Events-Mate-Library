@@ -15,7 +15,7 @@ const QPlan: FC<QPlanProps> = ({ plan }) => {
   const currentPrice = getCurrentPrice(plan.prices);
 
   return (
-    <Flex p='10px' justifyContent='space-between'>
+    <Flex p='10px' justifyContent='space-between' alignItems='center'>
       <Box>
         {plan.titleContent.translations && (
           <Text color={textColor} fontSize='14px' fontWeight='700'>
@@ -28,7 +28,7 @@ const QPlan: FC<QPlanProps> = ({ plan }) => {
           </Text>
         )}
       </Box>
-      <Text fontSize='2xl'>
+      <Text fontSize='xl' fontWeight='700'>
         {plan.unitVolume} {plan.unit} /{' '}
         {currentPrice?.amount ? currentPrice.amount : 'No amount :P'}{' '}
         {currentPrice?.currencyISO ? currentPrice.currencyISO : 'No ISO :P'}
