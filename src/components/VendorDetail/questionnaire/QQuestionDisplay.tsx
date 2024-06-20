@@ -27,7 +27,6 @@ const QQuestionDisplay: FC<QQuestionDisplayProps> = ({ question, fsTitle, fsDesc
       <AccordionItem 
         textAlign='left' 
         borderColor='chakra-border-color._dark'
-        borderTop={`${(index < (columns as number) && isRoot) ? 0 : 1}px`} 
         borderBottom='none !important'
       >
         {({ isExpanded }) => {
