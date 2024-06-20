@@ -24,12 +24,15 @@ const QSectionDisplay: FC<{ section: Section, isLast: boolean }> = ({ section })
         {getCurrentTranslation(section.descriptionContent)}
       </Text>}
       <Box>
-        {section.questions.map((question) => <QQuestionDisplay 
-          fsTitle={18}
-          fsDesc={16}
-          question={question}
-          key={question.id} 
-        />)}
+        {section.questions.map((question, questionIndex) => <Box borderBottom='1px solid red' key={question.id}>
+          <QQuestionDisplay 
+            fsTitle={18}
+            fsDesc={16}
+            question={question}
+            key={question.id} 
+            isFirst={questionIndex === 0}
+          />
+        </Box>)}
       </Box>
     </Box>
   );

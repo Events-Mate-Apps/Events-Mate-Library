@@ -7,12 +7,13 @@ import QTextDisplay from './QTextDisplay';
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 
 interface QQuestionDisplayProps {
+  isFirst: boolean,
   question: Question,
   fsTitle: number,
   fsDesc: number,
 }
 
-const QQuestionDisplay: FC<QQuestionDisplayProps> = ({ question, fsTitle, fsDesc }) => {
+const QQuestionDisplay: FC<QQuestionDisplayProps> = ({ question, fsTitle, fsDesc, isFirst }) => {
   const { getCurrentTranslation } = useLocalization()
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const secondaryTextColor = useColorModeValue('secondaryGray.700', 'white');
@@ -24,7 +25,7 @@ const QQuestionDisplay: FC<QQuestionDisplayProps> = ({ question, fsTitle, fsDesc
       <AccordionItem 
         textAlign='left' 
         borderColor='chakra-border-color._dark'
-        borderTop='1px' 
+        borderTop={`${isFirst ? 0 : 1}px` }
         borderBottom='none !important'
       >
         {({ isExpanded }) => {
@@ -78,9 +79,10 @@ const QQuestionDisplay: FC<QQuestionDisplayProps> = ({ question, fsTitle, fsDesc
                 fsTitle={fsTitle - 2}
               /> : 'No Responses')}
             </Box>
-            {(question.subQuestions && question.subQuestions[0]) && question.subQuestions.map((q) => (
+            {(question.subQuestions && question.subQuestions[0]) && question.subQuestions.map((q, idx) => (
               <AccordionPanel key={q.id} p='0'>
                 <QQuestionDisplay
+                  isFirst={idx === 0}
                   fsTitle={fsTitle - 2}
                   fsDesc={fsDesc - 2}
                   question={q}
