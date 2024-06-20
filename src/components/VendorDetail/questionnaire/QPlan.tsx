@@ -23,8 +23,12 @@ const QPlan: FC<QPlanProps> = ({ plan }) => {
           {getCurrentTranslation(plan.descriptionContent)}
         </Text>}
       </Box>
-      <Text fontSize='2xl'>{plan.unitVolume} {plan.unit}</Text>
-      {/* <Text fontSize='2xl'>{plan.unitVolume} {plan.unit} / {getCurrentPrice(plan.prices).amount} {getCurrentPrice(plan.prices).currencyISO}</Text> */}
+      <Text fontSize='2xl'>
+        {plan.unitVolume} 
+        {plan.unit} 
+        / 
+        {plan.prices ? getCurrentPrice(plan.prices).amount : 'No price :P'} 
+        {plan.prices ? getCurrentPrice(plan.prices).currencyISO : 'No price :P'}</Text>
     </Flex>
   );
 }
