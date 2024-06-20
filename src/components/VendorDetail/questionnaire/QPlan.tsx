@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Box, Flex, Text, useColorModeValue } from '@chakra-ui/react';
 import { QuestionnairePlan } from '../../../interfaces/questionnaire';
-import { useLocalization } from '~/service/LocalizationService';
+import { useLocalization } from '../../../service/LocalizationService';
 
 interface QPlanProps {
   plan: QuestionnairePlan
