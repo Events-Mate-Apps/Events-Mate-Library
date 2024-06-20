@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Box, Flex, Text, useColorModeValue } from '@chakra-ui/react';
 import { QuestionnairePlan } from '../../../interfaces/questionnaire';
 import { useLocalization } from '../../../service/LocalizationService';
+import useTranslation from 'next-translate/useTranslation';
 
 interface QPlanProps {
   plan: QuestionnairePlan
@@ -10,6 +11,7 @@ interface QPlanProps {
 const QPlan: FC<QPlanProps> = ({ plan }) => {
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const secondaryTextColor = useColorModeValue('secondaryGray.700', 'white');
+  const { t } = useTranslation()
 
   const { getCurrentTranslation, getCurrentPrice } = useLocalization();
   const currentPrice = getCurrentPrice(plan.prices);
@@ -28,8 +30,8 @@ const QPlan: FC<QPlanProps> = ({ plan }) => {
           </Text>
         )}
       </Box>
-      <Text fontSize='xl' fontWeight='700'>
-        {plan.unitVolume} {plan.unit} /{' '}
+      <Text fontWeight='700'>
+        {plan.unitVolume} {t(`questionnaire:priceUnits:${plan.unit}`)} /{' '}
         {currentPrice?.amount ? currentPrice.amount : 'No amount :P'}{' '}
         {currentPrice?.currencyISO ? currentPrice.currencyISO : 'No ISO :P'}
       </Text>
