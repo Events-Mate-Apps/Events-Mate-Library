@@ -24,8 +24,8 @@ const QQuestionDisplay: FC<QQuestionDisplayProps> = ({ question, fsTitle, fsDesc
       <AccordionItem 
         textAlign='left' 
         borderColor='chakra-border-color._dark'
-        borderBottom='1px' 
-        borderTop='none !important'
+        borderTop='1px' 
+        borderBottom='none !important'
       >
         {({ isExpanded }) => {
           const AccordionIcon = isExpanded ? MinusIcon : AddIcon
