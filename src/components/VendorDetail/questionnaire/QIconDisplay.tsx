@@ -12,7 +12,7 @@ const QIconDisplay: FC<QDisplayComponentProps> = ({ responses, options }) => {
   const borderStyles = useColorModeValue({
     boxShadow: 'lg',
     borderWidth: '0px',
-    background: 'white',
+    background: 'none',
   },
   {
     borderColor: 'whiteAlpha.100',
