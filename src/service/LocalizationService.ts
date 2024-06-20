@@ -1,6 +1,6 @@
 import useTranslation from 'next-translate/useTranslation';
 import { TranslationTextContent } from '../interfaces/vendor';
-import { Price } from '~/interfaces/questionnaire';
+import { Price } from '../interfaces/questionnaire';
 
 interface LocalizationMethods {
   getCurrentTranslation: (content: TranslationTextContent, language?: string) => string,
