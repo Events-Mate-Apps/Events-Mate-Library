@@ -9,7 +9,7 @@ interface Options {
   position?: ToastPosition
 }
 
-interface NotificationMethods {
+export interface NotificationMethods {
   showError: (options?: { error: unknown, duration?: number, isClosable?: boolean }) => void;
   showCustomError: (options: Options) => void;
   showSuccess: (options?: Options) => void;
