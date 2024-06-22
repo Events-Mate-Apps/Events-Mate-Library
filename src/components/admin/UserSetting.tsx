@@ -6,7 +6,7 @@ import Password from './adminComponents/Password';
 import Profile from './adminComponents/Profile';
 import LanguageSettings from './adminComponents/Language';
 import { FC } from 'react';
-import { UserData } from '~/interfaces/user';
+import { UserData } from '../../interfaces/user';
 
 interface UserSettingsProps {
   user: UserData;

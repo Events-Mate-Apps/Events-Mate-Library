@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
 import { FC, useRef } from 'react';
-import { UserData } from '~/interfaces/user';
+import { UserData } from '../../../interfaces/user';
 import { api } from '~/utils/api';
 interface DeleteProps {
   user: UserData

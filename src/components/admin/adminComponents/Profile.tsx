@@ -1,6 +1,6 @@
 import { Flex, Text, Avatar, Card } from '@chakra-ui/react';
 import { FC, useEffect } from 'react';
-import { UserData } from '~/interfaces/user';
+import { UserData } from '../../../interfaces/user';
 
 interface ProfileProps {
   user: UserData;
