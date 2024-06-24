@@ -41,7 +41,7 @@ export function useNotification(): NotificationMethods {
       description: `${t('notification:error')}: ${err.raw?.message || err.message}`,
       status: 'error',
       duration: options.duration,
-      isClosable: options.isClosable,
+      isClosable: options.isClosable || true,
     });
   };
 
