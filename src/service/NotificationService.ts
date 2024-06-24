@@ -9,7 +9,7 @@ interface Options {
   position?: ToastPosition
 }
 
-interface NotificationMethods {
+export interface NotificationMethods {
   showError: (options?: { error: unknown, duration?: number, isClosable?: boolean }) => void;
   showCustomError: (options: Options) => void;
   showSuccess: (options?: Options) => void;
@@ -41,7 +41,7 @@ export function useNotification(): NotificationMethods {
       description: `${t('notification:error')}: ${err.raw?.message || err.message}`,
       status: 'error',
       duration: options.duration,
-      isClosable: options.isClosable,
+      isClosable: options.isClosable || true,
     });
   };
 
