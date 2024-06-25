@@ -3,6 +3,7 @@ import { useState, FC } from 'react';
 import { api } from '~/utils/api';
 import { UserData } from '../../../interfaces/user';
 import { isEventsMate } from '../../../utils/orientation';
+import useTranslation from 'next-translate/useTranslation';
 
 interface InputFieldProps {
   id: string;
@@ -32,6 +33,7 @@ interface PasswordProps {
 }
 
 const Password: FC<PasswordProps> = () => {
+  const { t } = useTranslation();
   const textColorPrimary = useColorModeValue('secondaryGray.900', 'white');
   const textColorSecondary = 'secondaryGray.600';
   
@@ -41,7 +43,7 @@ const Password: FC<PasswordProps> = () => {
 
   const changePassword = async () => {
     if (newPassword !== confirmPassword) {
-      alert('New passwords do not match');
+      alert(t('settings.passwordMismatch'));
       return;
     }
 
@@ -54,10 +56,10 @@ const Password: FC<PasswordProps> = () => {
 
     try {
       await api.post('auth/change-password', payload);
-      alert('Password changed successfully');
+      alert(t('settings.passwordChangeSuccess'));
     } catch (error) {
-      console.error('Error changing password:', error);
-      alert('Error changing password');
+      console.error(t('settings.passwordChangeError'), error);
+      alert(t('settings.passwordChangeError'));
     }
   };
 
@@ -65,10 +67,10 @@ const Password: FC<PasswordProps> = () => {
     <Card>
       <Flex direction="column" mb="30px" ms="10px">
         <Text fontSize="xl" color={textColorPrimary} fontWeight="bold">
-          Change password
+          {t('settings.changePassword')}
         </Text>
         <Text fontSize="md" color={textColorSecondary}>
-          Here you can set your new password
+          {t('settings.setNewPassword')}
         </Text>
       </Flex>
       <FormControl>
@@ -76,24 +78,24 @@ const Password: FC<PasswordProps> = () => {
           <InputField
             mb="25px"
             id="old"
-            label="Old Password"
-            placeholder="Your old password"
+            label={t('settings.oldPassword')}
+            placeholder={t('settings.oldPasswordPlaceholder')}
             value={oldPassword}
             onChange={(e) => setOldPassword(e.target.value)}
           />
           <InputField
             mb="25px"
             id="new"
-            label="New Password"
-            placeholder="Your new password"
+            label={t('settings.newPassword')}
+            placeholder={t('settings.newPasswordPlaceholder')}
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
           />
           <InputField
             mb="25px"
             id="confirm"
-            label="New Password Confirmation"
-            placeholder="Confirm new password"
+            label={t('settings.confirmPassword')}
+            placeholder={t('settings.confirmPasswordPlaceholder')}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
@@ -114,7 +116,7 @@ const Password: FC<PasswordProps> = () => {
         _active={{ backgroundColor: isEventsMate() ? 'brand.900' : '#e13784' }}
         onClick={changePassword}
       >
-        Change Password
+        {t('settings.changePasswordButton')}
       </Button>
     </Card>
   );
