@@ -31,7 +31,7 @@ const Information: FC<InformationProps> = ({ user }) => {
     };
 
     try {
-      await api.put('/api/users/', payload);
+      await api.put('users/', payload);
       alert('Profile updated successfully');
     } catch (error) {
       console.error('Error updating profile:', error);
