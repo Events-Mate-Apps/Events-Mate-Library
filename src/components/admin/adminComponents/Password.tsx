@@ -31,7 +31,7 @@ interface PasswordProps {
   user: UserData;
 }
 
-const Password: FC<PasswordProps> = ({ user }) => {
+const Password: FC<PasswordProps> = () => {
   const textColorPrimary = useColorModeValue('secondaryGray.900', 'white');
   const textColorSecondary = 'secondaryGray.600';
   
@@ -46,7 +46,7 @@ const Password: FC<PasswordProps> = ({ user }) => {
     }
 
     const payload = {
-      token: user.id, // Assuming token is user ID, adjust accordingly
+      token: '', 
       oldPassword,
       newPassword,
       confirmPassword
