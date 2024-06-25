@@ -1,18 +1,44 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Flex, FormControl, SimpleGrid, Text, useColorModeValue, Input, FormLabel, Box, Button, Card } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
 import { isEventsMate } from '../../../utils/orientation';
+import { api } from '~/utils/api';
+import { UserData } from '~/interfaces/user';
 
 interface InformationProps {
-  [key: string]: any;
+  user: UserData
 }
 
-const Information: FC<InformationProps> = () => {
+const Information: FC<InformationProps> = ({ user }) => {
   const textColorPrimary = useColorModeValue('secondaryGray.900', 'white');
   const textColorSecondary = 'secondaryGray.600';
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  
+  const [username, setUsername] = useState(user.username || '');
+  const [email, setEmail] = useState(user.email || '');
+  const [firstName, setFirstName] = useState( '');
+  const [lastName, setLastName] = useState( '');
+
+  useEffect(()=>{
+    console.log(user)
+  })
+  const saveChanges = async () => {
+    const payload = {
+      email,
+      username,
+      firstName,
+      lastName,
+    };
+
+    try {
+      await api.put('/api/users/', payload);
+      alert('Profile updated successfully');
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      alert('Error updating profile');
+    }
+  };
+
   return (
     <FormControl>
       <Card mb="20px">
@@ -50,20 +76,37 @@ const Information: FC<InformationProps> = () => {
             </FormLabel>
             <Input 
               id="username" 
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               placeholder="@simmmple.web" 
             />
           </Box>
           <Box>
             <FormLabel htmlFor="email">{t('common:emailAddress')}</FormLabel>
-            <Input id="email" placeholder="mail@simmmple.com" />
+            <Input 
+              id="email" 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="mail@simmmple.com" 
+            />
           </Box>
           <Box mb="20px" me="30px">
             <FormLabel htmlFor="first_name">{t('guests:form.firstName')}</FormLabel>
-            <Input id="first_name" placeholder={t('guests:form.firstName')}/>
+            <Input 
+              id="first_name" 
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              placeholder={t('guests:form.firstName')}
+            />
           </Box>
           <Box mb="20px">
             <FormLabel htmlFor="last_name">{t('guests:form.lastName')}</FormLabel>
-            <Input id="last_name" placeholder={t('guests:form.lastName')}/>
+            <Input 
+              id="last_name" 
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              placeholder={t('guests:form.lastName')}
+            />
           </Box>
         </SimpleGrid>
         <Button
@@ -71,6 +114,7 @@ const Information: FC<InformationProps> = () => {
           color="white"
           _hover={{ backgroundColor: isEventsMate() ? 'brand.900' : '#e13784' }}
           _active={{ backgroundColor: isEventsMate() ? 'brand.900' : '#e13784' }}
+          onClick={saveChanges}
         >
           {t('common:saveChanges')}
         </Button>
