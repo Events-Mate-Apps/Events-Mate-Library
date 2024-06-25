@@ -11,6 +11,7 @@ const Information: FC<InformationProps> = () => {
   const textColorPrimary = useColorModeValue('secondaryGray.900', 'white');
   const textColorSecondary = 'secondaryGray.600';
   const { t } = useTranslation()
+
   
   return (
     <FormControl>
