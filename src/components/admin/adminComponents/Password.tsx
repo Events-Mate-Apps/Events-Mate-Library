@@ -2,7 +2,7 @@ import { Button, Flex, FormControl, FormLabel, Input, Text, useColorModeValue, C
 import { useState, FC } from 'react';
 import { api } from '~/utils/api';
 import { UserData } from '../../../interfaces/user';
-import { isEventsMate } from '~/utils/orientation';
+import { isEventsMate } from '../../../utils/orientation';
 
 interface InputFieldProps {
   id: string;
