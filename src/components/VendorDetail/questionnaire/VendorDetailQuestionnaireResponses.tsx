@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { Questionnaire } from '../../../interfaces/questionnaire';
-import { useNotification } from '../../../service/NotificationService';
+import useNotificationStore from '../../../stores/notification';
 import { api } from '../../../utils/api';
 import { Vendor } from '../../../interfaces/vendor';
 import { Card, Text, useColorModeValue } from '@chakra-ui/react';
@@ -9,7 +9,7 @@ import QuestionnaireResponsesContainer from './QuestionnaireResponsesContainer';
   
 const VendorDetailQuestionnaireResponses: FC<{ vendor: Vendor }> = ({ vendor }) => {
   const [availableQuestionnaires, setAvailableQuestionnaires] = useState<Questionnaire[]>([])
-  const { showError } = useNotification()
+  const { showError } = useNotificationStore()
   const { t } = useTranslation()
   const textColor = useColorModeValue('secondaryGray.900', 'white');
 

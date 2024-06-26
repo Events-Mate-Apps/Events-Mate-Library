@@ -3,14 +3,14 @@ import { QDisplayComponentProps } from '../../../interfaces/questionnaire';
 import { HStack, Tag, TagLabel, TagRightIcon } from '@chakra-ui/react';
 import { api } from '../../../utils/api';
 import { Vendor } from '../../../interfaces/vendor';
-import { useNotification } from '../../../service/NotificationService';
+import useNotificationStore from '../../../stores/notification';
 import { useRouter } from 'next/router';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 
 const QLinkDisplay: FC<QDisplayComponentProps> = ({ responses }) => {
   const [vendors, setVendors] = useState<Vendor[]>([])
   const { push } = useRouter()
-  const { showError } = useNotification()
+  const { showError } = useNotificationStore()
 
   const getVendors = async () => {
     responses[0].partnerVendorIds.forEach(async id => {
