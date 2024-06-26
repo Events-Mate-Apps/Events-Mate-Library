@@ -3,7 +3,7 @@ import { CheckIcon } from '@chakra-ui/icons';
 import { Box, Button, Card, Flex, Icon, Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, Progress, Stat, StatHelpText, StatNumber, TabPanel, TabPanels, Tabs, Text, useBreakpointValue, useColorModeValue } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useEffect, useMemo, useState } from 'react';
-import { useNotification } from '../../service/NotificationService';
+import useNotificationStore from '../../stores/notification';
 import { Invoice, Price, ProductWithPrices } from '../../interfaces/stripe';
 import { Vendor } from '../../interfaces/vendor';
 import { api } from '~/utils/api';
@@ -39,7 +39,7 @@ const UpsellModal: React.FC<UpsellModalProps> = ({ vendor, onClose, isOpen }) =>
   const textColorSecondary = useColorModeValue('secondaryGray.800', 'whiteAlpha.700');
   const brandColor = useColorModeValue('brand.900', 'brand.200');
 
-  const { showError } = useNotification()
+  const { showError } = useNotificationStore()
 
   const languageToCurrency: { [key: string]: string } = {
     en: 'usd',

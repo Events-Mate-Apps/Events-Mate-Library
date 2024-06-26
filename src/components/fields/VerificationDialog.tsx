@@ -13,7 +13,7 @@ import { FaCheckCircle } from 'react-icons/fa';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useEffect } from 'react';
 import { api } from '@/utils/api';
-import { useNotification } from '../../service/NotificationService';
+import useNotificationStore from '../../stores/notification';
 
 interface VerificationDialogProps {
   path: string;
@@ -26,7 +26,7 @@ const VerificationDialog: React.FC<VerificationDialogProps> = ({ path, isOpen, t
   const cancelRef = React.useRef<HTMLButtonElement | null>(null);
 
   const { t } = useTranslation();
-  const { showError } = useNotification();
+  const { showError } = useNotificationStore();
   const cancelButton = useColorModeValue('white', 'gray.700');
 
   const verification = async () => {

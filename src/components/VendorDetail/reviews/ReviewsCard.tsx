@@ -16,14 +16,14 @@ import { VendorReview, VendorReviewResponse } from '../../../interfaces/types/re
 import { Vendor } from '../../../interfaces/vendor';
 import { isEventsMate } from '../../../utils/orientation';
 import dayjs from 'dayjs';
-import { useNotification } from '../../../service/NotificationService';
+import useNotificationStore from '../../../stores/notification';
 
 const ReviewsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const [reviews, setReviews] = useState<VendorReviewResponse>();
   const { t } = useTranslation();
 
-  const { showError } = useNotification();
+  const { showError } = useNotificationStore();
 
   const getReviews = async () => {
     try {

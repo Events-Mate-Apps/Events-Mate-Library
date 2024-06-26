@@ -7,7 +7,7 @@ import {
 import { useState } from 'react';
 import { Image as ImageType, Vendor } from '../../../interfaces/vendor';
 import { useImage } from '../../../service/ImageService';
-import { useNotification } from '../../../service/NotificationService';
+import useNotificationStore from '../../../stores/notification';
 import Upsell from '../../../components/upsell/Upsell';
 
 export interface AddImageProps {
@@ -17,7 +17,7 @@ export interface AddImageProps {
 
 const AddImage: React.FC<AddImageProps> = ({ vendor, images }) => {
   const vendorId = vendor.id
-  const { showError } = useNotification()
+  const { showError } = useNotificationStore()
   const { uploadImage } = useImage()
 
   const [isUploading, setUploading] = useState(false);
