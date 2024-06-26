@@ -61,6 +61,7 @@ export interface NewVendorForValues {
   category: { label: StaticRange, value: VendorCategory };
   postalAddress: string;
   image: Image,
+  businessName: string,
   registrationNo: string
   vatNo: string
   variableSymbol: string
