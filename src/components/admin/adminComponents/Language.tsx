@@ -74,8 +74,8 @@ const LanguageSettings: FC = () => {
   const handleSaveChanges = async () => {
     if (selectedLanguage && selectedCurrency) {
       const requestBody = {
-        allowMarketingEmails: userSettings?.allowMarketingEmails,
-        allowSystemEmails: userSettings?.allowSystemEmails,
+        allowMarketingEmails: userSettings?.allowMarketingEmails || false,
+        allowSystemEmails: userSettings?.allowSystemEmails || false,
         preferredLanguageISO: selectedLanguage,
         preferredCurrencyISO: selectedCurrency,
       };
