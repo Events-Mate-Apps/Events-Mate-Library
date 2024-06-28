@@ -25,6 +25,7 @@ export function useNotification(): NotificationMethods {
     toast({
       title: t(`notification:${status}`),
       status,
+      isClosable: true,
     });
   }
 
@@ -52,6 +53,7 @@ export function useNotification(): NotificationMethods {
       title: options.title || `${t('notification:error')}!`,
       description: options.description,
       status: 'error',
+      isClosable: options.isClosable || true,
     });
   };
 
@@ -65,6 +67,7 @@ export function useNotification(): NotificationMethods {
       title: options.title || t('notification:success'),
       description: options.description,
       status: 'success',
+      isClosable: options.isClosable || true,
     });
   };
 
@@ -78,6 +81,7 @@ export function useNotification(): NotificationMethods {
       title: options.title || t('notification:warning'),
       description: options.description,
       status: 'warning',
+      isClosable: options.isClosable || true,
     });
   };
 
@@ -91,6 +95,7 @@ export function useNotification(): NotificationMethods {
       title: options.title || t('notification:info'),
       description: options.description,
       status: 'info',
+      isClosable: options.isClosable || true,
     });
   };
 

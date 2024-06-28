@@ -9,7 +9,7 @@ library.add(fas, far, fal);
 
 interface FAWrapperProps {
   icon: string,
-  color: string,
+  color?: string,
   size?: string
 }
 
@@ -22,7 +22,7 @@ const FontAwesomeIconWrapper: FC<FAWrapperProps> = ({ icon, color, size }) => {
 
   return isClient ? 
     <Flex width={size} height={size} align="center" justify="center">
-      <FontAwesomeIcon icon={icon as IconProp} color={color} style={{ width: '100%', height: '100%' }} />
+      <FontAwesomeIcon icon={icon as IconProp} color={color || '#000000'} style={{ width: '100%', height: '100%' }} />
     </Flex>  
     : <Progress isIndeterminate />
 }
