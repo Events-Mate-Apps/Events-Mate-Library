@@ -8,7 +8,7 @@ import {
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import { Vendor } from '../../interfaces/vendor';
-import { useNotification } from '../../service/NotificationService';
+import useNotificationStore from '../../stores/notification';
 
 interface ContactsProps {
   vendor: Vendor;
@@ -17,7 +17,7 @@ interface ContactsProps {
 
 export default function Contacts({ vendor, sendStats }: ContactsProps) {
   const textColor = useColorModeValue('secondaryGray.900', 'white');
-  const { showSuccess, showError } = useNotification()
+  const { showSuccess, showError } = useNotificationStore()
   const { onCopy, setValue } = useClipboard('');
 
   const { t } = useTranslation()

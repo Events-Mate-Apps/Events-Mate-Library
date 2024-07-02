@@ -3,7 +3,7 @@ import React, { ReactNode, forwardRef } from 'react';
 import { Vendor } from '../../interfaces/vendor';
 import UpsellModal from './UpsellModal';
 import { useRouter } from 'next/router';
-import { useNotification } from '../../service/NotificationService';
+import useNotificationStore from '../../stores/notification';
 import useTranslation from 'next-translate/useTranslation';
 
 interface UpsellProps {
@@ -24,7 +24,7 @@ const Upsell = forwardRef<HTMLDivElement, UpsellProps>(({
   w 
 }, ref) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { showInfo } = useNotification();
+  const { showInfo } = useNotificationStore();
   const { t } = useTranslation();
   const { push } = useRouter();
 

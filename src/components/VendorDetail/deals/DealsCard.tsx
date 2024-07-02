@@ -18,13 +18,13 @@ import Deal from './Deal';
 import { DealType } from '../../../interfaces/deals';
 import { Vendor } from '../../../interfaces/vendor';
 import Upsell from '../../../components/upsell/Upsell';
-import { useNotification } from '../../../service/NotificationService';
+import useNotificationStore from '../../../stores/notification';
 
 const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
   const [isAnyActive, setIsAnyActive] = useState<boolean>(false);
   const [isInDashboard, setIsInDashboard] = useState<boolean>(false);
   const { t } = useTranslation();
-  const { showError } = useNotification()
+  const { showError } = useNotificationStore()
 
   const borderStyles = useColorModeValue({
     boxShadow: '14px 17px 40px 4px rgba(112, 144, 176, 0.08)',
