@@ -54,28 +54,33 @@ const Newsletter: FC = () => {
   const { t } = useTranslation();
   const textColorPrimary = useColorModeValue('secondaryGray.900', 'white');
 
-  const [userSettings, setUserSettings] = useState<UserSettingsInterface>();
+  const [userSettings, setUserSettings] = useState<UserSettingsInterface | null>(null);
   const [allowMarketingEmails, setAllowMarketingEmails] = useState<boolean>(false);
   const [allowSystemEmails, setAllowSystemEmails] = useState<boolean>(false);
+  const [language, setLanguage] = useState<string>('en');
+  const [currency, setCurrency] = useState<string>('USD');
 
   const fetchUserSettings = async () => {
     try {
       const { data } = await api.get<UserSettingsInterface>('users/settings');
       setUserSettings(data);
-      setAllowMarketingEmails(data.allowMarketingEmails || false);
-      setAllowSystemEmails(data.allowSystemEmails || false);
+      setAllowMarketingEmails(data.allowMarketingEmails ?? false);
+      setAllowSystemEmails(data.allowSystemEmails ?? false);
+      setLanguage(data.language ?? 'en');
+      setCurrency(data.currency ?? 'USD');
     } catch (error) {
       console.error('Error fetching user settings:', error);
     }
   };
 
   const handleSaveChanges = async () => {
-    console.log(userSettings)
+    if (!userSettings) return;
+
     const requestBody = {
-      allowMarketingEmails: allowMarketingEmails,
+      allowMarketingEmails: allowMarketingEmails ,
       allowSystemEmails: allowSystemEmails,
-      preferredLanguageISO: userSettings?.language, 
-      preferredCurrencyISO: userSettings?.currency,
+      preferredLanguageISO: language, 
+      preferredCurrencyISO: currency,
     };
     try {
       await api.put('users/settings/', requestBody);
@@ -95,7 +100,7 @@ const Newsletter: FC = () => {
       setAllowSystemEmails(checked);
     }
   };
-  
+
   return (
     <FormControl>
       <Card p='30px' mb='20px'>
