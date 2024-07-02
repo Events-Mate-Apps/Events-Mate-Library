@@ -83,7 +83,7 @@ const Newsletter: FC = () => {
       preferredCurrencyISO: currency,
     };
     try {
-      await api.put('users/settings/', requestBody);
+      await api.put('users/settings', requestBody);
     } catch (error) {
       console.error('Error updating user settings:', error);
     }
