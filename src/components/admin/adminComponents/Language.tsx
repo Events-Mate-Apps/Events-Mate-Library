@@ -81,7 +81,7 @@ const LanguageSettings: FC = () => {
       };
 
       try {
-        await api.post('users/settings/', requestBody);
+        await api.put('users/settings/', requestBody);
         setUserSettings(prev => prev ? { ...prev, language: selectedLanguage, currency: selectedCurrency } : null);
       } catch (error) {
         console.error('Error updating user settings:', error);
