@@ -10,10 +10,11 @@ import {
   Card,
   Button,
 } from '@chakra-ui/react';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import { isEventsMate } from '../../../utils/orientation';
 import { api } from '../../../utils/api';
+import { UserSettingsInterface } from '../../../interfaces/user';
 
 interface SwitchFieldProps {
   id: string;
@@ -53,34 +54,47 @@ const Newsletter: FC = () => {
   const { t } = useTranslation();
   const textColorPrimary = useColorModeValue('secondaryGray.900', 'white');
 
-  const [userSettings, setUserSettings] = useState({
-    allowMarketingEmails: false,
-    allowSystemEmails: false,
-  });
+  const [userSettings, setUserSettings] = useState<UserSettingsInterface>();
+  const [allowMarketingEmails, setAllowMarketingEmails] = useState<boolean>(false);
+  const [allowSystemEmails, setAllowSystemEmails] = useState<boolean>(false);
 
-  const handleSwitchChange = (id: string, checked: boolean) => {
-    setUserSettings(prevSettings => ({
-      ...prevSettings,
-      [id === '1' ? 'allowMarketingEmails' : 'allowSystemEmails']: checked,
-    }));
+  const fetchUserSettings = async () => {
+    try {
+      const { data } = await api.get<UserSettingsInterface>('users/settings');
+      setUserSettings(data);
+      setAllowMarketingEmails(data.allowMarketingEmails || false);
+      setAllowSystemEmails(data.allowSystemEmails || false);
+    } catch (error) {
+      console.error('Error fetching user settings:', error);
+    }
   };
 
   const handleSaveChanges = async () => {
     const requestBody = {
-      allowMarketingEmails: userSettings.allowMarketingEmails,
-      allowSystemEmails: userSettings.allowSystemEmails,
-      preferredLanguageISO: 'en', // Use appropriate value
-      preferredCurrencyISO: 'USD', // Use appropriate value
+      allowMarketingEmails: allowMarketingEmails,
+      allowSystemEmails: allowSystemEmails,
+      preferredLanguageISO: userSettings?.language, 
+      preferredCurrencyISO: userSettings?.currency,
     };
-
     try {
       await api.put('users/settings/', requestBody);
-      // Optionally, show a success message or update state to reflect saved changes
     } catch (error) {
       console.error('Error updating user settings:', error);
     }
   };
 
+  useEffect(() => {
+    fetchUserSettings();
+  }, []);
+
+  const handleSwitchChange = (id: string, checked: boolean) => {
+    if (id === '1') {
+      setAllowMarketingEmails(checked);
+    } else if (id === '2') {
+      setAllowSystemEmails(checked);
+    }
+  };
+  
   return (
     <FormControl>
       <Card p='30px' mb='20px'>
@@ -96,7 +110,7 @@ const Newsletter: FC = () => {
             id='1'
             label='weeklyNewsletter'
             desc='newsletterDescription'
-            isChecked={userSettings.allowMarketingEmails}
+            isChecked={allowMarketingEmails}
             onChange={handleSwitchChange}
           />
           <SwitchField
@@ -105,7 +119,7 @@ const Newsletter: FC = () => {
             id='2'
             label='lifecycleEmails'
             desc='lifecycleEmailsDescription'
-            isChecked={userSettings.allowSystemEmails}
+            isChecked={allowSystemEmails}
             onChange={handleSwitchChange}
           />
         </SimpleGrid>

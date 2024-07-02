@@ -6,3 +6,9 @@ export interface UserData {
   type: 'NORMAL' | 'ADMIN';
   appleUserIdentifier?: string;
 }
+export interface UserSettingsInterface {
+  language: string;
+  currency: string;
+  allowMarketingEmails: boolean;
+  allowSystemEmails: boolean;
+}
