@@ -79,7 +79,7 @@ const LanguageSettings: FC = () => {
         preferredLanguageISO: selectedLanguage,
         preferredCurrencyISO: selectedCurrency,
       };
-
+      console.log(userSettings)
       try {
         await api.put('users/settings/', requestBody);
         setUserSettings(prev => prev ? { ...prev, language: selectedLanguage, currency: selectedCurrency } : null);
