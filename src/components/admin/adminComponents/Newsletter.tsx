@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { FC, useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
-import { isEventsMate } from '~/utils/orientation';
+import { isEventsMate } from '../../../utils/orientation';
 import { api } from '../../../utils/api';
 
 interface SwitchFieldProps {
