@@ -18,10 +18,18 @@ const Information: FC<InformationProps> = ({ user }) => {
   const [email, setEmail] = useState(user.email || '');
   const [firstName, setFirstName] = useState( '');
   const [lastName, setLastName] = useState( '');
+  const [userSettings, setUserSettings] = useState<UserData>()
 
-  useEffect(()=>{
-    console.log(user)
-  })
+
+  const fetchUserSettings = async () => {
+    try {
+      const { data } = await api.get<UserData>('users/settings');
+      setUserSettings(data);
+    } catch (error) {
+      console.error('Error fetching user settings:', error);
+    }
+  };
+
   const saveChanges = async () => {
     const payload = {
       email,
@@ -38,7 +46,9 @@ const Information: FC<InformationProps> = ({ user }) => {
       alert('Error updating profile');
     }
   };
-
+  useEffect(()=>{
+    fetchUserSettings()
+  },[])
   return (
     <FormControl>
       <Card mb="20px">
@@ -96,7 +106,7 @@ const Information: FC<InformationProps> = ({ user }) => {
               id="first_name" 
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
-              placeholder={t('guests:form.firstName')}
+              placeholder={userSettings?.firstName || t('guests:form.firstName')}
             />
           </Box>
           <Box mb="20px">
@@ -105,7 +115,7 @@ const Information: FC<InformationProps> = ({ user }) => {
               id="last_name" 
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
-              placeholder={t('guests:form.lastName')}
+              placeholder={userSettings?.lastName || t('guests:form.lastName')}
             />
           </Box>
         </SimpleGrid>
