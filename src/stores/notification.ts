@@ -36,7 +36,7 @@ const useNotificationStore = create<NotificationState>((set, get) => {
     plainToast: async (status) => {
       const t = await getT(get().locale, 'notification')
       toast[status]( getNotificationMessage({
-        title: `${t(`${status}`)}!`,
+        title: `${t(`${status}`)}`,
       }))
     }, 
     showError: async (options?: { error: unknown; duration?: number; isClosable?: boolean }) => {
@@ -50,7 +50,7 @@ const useNotificationStore = create<NotificationState>((set, get) => {
       const err = options.error as CustomError;
       console.error(err.raw?.message || err.message);
       toast.error( getNotificationMessage({
-        title: `${t('error')}!`,
+        title: `${t('error')}`,
         description: `${t('error')}: ${err.raw?.message || err.message}`,
       }) ,{ autoClose: options.duration || 5000, });
     },
@@ -59,7 +59,7 @@ const useNotificationStore = create<NotificationState>((set, get) => {
 
       console.error(`${options.title}: ${options.description}`);
       toast.error( getNotificationMessage({
-        title: `${t('notification:error')}!`,
+        title: `${t('notification:error')}`,
         description: options.description,
       }) ,{ autoClose: options.duration, });
     },
@@ -71,7 +71,7 @@ const useNotificationStore = create<NotificationState>((set, get) => {
         return;
       }
       toast.success( getNotificationMessage({
-        title: `${t('notification:success')}!`,
+        title: `${t('notification:success')}`,
         description: options.description
       }) ,{ autoClose: options.duration, });
     },
@@ -83,7 +83,7 @@ const useNotificationStore = create<NotificationState>((set, get) => {
         return;
       }
       toast.warn( getNotificationMessage({
-        title: `${t('notification:warn')}!`,
+        title: `${t('notification:warn')}`,
         description: options.description
       }) ,{ autoClose: options.duration, });
     },
@@ -95,7 +95,7 @@ const useNotificationStore = create<NotificationState>((set, get) => {
         return;
       }
       toast.info( getNotificationMessage({
-        title: `${t('notification:info')}!`,
+        title: `${t('notification:info')}`,
         description: options.description
       }) ,{ autoClose: options.duration, });
     },
