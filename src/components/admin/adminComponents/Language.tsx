@@ -27,8 +27,6 @@ interface Currency {
   symbolNative: string;
 }
 
-
-
 const LanguageSettings: FC = () => {
   const [languages, setLanguages] = useState<Language[]>([]);
   const [currencies, setCurrencies] = useState<Currency[]>([]);
@@ -60,8 +58,8 @@ const LanguageSettings: FC = () => {
     try {
       const { data } = await api.get<UserSettingsInterface>('users/settings');
       setUserSettings(data);
-      setSelectedLanguage(data.language);
-      setSelectedCurrency(data.currency);
+      setSelectedLanguage(data.preferredLanguageISO);
+      setSelectedCurrency(data.preferredCurrencyISO);
     } catch (error) {
       console.error('Error fetching user settings:', error);
     }
@@ -78,7 +76,7 @@ const LanguageSettings: FC = () => {
       console.log(userSettings);
       try {
         await api.put('users/settings/', requestBody);
-        setUserSettings(prev => prev ? { ...prev, language: selectedLanguage, currency: selectedCurrency } : null);
+        setUserSettings(prev => prev ? { ...prev, preferredLanguageISO: selectedLanguage, preferredCurrencyISO: selectedCurrency } : null);
       } catch (error) {
         console.error('Error updating user settings:', error);
       }
@@ -123,9 +121,8 @@ const LanguageSettings: FC = () => {
             <Text mb={2}>
               {t('common:language')}
             </Text>
-            
-            {userSettings.preferredLanguageISO&& <Select
-              placeholder={userSettings.preferredLanguageISO}
+            <Select
+              placeholder={languages.find(lang => lang.iso === userSettings.preferredLanguageISO)?.name || 'Select language...'}
               options={languages.map((language) => ({
                 label: language.name,
                 value: language.iso
@@ -133,15 +130,15 @@ const LanguageSettings: FC = () => {
               menuPortalTarget={document.getElementById('menu-portal')}
               onChange={handleLanguageChange}
               value={selectedLanguage ? { label: languages.find(lang => lang.iso === selectedLanguage)?.name || '', value: selectedLanguage } : null}
-              defaultValue={userSettings.language ? { label: languages.find(lang => lang.iso === userSettings.language)?.name || '', value: userSettings.language } : undefined}
-            />}
+              defaultValue={userSettings.preferredLanguageISO ? { label: languages.find(lang => lang.iso === userSettings.preferredLanguageISO)?.name || '', value: userSettings.preferredLanguageISO } : undefined}
+            />
           </Box>
           <Box flex="1">
             <Text mb={2}>
               {t('common:currency')}
             </Text>
             <Select
-              placeholder={currencies.find(curr => curr.iso === userSettings.currency)?.name || 'Select currency...'}
+              placeholder={currencies.find(curr => curr.iso === userSettings.preferredCurrencyISO)?.name || 'Select currency...'}
               options={currencies.map((currency) => ({
                 label: currency.name,
                 value: currency.iso
@@ -149,7 +146,7 @@ const LanguageSettings: FC = () => {
               menuPortalTarget={document.getElementById('menu-portal')}
               onChange={handleCurrencyChange}
               value={selectedCurrency ? { label: currencies.find(curr => curr.iso === selectedCurrency)?.name || '', value: selectedCurrency } : null}
-              defaultValue={userSettings.currency ? { label: currencies.find(curr => curr.iso === userSettings.currency)?.name || '', value: userSettings.currency } : undefined}
+              defaultValue={userSettings.preferredCurrencyISO ? { label: currencies.find(curr => curr.iso === userSettings.preferredCurrencyISO)?.name || '', value: userSettings.preferredCurrencyISO } : undefined}
             />
           </Box>
         </Flex>
