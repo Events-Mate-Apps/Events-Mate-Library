@@ -15,7 +15,7 @@ interface Options {
 }
 
 interface NotificationState {
-  showError: (options?: { error: unknown; duration?: number; isClosable?: boolean }) => Promise<void>;
+  showError: (options?: { error: unknown; duration?: number }) => Promise<void>;
   showCustomError: (options: Options) => void;
   showSuccess: (options?: Options) => void;
   showWarning: (options?: Options) => void;
@@ -39,7 +39,7 @@ const useNotificationStore = create<NotificationState>((set, get) => {
         title: `${t(`${status}`)}`,
       }))
     }, 
-    showError: async (options?: { error: unknown; duration?: number; isClosable?: boolean }) => {
+    showError: async (options?: { error: unknown; duration?: number }) => {
       const t = await getT(get().locale, 'notification')
 
       if (!options) {

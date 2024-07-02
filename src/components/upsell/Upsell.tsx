@@ -36,7 +36,6 @@ const Upsell = forwardRef<HTMLDivElement, UpsellProps>(({
         description: t('common:upsell.butDontYouWorryHereIsAnUpgrade'),
         position: 'top',
         duration: 10000,
-        isClosable: true,
       });
       return;
     }
