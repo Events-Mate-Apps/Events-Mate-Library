@@ -21,21 +21,26 @@ interface NotificationState {
   showWarning: (options?: Options) => void;
   showInfo: (options?: Options) => void;
   plainToast: (status: AlertStatus) => void;
+  locale?: string,
+  setLocale: (locale: string) => void,
 }
 
 const useNotificationStore = create<NotificationState>((set, get) => {
-  const url = window.location.pathname.split('/')[0];
-  const locale = ['cs', 'sk'].includes(url) ? url : 'en'
-
   return {
+    locale: undefined,
+    setLocale: (locale) => {
+      set({
+        locale
+      })
+    },
     plainToast: async (status) => {
-      const t = await getT(locale, 'notification')
+      const t = await getT(get().locale, 'notification')
       toast[status]( getNotificationMessage({
         title: `${t(`${status}`)}!`,
       }))
     }, 
     showError: async (options?: { error: unknown; duration?: number; isClosable?: boolean }) => {
-      const t = await getT(locale, 'notification')
+      const t = await getT(get().locale, 'notification')
 
       if (!options) {
         get().plainToast('error');
@@ -50,7 +55,7 @@ const useNotificationStore = create<NotificationState>((set, get) => {
       }) ,{ autoClose: options.duration, });
     },
     showCustomError: async (options: Options) => {
-      const t = await getT(locale, 'notification')
+      const t = await getT(get().locale, 'notification')
 
       console.error(`${options.title}: ${options.description}`);
       toast.error( getNotificationMessage({
@@ -59,7 +64,7 @@ const useNotificationStore = create<NotificationState>((set, get) => {
       }) ,{ autoClose: options.duration, });
     },
     showSuccess: async (options?: Options) => {
-      const t = await getT(locale, 'notification')
+      const t = await getT(get().locale, 'notification')
 
       if (!options) {
         get().plainToast('success');
@@ -71,7 +76,7 @@ const useNotificationStore = create<NotificationState>((set, get) => {
       }) ,{ autoClose: options.duration, });
     },
     showWarning: async (options?: Options) => {
-      const t = await getT(locale, 'notification')
+      const t = await getT(get().locale, 'notification')
 
       if (!options) {
         get().plainToast('warn');
@@ -83,7 +88,7 @@ const useNotificationStore = create<NotificationState>((set, get) => {
       }) ,{ autoClose: options.duration, });
     },
     showInfo: async (options?: Options) => {
-      const t = await getT(locale, 'notification')
+      const t = await getT(get().locale, 'notification')
 
       if (!options) {
         get().plainToast('info');
