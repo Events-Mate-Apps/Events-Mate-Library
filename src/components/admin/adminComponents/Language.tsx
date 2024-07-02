@@ -107,8 +107,7 @@ const LanguageSettings: FC = () => {
     fetchLanguages();
     fetchCurrencies();
     fetchUserSettings();
-    console.log(userSettings)
-  }, [userSettings]);
+  }, []);
 
   if (!userSettings || languages.length === 0 || currencies.length === 0) {
     return <Text>{t('common:loading')}</Text>;
