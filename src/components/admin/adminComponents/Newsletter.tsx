@@ -70,6 +70,7 @@ const Newsletter: FC = () => {
   };
 
   const handleSaveChanges = async () => {
+    console.log(userSettings)
     const requestBody = {
       allowMarketingEmails: allowMarketingEmails,
       allowSystemEmails: allowSystemEmails,
