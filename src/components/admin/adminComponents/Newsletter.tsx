@@ -74,7 +74,7 @@ const Newsletter: FC = () => {
     };
 
     try {
-      await api.post('users/settings/', requestBody);
+      await api.put('users/settings/', requestBody);
       // Optionally, show a success message or update state to reflect saved changes
     } catch (error) {
       console.error('Error updating user settings:', error);
