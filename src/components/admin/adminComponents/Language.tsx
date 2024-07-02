@@ -127,7 +127,8 @@ const LanguageSettings: FC = () => {
             <Text mb={2}>
               {t('common:language')}
             </Text>
-            <Select
+            
+            {userSettings.language&& <Select
               placeholder={userSettings.language}
               options={languages.map((language) => ({
                 label: language.name,
@@ -137,7 +138,7 @@ const LanguageSettings: FC = () => {
               onChange={handleLanguageChange}
               value={selectedLanguage ? { label: languages.find(lang => lang.iso === selectedLanguage)?.name || '', value: selectedLanguage } : null}
               defaultValue={userSettings.language ? { label: languages.find(lang => lang.iso === userSettings.language)?.name || '', value: userSettings.language } : undefined}
-            />
+            />}
           </Box>
           <Box flex="1">
             <Text mb={2}>
