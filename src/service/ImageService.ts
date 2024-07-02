@@ -46,7 +46,6 @@ export function useImage(): ImageMethods {
       showSuccess({
         title: t('vendors:image-uploaded'),
         description: t('vendors:image-uploaded-successfully'),
-        isClosable: true,
       });
 
     } catch (error) {
