@@ -79,7 +79,7 @@ const LanguageSettings: FC = () => {
         preferredLanguageISO: selectedLanguage,
         preferredCurrencyISO: selectedCurrency,
       };
-      console.log(userSettings)
+      console.log(userSettings);
       try {
         await api.put('users/settings/', requestBody);
         setUserSettings(prev => prev ? { ...prev, language: selectedLanguage, currency: selectedCurrency } : null);
@@ -128,14 +128,14 @@ const LanguageSettings: FC = () => {
               {t('common:language')}
             </Text>
             <Select
-              placeholder="Select language..."
+              placeholder={languages.find(lang => lang.iso === userSettings.language)?.name || 'Select language...'}
               options={languages.map((language) => ({
                 label: language.name,
                 value: language.iso
               }))}
               menuPortalTarget={document.getElementById('menu-portal')}
               onChange={handleLanguageChange}
-              value={selectedLanguage ? { label: languages.find(lang => lang.iso === selectedLanguage)?.name || '', value: selectedLanguage } : undefined}
+              value={selectedLanguage ? { label: languages.find(lang => lang.iso === selectedLanguage)?.name || '', value: selectedLanguage } : null}
               defaultValue={userSettings.language ? { label: languages.find(lang => lang.iso === userSettings.language)?.name || '', value: userSettings.language } : undefined}
             />
           </Box>
@@ -144,14 +144,14 @@ const LanguageSettings: FC = () => {
               {t('common:currency')}
             </Text>
             <Select
-              placeholder="Select currency..."
+              placeholder={currencies.find(curr => curr.iso === userSettings.currency)?.name || 'Select currency...'}
               options={currencies.map((currency) => ({
                 label: currency.name,
                 value: currency.iso
               }))}
               menuPortalTarget={document.getElementById('menu-portal')}
               onChange={handleCurrencyChange}
-              value={selectedCurrency ? { label: currencies.find(curr => curr.iso === selectedCurrency)?.name || '', value: selectedCurrency } : undefined}
+              value={selectedCurrency ? { label: currencies.find(curr => curr.iso === selectedCurrency)?.name || '', value: selectedCurrency } : null}
               defaultValue={userSettings.currency ? { label: currencies.find(curr => curr.iso === userSettings.currency)?.name || '', value: userSettings.currency } : undefined}
             />
           </Box>
