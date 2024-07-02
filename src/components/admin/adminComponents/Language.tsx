@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from 'react';
-import { Box, Heading, Text, FormControl, Flex, Button, Card} from '@chakra-ui/react';
+import { Box, Heading, Text, FormControl, Flex, Button, Card } from '@chakra-ui/react';
 import { Select } from 'chakra-react-select';
 import { api } from '~/utils/api';
 import useTranslation from 'next-translate/useTranslation';
@@ -124,7 +124,7 @@ const LanguageSettings: FC = () => {
               {t('common:language')}
             </Text>
             <Select
-              placeholder="Select language..."
+              placeholder={userSettings?.language ? languages.find(lang => lang.iso === userSettings.language)?.name : 'Select language...'}
               options={languages.map((language) => ({
                 label: language.name,
                 value: language.iso
@@ -139,7 +139,7 @@ const LanguageSettings: FC = () => {
               {t('common:currency')}
             </Text>
             <Select
-              placeholder="Select currency..."
+              placeholder={userSettings?.currency ? currencies.find(curr => curr.iso === userSettings.currency)?.name : 'Select currency...'}
               options={currencies.map((currency) => ({
                 label: currency.name,
                 value: currency.iso
