@@ -52,7 +52,7 @@ const useNotificationStore = create<NotificationState>((set, get) => {
       toast.error( getNotificationMessage({
         title: `${t('error')}!`,
         description: `${t('error')}: ${err.raw?.message || err.message}`,
-      }) ,{ autoClose: options.duration, });
+      }) ,{ autoClose: options.duration || 5000, });
     },
     showCustomError: async (options: Options) => {
       const t = await getT(get().locale, 'notification')
