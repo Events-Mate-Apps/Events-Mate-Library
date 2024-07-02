@@ -1,8 +1,10 @@
 import { create } from 'zustand';
 import { ToastPosition } from '@chakra-ui/react';
-import useTranslation from 'next-translate/useTranslation';
+import getT from 'next-translate/getT';
+
 import { toast } from 'react-toastify';
 import { getNotificationMessage } from './helpers/notification';
+import { useRouter } from 'next/router';
 
 type AlertStatus = 'info' | 'success' | 'error' | 'warn'
 
@@ -23,15 +25,18 @@ interface NotificationState {
 }
 
 const useNotificationStore = create<NotificationState>((set, get) => {
-  const { t } = useTranslation();
+  const { locale } = useRouter()
 
   return {
-    plainToast: (status) => {
+    plainToast: async (status) => {
+      const t = await getT(locale, 'notification')
       toast[status]( getNotificationMessage({
-        title: `${t(`notification:${status}`)}!`,
+        title: `${t(`${status}`)}!`,
       }))
     }, 
     showError: async (options?: { error: unknown; duration?: number; isClosable?: boolean }) => {
+      const t = await getT(locale, 'notification')
+
       if (!options) {
         get().plainToast('error');
         return;
@@ -40,18 +45,22 @@ const useNotificationStore = create<NotificationState>((set, get) => {
       const err = options.error as CustomError;
       console.error(err.raw?.message || err.message);
       toast.error( getNotificationMessage({
-        title: `${t('notification:error')}!`,
-        description: `${t('notification:error')}: ${err.raw?.message || err.message}`,
+        title: `${t('error')}!`,
+        description: `${t('error')}: ${err.raw?.message || err.message}`,
       }) ,{ autoClose: options.duration, });
     },
-    showCustomError: (options: Options) => {
+    showCustomError: async (options: Options) => {
+      const t = await getT(locale, 'notification')
+
       console.error(`${options.title}: ${options.description}`);
       toast.error( getNotificationMessage({
         title: `${t('notification:error')}!`,
         description: options.description,
       }) ,{ autoClose: options.duration, });
     },
-    showSuccess: (options?: Options) => {
+    showSuccess: async (options?: Options) => {
+      const t = await getT(locale, 'notification')
+
       if (!options) {
         get().plainToast('success');
         return;
@@ -61,7 +70,9 @@ const useNotificationStore = create<NotificationState>((set, get) => {
         description: options.description
       }) ,{ autoClose: options.duration, });
     },
-    showWarning: (options?: Options) => {
+    showWarning: async (options?: Options) => {
+      const t = await getT(locale, 'notification')
+
       if (!options) {
         get().plainToast('warn');
         return;
@@ -71,7 +82,9 @@ const useNotificationStore = create<NotificationState>((set, get) => {
         description: options.description
       }) ,{ autoClose: options.duration, });
     },
-    showInfo: (options?: Options) => {
+    showInfo: async (options?: Options) => {
+      const t = await getT(locale, 'notification')
+
       if (!options) {
         get().plainToast('info');
         return;
