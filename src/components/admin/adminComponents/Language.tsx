@@ -128,7 +128,7 @@ const LanguageSettings: FC = () => {
               {t('common:language')}
             </Text>
             <Select
-              placeholder={languages.find(lang => lang.iso === userSettings.language)?.name || 'Select language...'}
+              placeholder={userSettings.language}
               options={languages.map((language) => ({
                 label: language.name,
                 value: language.iso
