@@ -4,7 +4,6 @@ import getT from 'next-translate/getT';
 
 import { toast } from 'react-toastify';
 import { getNotificationMessage } from './helpers/notification';
-import { useRouter } from 'next/router';
 
 type AlertStatus = 'info' | 'success' | 'error' | 'warn'
 
@@ -25,7 +24,8 @@ interface NotificationState {
 }
 
 const useNotificationStore = create<NotificationState>((set, get) => {
-  const { locale } = useRouter()
+  const url = window.location.pathname.split('/')[0];
+  const locale = ['cs', 'sk'].includes(url) ? url : 'en'
 
   return {
     plainToast: async (status) => {
