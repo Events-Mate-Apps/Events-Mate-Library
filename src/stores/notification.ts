@@ -1,12 +1,15 @@
 import { create } from 'zustand';
-import { AlertStatus, ToastPosition, useToast } from '@chakra-ui/react';
+import { ToastPosition } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
+import { toast } from 'react-toastify';
+import { getNotificationMessage } from './helpers/notification';
+
+type AlertStatus = 'info' | 'success' | 'error' | 'warn'
 
 interface Options {
   title?: string;
   description?: string;
   duration?: number;
-  isClosable?: boolean;
   position?: ToastPosition;
 }
 
@@ -20,16 +23,14 @@ interface NotificationState {
 }
 
 const useNotificationStore = create<NotificationState>((set, get) => {
-  const toast = useToast();
   const { t } = useTranslation();
 
   return {
-    plainToast: (status: AlertStatus) => {
-      toast({
-        title: t(`notification:${status}`),
-        status,
-      });
-    },
+    plainToast: (status) => {
+      toast[status]( getNotificationMessage({
+        title: `${t(`notification:${status}`)}!`,
+      }))
+    }, 
     showError: async (options?: { error: unknown; duration?: number; isClosable?: boolean }) => {
       if (!options) {
         get().plainToast('error');
@@ -38,58 +39,47 @@ const useNotificationStore = create<NotificationState>((set, get) => {
 
       const err = options.error as CustomError;
       console.error(err.raw?.message || err.message);
-      toast({
+      toast.error( getNotificationMessage({
         title: `${t('notification:error')}!`,
         description: `${t('notification:error')}: ${err.raw?.message || err.message}`,
-        status: 'error',
-        duration: options.duration,
-        isClosable: options.isClosable || true,
-      });
+      }) ,{ autoClose: options.duration, });
     },
     showCustomError: (options: Options) => {
       console.error(`${options.title}: ${options.description}`);
-      toast({
-        ...options,
-        title: options.title || `${t('notification:error')}!`,
+      toast.error( getNotificationMessage({
+        title: `${t('notification:error')}!`,
         description: options.description,
-        status: 'error',
-      });
+      }) ,{ autoClose: options.duration, });
     },
     showSuccess: (options?: Options) => {
       if (!options) {
         get().plainToast('success');
         return;
       }
-      toast({
-        ...options,
-        title: options.title || t('notification:success'),
-        description: options.description,
-        status: 'success',
-      });
+      toast.success( getNotificationMessage({
+        title: `${t('notification:success')}!`,
+        description: options.description
+      }) ,{ autoClose: options.duration, });
     },
     showWarning: (options?: Options) => {
       if (!options) {
-        get().plainToast('warning');
+        get().plainToast('warn');
         return;
       }
-      toast({
-        ...options,
-        title: options.title || t('notification:warning'),
-        description: options.description,
-        status: 'warning',
-      });
+      toast.warn( getNotificationMessage({
+        title: `${t('notification:warn')}!`,
+        description: options.description
+      }) ,{ autoClose: options.duration, });
     },
     showInfo: (options?: Options) => {
       if (!options) {
         get().plainToast('info');
         return;
       }
-      toast({
-        ...options,
-        title: options.title || t('notification:info'),
-        description: options.description,
-        status: 'info',
-      });
+      toast.info( getNotificationMessage({
+        title: `${t('notification:info')}!`,
+        description: options.description
+      }) ,{ autoClose: options.duration, });
     },
   };
 });
