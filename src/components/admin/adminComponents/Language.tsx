@@ -123,7 +123,7 @@ const LanguageSettings: FC = () => {
             <Text mb={2}>
               {t('common:language')}
             </Text>
-            <Select
+            {userSettings?.language && <Select
               placeholder={userSettings?.language ? languages.find(lang => lang.iso === userSettings.language)?.name : 'Select language...'}
               options={languages.map((language) => ({
                 label: language.name,
@@ -132,7 +132,7 @@ const LanguageSettings: FC = () => {
               menuPortalTarget={document.getElementById('menu-portal')}
               onChange={handleLanguageChange}
               value={selectedLanguage ? { label: languages.find(lang => lang.iso === selectedLanguage)?.name || '', value: selectedLanguage } : null}
-            />
+            />}
           </Box>
           <Box flex="1">
             <Text mb={2}>
