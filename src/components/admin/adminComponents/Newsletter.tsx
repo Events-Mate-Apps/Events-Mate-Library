@@ -66,8 +66,8 @@ const Newsletter: FC = () => {
       setUserSettings(data);
       setAllowMarketingEmails(data.allowMarketingEmails ?? false);
       setAllowSystemEmails(data.allowSystemEmails ?? false);
-      setLanguage(data.language ?? 'en');
-      setCurrency(data.currency ?? 'USD');
+      setLanguage(data.preferredLanguageISO);
+      setCurrency(data.preferredCurrencyISO);
     } catch (error) {
       console.error('Error fetching user settings:', error);
     }
