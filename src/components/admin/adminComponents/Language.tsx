@@ -4,6 +4,7 @@ import { Select } from 'chakra-react-select';
 import { api } from '~/utils/api';
 import useTranslation from 'next-translate/useTranslation';
 import { isEventsMate } from '../../../utils/orientation';
+import { UserSettingsInterface } from '../../../interfaces/user';
 
 interface Language {
   iso: string;
@@ -26,17 +27,12 @@ interface Currency {
   symbolNative: string;
 }
 
-interface UserSettings {
-  language: string;
-  currency: string;
-  allowMarketingEmails: boolean;
-  allowSystemEmails: boolean;
-}
+
 
 const LanguageSettings: FC = () => {
   const [languages, setLanguages] = useState<Language[]>([]);
   const [currencies, setCurrencies] = useState<Currency[]>([]);
-  const [userSettings, setUserSettings] = useState<UserSettings | null>(null);
+  const [userSettings, setUserSettings] = useState<UserSettingsInterface | null>(null);
   const [selectedLanguage, setSelectedLanguage] = useState<string | undefined>(undefined);
   const [selectedCurrency, setSelectedCurrency] = useState<string | undefined>(undefined);
 
@@ -62,7 +58,7 @@ const LanguageSettings: FC = () => {
 
   const fetchUserSettings = async () => {
     try {
-      const { data } = await api.get<UserSettings>('users/settings');
+      const { data } = await api.get<UserSettingsInterface>('users/settings');
       setUserSettings(data);
       setSelectedLanguage(data.language);
       setSelectedCurrency(data.currency);
@@ -128,8 +124,8 @@ const LanguageSettings: FC = () => {
               {t('common:language')}
             </Text>
             
-            {userSettings.language&& <Select
-              placeholder={userSettings.language}
+            {userSettings.preferredLanguageISO&& <Select
+              placeholder={userSettings.preferredLanguageISO}
               options={languages.map((language) => ({
                 label: language.name,
                 value: language.iso

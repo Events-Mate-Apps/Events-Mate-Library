@@ -11,4 +11,6 @@ export interface UserSettingsInterface {
   currency: string;
   allowMarketingEmails: boolean;
   allowSystemEmails: boolean;
+  preferredLanguageISO: string
+  preferredCurrencyISO: string
 }
