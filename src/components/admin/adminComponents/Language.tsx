@@ -109,6 +109,10 @@ const LanguageSettings: FC = () => {
     fetchUserSettings();
   }, []);
 
+  if (!userSettings || languages.length === 0 || currencies.length === 0) {
+    return <Text>{t('common:loading')}</Text>;
+  }
+
   return (
     <FormControl>
       <Card mb="20px">
@@ -123,8 +127,8 @@ const LanguageSettings: FC = () => {
             <Text mb={2}>
               {t('common:language')}
             </Text>
-            {userSettings?.language && <Select
-              placeholder={userSettings?.language ? languages.find(lang => lang.iso === userSettings.language)?.name : 'Select language...'}
+            <Select
+              placeholder={userSettings.language ? languages.find(lang => lang.iso === userSettings.language)?.name : 'Select language...'}
               options={languages.map((language) => ({
                 label: language.name,
                 value: language.iso
@@ -132,14 +136,14 @@ const LanguageSettings: FC = () => {
               menuPortalTarget={document.getElementById('menu-portal')}
               onChange={handleLanguageChange}
               value={selectedLanguage ? { label: languages.find(lang => lang.iso === selectedLanguage)?.name || '', value: selectedLanguage } : null}
-            />}
+            />
           </Box>
           <Box flex="1">
             <Text mb={2}>
               {t('common:currency')}
             </Text>
             <Select
-              placeholder={userSettings?.currency ? currencies.find(curr => curr.iso === userSettings.currency)?.name : 'Select currency...'}
+              placeholder={userSettings.currency ? currencies.find(curr => curr.iso === userSettings.currency)?.name : 'Select currency...'}
               options={currencies.map((currency) => ({
                 label: currency.name,
                 value: currency.iso
