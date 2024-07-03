@@ -12,10 +12,10 @@ const useCookieStore = create<CookieState>()(
     (set) => ({
       cookieNoticedAccepted: null,
       decline: () => set({
-        cookieNoticedAccepted: true
+        cookieNoticedAccepted: false
       }),
       accept: () => set({
-        cookieNoticedAccepted: false
+        cookieNoticedAccepted: true
       })
     }),
     {

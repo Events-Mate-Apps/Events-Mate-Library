@@ -11,7 +11,7 @@ const CookieNotice: FC = () => {
 
   useEffect(() => {
     if (!cookiesStore.cookieNoticedAccepted) setIsCookieNoticeVisible(true)
-  }, []);
+  }, [cookiesStore.cookieNoticedAccepted]);
 
   return (
     <div>
