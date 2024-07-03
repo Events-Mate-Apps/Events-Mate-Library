@@ -10,7 +10,7 @@ const CookieNotice: FC = () => {
   const { t } = useTranslation()
 
   useEffect(() => {
-    if (!cookiesStore.cookieNoticedAccepted) setIsCookieNoticeVisible(true)
+    if (cookiesStore.cookieNoticedAccepted) setIsCookieNoticeVisible(true)
   }, [cookiesStore.cookieNoticedAccepted]);
 
   return (
