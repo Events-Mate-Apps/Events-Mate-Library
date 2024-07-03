@@ -29,7 +29,7 @@ const CookieNotice: FC = () => {
         backgroundColor="#ddd"
         padding="20px">
         <Flex marginRight="20px">
-          {t('common:cookieNotice:message')}
+          {t('common:cookieNotice.message')}
         </Flex>
         <Button
           variant="solid"
@@ -37,7 +37,7 @@ const CookieNotice: FC = () => {
           background="#eee"
           onClick={() => cookiesStore.decline()}
         >
-          {t('common:cookieNotice:decline')}
+          {t('common:cookieNotice.decline')}
         </Button>
         <Button
           variant="solid"
@@ -45,7 +45,7 @@ const CookieNotice: FC = () => {
           background="#aaa"
           onClick={() => cookiesStore.accept()}
         >
-          {t('common:cookieNotice:accept')}
+          {t('common:cookieNotice.accept')}
         </Button>
       </Flex>}
     </div>
