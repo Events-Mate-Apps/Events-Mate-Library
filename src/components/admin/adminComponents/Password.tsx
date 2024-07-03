@@ -43,7 +43,7 @@ const Password: FC<PasswordProps> = () => {
 
   const changePassword = async () => {
     if (newPassword !== confirmPassword) {
-      alert(t('settings.passwordMismatch'));
+      alert(t('user:settings.passwordMismatch'));
       return;
     }
 
@@ -56,10 +56,10 @@ const Password: FC<PasswordProps> = () => {
 
     try {
       await api.post('auth/change-password', payload);
-      alert(t('settings.passwordChangeSuccess'));
+      alert(t('user:settings.passwordChangeSuccess'));
     } catch (error) {
       console.error(t('settings.passwordChangeError'), error);
-      alert(t('settings.passwordChangeError'));
+      alert(t('user:settings.passwordChangeError'));
     }
   };
 
@@ -67,10 +67,10 @@ const Password: FC<PasswordProps> = () => {
     <Card>
       <Flex direction="column" mb="30px" ms="10px">
         <Text fontSize="xl" color={textColorPrimary} fontWeight="bold">
-          {t('settings.changePassword')}
+          {t('user:settings.changePassword')}
         </Text>
         <Text fontSize="md" color={textColorSecondary}>
-          {t('settings.setNewPassword')}
+          {t('user:settings.setNewPassword')}
         </Text>
       </Flex>
       <FormControl>
@@ -78,24 +78,24 @@ const Password: FC<PasswordProps> = () => {
           <InputField
             mb="25px"
             id="old"
-            label={t('settings.oldPassword')}
-            placeholder={t('settings.oldPasswordPlaceholder')}
+            label={t('user:settings.oldPassword')}
+            placeholder={t('user:settings.oldPasswordPlaceholder')}
             value={oldPassword}
             onChange={(e) => setOldPassword(e.target.value)}
           />
           <InputField
             mb="25px"
             id="new"
-            label={t('settings.newPassword')}
-            placeholder={t('settings.newPasswordPlaceholder')}
+            label={t('user:settings.newPassword')}
+            placeholder={t('user:settings.newPasswordPlaceholder')}
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
           />
           <InputField
             mb="25px"
             id="confirm"
-            label={t('settings.confirmPassword')}
-            placeholder={t('settings.confirmPasswordPlaceholder')}
+            label={t('user:settings.confirmPassword')}
+            placeholder={t('user:settings.confirmPasswordPlaceholder')}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
@@ -116,7 +116,7 @@ const Password: FC<PasswordProps> = () => {
         _active={{ backgroundColor: isEventsMate() ? 'brand.900' : '#e13784' }}
         onClick={changePassword}
       >
-        {t('settings.changePasswordButton')}
+        {t('user:settings.changePasswordButton')}
       </Button>
     </Card>
   );
