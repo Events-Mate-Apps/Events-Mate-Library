@@ -2,7 +2,7 @@ import { Flex, Button } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
 
 import { FC, useEffect, useState } from 'react';
-import useCookieStore from '~/stores/cookies';
+import useCookieStore from '../../stores/cookies';
 
 const CookieNotice: FC = () => {
   const [isCookieNoticeVisible, setIsCookieNoticeVisible] = useState(false);
