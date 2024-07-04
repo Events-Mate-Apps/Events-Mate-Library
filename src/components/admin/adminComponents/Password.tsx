@@ -89,7 +89,6 @@ const Password: FC<PasswordProps> = () => {
             placeholder={t('user:settings.oldPasswordPlaceholder')}
             value={oldPassword}
             onChange={(e) => setOldPassword(e.target.value)}
-            errorMessage={errorMessage && t('user:settings.oldPasswordError')}
           />
           <InputField
             mb="25px"
@@ -106,7 +105,7 @@ const Password: FC<PasswordProps> = () => {
             placeholder={t('user:settings.confirmPasswordPlaceholder')}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            errorMessage={errorMessage && t('user:settings.confirmPasswordError')}
+            errorMessage={errorMessage}
           />
         </Flex>
       </FormControl>
