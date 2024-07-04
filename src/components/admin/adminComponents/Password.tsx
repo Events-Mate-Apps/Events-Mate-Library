@@ -13,10 +13,12 @@ interface InputFieldProps {
   type?: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  errorMessage?: string;
 }
 
-const InputField: FC<InputFieldProps> = ({ id, label, placeholder, mb, type = 'password', value, onChange }) => {
+const InputField: FC<InputFieldProps> = ({ id, label, placeholder, mb, type = 'password', value, onChange, errorMessage }) => {
   const textColorPrimary = useColorModeValue('secondaryGray.900', 'white');
+  const errorColor = 'red.500';
   
   return (
     <FormControl mb={mb}>
@@ -24,6 +26,7 @@ const InputField: FC<InputFieldProps> = ({ id, label, placeholder, mb, type = 'p
         {label}
       </FormLabel>
       <Input id={id} placeholder={placeholder} type={type} value={value} onChange={onChange} />
+      {errorMessage && <Text color={errorColor}>{errorMessage}</Text>}
     </FormControl>
   );
 };
@@ -40,10 +43,12 @@ const Password: FC<PasswordProps> = () => {
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const changePassword = async () => {
     if (newPassword !== confirmPassword) {
-      alert(t('user:settings.passwordMismatch'));
+      setErrorMessage(t('user:settings.passwordMismatch'));
       return;
     }
 
@@ -56,10 +61,12 @@ const Password: FC<PasswordProps> = () => {
 
     try {
       await api.post('auth/change-password', payload);
-      alert(t('user:settings.passwordChangeSuccess'));
+      setSuccessMessage(t('user:settings.passwordChangeSuccess'));
+      setErrorMessage('');
     } catch (error) {
       console.error(t('settings.passwordChangeError'), error);
-      alert(t('user:settings.passwordChangeError'));
+      setErrorMessage(t('user:settings.passwordChangeError'));
+      setSuccessMessage('');
     }
   };
 
@@ -82,6 +89,7 @@ const Password: FC<PasswordProps> = () => {
             placeholder={t('user:settings.oldPasswordPlaceholder')}
             value={oldPassword}
             onChange={(e) => setOldPassword(e.target.value)}
+            errorMessage={errorMessage && t('user:settings.oldPasswordError')}
           />
           <InputField
             mb="25px"
@@ -98,6 +106,7 @@ const Password: FC<PasswordProps> = () => {
             placeholder={t('user:settings.confirmPasswordPlaceholder')}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
+            errorMessage={errorMessage && t('user:settings.confirmPasswordError')}
           />
         </Flex>
       </FormControl>
@@ -118,6 +127,8 @@ const Password: FC<PasswordProps> = () => {
       >
         {t('user:settings.changePasswordButton')}
       </Button>
+      {errorMessage && <Text color="red.500" mt="10px">{errorMessage}</Text>}
+      {successMessage && <Text color="green.500" mt="10px">{successMessage}</Text>}
     </Card>
   );
 };

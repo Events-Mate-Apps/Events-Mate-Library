@@ -4,6 +4,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { isEventsMate } from '../../../utils/orientation';
 import { api } from '~/utils/api';
 import { UserData } from '~/interfaces/user';
+import { useNotification } from '../../../service/NotificationService';
 
 interface InformationProps {
   user: UserData
@@ -13,13 +14,13 @@ const Information: FC<InformationProps> = ({ user }) => {
   const textColorPrimary = useColorModeValue('secondaryGray.900', 'white');
   const textColorSecondary = 'secondaryGray.600';
   const { t } = useTranslation();
+  const { showError, showSuccess } = useNotification();
 
   const [username, setUsername] = useState(user.username || '');
   const [email, setEmail] = useState(user.email || '');
-  const [firstName, setFirstName] = useState( '');
-  const [lastName, setLastName] = useState( '');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [userSettings, setUserSettings] = useState<UserData>()
-
 
   const fetchUserSettings = async () => {
     try {
@@ -40,15 +41,17 @@ const Information: FC<InformationProps> = ({ user }) => {
 
     try {
       await api.put('users/', payload);
-      alert('Profile updated successfully');
+      showSuccess();
     } catch (error) {
       console.error('Error updating profile:', error);
-      alert('Error updating profile');
+      showError({ error });
     }
   };
-  useEffect(()=>{
-    fetchUserSettings()
-  },[])
+
+  useEffect(() => {
+    fetchUserSettings();
+  }, []);
+
   return (
     <FormControl>
       <Card mb="20px">
