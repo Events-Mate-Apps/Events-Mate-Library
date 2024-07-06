@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
 interface CookieState {
   cookieNoticedAccepted: boolean | null;
@@ -20,7 +20,7 @@ const useCookieStore = create<CookieState>()(
     }),
     {
       name: `${process.env.NEXT_PUBLIC_PROJECT_NAME === 'Events-Mate' ? 'em' : 'wm'}-cookies`,
-      getStorage: () => localStorage,
+      storage: createJSONStorage(() => localStorage),
     },
   ),
 );
