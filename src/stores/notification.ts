@@ -1,8 +1,7 @@
 import { create } from 'zustand';
-import { ToastPosition } from '@chakra-ui/react';
 import getT from 'next-translate/getT';
 
-import { toast } from 'react-toastify';
+import { toast, ToastPosition } from 'react-toastify';
 import { getNotificationMessage } from './helpers/notification';
 
 type AlertStatus = 'info' | 'success' | 'error' | 'warn'
@@ -15,7 +14,7 @@ interface Options {
 }
 
 interface NotificationState {
-  showError: (options?: { error: unknown; duration?: number }) => Promise<void>;
+  showError: (options?: { error: unknown; duration?: number, position?: ToastPosition }) => Promise<void>;
   showCustomError: (options: Options) => void;
   showSuccess: (options?: Options) => void;
   showWarning: (options?: Options) => void;
@@ -39,7 +38,7 @@ const useNotificationStore = create<NotificationState>((set, get) => {
         title: `${t(`${status}`)}`,
       }))
     }, 
-    showError: async (options?: { error: unknown; duration?: number }) => {
+    showError: async (options) => {
       const t = await getT(get().locale, 'notification')
 
       if (!options) {
@@ -52,14 +51,14 @@ const useNotificationStore = create<NotificationState>((set, get) => {
       toast.error( getNotificationMessage({
         title: `${t('error')}`,
         description: `${t('error')}: ${err.raw?.message || err.message}`,
-      }) ,{ autoClose: options.duration || 5000, });
+      }) ,{ autoClose: options.duration || 5000, position: options.position });
     },
     showCustomError: async (options: Options) => {
       console.error(`${options.title}: ${options.description}`);
       toast.error( getNotificationMessage({
         title: options.title,
         description: options.description,
-      }) ,{ autoClose: options.duration, });
+      }) ,{ autoClose: options.duration || 5000, position: options.position });
     },
     showSuccess: async (options?: Options) => {
       if (!options) {
@@ -69,7 +68,7 @@ const useNotificationStore = create<NotificationState>((set, get) => {
       toast.success( getNotificationMessage({
         title: options.title,
         description: options.description
-      }) ,{ autoClose: options.duration, });
+      }) ,{ autoClose: options.duration || 5000, position: options.position });
     },
     showWarning: async (options?: Options) => {
       if (!options) {
@@ -79,7 +78,7 @@ const useNotificationStore = create<NotificationState>((set, get) => {
       toast.warn( getNotificationMessage({
         title: options.title,
         description: options.description
-      }) ,{ autoClose: options.duration, });
+      }) ,{ autoClose: options.duration || 5000, position: options.position });
     },
     showInfo: async (options?: Options) => {
       if (!options) {
@@ -89,7 +88,7 @@ const useNotificationStore = create<NotificationState>((set, get) => {
       toast.info( getNotificationMessage({
         title: options.title,
         description: options.description
-      }) ,{ autoClose: options.duration, });
+      }) ,{ autoClose: options.duration || 5000, position: options.position });
     },
   };
 });

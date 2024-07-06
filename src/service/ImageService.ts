@@ -49,7 +49,7 @@ export function useImage(): ImageMethods {
       });
 
     } catch (error) {
-      showError({error});
+      showError({ error });
     }
   }
 
