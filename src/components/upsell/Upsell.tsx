@@ -34,7 +34,7 @@ const Upsell = forwardRef<HTMLDivElement, UpsellProps>(({
       showInfo({
         title: t('common:upsell.yourSubscriptionIsNotEnoughForThisFeature'),
         description: t('common:upsell.butDontYouWorryHereIsAnUpgrade'),
-        position: 'top',
+        position: 'top-center',
         duration: 10000,
       });
       return;
