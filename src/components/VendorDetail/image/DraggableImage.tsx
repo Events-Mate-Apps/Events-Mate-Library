@@ -67,7 +67,7 @@ const DraggableImage: React.FC<DraggableImageProps> = ({
       await api.delete(`vendors/images/${id}`)
 
       showSuccess({
-        description: t('edit:editHasBeenSuccessful'),
+        title: t('edit:editHasBeenSuccessful'),
       })
     } catch (error) {
       showError({error})

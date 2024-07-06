@@ -28,7 +28,7 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
     try {
       await api.put(`vendors/${vendor.id}`, { images })
       showSuccess({
-        description: t('edit:editHasBeenSuccessful'),
+        title: t('edit:editHasBeenSuccessful'),
       })
     } catch (error) {
       showError({error})
