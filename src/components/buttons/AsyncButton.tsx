@@ -3,7 +3,7 @@ import { FC, useState } from 'react';
 import NextLink from 'next/link';
 
 interface AsyncButtonProps extends ButtonProps {
-  onClick: () => Promise<void>;
+  onClick?: () => Promise<void>;
   href?: string;
 }
 
