@@ -22,19 +22,20 @@ const AsyncButton: FC<AsyncButtonProps> = forwardRef(({ onClick, href, ...props 
   return (
     <>
       {
-        href ? <ChakraButton 
-          ref={ref}
-          onClick={handleClick}
-          isLoading={isLoading}
-          {...props}
-        >
-          {props.children}
-        </ChakraButton> 
-          : 
+        href ? 
           <ChakraButton
-            as={NextLink} 
-            ref={ref}
+            as={NextLink}
             href={href}
+            ref={ref}
+            onClick={handleClick}
+            isLoading={isLoading}
+            {...props}
+          >
+            {props.children}
+          </ChakraButton>
+          : 
+          <ChakraButton 
+            ref={ref}
             onClick={handleClick}
             isLoading={isLoading}
             {...props}
