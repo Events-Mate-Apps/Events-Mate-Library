@@ -60,7 +60,7 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
   }
 
   useEffect(() => {
-    getDeals()
+    vendor.priority > 2 && getDeals()
   }, [])
 
   useEffect(() => {
