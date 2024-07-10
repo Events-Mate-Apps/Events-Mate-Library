@@ -53,7 +53,6 @@ const Password: FC<PasswordProps> = () => {
     }
 
     const payload = {
-      token: '', 
       oldPassword,
       newPassword,
       confirmPassword
