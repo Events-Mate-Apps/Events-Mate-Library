@@ -4,7 +4,6 @@ import { api } from '~/utils/api';
 import { UserData } from '../../../interfaces/user';
 import { isEventsMate } from '../../../utils/orientation';
 import useTranslation from 'next-translate/useTranslation';
-import axios from 'axios';
 
 interface InputFieldProps {
   id: string;
@@ -63,21 +62,10 @@ const Password: FC<PasswordProps> = () => {
       await api.post('auth/change-password', payload);
       setSuccessMessage(t('user:settings.passwordChangeSuccess'));
       setErrorMessage('');
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        console.error(t('settings.passwordChangeError'), error);
-        setErrorMessage(t('user:settings.passwordChangeError'));
-        // If error status is 500, show success message anyway
-        if (error.response && error.response.status === 500) {
-          setSuccessMessage(t('user:settings.passwordChangeSuccess'));
-        } else {
-          setSuccessMessage('');
-        }
-      } else {
-        console.error(t('settings.passwordChangeError'), error);
-        setErrorMessage(t('user:settings.passwordChangeError'));
-        setSuccessMessage('');
-      }
+    } catch (error) {
+      console.error(t('settings.passwordChangeError'), error);
+      setErrorMessage(t('user:settings.passwordChangeError'));
+      setSuccessMessage('');
     }
   };
 
