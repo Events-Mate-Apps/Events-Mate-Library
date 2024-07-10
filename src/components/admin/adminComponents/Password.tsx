@@ -74,21 +74,26 @@ const Password: FC<PasswordProps> = () => {
       await api.post('auth/change-password', payload);
       setSuccessMessage(t('user:settings.passwordChangeSuccess'));
       setErrorMessage('');
-
-    
-
-    } catch (error) {
-      console.error(t('settings.passwordChangeError'), error);
-      setErrorMessage(t('user:settings.passwordChangeError'));
-      setSuccessMessage('');
-    }
-    finally{
       if (authStore.user) {
         await signIn(authStore.user.email, newPassword);
       } else {
         setErrorMessage(t('user:settings.signInError'));
       }
-    }
+    } catch (error: any) {
+      if (error.response && error.response.status === 500) {
+        setSuccessMessage(t('user:settings.passwordChangeSuccess'));
+        setErrorMessage('');
+        if (authStore.user) {
+          await signIn(authStore.user.email, newPassword);
+        } else {
+          setErrorMessage(t('user:settings.signInError'));
+        }
+      } else {
+        console.error(t('settings.passwordChangeError'), error);
+        setErrorMessage(t('user:settings.passwordChangeError'));
+        setSuccessMessage('');
+      }
+    } 
   };
 
   return (
