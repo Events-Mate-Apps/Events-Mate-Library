@@ -49,7 +49,7 @@ const Information: FC<InformationProps> = ({ user }) => {
 
   useEffect(() => {
     fetchUserSettings();
-    console.log(user)
+    console.log(userSettings)
   }, []);
 
   return (
