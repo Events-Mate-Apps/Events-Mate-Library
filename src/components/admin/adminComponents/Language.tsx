@@ -5,6 +5,7 @@ import { api } from '~/utils/api';
 import useTranslation from 'next-translate/useTranslation';
 import { isEventsMate } from '../../../utils/orientation';
 import { UserSettingsInterface } from '../../../interfaces/user';
+import useNotificationStore from '../../../stores/notification';
 
 interface Language {
   iso: string;
@@ -35,6 +36,7 @@ const LanguageSettings: FC = () => {
   const [selectedCurrency, setSelectedCurrency] = useState<string | undefined>(undefined);
 
   const { t } = useTranslation();
+  const { showError, showSuccess } = useNotificationStore();
 
   const fetchLanguages = async () => {
     try {
@@ -76,8 +78,10 @@ const LanguageSettings: FC = () => {
       try {
         await api.put('users/settings/', requestBody);
         setUserSettings(prev => prev ? { ...prev, preferredLanguageISO: selectedLanguage, preferredCurrencyISO: selectedCurrency } : null);
+        showSuccess();
       } catch (error) {
         console.error('Error updating user settings:', error);
+        showError({ error });
       }
     } else {
       console.error('Language or Currency not selected');
@@ -149,9 +153,9 @@ const LanguageSettings: FC = () => {
             />
           </Box>
         </Flex>
-        <Button 
-          mt={4} 
-          colorScheme="teal" 
+        <Button
+          mt={4}
+          colorScheme="teal"
           onClick={handleSaveChanges}
           backgroundColor={isEventsMate() ? 'brand.900' : '#e13784'}
           color="white"
@@ -163,6 +167,6 @@ const LanguageSettings: FC = () => {
       </Card>
     </FormControl>
   );
-}
+};
 
 export default LanguageSettings;

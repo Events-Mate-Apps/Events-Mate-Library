@@ -13,8 +13,9 @@ import {
 import { FC, useEffect, useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import { isEventsMate } from '../../../utils/orientation';
-import { api } from '~/utils/api';
+import { api } from '../../../utils/api';
 import { UserSettingsInterface } from '../../../interfaces/user';
+import useNotificationStore from '../../../stores/notification';
 
 interface SwitchFieldProps {
   id: string;
@@ -53,6 +54,7 @@ const SwitchField: FC<SwitchFieldProps> = ({ id, label, desc, mb, me, isChecked,
 const Newsletter: FC = () => {
   const { t } = useTranslation();
   const textColorPrimary = useColorModeValue('secondaryGray.900', 'white');
+  const { showError, showSuccess } = useNotificationStore();
 
   const [, setUserSettings] = useState<UserSettingsInterface | null>(null);
   const [allowMarketingEmails, setAllowMarketingEmails] = useState<boolean>(false);
@@ -74,17 +76,18 @@ const Newsletter: FC = () => {
   };
 
   const handleSaveChanges = async () => {
-
     const requestBody = {
-      allowMarketingEmails: allowMarketingEmails ,
+      allowMarketingEmails: allowMarketingEmails,
       allowSystemEmails: allowSystemEmails,
-      preferredLanguageISO: language, 
+      preferredLanguageISO: language,
       preferredCurrencyISO: currency,
     };
     try {
       await api.put('users/settings/', requestBody);
+      showSuccess();
     } catch (error) {
       console.error('Error updating user settings:', error);
+      showError({ error });
     }
   };
 
@@ -128,9 +131,9 @@ const Newsletter: FC = () => {
             onChange={handleSwitchChange}
           />
         </SimpleGrid>
-        <Button 
-          mt={4} 
-          colorScheme="teal" 
+        <Button
+          mt={4}
+          colorScheme="teal"
           onClick={handleSaveChanges}
           backgroundColor={isEventsMate() ? 'brand.900' : '#e13784'}
           color="white"
