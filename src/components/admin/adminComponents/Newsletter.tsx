@@ -54,7 +54,7 @@ const Newsletter: FC = () => {
   const { t } = useTranslation();
   const textColorPrimary = useColorModeValue('secondaryGray.900', 'white');
 
-  const [userSettings, setUserSettings] = useState<UserSettingsInterface | null>(null);
+  const [, setUserSettings] = useState<UserSettingsInterface | null>(null);
   const [allowMarketingEmails, setAllowMarketingEmails] = useState<boolean>(false);
   const [allowSystemEmails, setAllowSystemEmails] = useState<boolean>(false);
   const [language, setLanguage] = useState<string>('en');
@@ -74,7 +74,6 @@ const Newsletter: FC = () => {
   };
 
   const handleSaveChanges = async () => {
-    if (!userSettings) return;
 
     const requestBody = {
       allowMarketingEmails: allowMarketingEmails ,
