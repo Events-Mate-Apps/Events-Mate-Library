@@ -78,16 +78,19 @@ const Password: FC<PasswordProps> = () => {
       setSuccessMessage(t('user:settings.passwordChangeSuccess'));
       setErrorMessage('');
 
-      if (authStore.user) {
-        await signIn(authStore.user.email, newPassword);
-      } else {
-        setErrorMessage(t('user:settings.signInError'));
-      }
+    
 
     } catch (error) {
       console.error(t('settings.passwordChangeError'), error);
       setErrorMessage(t('user:settings.passwordChangeError'));
       setSuccessMessage('');
+    }
+    finally{
+      if (authStore.user) {
+        await signIn(authStore.user.email, newPassword);
+      } else {
+        setErrorMessage(t('user:settings.signInError'));
+      }
     }
   };
 
