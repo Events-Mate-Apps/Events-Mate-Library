@@ -5,7 +5,6 @@ import { UserData } from '../../../interfaces/user';
 import { isEventsMate } from '../../../utils/orientation';
 import useTranslation from 'next-translate/useTranslation';
 import useUserStore from '../../../stores/auth';
-import { useRouter } from 'next/router';
 
 interface InputFieldProps {
   id: string;
@@ -49,12 +48,10 @@ const Password: FC<PasswordProps> = () => {
   const [successMessage, setSuccessMessage] = useState('');
 
   const authStore = useUserStore();
-  const { push } = useRouter();
   
   const signIn = async (email: string, password: string) => {
     try {
       await authStore.signIn({ email, password });
-      push('/app');
     } catch (error) {
       console.error(error);
       setErrorMessage(t('user:settings.signInError'));
