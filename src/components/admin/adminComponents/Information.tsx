@@ -4,8 +4,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { isEventsMate } from '../../../utils/orientation';
 import { api } from '~/utils/api';
 import { UserData } from '~/interfaces/user';
-import { useNotification } from '../../../service/NotificationService';
-
+import useNotificationStore from '../../../stores/notification'
 interface InformationProps {
   user: UserData
 }
@@ -14,7 +13,7 @@ const Information: FC<InformationProps> = ({ user }) => {
   const textColorPrimary = useColorModeValue('secondaryGray.900', 'white');
   const textColorSecondary = 'secondaryGray.600';
   const { t } = useTranslation();
-  const { showError, showSuccess } = useNotification();
+  const { showError, showSuccess } = useNotificationStore();
 
   const [username, setUsername] = useState(user.username || '');
   const [email, setEmail] = useState(user.email || '');
