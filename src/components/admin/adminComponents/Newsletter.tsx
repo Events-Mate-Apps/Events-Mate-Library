@@ -13,7 +13,7 @@ import {
 import { FC, useEffect, useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import { isEventsMate } from '../../../utils/orientation';
-import { api } from '../../../utils/api';
+import { api } from '~/utils/api';
 import { UserSettingsInterface } from '../../../interfaces/user';
 
 interface SwitchFieldProps {
