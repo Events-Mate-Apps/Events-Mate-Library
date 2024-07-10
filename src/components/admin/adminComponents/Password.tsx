@@ -4,6 +4,8 @@ import { api } from '~/utils/api';
 import { UserData } from '../../../interfaces/user';
 import { isEventsMate } from '../../../utils/orientation';
 import useTranslation from 'next-translate/useTranslation';
+import useUserStore from '../../../stores/auth';
+import { useRouter } from 'next/router';
 
 interface InputFieldProps {
   id: string;
@@ -46,6 +48,19 @@ const Password: FC<PasswordProps> = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
+  const authStore = useUserStore();
+  const { push } = useRouter();
+  
+  const signIn = async (email: string, password: string) => {
+    try {
+      await authStore.signIn({ email, password });
+      push('/app');
+    } catch (error) {
+      console.error(error);
+      setErrorMessage(t('user:settings.signInError'));
+    }
+  };
+
   const changePassword = async () => {
     if (newPassword !== confirmPassword) {
       setErrorMessage(t('user:settings.passwordMismatch'));
@@ -62,6 +77,13 @@ const Password: FC<PasswordProps> = () => {
       await api.post('auth/change-password', payload);
       setSuccessMessage(t('user:settings.passwordChangeSuccess'));
       setErrorMessage('');
+
+      if (authStore.user) {
+        await signIn(authStore.user.email, newPassword);
+      } else {
+        setErrorMessage(t('user:settings.signInError'));
+      }
+
     } catch (error) {
       console.error(t('settings.passwordChangeError'), error);
       setErrorMessage(t('user:settings.passwordChangeError'));
