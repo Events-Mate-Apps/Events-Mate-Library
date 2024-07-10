@@ -5,7 +5,7 @@ import { UserData } from '../../../interfaces/user';
 import { isEventsMate } from '../../../utils/orientation';
 import useTranslation from 'next-translate/useTranslation';
 import useUserStore from '../../../stores/auth';
-
+import { useRouter } from 'next/router';
 interface InputFieldProps {
   id: string;
   label: string;
@@ -49,9 +49,13 @@ const Password: FC<PasswordProps> = () => {
 
   const authStore = useUserStore();
   
+  const router = useRouter()
+
   const signIn = async (email: string, password: string) => {
     try {
       await authStore.signIn({ email, password });
+      router.push('/account/settings')
+      window.location.reload();
     } catch (error) {
       console.error(error);
       setErrorMessage(t('user:settings.signInError'));
@@ -79,6 +83,7 @@ const Password: FC<PasswordProps> = () => {
       } else {
         setErrorMessage(t('user:settings.signInError'));
       }
+
     } catch (error: any) {
       if (error.response && error.response.status === 500) {
         setSuccessMessage(t('user:settings.passwordChangeSuccess'));
