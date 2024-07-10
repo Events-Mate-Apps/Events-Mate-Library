@@ -7,7 +7,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { api } from '../../../utils/api';
 import AddImage from './AddImage';
 import DraggableImage from './DraggableImage';
-import { useNotification } from '../../../service/NotificationService';
+import useNotificationStore from '../../../stores/notification';
 import { InfoOutlineIcon } from '@chakra-ui/icons';
 
 interface EditableImageListProps {
@@ -19,7 +19,7 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
   const { t } = useTranslation()
   const [images, setImages] = useState<Image[]>(vendor.images)
   const [isLoading, setLoading] = useState<boolean>(false);
-  const { showSuccess, showError } = useNotification()
+  const { showSuccess, showError } = useNotificationStore()
   const [isNewImagesOrder, setIsNewImagesOrder] = useState<boolean>(false)
 
   const sendNewImagesOrder = async () => {
@@ -28,7 +28,7 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
     try {
       await api.put(`vendors/${vendor.id}`, { images })
       showSuccess({
-        description: t('edit:editHasBeenSuccessful'),
+        title: t('edit:editHasBeenSuccessful'),
       })
     } catch (error) {
       showError({error})

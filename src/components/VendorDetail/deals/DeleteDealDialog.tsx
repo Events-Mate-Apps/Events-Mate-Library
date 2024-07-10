@@ -15,7 +15,7 @@ import React, { useState } from 'react';
 import { api } from '../../../utils/api';
 import { FaTrash } from 'react-icons/fa';
 import { isEventsMate } from '../../../utils/orientation';
-import { useNotification } from '../../../service/NotificationService';
+import useNotificationStore from '../../../stores/notification';
 
 interface DeleteDialogProps {
   vendorId: string,
@@ -31,7 +31,7 @@ const DeleteDealDialog: React.FC<DeleteDialogProps> = ({ vendorId, dealId }) => 
   const { t } = useTranslation();
 
   const cancelRef = React.useRef<HTMLButtonElement>(null);
-  const { showError, showSuccess } = useNotification();
+  const { showError, showSuccess } = useNotificationStore();
     
   const deleteDeal = async () => {
     setLoading(true)

@@ -1,11 +1,13 @@
 import { Button as ChakraButton, ButtonProps, forwardRef } from '@chakra-ui/react';
 import { FC, useState } from 'react';
+import NextLink from 'next/link';
 
 interface AsyncButtonProps extends ButtonProps {
-  onClick: () => Promise<void>;
+  onClick?: () => Promise<void>;
+  href?: string;
 }
 
-const AsyncButton: FC<AsyncButtonProps> = forwardRef(({ onClick, ...props }, ref) => {
+const AsyncButton: FC<AsyncButtonProps> = forwardRef(({ onClick, href, ...props }, ref) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleClick = async () => {
@@ -18,14 +20,30 @@ const AsyncButton: FC<AsyncButtonProps> = forwardRef(({ onClick, ...props }, ref
   };
 
   return (
-    <ChakraButton 
-      ref={ref}
-      onClick={handleClick}
-      isLoading={isLoading}
-      {...props}
-    >
-      {props.children}
-    </ChakraButton>
+    <>
+      {
+        href ? 
+          <ChakraButton
+            as={NextLink}
+            href={href}
+            ref={ref}
+            onClick={handleClick}
+            isLoading={isLoading}
+            {...props}
+          >
+            {props.children}
+          </ChakraButton>
+          : 
+          <ChakraButton 
+            ref={ref}
+            onClick={handleClick}
+            isLoading={isLoading}
+            {...props}
+          >
+            {props.children}
+          </ChakraButton>
+      }
+    </>
   );
 });
 

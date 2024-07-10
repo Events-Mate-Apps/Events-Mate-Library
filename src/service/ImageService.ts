@@ -1,4 +1,4 @@
-import { useNotification } from './NotificationService';
+import useNotificationStore from '../stores/notification';
 import imageCompression from 'browser-image-compression';
 import { api } from '~/utils/api';
 import useTranslation from 'next-translate/useTranslation';
@@ -13,7 +13,7 @@ interface ImageMethods {
 }
 
 export function useImage(): ImageMethods {
-  const { showSuccess, showError } = useNotification()
+  const { showSuccess, showError } = useNotificationStore()
   const { t } = useTranslation()
 
   const uploadImage = async (params: ImageUploadParametrs) => {
@@ -46,11 +46,10 @@ export function useImage(): ImageMethods {
       showSuccess({
         title: t('vendors:image-uploaded'),
         description: t('vendors:image-uploaded-successfully'),
-        isClosable: true,
       });
 
     } catch (error) {
-      showError({error});
+      showError({ error });
     }
   }
 

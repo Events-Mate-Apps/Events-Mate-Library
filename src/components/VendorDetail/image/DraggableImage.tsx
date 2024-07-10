@@ -16,7 +16,7 @@ import { useDrag, useDrop } from 'react-dnd';
 import { Image as ImageType } from '../../../interfaces/vendor';
 import { api } from '../../../utils/api';
 import Image from '../../image/Image';
-import { useNotification } from '../../../service/NotificationService';
+import useNotificationStore from '../../../stores/notification';
 
 export interface DraggableImageProps {
   index: number;
@@ -46,7 +46,7 @@ const DraggableImage: React.FC<DraggableImageProps> = ({
     },
   });
 
-  const { showError, showSuccess } = useNotification()
+  const { showError, showSuccess } = useNotificationStore()
   const { t } = useTranslation()
 
   const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
@@ -67,7 +67,7 @@ const DraggableImage: React.FC<DraggableImageProps> = ({
       await api.delete(`vendors/images/${id}`)
 
       showSuccess({
-        description: t('edit:editHasBeenSuccessful'),
+        title: t('edit:editHasBeenSuccessful'),
       })
     } catch (error) {
       showError({error})
