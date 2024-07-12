@@ -5,4 +5,14 @@ export interface UserData {
   createdAt: string;
   type: 'NORMAL' | 'ADMIN';
   appleUserIdentifier?: string;
+  firstName?: string
+  lastName?: string
+}
+export interface UserSettingsInterface {
+  language: string;
+  currency: string;
+  allowMarketingEmails: boolean;
+  allowSystemEmails: boolean;
+  preferredLanguageISO: string
+  preferredCurrencyISO: string
 }

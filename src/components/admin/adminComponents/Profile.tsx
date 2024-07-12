@@ -1,5 +1,5 @@
 import { Flex, Text, Avatar, Card } from '@chakra-ui/react';
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { UserData } from '../../../interfaces/user';
 
 interface ProfileProps {
@@ -7,9 +7,7 @@ interface ProfileProps {
 }
 
 const Profile: FC<ProfileProps> = ({ user }) => {
-  useEffect(()=>{
-    console.log(user)
-  },[user])
+
 
   return (
     <Card mb="20px">

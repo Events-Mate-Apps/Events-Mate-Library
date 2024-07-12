@@ -22,8 +22,8 @@ const UserSettings: FC<UserSettingsProps> = ({ user }) => {
       >
         <Flex direction="column">
           <Profile user={user} />
-          <Information />
-          <Password />
+          <Information user={user} />
+          <Password user={user} />
         </Flex>
         <Flex direction="column">
           <LanguageSettings />
