@@ -3,8 +3,9 @@ import { Flex, FormControl, SimpleGrid, Text, useColorModeValue, Input, FormLabe
 import useTranslation from 'next-translate/useTranslation';
 import { isEventsMate } from '../../../utils/orientation';
 import { api } from '~/utils/api';
-import { UserData } from '~/interfaces/user';
 import useNotificationStore from '../../../stores/notification'
+import { UserData } from '../../../interfaces/user';
+
 interface InformationProps {
   user: UserData
 }
