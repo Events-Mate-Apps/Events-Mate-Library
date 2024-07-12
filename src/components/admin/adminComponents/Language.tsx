@@ -43,7 +43,7 @@ const LanguageSettings: FC = () => {
       const { data } = await api.get<Language[]>('support/languages');
       setLanguages(data);
     } catch (error) {
-      console.error('Error fetching languages:', error);
+      showError({ error })
     }
   };
 
@@ -52,7 +52,7 @@ const LanguageSettings: FC = () => {
       const { data } = await api.get<Currency[]>('support/currencies');
       setCurrencies(data);
     } catch (error) {
-      console.error('Error fetching currencies:', error);
+      showError({ error })
     }
   };
 
@@ -63,7 +63,7 @@ const LanguageSettings: FC = () => {
       setSelectedLanguage(data.preferredLanguageISO);
       setSelectedCurrency(data.preferredCurrencyISO);
     } catch (error) {
-      console.error('Error fetching user settings:', error);
+      showError({ error })
     }
   };
 
@@ -80,7 +80,6 @@ const LanguageSettings: FC = () => {
         setUserSettings(prev => prev ? { ...prev, preferredLanguageISO: selectedLanguage, preferredCurrencyISO: selectedCurrency } : null);
         showSuccess();
       } catch (error) {
-        console.error('Error updating user settings:', error);
         showError({ error });
       }
     } else {

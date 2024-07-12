@@ -71,7 +71,7 @@ const Newsletter: FC = () => {
       setLanguage(data.preferredLanguageISO);
       setCurrency(data.preferredCurrencyISO);
     } catch (error) {
-      console.error('Error fetching user settings:', error);
+      showError({ error })
     }
   };
 
@@ -86,7 +86,6 @@ const Newsletter: FC = () => {
       await api.put('users/settings/', requestBody);
       showSuccess();
     } catch (error) {
-      console.error('Error updating user settings:', error);
       showError({ error });
     }
   };
