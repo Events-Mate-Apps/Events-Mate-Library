@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { api } from '@/utils/api';
 import useNotificationStore from './notification';
+import { Wedding } from '~/interfaces/wedding';
 
 export interface UserData {
   username: string;
@@ -39,6 +40,7 @@ interface UserState {
   isLoggedIn: boolean;
   user: UserData | null;
   token: Token | null; 
+  wedding: Wedding | null;
 }
 
 interface LoginResponse {
@@ -55,6 +57,7 @@ interface UserActions {
   signInWithApple: (response: LoginResponse) => Promise<void>;
   signUp: (body: SignUpRequest) => Promise<void>;
   signOut: () => void;
+  setWedding: (wedding: Wedding) => void;
 }
 
 type UserStore = UserState & UserActions
@@ -65,6 +68,7 @@ const useUserStore = create<UserStore>()(
       isLoggedIn: false,
       user: null,
       token: null,
+      wedding: null,
       signIn: async (body) => {
         const { showError } = useNotificationStore.getState()
 
@@ -129,6 +133,11 @@ const useUserStore = create<UserStore>()(
           token: null,
         });
       },
+      setWedding: (wedding) => {
+        set({
+          wedding
+        })
+      }
     }),
     {
       name: 'em-auth-store',
