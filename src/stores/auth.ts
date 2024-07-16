@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { api } from '@/utils/api';
 import useNotificationStore from './notification';
-import { Wedding } from '~/interfaces/wedding';
+import { Wedding } from '../interfaces/wedding';
 
 export interface UserData {
   username: string;
