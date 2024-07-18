@@ -5,6 +5,9 @@ import useNotificationStore from '../../stores/notification'
 import { api } from '~/utils/api';
 import { Categories, SelectCategory } from '../../interfaces/category';
 import { useLocalization } from '../../service/LocalizationService';
+import { Controller, useFormContext } from 'react-hook-form';
+import { Select } from 'chakra-react-select';
+import useTranslation from 'next-translate/useTranslation';
 
 interface CategorySelectProps {
   defaultValue?: string;
@@ -16,9 +19,14 @@ export const CategorySelect: FC<CategorySelectProps> = ({
   defaultValue
 }) => {
   const [categories, setCategories] = useState<SelectCategory[]>([]);
+  const {
+    formState: { errors },
+    control
+  } = useFormContext();
 
   const { showError } = useNotificationStore()
   const { getCurrentTranslation } = useLocalization()
+  const { t } = useTranslation()
 
   useEffect(() => {
     fetchCategories()
@@ -29,7 +37,7 @@ export const CategorySelect: FC<CategorySelectProps> = ({
       const { data: cats } = await api.get<Categories>('vendors/categories/vendor-categories')
 
       const selectCategories: SelectCategory[] = cats.map((e) => ({
-        title: getCurrentTranslation(e.titleContent),
+        label: getCurrentTranslation(e.titleContent),
         value: e.id
       }))
 
@@ -40,8 +48,20 @@ export const CategorySelect: FC<CategorySelectProps> = ({
   }
 
   return <>
-    {categories.map((e) => 
-      <p key={e.value}>title: {e.title}, value: {e.value}</p>
-    )}
+    <Controller
+      control={control}
+      name="category"
+      rules={{ required: t('common:alerts.errorMessages.required') }}
+      render={({ field }) => (        
+        <Select
+          {...field}
+          placeholder={t('common:select')}
+          options={categories.map(({ value, label }) => ({
+            value, label
+          }))}
+          defaultValue={defaultValue}
+        />
+      )}
+    />
   </>
 }

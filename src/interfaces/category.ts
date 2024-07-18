@@ -28,6 +28,6 @@ export interface Parent {}
 export interface SubCategory {}
 
 export interface SelectCategory {
-  title: string
+  label: string
   value: string
 }
