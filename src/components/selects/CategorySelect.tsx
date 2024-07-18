@@ -11,16 +11,17 @@ import { Box, FormLabel, useColorModeValue } from '@chakra-ui/react';
 interface CategorySelectProps {
   defaultValue?: string[];
   name: string;
-  error?: any;
 }
 
 export const CategorySelect: FC<CategorySelectProps> = ({
-  defaultValue = []
+  defaultValue = [],
+  name,
 }) => {
   const [categories, setCategories] = useState<SelectCategory[]>([]);
   const {
     formState: { errors },
-    control
+    control,
+    setValue // Přidání setValue pro manuální nastavení hodnoty
   } = useFormContext();
 
   const { showError } = useNotificationStore();
@@ -31,6 +32,14 @@ export const CategorySelect: FC<CategorySelectProps> = ({
   useEffect(() => {
     fetchCategories();
   }, []);
+
+  useEffect(() => {
+    // Nastavení výchozí hodnoty po načtení kategorií
+    if (categories.length > 0 && defaultValue.length > 0) {
+      const selectedCategories = defaultValue.map(value => categories.find(cat => cat.value === value));
+      setValue(name, selectedCategories);
+    }
+  }, [categories, defaultValue, setValue, name]);
 
   const fetchCategories = async () => {
     try {
@@ -63,14 +72,14 @@ export const CategorySelect: FC<CategorySelectProps> = ({
       </FormLabel>
       <Controller
         control={control}
-        name="category"
+        name={name}
         rules={{ required: t('common:alerts.errorMessages.required') }}
         render={({ field }) => (
           <Select
             {...field}
             placeholder={t('common:select')}
             options={categories}
-            defaultValue={defaultValue.map(value => categories.find(cat => cat.value === value))}
+            value={categories.find(cat => cat.value === field.value?.[0]) || null}
             onChange={(selected) => field.onChange(selected ? [selected.value] : [])}
           />
         )}
