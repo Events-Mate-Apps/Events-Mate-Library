@@ -12,7 +12,6 @@ interface CategorySelectProps {
   defaultValue?: string[];
   name: string;
 }
-
 export const CategorySelect: FC<CategorySelectProps> = ({
   defaultValue = [],
   name,
@@ -21,7 +20,7 @@ export const CategorySelect: FC<CategorySelectProps> = ({
   const {
     formState: { errors },
     control,
-    setValue // Přidání setValue pro manuální nastavení hodnoty
+    setValue
   } = useFormContext();
 
   const { showError } = useNotificationStore();
@@ -34,9 +33,11 @@ export const CategorySelect: FC<CategorySelectProps> = ({
   }, []);
 
   useEffect(() => {
-    // Nastavení výchozí hodnoty po načtení kategorií
     if (categories.length > 0 && defaultValue.length > 0) {
-      const selectedCategories = defaultValue.map(value => categories.find(cat => cat.value === value));
+      const selectedCategories = defaultValue.map(value => ({
+        label: categories.find(cat => cat.value === value)?.label || '',
+        value
+      }));
       setValue(name, selectedCategories);
     }
   }, [categories, defaultValue, setValue, name]);
@@ -79,8 +80,8 @@ export const CategorySelect: FC<CategorySelectProps> = ({
             {...field}
             placeholder={t('common:select')}
             options={categories}
-            value={categories.find(cat => cat.value === field.value?.[0]) || null}
-            onChange={(selected) => field.onChange(selected ? [selected.value] : [])}
+            value={field.value || null}
+            onChange={(selected) => field.onChange(selected ? [selected] : [])}
           />
         )}
       />
