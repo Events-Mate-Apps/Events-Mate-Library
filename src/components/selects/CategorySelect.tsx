@@ -1,5 +1,4 @@
 import React, { useState, useEffect, FC } from 'react';
-// import { Select } from 'chakra-react-select';
 
 import useNotificationStore from '../../stores/notification'
 import { api } from '~/utils/api';
@@ -49,34 +48,33 @@ export const CategorySelect: FC<CategorySelectProps> = ({
     }
   }
 
-  return (
-    <Box w='100%'>
-      <FormLabel
-        textAlign="start"
-        marginEnd='3'
-        marginBottom='2'
-        display="flex"
-        marginLeft='2'
-        fontSize="sm"
-        color={textColor}
-        fontWeight="bold"
-      >
-        {t('common:category')}
-      </FormLabel>
-      <Controller
-        control={control}
-        name="category"
-        rules={{ required: t('common:alerts.errorMessages.required') }}
-        render={({ field }) => (
-          <Select
-            {...field}
-            placeholder={t('common:select')}
-            options={categories}
-            defaultValue={categories.find(option => option.value === defaultValue)}
-            onChange={(selectedOption) => field.onChange(selectedOption?.value)}
-          />
-        )}
-      />
-    </Box>
-  )
+  return (<Box w='100%'>
+    <FormLabel
+      textAlign="start"
+      marginEnd='3'
+      marginBottom='2'
+      display="flex"
+      marginLeft='2'
+      fontSize="sm"
+      color={textColor}
+      fontWeight="bold"
+    >
+      {t('common:category')}
+    </FormLabel>
+    <Controller
+      control={control}
+      name="category"
+      rules={{ required: t('common:alerts.errorMessages.required') }}
+      render={({ field }) => (        
+        <Select
+          {...field}
+          placeholder={t('common:select')}
+          options={categories.map(({ value, label }) => ({
+            value, label
+          }))}
+          defaultValue={defaultValue}
+        />
+      )}
+    />
+  </Box>)
 }
