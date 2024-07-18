@@ -3,8 +3,8 @@ import React, { useState, useEffect, FC } from 'react';
 
 import useNotificationStore from '../../stores/notification'
 import { api } from '~/utils/api';
-import { Categories, SelectCategory } from '~/interfaces/category';
-import { useLocalization } from '~/service/LocalizationService';
+import { Categories, SelectCategory } from '../../interfaces/category';
+import { useLocalization } from '../../service/LocalizationService';
 
 interface CategorySelectProps {
   defaultValue?: string;
