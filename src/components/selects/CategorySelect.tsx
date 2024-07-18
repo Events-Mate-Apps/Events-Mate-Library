@@ -12,7 +12,6 @@ interface CategorySelectProps {
   defaultValue?: string[];
   name: string;
 }
-
 export const CategorySelect: FC<CategorySelectProps> = ({
   defaultValue = [],
   name,
@@ -81,11 +80,11 @@ export const CategorySelect: FC<CategorySelectProps> = ({
             {...field}
             placeholder={t('common:select')}
             options={categories}
-            value={field.value || []}
-            onChange={(selected) => field.onChange(selected ? selected : [])}
+            value={field.value || null}
+            onChange={(selected) => field.onChange(selected ? [selected] : [])}
           />
         )}
       />
     </Box>
   );
-};
+}
