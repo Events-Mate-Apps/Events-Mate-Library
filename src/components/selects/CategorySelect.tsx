@@ -81,7 +81,7 @@ export const CategorySelect: FC<CategorySelectProps> = ({
             {...field}
             placeholder={t('common:select')}
             options={categories}
-            value={field.value || null}
+            value={field.value || []}
             onChange={(selected) => field.onChange(selected ? selected : [])}
           />
         )}
