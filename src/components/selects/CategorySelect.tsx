@@ -8,7 +8,7 @@ import { useLocalization } from '../../service/LocalizationService';
 import { Controller, useFormContext } from 'react-hook-form';
 import { Select } from 'chakra-react-select';
 import useTranslation from 'next-translate/useTranslation';
-import { FormLabel, useColorModeValue } from '@chakra-ui/react';
+import { Box, FormLabel, useColorModeValue } from '@chakra-ui/react';
 
 interface CategorySelectProps {
   defaultValue?: string;
@@ -49,7 +49,7 @@ export const CategorySelect: FC<CategorySelectProps> = ({
     }
   }
 
-  return <>
+  return (<Box w='100%'>
     <FormLabel
       textAlign="start"
       marginEnd='3'
@@ -77,5 +77,5 @@ export const CategorySelect: FC<CategorySelectProps> = ({
         />
       )}
     />
-  </>
+  </Box>)
 }
