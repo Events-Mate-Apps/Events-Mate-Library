@@ -1,10 +1,11 @@
+import { Category } from './category'
+
 export interface Vendor {
   status: string
   isPremium?: boolean,
   id: string,
   alias: string,
-  categories: string[],
-  category: Category,
+  categories: Category[],
   userId: string,
   name: string,
   phone: string,
@@ -154,14 +155,6 @@ export interface LandingVendor {
   address: Partial<Address>,
   categories: Category[],
   alias: string,
-}
-
-export interface Category {
-  id: string,
-  updatedAt?: string,
-  createdAt?: string,
-  name: string,
-  type: string,
 }
 
 export interface VendorLink {
