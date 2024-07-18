@@ -1,6 +1,5 @@
 import React, { useState, useEffect, FC } from 'react';
-
-import useNotificationStore from '../../stores/notification'
+import useNotificationStore from '../../stores/notification';
 import { api } from '~/utils/api';
 import { Categories, SelectCategory } from '../../interfaces/category';
 import { useLocalization } from '../../service/LocalizationService';
@@ -10,13 +9,13 @@ import useTranslation from 'next-translate/useTranslation';
 import { Box, FormLabel, useColorModeValue } from '@chakra-ui/react';
 
 interface CategorySelectProps {
-  defaultValue?: string;
+  defaultValue?: string[];
   name: string;
   error?: any;
 }
 
 export const CategorySelect: FC<CategorySelectProps> = ({
-  defaultValue
+  defaultValue = []
 }) => {
   const [categories, setCategories] = useState<SelectCategory[]>([]);
   const {
@@ -24,13 +23,13 @@ export const CategorySelect: FC<CategorySelectProps> = ({
     control
   } = useFormContext();
 
-  const { showError } = useNotificationStore()
+  const { showError } = useNotificationStore();
   const { getCurrentTranslation } = useLocalization();
   const { t } = useTranslation();
   const textColor = useColorModeValue('secondaryGray.900', 'white');
 
   useEffect(() => {
-    fetchCategories()
+    fetchCategories();
   }, []);
 
   const fetchCategories = async () => {
@@ -39,14 +38,14 @@ export const CategorySelect: FC<CategorySelectProps> = ({
 
       const selectCategories: SelectCategory[] = cats.map((e) => ({
         label: getCurrentTranslation(e.titleContent),
-        value: e
+        value: e.id // Assuming `e.id` is the unique identifier for the category
       }));
 
       setCategories(selectCategories);
     } catch (error) {
       showError({ error });
     }
-  }
+  };
 
   return (
     <Box w='100%'>
@@ -70,13 +69,9 @@ export const CategorySelect: FC<CategorySelectProps> = ({
           <Select
             {...field}
             placeholder={t('common:select')}
-            options={categories.map(({ value, label }) => ({
-              value, label
-            }))}
-            defaultValue={defaultValue}
-            onChange={(selectedOption) => {
-              field.onChange(selectedOption.value);
-            }}
+            options={categories}
+            defaultValue={defaultValue.map(value => categories.find(cat => cat.value === value))}
+            onChange={(selected) => field.onChange(selected ? [selected.value] : [])}
           />
         )}
       />
