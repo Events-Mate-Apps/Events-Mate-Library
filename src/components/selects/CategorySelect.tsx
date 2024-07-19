@@ -75,3 +75,5 @@ const CategorySelect: FC<CategorySelectProps> = ({ defaultValue, name }) => {
 CategorySelect.defaultProps = {
   defaultValue: []
 };
+
+export default CategorySelect;
