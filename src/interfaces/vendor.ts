@@ -1,10 +1,11 @@
+import { Category } from './category'
+
 export interface Vendor {
   status: string
   isPremium?: boolean,
   id: string,
   alias: string,
-  categories: string[],
-  category: Category,
+  categories: Category[],
   userId: string,
   name: string,
   phone: string,
@@ -58,7 +59,7 @@ export interface NewVendorForValues {
   latitude: number;
   longitude: number;
   links: VendorLink[];
-  category: { label: StaticRange, value: VendorCategory };
+  categories: Category[];
   postalAddress: string;
   image: Image,
   businessName: string,
@@ -152,16 +153,8 @@ export interface LandingVendor {
   rating: number,
   image: Image,
   address: Partial<Address>,
-  categories: Category[],
+  categories: string[],
   alias: string,
-}
-
-export interface Category {
-  id: string,
-  updatedAt?: string,
-  createdAt?: string,
-  name: string,
-  type: string,
 }
 
 export interface VendorLink {
@@ -178,7 +171,7 @@ export interface VendorPost {
   name: string,
   phone: string,
   email: string,
-  categories: string[],
+  categories: Category[],
   links: VendorLink[],
   location: {
     latitude: number;
