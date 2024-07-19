@@ -28,9 +28,9 @@ const CategorySelect: FC<CategorySelectProps> = ({ defaultValue, name }) => {
   const fetchCategories = async () => {
     try {
       const { data: cats } = await api.get<Categories>('vendors/categories/vendor-categories');
-      const selectCategories: SelectCategory[] = cats.map((e) => ({
-        label: getCurrentTranslation(e.titleContent),
-        value: e.id // Assuming `e.id` is the unique identifier for the category
+      const selectCategories: SelectCategory[] = cats.map((cat) => ({
+        label: getCurrentTranslation(cat.titleContent),
+        value: cat
       }));
       setCategories(selectCategories);
     } catch (error) {
@@ -65,6 +65,8 @@ const CategorySelect: FC<CategorySelectProps> = ({ defaultValue, name }) => {
               label: getCurrentTranslation(cat.titleContent),
               value: cat
             }))}
+            getOptionLabel={(option) => option.label}
+            getOptionValue={(option) => option.value.id}
           />
         )}
       />

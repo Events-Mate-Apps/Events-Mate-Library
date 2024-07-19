@@ -29,5 +29,5 @@ export interface SubCategory {}
 
 export interface SelectCategory {
   label: string
-  value: string
+  value: Category
 }
