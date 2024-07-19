@@ -1,10 +1,11 @@
+import { Category } from './category'
 
 export interface Vendor {
   status: string
   isPremium?: boolean,
   id: string,
   alias: string,
-  categories: string[],
+  categories: Category[],
   userId: string,
   name: string,
   phone: string,

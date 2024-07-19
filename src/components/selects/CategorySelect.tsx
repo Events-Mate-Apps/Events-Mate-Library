@@ -38,7 +38,7 @@ export const CategorySelect: FC<CategorySelectProps> = ({
         label: categories.find(cat => cat.value === value)?.label || '',
         value
       }));
-      setValue(name, selectedCategories);
+      setValue(name, selectedCategories[0] || null);
     }
   }, [categories, defaultValue, setValue, name]);
 
@@ -80,8 +80,9 @@ export const CategorySelect: FC<CategorySelectProps> = ({
             {...field}
             placeholder={t('common:select')}
             options={categories}
-            value={field.value || null}
-            onChange={(selected) => field.onChange(selected ? [selected.value] : [])}
+            value={field.value ? { label: categories.find(cat => cat.value === field.value)?.label, value: field.value } : null}
+            onChange={(selected) => field.onChange(selected ? selected.value : '')}
+            isClearable
           />
         )}
       />
