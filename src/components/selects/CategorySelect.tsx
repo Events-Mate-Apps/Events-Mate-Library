@@ -22,7 +22,6 @@ export const CategorySelect: FC<CategorySelectProps> = ({
     formState: { errors },
     control,
     setValue,
-    getValues
   } = useFormContext();
 
   const { showError } = useNotificationStore();
@@ -35,15 +34,14 @@ export const CategorySelect: FC<CategorySelectProps> = ({
   }, []);
 
   useEffect(() => {
-    const currentValues = getValues(name);
-    if (categories.length > 0 && defaultValue.length > 0 && Array.isArray(currentValues)) {
-      const selectedCategories = defaultValue.map(value => ({
-        label: categories.find(cat => cat.value === value)?.label || '',
-        value
-      }));
-      setValue(name, selectedCategories.length > 0 ? selectedCategories[0] : null);
+    if (categories.length > 0 && defaultValue.length > 0) {
+      const selectedCategories = defaultValue.map(value => {
+        const category = categories.find(cat => cat.value === value);
+        return category ? { label: category.label, value: category.value } : null;
+      }).filter(Boolean);
+      setValue(name, selectedCategories[0] || null);
     }
-  }, [categories, defaultValue, setValue, name, getValues]);
+  }, [categories, defaultValue, setValue, name]);
 
   const fetchCategories = async () => {
     try {
