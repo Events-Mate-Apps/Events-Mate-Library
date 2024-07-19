@@ -1,29 +1,21 @@
 import React, { useState, useEffect, FC } from 'react';
-import useNotificationStore from '../../stores/notification';
 import { api } from '~/utils/api';
-import { Categories, SelectCategory } from '../../interfaces/category';
+import { Categories, Category, SelectCategory } from '../../interfaces/category';
 import { useLocalization } from '../../service/LocalizationService';
-import { Controller, useFormContext } from 'react-hook-form';
+import { useFormContext, Controller } from 'react-hook-form';
 import { Select } from 'chakra-react-select';
 import useTranslation from 'next-translate/useTranslation';
 import { Box, FormLabel, useColorModeValue } from '@chakra-ui/react';
+import useNotificationStore from '../../stores/notification';
 
 interface CategorySelectProps {
-  defaultValue?: string[];
+  defaultValue?: Category[];
   name: string;
 }
 
-export const CategorySelect: FC<CategorySelectProps> = ({
-  defaultValue = [],
-  name,
-}) => {
+const CategorySelect: FC<CategorySelectProps> = ({ defaultValue, name }) => {
   const [categories, setCategories] = useState<SelectCategory[]>([]);
-  const {
-    formState: { errors },
-    control,
-    setValue,
-  } = useFormContext();
-
+  const { control } = useFormContext();
   const { showError } = useNotificationStore();
   const { getCurrentTranslation } = useLocalization();
   const { t } = useTranslation();
@@ -33,25 +25,13 @@ export const CategorySelect: FC<CategorySelectProps> = ({
     fetchCategories();
   }, []);
 
-  useEffect(() => {
-    if (categories.length > 0 && defaultValue.length > 0) {
-      const selectedCategories = defaultValue.map(value => {
-        const category = categories.find(cat => cat.value === value);
-        return category ? { label: category.label, value: category.value } : null;
-      }).filter(Boolean);
-      setValue(name, selectedCategories[0] || null);
-    }
-  }, [categories, defaultValue, setValue, name]);
-
   const fetchCategories = async () => {
     try {
       const { data: cats } = await api.get<Categories>('vendors/categories/vendor-categories');
-
       const selectCategories: SelectCategory[] = cats.map((e) => ({
         label: getCurrentTranslation(e.titleContent),
         value: e.id // Assuming `e.id` is the unique identifier for the category
       }));
-
       setCategories(selectCategories);
     } catch (error) {
       showError({ error });
@@ -81,12 +61,17 @@ export const CategorySelect: FC<CategorySelectProps> = ({
             {...field}
             placeholder={t('common:select')}
             options={categories}
-            value={field.value ? { label: categories.find(cat => cat.value === field.value)?.label, value: field.value } : null}
-            onChange={(selected) => field.onChange(selected ? selected.value : '')}
-            isClearable
+            defaultValue={defaultValue?.map(cat => ({
+              label: getCurrentTranslation(cat.titleContent),
+              value: cat.id
+            }))}
           />
         )}
       />
     </Box>
   );
-}
+};
+
+CategorySelect.defaultProps = {
+  defaultValue: []
+};
