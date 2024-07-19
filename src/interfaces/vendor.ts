@@ -59,7 +59,7 @@ export interface NewVendorForValues {
   latitude: number;
   longitude: number;
   links: VendorLink[];
-  categories: string[];
+  categories: Category[];
   postalAddress: string;
   image: Image,
   businessName: string,
