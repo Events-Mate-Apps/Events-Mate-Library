@@ -171,7 +171,7 @@ export interface VendorPost {
   name: string,
   phone: string,
   email: string,
-  categories: string[],
+  categories: Category[],
   links: VendorLink[],
   location: {
     latitude: number;
