@@ -67,7 +67,7 @@ const CategorySelect: FC<CategorySelectProps> = ({ defaultValue, name }) => {
             }))}
             getOptionLabel={(option) => option.label}
             getOptionValue={(option) => option.value.id}
-            onChange={(selectedOption) => field.onChange(selectedOption?.value)}
+            onChange={(selectedOption) => field.onChange(selectedOption ? selectedOption.value : null)}
           />
         )}
       />
