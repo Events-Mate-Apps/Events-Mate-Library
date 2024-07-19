@@ -63,7 +63,7 @@ const CategorySelect: FC<CategorySelectProps> = ({ defaultValue, name }) => {
             options={categories}
             defaultValue={defaultValue?.map(cat => ({
               label: getCurrentTranslation(cat.titleContent),
-              value: cat.id
+              value: cat
             }))}
           />
         )}
