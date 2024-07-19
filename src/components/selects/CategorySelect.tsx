@@ -13,7 +13,7 @@ interface CategorySelectProps {
   name: string;
 }
 
-const CategorySelect: FC<CategorySelectProps> = ({ defaultValue, name }) => {
+const CategorySelect: FC<CategorySelectProps> = ({ defaultValue = [], name }) => {
   const [categories, setCategories] = useState<SelectCategory[]>([]);
   const { control } = useFormContext();
   const { showError } = useNotificationStore();
@@ -61,13 +61,13 @@ const CategorySelect: FC<CategorySelectProps> = ({ defaultValue, name }) => {
             {...field}
             placeholder={t('common:select')}
             options={categories}
-            defaultValue={defaultValue?.map(cat => ({
+            defaultValue={defaultValue.map(cat => ({
               label: getCurrentTranslation(cat.titleContent),
               value: cat
             }))}
             getOptionLabel={(option) => option.label}
             getOptionValue={(option) => option.value}
-            onChange={(selectedOption) => field.onChange(selectedOption ? selectedOption.value : null)}
+            onChange={(selectedOption) => field.onChange(selectedOption ? [selectedOption.value] : [])}
           />
         )}
       />
