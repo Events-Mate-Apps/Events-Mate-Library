@@ -1,6 +1,6 @@
 import React, { useState, useEffect, FC } from 'react';
 import { api } from '~/utils/api';
-import { Categories, Category, SelectCategory } from '../../interfaces/category';
+import { Categories, SelectCategory } from '../../interfaces/category';
 import { useLocalization } from '../../service/LocalizationService';
 import { useFormContext, Controller } from 'react-hook-form';
 import { Select } from 'chakra-react-select';
@@ -9,11 +9,10 @@ import { Box, FormLabel, useColorModeValue } from '@chakra-ui/react';
 import useNotificationStore from '../../stores/notification';
 
 interface CategorySelectProps {
-  defaultValue?: Category[];
   name: string;
 }
 
-const CategorySelect: FC<CategorySelectProps> = ({ defaultValue, name }) => {
+const CategorySelect: FC<CategorySelectProps> = ({ name }) => {
   const [categories, setCategories] = useState<SelectCategory[]>([]);
   const { control } = useFormContext();
   const { showError } = useNotificationStore();
@@ -61,17 +60,13 @@ const CategorySelect: FC<CategorySelectProps> = ({ defaultValue, name }) => {
             {...field}
             placeholder={t('common:select')}
             options={categories}
-            defaultValue={defaultValue ? defaultValue[0] : null}
+            value={categories.find(option => option.value.id === field.value?.[0]?.id) || null}
             onChange={(selectedOption) => field.onChange(selectedOption ? [selectedOption.value] : [])}
           />
         )}
       />
     </Box>
   );
-};
-
-CategorySelect.defaultProps = {
-  defaultValue: []
 };
 
 export default CategorySelect;
