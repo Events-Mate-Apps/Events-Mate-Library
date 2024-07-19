@@ -12,6 +12,7 @@ interface CategorySelectProps {
   defaultValue?: string[];
   name: string;
 }
+
 export const CategorySelect: FC<CategorySelectProps> = ({
   defaultValue = [],
   name,
@@ -20,7 +21,8 @@ export const CategorySelect: FC<CategorySelectProps> = ({
   const {
     formState: { errors },
     control,
-    setValue
+    setValue,
+    getValues
   } = useFormContext();
 
   const { showError } = useNotificationStore();
@@ -33,14 +35,15 @@ export const CategorySelect: FC<CategorySelectProps> = ({
   }, []);
 
   useEffect(() => {
-    if (categories.length > 0 && defaultValue.length > 0) {
+    const currentValues = getValues(name);
+    if (categories.length > 0 && defaultValue.length > 0 && Array.isArray(currentValues)) {
       const selectedCategories = defaultValue.map(value => ({
         label: categories.find(cat => cat.value === value)?.label || '',
         value
       }));
-      setValue(name, selectedCategories[0] || null);
+      setValue(name, selectedCategories.length > 0 ? selectedCategories[0] : null);
     }
-  }, [categories, defaultValue, setValue, name]);
+  }, [categories, defaultValue, setValue, name, getValues]);
 
   const fetchCategories = async () => {
     try {
