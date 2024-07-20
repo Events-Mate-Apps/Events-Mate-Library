@@ -128,7 +128,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
               </Tag>}
           </div>}
           <LanguageBar
-            obj={vendor.faq}
+            obj={vendor}
             langToDisplay={langToDisplay}
             setLangToDisplay={setLangToDisplay}
           />
