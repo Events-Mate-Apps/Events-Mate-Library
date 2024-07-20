@@ -194,14 +194,13 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
       </Card>
       {
         (langToDisplay && vendor.descriptionContent) &&
-                <VendorDescription
-                  description={vendor.descriptionContent}
-                  language={langToDisplay}
-                />
+          <VendorDescription
+            description={vendor.descriptionContent}
+            language={langToDisplay}
+          />
       }
-      {
-        (vendor.faq.length !== 0 && vendor.isPremium && langToDisplay) &&
-                <FAQ language={langToDisplay} vendor={vendor} />
+      {(vendor.faq.length !== 0 && vendor.isPremium && langToDisplay) &&
+        <FAQ language={langToDisplay} vendor={vendor} />
       }
       <DealsCard vendor={vendor} />
       <VendorLocation vendor={vendor} />
