@@ -1,94 +1,59 @@
-import { Image } from "../interfaces/vendor";
-import { BASE_URL, api } from "../utils/api";
+import useNotificationStore from '../stores/notification';
 import imageCompression from 'browser-image-compression';
-import {DealImage} from "../interfaces/deals";
+import { api } from '~/utils/api';
+import useTranslation from 'next-translate/useTranslation';
 
-/**
- * Uploads the image to the server for a specific vendor.
- * 
- * @param img - The image file to be uploaded.
- * @param vendorId - The ID of the vendor to associate with the uploaded image.
- * @returns A promise resolving with the uploaded image data.
- */
-export const uploadVendorImage = async (img: File, vendorId: string): Promise<Image> => {
-  let imgForm;
-
-  try {
-    imgForm = new FormData();
-    imgForm.append('image', img);
-  } catch (error) {
-    console.error("Error creating FormData:", error);
-  }
-
-  const imgResponse = await fetch(`${BASE_URL}images/vendors/${vendorId}`, {
-    method: 'POST',
-    body: imgForm,
-  });
-
-  // Check if the response content type is JSON
-  const contentType = imgResponse.headers.get("content-type");
-  if (contentType && contentType.indexOf("application/json") !== -1) {
-    if (!imgResponse.ok) {
-      const err = await imgResponse.json();
-      if (imgResponse.status === 413) {
-        throw new Error('Image is too large');
-      }
-      throw new Error(err.message || 'Error uploading image.');
-    }
-
-    const json: Image = await imgResponse.json();
-    return json;
-  } else {
-    // Handle non-JSON responses
-    const text = await imgResponse.text();
-    throw new Error(`Unexpected response from server: ${text.substring(0, 100)}...`); // Display the first 100 characters of the response
-  }
-};
-
-export const simpleUploadVendorImage = async (img: File, vendorId: string): Promise<Image> => {
-  const imgForm = new FormData();
-
-  imgForm.append('image', img);
-  const res = await api.post(`${BASE_URL}images/vendors/${vendorId}`, imgForm);
-  if (!res.status.toString().startsWith('2')) {
-    const err = res.data;
-    if (res.status === 413) {
-      throw new Error('Image is too large');
-    }
-    throw new Error(err.message ?? 'Error uploading image.');
-  }
-  return res.data;
-};
-
-export async function compressImage(file: File, maxSize: number): Promise<File> {
-  try {
-    const options = {
-      maxSizeMB: maxSize / 1024 / 1024, // convert to MB
-      useWebWorker: true,
-    };
-    
-    const compressedFile = await imageCompression(file, options);
-    return compressedFile;
-  } catch (error) {
-    console.error('Error occurred while compressing image', error);
-    throw error; // rethrow the error after logging it
-  }
+interface ImageUploadParametrs {
+  endpointPath: string,
+  file: File
 }
 
-export const uploadDealImage = async (img: File, dealId: string) => {
-  const imgForm = new FormData();
+interface ImageMethods {
+  uploadImage: (params: ImageUploadParametrs) => Promise<void>;
+}
 
-  imgForm.append('image', img);
-  imgForm.append('dealId', dealId);
-  const imgResponse = await fetch(`${BASE_URL}images/deals/${dealId}`, {
-    method: 'POST',
-    body: imgForm,
-  });
-  if (!imgResponse.status.toString().startsWith('2')) {
-    if (imgResponse.status === 413) {
-      throw new Error('Image is too large');
+export function useImage(): ImageMethods {
+  const { showSuccess, showError } = useNotificationStore()
+  const { t } = useTranslation()
+
+  const uploadImage = async (params: ImageUploadParametrs) => {
+    const { file, endpointPath } = params
+    const imgForm = new FormData();
+        
+    try {      
+      const options = {
+        maxSizeMB: 700 / 1024,
+        useWebWorker: true,
+      };
+
+      const compressedFile: File | null = await imageCompression(file, options);
+      if (!compressedFile) throw new Error('Compression of image failed.')
+      imgForm.append('image', compressedFile)
+
+      const { status, data } = await api.post(endpointPath, imgForm, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
+      if (!status.toString().startsWith('2')) {
+        if (status === 413) {
+          throw new Error('Image is too large');
+        }
+        throw new Error(data.message ?? 'Error uploading image.');
+      }
+        
+      showSuccess({
+        title: t('vendors:image-uploaded'),
+        description: t('vendors:image-uploaded-successfully'),
+      });
+
+    } catch (error) {
+      showError({ error });
     }
   }
-  const json: DealImage = await imgResponse.json();
-  return json;
-};
+
+  return {
+    uploadImage
+  }
+}

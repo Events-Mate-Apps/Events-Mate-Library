@@ -1,123 +1,103 @@
-import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
+import { AddIcon } from '@chakra-ui/icons';
 import {
-  Box,
-  Button,
   Flex,
-  FormControl,
-  FormErrorMessage,
   IconButton,
-  Image,
   Input,
-  useColorModeValue,
-  useToast,
 } from '@chakra-ui/react';
-import useTranslation from 'next-translate/useTranslation';
 import { useState } from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
-import { NewVendorForValues } from '../../../interfaces/vendor';
-import { simpleUploadVendorImage, compressImage } from '../../../service/ImageService'; 
-
-export interface Image {
-  src: string;
-  hash: string;
-  alt: string;
-  id?: string;
-  position?: number;
-};
+import { Image as ImageType, Vendor } from '../../../interfaces/vendor';
+import { useImage } from '../../../service/ImageService';
+import useNotificationStore from '../../../stores/notification';
+import Upsell from '../../../components/upsell/Upsell';
 
 export interface AddImageProps {
-  vendorId: string
+  vendor: Vendor,
+  images: ImageType[],
 }
 
-const AddImage: React.FC<AddImageProps> = ({ vendorId }) => {
-  const toast = useToast();
-  const { formState: { errors } } = useFormContext<NewVendorForValues>();
-  const { t } = useTranslation();
-  const [isUploading, setUploading] = useState(false);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+const AddImage: React.FC<AddImageProps> = ({ vendor, images }) => {
+  const vendorId = vendor.id
+  const { showError } = useNotificationStore()
+  const { uploadImage } = useImage()
 
-  const handleImageUpload = async (file: File, onChange: (value: Image | null) => void) => {
+  const [isUploading, setUploading] = useState(false);
+
+  const handleImageUpload = async (file: File) => {
     setUploading(true);
     try {
-      const MAX_SIZE = 700 * 1024; // 700 KB
-
-      let compressedFile = file;
-      if (file.size > MAX_SIZE) {
-        compressedFile = await compressImage(file, MAX_SIZE);
-      }
-
-      const imgResponse = await simpleUploadVendorImage(compressedFile, vendorId);
-
-      const img: Image = {
-        ...imgResponse,
-        alt: imgResponse.alt || 'Default Alt Text',
-      };
-      onChange(img);
-
-      toast({
-        title: t('edit:success'),
-        description: t('edit:editHasBeenSuccessful'),
-        status: 'success',
-        duration: 3000,
-        isClosable: true,
-      });
-
-    } catch (e) {
-      toast({
-        title:  t('edit:error'),
-        description: `${t('edit:error')}: ${e}`,
-        status: 'error',
-        duration: 3000,
-        isClosable: false,
-      });
+      await uploadImage({
+        endpointPath: `images/vendors/${vendorId}`,
+        file
+      })
+    } catch (error) {
+      showError({ error })
     } finally {
       setUploading(false);
+      location.reload()
     }
   };
 
+  const isUserAbleToUploadAnotherImage = () => {
+    switch (vendor.priority) {
+      case 0:
+      case 1:
+        return images.length < 1
+      case 2:
+        return images.length < 10
+      default:
+        return true
+    }
+  }
+
   return (
-    <FormControl isInvalid={errors['image'] != null}>
-      <Flex h="100%" flexDir="column" alignItems="center">
-        {errors['image'] && (
-          <FormErrorMessage mb={4}>
-            {String(errors.image.message)}
-          </FormErrorMessage>
-        )}
-        <Controller
-          name="image"
-          render={({ field: { onChange, ref, value } }) => (
-            <>
-                <IconButton
-                    aria-label='Add'
-                    w="100%"
-                    h="100%"
-                    size='xl'
-                    fontSize="25px"
-                    isLoading={isUploading}
-                    onClick={() => document.getElementById('imageInput')?.click()}
-                    icon={<AddIcon />}
-                />
-                <Input
-                    type="file"
-                    accept="image/png, image/jpeg"
-                    pt={"5px"}
-                    pl={"5px"}
-                    onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (file) {
-                        setSelectedFile(file);
-                        handleImageUpload(file, onChange);
-                    }
-                    }}
-                    style={{ display: 'none' }}
-                    id="imageInput"
-                />
-            </>
-          )}
-        />
-      </Flex>
-    </FormControl>
-  );
+    <Flex
+      cursor="pointer"
+      w={{
+        sm: '80px',
+        md: '104px',
+        lg: '70px',
+        xl: '90px',
+        '2xl': '130px',
+      }}
+      aspectRatio={1 / 1}
+      flexDir="column" 
+      alignItems="center"
+    >
+      <Upsell
+        vendor={vendor}
+        isEnabled={!isUserAbleToUploadAnotherImage()}
+        w='100%'
+        h='100%'
+      >
+        <>
+          <IconButton
+            aria-label='Add'
+            w="100%"
+            h="100%"
+            size='xl'
+            fontSize="25px"
+            isLoading={isUploading}
+            onClick={() => document.getElementById('imageInput')?.click()}
+            icon={<AddIcon />}
+          />
+          <Input
+            type="file"
+            accept="image/png, image/jpeg"
+            pt={'5px'}
+            pl={'5px'}
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) {
+                handleImageUpload(file);
+              }
+            }}
+            style={{ display: 'none' }}
+            id="imageInput"
+          />
+        </>
+      </Upsell>
+    </Flex>
+  )
 }
 
 export default AddImage;
