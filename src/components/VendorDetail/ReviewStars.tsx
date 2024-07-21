@@ -23,7 +23,7 @@ const ReviewStars: React.FC<ReviewStarsProps> = ({ score, isPremium }) => {
 
   return (
     <Flex w='min-content'>
-      {<>
+      {isPremium && <>
         <Stack
           direction='row'
           spacing='4px'

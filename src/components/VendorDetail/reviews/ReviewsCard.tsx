@@ -14,7 +14,6 @@ import { api } from '~/utils/api';
 import { TinyColor } from '@ctrl/tinycolor/dist';
 import { VendorReview, VendorReviewResponse } from '../../../interfaces/types/review';
 import { Vendor } from '../../../interfaces/vendor';
-import { isEventsMate } from '../../../utils/orientation';
 import dayjs from 'dayjs';
 import useNotificationStore from '../../../stores/notification';
 
@@ -46,22 +45,22 @@ const ReviewsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
           {t('vendors:detail.reviews.label')}
         </Text>
         <Spacer />
-        <NextLink href={`/vendors/${vendor.id}/add-review`}>
-          <Button
-            display={isEventsMate() ? 'none' : 'inline-flex'}
-            borderRadius='16px'
-            background={'#e13784'}
-            _hover={{
-              background: new TinyColor('#e13784').darken(5).toString(),
-            }}
-            color='#fff'
-            lineHeight='16px'
-            px='28px'
-            h='48px'
-            fontWeight='600'>
-            {t('vendors:detail.reviews.button')}
-          </Button>
-        </NextLink>
+        <Button
+          as={NextLink}
+          borderRadius='16px'
+          background={'#e13784'}
+          _hover={{
+            background: new TinyColor('#e13784').darken(5).toString(),
+          }}
+          color='#fff'
+          lineHeight='16px'
+          px='28px'
+          h='48px'
+          fontWeight='600'
+          href={`/vendors/${vendor.id}/add-review`}
+        >
+          {t('vendors:detail.reviews.button')}
+        </Button>
       </Flex>
       <Flex
         w='100%'
@@ -78,22 +77,22 @@ const ReviewsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
         }}
       >
         {reviews != undefined &&
-                    reviews?.totalReviews > 0 &&
-                    reviews?.reviews.sort((a: VendorReview, b: VendorReview) => {
-                      return dayjs(b.createdAt).diff(dayjs(a.createdAt));
-                    }).map((review, key) => {
-                      return (
-                        <Review
-                          rating={review.rating}
-                          title={review.title}
-                          authorEmail={review.authorEmail}
-                          description={review.description}
-                          createDate={review.createdAt}
-                          key={review.title + key}
-                          vendor={vendor}
-                        />
-                      );
-                    })}
+          reviews?.totalReviews > 0 &&
+          reviews?.reviews.sort((a: VendorReview, b: VendorReview) => {
+            return dayjs(b.createdAt).diff(dayjs(a.createdAt));
+          }).map((review, key) => {
+            return (
+              <Review
+                rating={review.rating}
+                title={review.title}
+                authorEmail={review.authorEmail}
+                description={review.description}
+                createDate={review.createdAt}
+                key={review.title + key}
+                vendor={vendor}
+              />
+            );
+          })}
       </Flex>
     </Card>
   );

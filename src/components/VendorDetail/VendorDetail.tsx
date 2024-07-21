@@ -155,25 +155,25 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
               </Flex>
               <ReviewStars
                 score={vendor.rating}
-                // isPremium={!!vendor.isPremium && vendor.priority >= 2 && vendor.isPremium}
+                isPremium={!!vendor.isPremium && vendor.priority >= 2 && vendor.isPremium}
               />
               {/* <Flex gap='5px' flexWrap='wrap' mb='20px'>
-                                {vendor.categories.map((cat) => (
-                                  <Tag
-                                    variant='solid'
-                                    bgColor='blackAlpha.500'
-                                    backdropFilter='auto'
-                                    backdropBlur='md'
-                                    key={cat}
-                                  >
-                                    {t('vendors:categories.' + cat)}
-                                  </Tag>
-                                ))}
-                              </Flex>
-                            */}
+                  {vendor.categories.map((cat) => (
+                    <Tag
+                      variant='solid'
+                      bgColor='blackAlpha.500'
+                      backdropFilter='auto'
+                      backdropBlur='md'
+                      key={cat}
+                    >
+                      {t('vendors:categories.' + cat)}
+                    </Tag>
+                  ))}
+                </Flex>
+              */}
               <Contacts sendStats={sendStats} vendor={vendor} />
               {userId &&
-                            <StartMesssage vendorId={vendor.id} userId={userId|| ''} weddingId={weddingId || ''}/>}
+                <StartMesssage vendorId={vendor.id} userId={userId|| ''} weddingId={weddingId || ''}/>}
               <Box
                 color='secondaryGray.600'
                 pe={{ base: '0px', '3xl': '200px' }}
@@ -185,7 +185,6 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
                   language={langToDisplay}
                   markdown
                 />}
-
               </Box>
               <Links vendor={vendor} />
             </Flex>
