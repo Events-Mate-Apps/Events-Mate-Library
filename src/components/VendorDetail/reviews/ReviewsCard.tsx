@@ -10,7 +10,7 @@ import useTranslation from 'next-translate/useTranslation';
 import React, { useEffect, useState } from 'react';
 import Review from './Review';
 import NextLink from 'next/link';
-import { api } from '~/utils/api';
+import { api } from '../../../utils/api';
 import { TinyColor } from '@ctrl/tinycolor/dist';
 import { VendorReview, VendorReviewResponse } from '../../../interfaces/types/review';
 import { Vendor } from '../../../interfaces/vendor';
@@ -82,7 +82,7 @@ const ReviewsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
       >
         {
           vendor.priority < 3 ?
-            <Text fontWeight='500' color={textColor}>{t('vendors:detail.reviews.reviewLowPriorityMessage')}</Text> : (
+            <Text fontWeight='500' color={secondaryTextColor}>{t('vendors:detail.reviews.reviewLowPriorityMessage')}</Text> : (
               reviews != undefined &&
               reviews?.totalReviews > 0 &&
               reviews?.reviews.sort((a: VendorReview, b: VendorReview) => {
