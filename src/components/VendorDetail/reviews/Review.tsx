@@ -40,6 +40,7 @@ const Review: React.FC<ReviewProps> = ({
     <Card
       w={{ base: '300px', md: '400px' }}
       mx={{ base: '2', md: '3' }}
+      pb='2'
       border='1px solid'
       flexShrink='0'
       background={backgroundColor}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, FC } from 'react';
-import { api } from '~/utils/api';
+import { api } from '../../utils/api';
 import { Categories, SelectCategory } from '../../interfaces/category';
 import { useLocalization } from '../../service/LocalizationService';
 import { useFormContext, Controller } from 'react-hook-form';

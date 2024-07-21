@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { Flex, FormControl, SimpleGrid, Text, useColorModeValue, Input, FormLabel, Box, Button, Card } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
 import { isEventsMate } from '../../../utils/orientation';
-import { api } from '~/utils/api';
+import { api } from '../../../utils/api';
 import useNotificationStore from '../../../stores/notification'
 import { UserData } from '../../../interfaces/user';
 

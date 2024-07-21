@@ -33,10 +33,10 @@ const VendorDetailQuestionnaireResponses: FC<{ vendor: Vendor }> = ({ vendor }) 
     getAvailableQuestionnaires()
   }, [])
 
-  return (
+  if (availableQuestionnaires[0]) return (
     <Card p='20px' mb='20px'>
       <Text color={textColor} fontSize='2xl' fontWeight='700'>
-        {t('Questionnaires')}
+        {t('vendors:questionnaire.questionnaire')}
       </Text>
       {availableQuestionnaires.map(questionnaire => {
         return <QuestionnaireResponsesContainer  

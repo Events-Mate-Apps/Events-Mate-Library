@@ -6,7 +6,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import useNotificationStore from '../../stores/notification';
 import { Invoice, Price, ProductWithPrices } from '../../interfaces/stripe';
 import { Vendor } from '../../interfaces/vendor';
-import { api } from '~/utils/api';
+import { api } from '../../utils/api';
 
 interface UpsellModalProps {
   vendor: Vendor,
