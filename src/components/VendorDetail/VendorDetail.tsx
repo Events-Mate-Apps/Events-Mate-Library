@@ -29,7 +29,7 @@ import VendorPriorityBadge from '../VendorPriorityBadge';
 import VerificationDialog from '../fields/VerificationDialog';
 import StartMesssage from './StartMessage';
 import VendorDetailQuestionnaireResponses from './questionnaire/VendorDetailQuestionnaireResponses';
-import { useLocalization } from '~/service/LocalizationService';
+import { useLocalization } from '../../service/LocalizationService';
 
 interface VendorDetailProps {
   vendor: Vendor;
