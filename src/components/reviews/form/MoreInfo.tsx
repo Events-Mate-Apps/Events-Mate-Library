@@ -1,8 +1,8 @@
 import {FormControl, Text, useColorModeValue} from '@chakra-ui/react';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import InputField from '~/components/fields/InputField';
-import useTranslation from '~/misc/i18n/useTranslation';
+import InputField from '../../../components/fields/InputField';
+import useTranslation from 'next-translate';
 
 const MoreInfo: React.FC = () => {
   const {

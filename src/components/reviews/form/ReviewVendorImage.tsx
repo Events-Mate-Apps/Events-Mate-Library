@@ -1,8 +1,8 @@
 
 import React from 'react';
-import Image from '@em-library/components/image/Image';
+import Image from '../../../components/image/Image';
 import { Box, Flex } from '@chakra-ui/react';
-import { Vendor } from '@em-library/interfaces/vendor'
+import { Vendor } from '../../../interfaces/vendor'
 
 const ReviewVendorImage: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
   //TODO more complex selection of image
