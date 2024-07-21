@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, Flex, Text, Divider } from '@chakra-ui/react';
 import { Rating } from 'react-simple-star-rating';
 import { useFormContext } from 'react-hook-form';
-import useTranslation from 'next-translate';
+import useTranslation from 'next-translate/useTranslation';
 
 const StarRating: React.FC<{ attribute: string }> = ({ attribute }) => {
   const {

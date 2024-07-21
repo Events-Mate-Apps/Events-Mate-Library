@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import InputField from '../../../components/fields/InputField';
 import SwitchField from '../../../components/fields/SwitchField';
-import useTranslation from 'next-translate';
+import useTranslation from 'next-translate/useTranslation';
 import TextArea from '../../../components/fields/TextArea';
 
 const Recommendation: React.FC = () => {

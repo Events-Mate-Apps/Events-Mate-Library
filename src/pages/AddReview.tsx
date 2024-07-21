@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { VendorReviewPost } from '../interfaces/review';
-import useTranslation from 'next-translate';
+import useTranslation from 'next-translate/useTranslation';
 import { FormProvider, useForm } from 'react-hook-form';
 import Confetti from 'react-confetti';
 import NextLink from 'next/link';
@@ -26,7 +26,7 @@ import ReviewVendorImage from '../components/reviews/form/ReviewVendorImage';
 import useNotificationStore from '../stores/notification';
 import { api } from '../utils/api';
 import AsyncButton from '../components/buttons/AsyncButton';
-
+  
 export type NewReviewFormValues = {
   qualityOfService: number,
   responsiveness: number,
@@ -41,7 +41,7 @@ export type NewReviewFormValues = {
   guestsAttended?: number,
   authorEmail: string,
 };
-
+  
 const AddReview: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
   const form = useForm<NewReviewFormValues>({
     mode: 'onChange',
@@ -50,14 +50,14 @@ const AddReview: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
       didWeHelp: true
     }
   });
-
+  
   const { formState } = form;
   const { showError } = useNotificationStore();
-
+  
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const [showConfetti, setShowConfetti] = useState<boolean>(false);
   const [currentTab, setCurrentTab] = useState<number>(0);
-
+  
   const { t } = useTranslation();
   const tabs = [
     t('vendors:detail.reviews.form.tabs.rateIt'),
@@ -73,14 +73,14 @@ const AddReview: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
     t('vendors:detail.reviews.form.tabTitles.finalStep'),
     t('vendors:detail.reviews.form.tabTitles.done'),
   ]
-
+  
   const sendReview = async (values: NewReviewFormValues) => {
-
+  
     const roundTo = function (num: number, places: number) {
       const factor = 10 ** places;
       return Math.round(num * factor) / factor;
     };
-
+  
     const review: VendorReviewPost = {
       rating: roundTo((values.qualityOfService + values.responsiveness + values.professionalism + values.value + values.flexibility) / 5, 1),
       authorIp: '0.0.0.0', //TODO needs to be redone, so the user doesn't send more than one review
@@ -99,7 +99,7 @@ const AddReview: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
     };
     try {
       await api.post(`vendors/${vendor.id}/reviews`, review);
-
+  
       setCurrentTab(4);
       setShowConfetti(true);
       setTimeout(() => setShowConfetti(false), 5000);
@@ -107,22 +107,22 @@ const AddReview: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
       showError({ error });
     }
   }
-
+  
   //TODO instead of form.watch, StarRating component should re-render index.tsx automatically using formContext somehow
   const watchedFields = form.watch(['qualityOfService', 'responsiveness', 'professionalism', 'value', 'flexibility']);
   let nextStepEnabled = true;
-
+  
   watchedFields.forEach((rating) => {
     if (!rating) {
       nextStepEnabled = false
     }
   })
-
+  
   const onSubmit = (values: NewReviewFormValues) => {
     if (currentTab === 3) sendReview(values);
     else setCurrentTab(currentTab + 1);
   }
-
+  
   return (
     <Box p='2%'>
       <Flex
@@ -318,5 +318,6 @@ const AddReview: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
     </Box>
   );
 }
-
+  
 export default AddReview;
+  
