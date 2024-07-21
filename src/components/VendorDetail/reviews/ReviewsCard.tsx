@@ -16,24 +16,27 @@ import { VendorReview, VendorReviewResponse } from '../../../interfaces/types/re
 import { Vendor } from '../../../interfaces/vendor';
 import dayjs from 'dayjs';
 import useNotificationStore from '../../../stores/notification';
+import QueryString from 'qs'
 
 const ReviewsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
   const textColor = useColorModeValue('secondaryGray.900', 'white');
-  const [reviews, setReviews] = useState<VendorReviewResponse>();
+  const [reviews, setReviews] = useState<VendorReviewResponse | null>(null);
   const { t } = useTranslation();
 
   const { showError } = useNotificationStore();
 
   const getReviews = async () => {
+    const query = QueryString.stringify({ take: 5, skip: 0 });
+
     try {
-      const { data } = await api.get(`vendors/${vendor.id}/reviews?take=5&skip=0`);
+      const { data } = await api.get(`vendors/${vendor.id}/reviews?${query}`);
       setReviews(data);
     } catch (error) {
       showError({ error });
     }
   }
 
-  useEffect(() => {
+  useEffect(() => { 
     getReviews()
   }, []);
 
@@ -76,23 +79,27 @@ const ReviewsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
           }
         }}
       >
-        {reviews != undefined &&
-          reviews?.totalReviews > 0 &&
-          reviews?.reviews.sort((a: VendorReview, b: VendorReview) => {
-            return dayjs(b.createdAt).diff(dayjs(a.createdAt));
-          }).map((review, key) => {
-            return (
-              <Review
-                rating={review.rating}
-                title={review.title}
-                authorEmail={review.authorEmail}
-                description={review.description}
-                createDate={review.createdAt}
-                key={review.title + key}
-                vendor={vendor}
-              />
-            );
-          })}
+        {
+          vendor.priority < 3 ?
+            <p>You can create a review but no one sees it due to low priority.</p> : (
+              reviews != undefined &&
+              reviews?.totalReviews > 0 &&
+              reviews?.reviews.sort((a: VendorReview, b: VendorReview) => {
+                return dayjs(b.createdAt).diff(dayjs(a.createdAt));
+              }).map((review, key) => {
+                return (
+                  <Review
+                    rating={review.rating}
+                    title={review.title}
+                    authorEmail={review.authorEmail}
+                    description={review.description}
+                    createDate={review.createdAt}
+                    key={review.title + key}
+                    vendor={vendor}
+                  />
+                );
+              }))
+        }
       </Flex>
     </Card>
   );
