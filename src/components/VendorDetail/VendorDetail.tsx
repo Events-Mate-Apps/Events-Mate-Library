@@ -29,6 +29,7 @@ import VendorPriorityBadge from '../VendorPriorityBadge';
 import VerificationDialog from '../fields/VerificationDialog';
 import StartMesssage from './StartMessage';
 import VendorDetailQuestionnaireResponses from './questionnaire/VendorDetailQuestionnaireResponses';
+import { useLocalization } from '~/service/LocalizationService';
 
 interface VendorDetailProps {
   vendor: Vendor;
@@ -41,6 +42,7 @@ interface VendorDetailProps {
 const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, userId, weddingId }) => {
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const { t } = useTranslation();
+  const { getCurrentTranslation } = useLocalization()
 
   const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: false });
   const { push, replace, query, pathname } = useRouter();
@@ -53,7 +55,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
 
   useEffect(() => {
     if (reviewConfirmedToken !== undefined
-            && !isOpen) {
+      && !isOpen) {
       onOpen();
     }
   }, [reviewConfirmedToken, isOpen])
@@ -157,20 +159,20 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
                 score={vendor.rating}
                 isPremium={!!vendor.isPremium && vendor.priority >= 2 && vendor.isPremium}
               />
-              {/* <Flex gap='5px' flexWrap='wrap' mb='20px'>
-                  {vendor.categories.map((cat) => (
-                    <Tag
-                      variant='solid'
-                      bgColor='blackAlpha.500'
-                      backdropFilter='auto'
-                      backdropBlur='md'
-                      key={cat}
-                    >
-                      {t('vendors:categories.' + cat)}
-                    </Tag>
-                  ))}
-                </Flex>
-              */}
+              <Flex gap='5px' flexWrap='wrap' mb='20px'>
+                {vendor.categories.map((category) => (
+                  <Tag
+                    variant='solid'
+                    bgColor='blackAlpha.500'
+                    backdropFilter='auto'
+                    backdropBlur='md'
+                    key={category.id}
+                  >
+                    {getCurrentTranslation(category.titleContent)}
+                  </Tag>
+                ))}
+              </Flex>
+             
               <Contacts sendStats={sendStats} vendor={vendor} />
               {userId &&
                 <StartMesssage vendorId={vendor.id} userId={userId|| ''} weddingId={weddingId || ''}/>}

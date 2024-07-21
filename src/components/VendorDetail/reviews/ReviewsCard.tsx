@@ -81,6 +81,9 @@ const ReviewsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
         }}
       >
         {
+          !reviews && <Text fontWeight='500' color={secondaryTextColor}>{t('vendors:detail.reviews.noReviewsYet')}</Text>
+        }
+        {
           vendor.priority < 3 ?
             <Text fontWeight='500' color={secondaryTextColor}>{t('vendors:detail.reviews.reviewLowPriorityMessage')}</Text> : (
               reviews != undefined &&
