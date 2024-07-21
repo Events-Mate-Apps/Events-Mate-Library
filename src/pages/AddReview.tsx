@@ -42,7 +42,7 @@ export type NewReviewFormValues = {
   authorEmail: string,
 };
 
-const VendorReview: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
+const AddReview: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
   const form = useForm<NewReviewFormValues>({
     mode: 'onChange',
     defaultValues: {
@@ -319,4 +319,4 @@ const VendorReview: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
   );
 }
 
-export default VendorReview;
+export default AddReview;
