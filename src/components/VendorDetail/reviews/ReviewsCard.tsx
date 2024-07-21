@@ -81,14 +81,14 @@ const ReviewsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
         }}
       >
         {
-          !reviews && <Text fontWeight='500' color={secondaryTextColor}>{t('vendors:detail.reviews.noReviewsYet')}</Text>
+          (!reviews || !reviews.reviews[0]) && <Text fontWeight='500' color={secondaryTextColor}>{t('vendors:detail.reviews.noReviewsYet')}</Text>
         }
         {
           vendor.priority < 3 ?
             <Text fontWeight='500' color={secondaryTextColor}>{t('vendors:detail.reviews.reviewLowPriorityMessage')}</Text> : (
-              reviews != undefined &&
-              reviews?.totalReviews > 0 &&
-              reviews?.reviews.sort((a: VendorReview, b: VendorReview) => {
+              reviews &&
+              reviews.totalReviews > 0 &&
+              reviews.reviews.sort((a: VendorReview, b: VendorReview) => {
                 return dayjs(b.createdAt).diff(dayjs(a.createdAt));
               }).map((review, key) => {
                 return (
