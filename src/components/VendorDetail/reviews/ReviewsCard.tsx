@@ -42,7 +42,7 @@ const ReviewsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
 
   //TODO add a button to 'See all'
   return (
-    <Card p='30px' mb='20px' display={vendor.priority >= 2 && vendor.isPremium ? 'flex' : 'none'}>
+    <Card p='30px' mb='20px' display='flex'>
       <Flex w='100%' mb='20px'>
         <Text color={textColor} fontSize='2xl' fontWeight='700'>
           {t('vendors:detail.reviews.label')}
