@@ -20,6 +20,7 @@ import QueryString from 'qs'
 
 const ReviewsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
   const textColor = useColorModeValue('secondaryGray.900', 'white');
+  const secondaryTextColor = useColorModeValue('secondaryGray.700', 'white');
   const [reviews, setReviews] = useState<VendorReviewResponse | null>(null);
   const { t } = useTranslation();
 
@@ -81,7 +82,7 @@ const ReviewsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
       >
         {
           vendor.priority < 3 ?
-            <p>You can create a review but no one sees it due to low priority.</p> : (
+            <Text fontWeight='500' color={textColor}>{t('vendors:detail.reviews.reviewLowPriorityMessage')}</Text> : (
               reviews != undefined &&
               reviews?.totalReviews > 0 &&
               reviews?.reviews.sort((a: VendorReview, b: VendorReview) => {
