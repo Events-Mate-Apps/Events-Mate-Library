@@ -138,7 +138,7 @@ export type Address = Partial<{
 export interface SmallVendor {
   id?: string,
   name: string,
-  categories: string[],
+  categories: Category[],
   email?: string,
   phone?: string,
   weddingId: string,
@@ -153,7 +153,7 @@ export interface LandingVendor {
   rating: number,
   image: Image,
   address: Partial<Address>,
-  categories: string[],
+  categories: Category[],
   alias: string,
 }
 
