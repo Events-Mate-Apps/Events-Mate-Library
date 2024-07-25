@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { api } from '../utils/api';
 import { TrackGoogleAnalyticsEvent } from '../utils/analytics/googleAnalytics/init'; // Assuming this is where the analytics function is defined
-import useNotificationStore from '../stores/notification'
+import useNotificationStore from '../stores/notification';
 
 interface UserState {
   isLoggedIn: boolean;
@@ -41,11 +41,11 @@ type PricingStore = PricingState & PricingActions;
 const usePricingStore = create<PricingStore>()(
   persist(
     (set, get) => {
-      const { showError } = useNotificationStore();
+      const { showError } = useNotificationStore.getState();
 
       return {
         userStore: {
-          isLoggedIn: false, // initial value, update accordingly
+          isLoggedIn: false,
         },
         vendorId: null,
         currentPrice: null,
@@ -162,7 +162,7 @@ const usePricingStore = create<PricingStore>()(
             return null;
           }
         },
-      }
+      };
     },
     {
       name: 'pricing-store',
