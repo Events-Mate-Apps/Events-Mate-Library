@@ -3,6 +3,7 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import { api } from '../utils/api';
 import { TrackGoogleAnalyticsEvent } from '../utils/analytics/googleAnalytics/init'; // Assuming this is where the analytics function is defined
 import useNotificationStore from '../stores/notification';
+import { useRouter } from 'next/router';
 
 interface UserState {
   isLoggedIn: boolean;
@@ -30,7 +31,7 @@ interface PricingActions {
   setVendor: (vendor: any) => void;
   upgradeSubscription: (priceId: string, router: any) => Promise<void>;
   handleSessionCreationFailure: (error: any, price: Price, router: any) => Promise<void>;
-  createPaymentSession: (price: Price, router: any) => Promise<void>;
+  createPaymentSession: (price: Price) => Promise<void>;
   payment: (router: any) => Promise<void>;
   getVendor: () => Promise<void>;
   calculateProration: (priceId: string, router: any) => Promise<any>;
@@ -97,12 +98,15 @@ const usePricingStore = create<PricingStore>()(
           }
         },
 
-        createPaymentSession: async (price, router) => {
+        createPaymentSession: async (price ) => {
+        /* eslint-disable */
+          const router = useRouter();
           const { userStore, vendorId, handleSessionCreationFailure } = get();
           if (userStore.isLoggedIn === false || !vendorId) {
             router.push('/auth/signin');
             return;
           }
+        /* eslint-enable */
 
           try {
             const { statusText, status, data } = await api.post('payments/create-session', {
@@ -130,7 +134,7 @@ const usePricingStore = create<PricingStore>()(
           }
 
           if (currentPrice) {
-            await createPaymentSession(currentPrice, router);
+            await createPaymentSession(currentPrice);
           }
         },
 
