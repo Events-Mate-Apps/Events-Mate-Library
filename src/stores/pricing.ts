@@ -3,8 +3,8 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import { api } from '../utils/api';
 import { TrackGoogleAnalyticsEvent } from '../utils/analytics/googleAnalytics/init'; // Assuming this is where the analytics function is defined
 import useNotificationStore from '../stores/notification';
-import  Router  from 'next/router';
-import useUserStore from './auth';
+import Router from 'next/router';
+
 interface Price {
   id: string;
   unit_amount: number;
@@ -24,12 +24,12 @@ interface PricingActions {
   setVendorId: (id: string) => void;
   setCurrentPrice: (price: Price) => void;
   setVendor: (vendor: any) => void;
-  upgradeSubscription: (priceId: string) => Promise<void>;
-  handleSessionCreationFailure: (error: any, price: Price) => Promise<void>;
-  createPaymentSession: (price: Price) => Promise<void>;
-  payment: () => Promise<void>;
+  upgradeSubscription: (priceId: string, isLoggedIn: boolean) => Promise<void>;
+  handleSessionCreationFailure: (error: any, price: Price, isLoggedIn: boolean) => Promise<void>;
+  createPaymentSession: (price: Price, isLoggedIn: boolean) => Promise<void>;
+  payment: (isLoggedIn: boolean) => Promise<void>;
   getVendor: () => Promise<void>;
-  calculateProration: (priceId: string) => Promise<any>;
+  calculateProration: (priceId: string, isLoggedIn: boolean) => Promise<any>;
 }
 
 type PricingStore = PricingState & PricingActions;
@@ -38,7 +38,6 @@ const usePricingStore = create<PricingStore>()(
   persist(
     (set, get) => {
       const { showError } = useNotificationStore.getState();
-      const isLoggedIn = useUserStore().isLoggedIn
 
       return {
         vendorId: null,
@@ -48,7 +47,7 @@ const usePricingStore = create<PricingStore>()(
         setVendorId: (id) => set({ vendorId: id }),
         setCurrentPrice: (price) => set({ currentPrice: price }),
         setVendor: (vendor) => set({ vendor }),
-        upgradeSubscription: async (priceId) => {
+        upgradeSubscription: async (priceId, isLoggedIn) => {
           const { vendorId } = get();
           if (isLoggedIn === false || !vendorId) {
             Router.push('/auth/signin');
@@ -72,12 +71,12 @@ const usePricingStore = create<PricingStore>()(
           }
         },
 
-        handleSessionCreationFailure: async (error, price) => {
+        handleSessionCreationFailure: async (error, price, isLoggedIn) => {
           const { upgradeSubscription, calculateProration } = get();
           showError({ error });
           handlePlanSelectionEvent(price, error.raw?.message ?? error.message);
 
-          const prorationResponse = await calculateProration(price.id);
+          const prorationResponse = await calculateProration(price.id, isLoggedIn); // Pass isLoggedIn as true since this function is called within another authenticated function
 
           if (prorationResponse) {
             const confirmUpgrade = window.confirm(
@@ -85,13 +84,13 @@ const usePricingStore = create<PricingStore>()(
             );
 
             if (confirmUpgrade) {
-              await upgradeSubscription(price.id);
+              await upgradeSubscription(price.id, isLoggedIn); // Pass isLoggedIn as true since this function is called within another authenticated function
             }
           }
         },
 
-        createPaymentSession: async (price ) => {
-          const {vendorId, handleSessionCreationFailure } = get();
+        createPaymentSession: async (price, isLoggedIn) => {
+          const { vendorId, handleSessionCreationFailure } = get();
           if (isLoggedIn === false || !vendorId) {
             Router.push('/auth/signin');
             return;
@@ -111,19 +110,19 @@ const usePricingStore = create<PricingStore>()(
             handlePlanSelectionEvent(price);
             window.location.href = link;
           } catch (error) {
-            handleSessionCreationFailure(error, price);
+            handleSessionCreationFailure(error, price, isLoggedIn);
           }
         },
 
-        payment: async () => {
-          const {vendorId, currentPrice, createPaymentSession } = get();
+        payment: async (isLoggedIn) => {
+          const { vendorId, currentPrice, createPaymentSession } = get();
           if (isLoggedIn === false || !vendorId) {
             Router.push('/auth/signin');
             return;
           }
 
           if (currentPrice) {
-            await createPaymentSession(currentPrice);
+            await createPaymentSession(currentPrice, isLoggedIn);
           }
         },
 
@@ -137,8 +136,8 @@ const usePricingStore = create<PricingStore>()(
           }
         },
 
-        calculateProration: async (priceId) => {
-          const {vendorId } = get();
+        calculateProration: async (priceId, isLoggedIn) => {
+          const { vendorId } = get();
           if (isLoggedIn === false || !vendorId) {
             Router.push('/auth/signin');
             return null;
