@@ -3,7 +3,7 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import { api } from '../utils/api';
 import { TrackGoogleAnalyticsEvent } from '../utils/analytics/googleAnalytics/init'; // Assuming this is where the analytics function is defined
 import useNotificationStore from '../stores/notification';
-import { useRouter } from 'next/router';
+import  Router  from 'next/router';
 
 interface UserState {
   isLoggedIn: boolean;
@@ -29,12 +29,12 @@ interface PricingActions {
   setVendorId: (id: string) => void;
   setCurrentPrice: (price: Price) => void;
   setVendor: (vendor: any) => void;
-  upgradeSubscription: (priceId: string, router: any) => Promise<void>;
-  handleSessionCreationFailure: (error: any, price: Price, router: any) => Promise<void>;
+  upgradeSubscription: (priceId: string) => Promise<void>;
+  handleSessionCreationFailure: (error: any, price: Price) => Promise<void>;
   createPaymentSession: (price: Price) => Promise<void>;
-  payment: (router: any) => Promise<void>;
+  payment: () => Promise<void>;
   getVendor: () => Promise<void>;
-  calculateProration: (priceId: string, router: any) => Promise<any>;
+  calculateProration: (priceId: string) => Promise<any>;
 }
 
 type PricingStore = PricingState & PricingActions;
@@ -56,10 +56,10 @@ const usePricingStore = create<PricingStore>()(
         setCurrentPrice: (price) => set({ currentPrice: price }),
         setVendor: (vendor) => set({ vendor }),
 
-        upgradeSubscription: async (priceId, router) => {
+        upgradeSubscription: async (priceId) => {
           const { userStore, vendorId } = get();
           if (userStore.isLoggedIn === false || !vendorId) {
-            router.push('/auth/signin');
+            Router.push('/auth/signin');
             return;
           }
 
@@ -80,12 +80,12 @@ const usePricingStore = create<PricingStore>()(
           }
         },
 
-        handleSessionCreationFailure: async (error, price, router) => {
+        handleSessionCreationFailure: async (error, price) => {
           const { upgradeSubscription, calculateProration } = get();
           showError({ error });
           handlePlanSelectionEvent(price, error.raw?.message ?? error.message);
 
-          const prorationResponse = await calculateProration(price.id, router);
+          const prorationResponse = await calculateProration(price.id);
 
           if (prorationResponse) {
             const confirmUpgrade = window.confirm(
@@ -93,20 +93,17 @@ const usePricingStore = create<PricingStore>()(
             );
 
             if (confirmUpgrade) {
-              await upgradeSubscription(price.id, router);
+              await upgradeSubscription(price.id);
             }
           }
         },
 
         createPaymentSession: async (price ) => {
-        /* eslint-disable */
-          const router = useRouter();
           const { userStore, vendorId, handleSessionCreationFailure } = get();
           if (userStore.isLoggedIn === false || !vendorId) {
-            router.push('/auth/signin');
+            Router.push('/auth/signin');
             return;
           }
-        /* eslint-enable */
 
           try {
             const { statusText, status, data } = await api.post('payments/create-session', {
@@ -122,14 +119,14 @@ const usePricingStore = create<PricingStore>()(
             handlePlanSelectionEvent(price);
             window.location.href = link;
           } catch (error) {
-            handleSessionCreationFailure(error, price, router);
+            handleSessionCreationFailure(error, price);
           }
         },
 
-        payment: async (router) => {
+        payment: async () => {
           const { userStore, vendorId, currentPrice, createPaymentSession } = get();
           if (userStore.isLoggedIn === false || !vendorId) {
-            router.push('/auth/signin');
+            Router.push('/auth/signin');
             return;
           }
 
@@ -148,10 +145,10 @@ const usePricingStore = create<PricingStore>()(
           }
         },
 
-        calculateProration: async (priceId, router) => {
+        calculateProration: async (priceId) => {
           const { userStore, vendorId } = get();
           if (userStore.isLoggedIn === false || !vendorId) {
-            router.push('/auth/signin');
+            Router.push('/auth/signin');
             return null;
           }
 
