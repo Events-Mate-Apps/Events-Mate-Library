@@ -4,11 +4,7 @@ import { api } from '../utils/api';
 import { TrackGoogleAnalyticsEvent } from '../utils/analytics/googleAnalytics/init'; // Assuming this is where the analytics function is defined
 import useNotificationStore from '../stores/notification';
 import  Router  from 'next/router';
-
-interface UserState {
-  isLoggedIn: boolean;
-}
-
+import useUserStore from './auth';
 interface Price {
   id: string;
   unit_amount: number;
@@ -19,7 +15,6 @@ interface Price {
 }
 
 interface PricingState {
-  userStore: UserState;
   vendorId: string | null;
   currentPrice: Price | null;
   vendor: any;
@@ -43,11 +38,9 @@ const usePricingStore = create<PricingStore>()(
   persist(
     (set, get) => {
       const { showError } = useNotificationStore.getState();
+      const isLoggedIn = useUserStore().isLoggedIn
 
       return {
-        userStore: {
-          isLoggedIn: false,
-        },
         vendorId: null,
         currentPrice: null,
         vendor: null,
@@ -55,10 +48,9 @@ const usePricingStore = create<PricingStore>()(
         setVendorId: (id) => set({ vendorId: id }),
         setCurrentPrice: (price) => set({ currentPrice: price }),
         setVendor: (vendor) => set({ vendor }),
-
         upgradeSubscription: async (priceId) => {
-          const { userStore, vendorId } = get();
-          if (userStore.isLoggedIn === false || !vendorId) {
+          const { vendorId } = get();
+          if (isLoggedIn === false || !vendorId) {
             Router.push('/auth/signin');
             return;
           }
@@ -99,8 +91,8 @@ const usePricingStore = create<PricingStore>()(
         },
 
         createPaymentSession: async (price ) => {
-          const { userStore, vendorId, handleSessionCreationFailure } = get();
-          if (userStore.isLoggedIn === false || !vendorId) {
+          const {vendorId, handleSessionCreationFailure } = get();
+          if (isLoggedIn === false || !vendorId) {
             Router.push('/auth/signin');
             return;
           }
@@ -124,8 +116,8 @@ const usePricingStore = create<PricingStore>()(
         },
 
         payment: async () => {
-          const { userStore, vendorId, currentPrice, createPaymentSession } = get();
-          if (userStore.isLoggedIn === false || !vendorId) {
+          const {vendorId, currentPrice, createPaymentSession } = get();
+          if (isLoggedIn === false || !vendorId) {
             Router.push('/auth/signin');
             return;
           }
@@ -146,8 +138,8 @@ const usePricingStore = create<PricingStore>()(
         },
 
         calculateProration: async (priceId) => {
-          const { userStore, vendorId } = get();
-          if (userStore.isLoggedIn === false || !vendorId) {
+          const {vendorId } = get();
+          if (isLoggedIn === false || !vendorId) {
             Router.push('/auth/signin');
             return null;
           }
