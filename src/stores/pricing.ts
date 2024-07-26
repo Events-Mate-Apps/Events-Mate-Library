@@ -50,7 +50,7 @@ const usePricingStore = create<PricingStore>()(
         upgradeSubscription: async (priceId, isLoggedIn) => {
           const { vendorId } = get();
           if (isLoggedIn === false || !vendorId) {
-            Router.push('/auth/signin');
+            Router.push('/auth/test');
             return;
           }
 
@@ -92,7 +92,7 @@ const usePricingStore = create<PricingStore>()(
         createPaymentSession: async (price, isLoggedIn) => {
           const { vendorId, handleSessionCreationFailure } = get();
           if (isLoggedIn === false || !vendorId) {
-            Router.push('/auth/signin');
+            Router.push('/auth/test');
             return;
           }
 
@@ -117,7 +117,7 @@ const usePricingStore = create<PricingStore>()(
         payment: async (isLoggedIn) => {
           const { vendorId, currentPrice, createPaymentSession } = get();
           if (isLoggedIn === false || !vendorId) {
-            Router.push('/auth/signin');
+            Router.push('/auth/test');
             return;
           }
 
@@ -139,7 +139,7 @@ const usePricingStore = create<PricingStore>()(
         calculateProration: async (priceId, isLoggedIn) => {
           const { vendorId } = get();
           if (isLoggedIn === false || !vendorId) {
-            Router.push('/auth/signin');
+            Router.push('/auth/test');
             return null;
           }
 
