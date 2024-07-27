@@ -3,7 +3,7 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import { api } from '../utils/api';
 import { TrackGoogleAnalyticsEvent } from '../utils/analytics/googleAnalytics/init'; // Assuming this is where the analytics function is defined
 import useNotificationStore from '../stores/notification';
-import Router, { useRouter } from 'next/router';
+import Router from 'next/router';
 import { Vendor } from '~/interfaces/vendor';
 
 interface Price {
@@ -22,12 +22,14 @@ interface PricingState {
 }
 
 interface PricingActions {
+  setVendorId: (vendorId: string) => void;
   setCurrentPrice: (price: Price) => Promise<void>;
   upgradeSubscription: (priceId: string, isLoggedIn: boolean) => Promise<void>;
   handleSessionCreationFailure: (error: any, price: Price, isLoggedIn: boolean) => Promise<void>;
   createPaymentSession: (price: Price, isLoggedIn: boolean) => Promise<void>;
   payment: (isLoggedIn: boolean) => Promise<void>;
   calculateProration: (priceId: string, isLoggedIn: boolean) => Promise<any>;
+  getVendor: () => Promise<void>;
 }
 
 type PricingStore = PricingState & PricingActions;
@@ -36,9 +38,6 @@ const usePricingStore = create<PricingStore>()(
   persist(
     (set, get) => {
       const { showError } = useNotificationStore.getState();
-      const { query: { vendorId } } = useRouter();
-
-      const getVendorIdViaQuery = () => vendorId as string;
 
       const handlePlanSelectionEvent = (price: Price, error?: string) => {
         TrackGoogleAnalyticsEvent({
@@ -57,7 +56,7 @@ const usePricingStore = create<PricingStore>()(
       };
 
       const upgradeSubscription = async (priceId: string, isLoggedIn: boolean) => {
-        const vendorId = getVendorIdViaQuery();
+        const vendorId = get().vendorId;
         if (isLoggedIn === false || !vendorId) {
           Router.push('/auth/signin');
           return;
@@ -81,9 +80,13 @@ const usePricingStore = create<PricingStore>()(
       };
 
       return {
-        vendorId: vendorId as string | null,
+        vendorId: null,
         currentPrice: null,
         vendor: null,
+
+        setVendorId: (vendorId: string) => {
+          set({ vendorId });
+        },
 
         setCurrentPrice: async (price: Price) => {
           set({ currentPrice: price });
@@ -106,7 +109,7 @@ const usePricingStore = create<PricingStore>()(
           }
         },
         createPaymentSession: async (price, isLoggedIn) => {
-          const vendorId = getVendorIdViaQuery();
+          const vendorId = get().vendorId;
           if (isLoggedIn === false || !vendorId) {
             Router.push('/auth/signin');
             return;
@@ -130,7 +133,7 @@ const usePricingStore = create<PricingStore>()(
           }
         },
         payment: async (isLoggedIn) => {
-          const vendorId = getVendorIdViaQuery();
+          const vendorId = get().vendorId;
           if (isLoggedIn === false || !vendorId) {
             Router.push('/auth/signin');
             return;
@@ -142,7 +145,7 @@ const usePricingStore = create<PricingStore>()(
           }
         },
         getVendor: async () => {
-          const vendorId = getVendorIdViaQuery();
+          const vendorId = get().vendorId;
           try {
             const { data } = await api.get(`vendors/${vendorId}`);
             set({ vendor: data });
@@ -151,7 +154,7 @@ const usePricingStore = create<PricingStore>()(
           }
         },
         calculateProration: async (priceId, isLoggedIn) => {
-          const vendorId = getVendorIdViaQuery();
+          const vendorId = get().vendorId;
           if (isLoggedIn === false || !vendorId) {
             Router.push('/auth/signin');
             return null;
