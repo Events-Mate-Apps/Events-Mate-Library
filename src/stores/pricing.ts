@@ -4,6 +4,7 @@ import { api } from '../utils/api';
 import { TrackGoogleAnalyticsEvent } from '../utils/analytics/googleAnalytics/init'; // Assuming this is where the analytics function is defined
 import useNotificationStore from '../stores/notification';
 import Router, { useRouter } from 'next/router';
+import { Vendor } from '~/interfaces/vendor';
 
 interface Price {
   id: string;
@@ -17,17 +18,14 @@ interface Price {
 interface PricingState {
   vendorId: string | null;
   currentPrice: Price | null;
-  vendor: any;
+  vendor: Vendor | null;
 }
 
 interface PricingActions {
-  setCurrentPrice: (price: Price) => void;
-  setVendor: (vendor: any) => void;
   upgradeSubscription: (priceId: string, isLoggedIn: boolean) => Promise<void>;
   handleSessionCreationFailure: (error: any, price: Price, isLoggedIn: boolean) => Promise<void>;
   createPaymentSession: (price: Price, isLoggedIn: boolean) => Promise<void>;
   payment: (isLoggedIn: boolean) => Promise<void>;
-  getVendor: () => Promise<void>;
   calculateProration: (priceId: string, isLoggedIn: boolean) => Promise<any>;
 }
 
@@ -86,8 +84,6 @@ const usePricingStore = create<PricingStore>()(
         currentPrice: null,
         vendor: null,
 
-        setCurrentPrice: (price) => set({ currentPrice: price }),
-        setVendor: (vendor) => set({ vendor }),
         upgradeSubscription,
         handleSessionCreationFailure: async (error, price, isLoggedIn) => {
           const { upgradeSubscription, calculateProration } = get();
