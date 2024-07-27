@@ -29,7 +29,6 @@ interface PricingActions {
   createPaymentSession: (price: Price, isLoggedIn: boolean) => Promise<void>;
   payment: (isLoggedIn: boolean) => Promise<void>;
   calculateProration: (priceId: string, isLoggedIn: boolean) => Promise<any>;
-  getVendor: () => Promise<void>;
 }
 
 type PricingStore = PricingState & PricingActions;
@@ -147,15 +146,6 @@ const usePricingStore = create<PricingStore>()(
           const currentPrice = get().currentPrice;
           if (currentPrice) {
             await get().createPaymentSession(currentPrice, isLoggedIn);
-          }
-        },
-        getVendor: async () => {
-          const vendorId = getVendorIdFromRouter();
-          try {
-            const { data } = await api.get(`vendors/${vendorId}`);
-            set({ vendor: data });
-          } catch (error) {
-            showError({ error });
           }
         },
         calculateProration: async (priceId, isLoggedIn) => {
