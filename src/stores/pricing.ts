@@ -3,7 +3,7 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import { api } from '../utils/api';
 import { TrackGoogleAnalyticsEvent } from '../utils/analytics/googleAnalytics/init'; // Assuming this is where the analytics function is defined
 import useNotificationStore from '../stores/notification';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 
 interface Price {
   id: string;
@@ -21,7 +21,6 @@ interface PricingState {
 }
 
 interface PricingActions {
-  setVendorId: (id: string) => void;
   setCurrentPrice: (price: Price) => void;
   setVendor: (vendor: any) => void;
   upgradeSubscription: (priceId: string, isLoggedIn: boolean) => Promise<void>;
@@ -38,59 +37,75 @@ const usePricingStore = create<PricingStore>()(
   persist(
     (set, get) => {
       const { showError } = useNotificationStore.getState();
+      const { query: { vendorId } } = useRouter();
+
+      const getVendorIdViaQuery = () => vendorId as string;
+
+      const handlePlanSelectionEvent = (price: Price, error?: string) => {
+        TrackGoogleAnalyticsEvent({
+          action: 'plan_selected',
+          label: 'Plan Selected',
+          page: 'Pricing',
+          params: {
+            /* eslint-disable */
+            selected_plan_price: (price.unit_amount / 100).toString(),
+            selected_plan_currency: price.currency,
+            selected_plan_interval: price.recurring.interval,
+            /* eslint-enable */
+            error: error,
+          },
+        });
+      };
+
+      const upgradeSubscription = async (priceId: string, isLoggedIn: boolean) => {
+        const vendorId = getVendorIdViaQuery();
+        if (isLoggedIn === false || !vendorId) {
+          Router.push('/auth/signin');
+          return;
+        }
+
+        try {
+          const { data, status, statusText } = await api.post('payments/upgrade-subscription', {
+            newPriceId: priceId,
+            vendorId,
+          });
+
+          if (status !== 200) {
+            throw new Error(`Upgrade failed: ${statusText}`);
+          }
+
+          const upgradeLink = await data;
+          window.location.href = upgradeLink;
+        } catch (error) {
+          showError({ error });
+        }
+      };
 
       return {
-        vendorId: null,
+        vendorId: vendorId as string | null,
         currentPrice: null,
         vendor: null,
 
-        setVendorId: (id) => set({ vendorId: id }),
         setCurrentPrice: (price) => set({ currentPrice: price }),
         setVendor: (vendor) => set({ vendor }),
-        upgradeSubscription: async (priceId, isLoggedIn) => {
-          const { vendorId } = get();
-          if (isLoggedIn === false || !vendorId) {
-            Router.push('/auth/signin');
-            return;
-          }
-
-          try {
-            const { data, status, statusText } = await api.post('payments/upgrade-subscription', {
-              newPriceId: priceId,
-              vendorId,
-            });
-
-            if (status !== 200) {
-              throw new Error(`Upgrade failed: ${statusText}`);
-            }
-
-            const upgradeLink = await data;
-            window.location.href = upgradeLink;
-          } catch (error) {
-            showError({ error });
-          }
-        },
-
+        upgradeSubscription,
         handleSessionCreationFailure: async (error, price, isLoggedIn) => {
           const { upgradeSubscription, calculateProration } = get();
           showError({ error });
           handlePlanSelectionEvent(price, error.raw?.message ?? error.message);
 
-          const prorationResponse = await calculateProration(price.id, isLoggedIn); // Pass isLoggedIn as true since this function is called within another authenticated function
+          const prorationResponse = await calculateProration(price.id, isLoggedIn);
 
           if (prorationResponse) {
-            const confirmUpgrade = window.confirm(
-              `Proration Amount: ${prorationResponse.amount_due}`
-            );
+            const confirmUpgrade = window.confirm(`Proration Amount: ${prorationResponse.amount_due}`);
 
             if (confirmUpgrade) {
-              await upgradeSubscription(price.id, isLoggedIn); // Pass isLoggedIn as true since this function is called within another authenticated function
+              await upgradeSubscription(price.id, isLoggedIn);
             }
           }
         },
-
         createPaymentSession: async (price, isLoggedIn) => {
-          const { vendorId, handleSessionCreationFailure } = get();
+          const vendorId = getVendorIdViaQuery();
           if (isLoggedIn === false || !vendorId) {
             Router.push('/auth/signin');
             return;
@@ -110,34 +125,32 @@ const usePricingStore = create<PricingStore>()(
             handlePlanSelectionEvent(price);
             window.location.href = link;
           } catch (error) {
-            handleSessionCreationFailure(error, price, isLoggedIn);
+            get().handleSessionCreationFailure(error, price, isLoggedIn);
           }
         },
-
         payment: async (isLoggedIn) => {
-          const { vendorId, currentPrice, createPaymentSession } = get();
+          const vendorId = getVendorIdViaQuery();
           if (isLoggedIn === false || !vendorId) {
             Router.push('/auth/signin');
             return;
           }
 
+          const currentPrice = get().currentPrice;
           if (currentPrice) {
-            await createPaymentSession(currentPrice, isLoggedIn);
+            await get().createPaymentSession(currentPrice, isLoggedIn);
           }
         },
-
         getVendor: async () => {
-          const { vendorId, setVendor } = get();
+          const vendorId = getVendorIdViaQuery();
           try {
             const { data } = await api.get(`vendors/${vendorId}`);
-            setVendor(data);
+            set({ vendor: data });
           } catch (error) {
             showError({ error });
           }
         },
-
         calculateProration: async (priceId, isLoggedIn) => {
-          const { vendorId } = get();
+          const vendorId = getVendorIdViaQuery();
           if (isLoggedIn === false || !vendorId) {
             Router.push('/auth/signin');
             return null;
@@ -164,19 +177,3 @@ const usePricingStore = create<PricingStore>()(
 );
 
 export default usePricingStore;
-
-const handlePlanSelectionEvent = (price: Price, error?: string) => {
-  TrackGoogleAnalyticsEvent({
-    action: 'plan_selected',
-    label: 'Plan Selected',
-    page: 'Pricing',
-    params: {
-      /* eslint-disable */
-      selected_plan_price: (price.unit_amount / 100).toString(),
-      selected_plan_currency: price.currency,
-      selected_plan_interval: price.recurring.interval,
-      /* eslint-enable */
-      error: error
-    }
-  });
-};
