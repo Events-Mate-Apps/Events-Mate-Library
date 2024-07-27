@@ -34,6 +34,11 @@ interface PricingActions {
 
 type PricingStore = PricingState & PricingActions;
 
+const getVendorIdFromRouter = () => {
+  const { query: { vendorId } } = Router;
+  return vendorId as string | null;
+}
+
 const usePricingStore = create<PricingStore>()(
   persist(
     (set, get) => {
@@ -56,7 +61,7 @@ const usePricingStore = create<PricingStore>()(
       };
 
       const upgradeSubscription = async (priceId: string, isLoggedIn: boolean) => {
-        const vendorId = get().vendorId;
+        const vendorId = getVendorIdFromRouter();
         if (isLoggedIn === false || !vendorId) {
           Router.push('/auth/signin');
           return;
@@ -109,8 +114,7 @@ const usePricingStore = create<PricingStore>()(
           }
         },
         createPaymentSession: async (price, isLoggedIn) => {
-          const { query: { vendorId } } = Router
-
+          const vendorId = getVendorIdFromRouter();
           if (isLoggedIn === false || !vendorId) {
             Router.push('/auth/signin');
             return;
@@ -134,7 +138,7 @@ const usePricingStore = create<PricingStore>()(
           }
         },
         payment: async (isLoggedIn) => {
-          const vendorId = get().vendorId;
+          const vendorId = getVendorIdFromRouter();
           if (isLoggedIn === false || !vendorId) {
             Router.push('/auth/signin');
             return;
@@ -146,7 +150,7 @@ const usePricingStore = create<PricingStore>()(
           }
         },
         getVendor: async () => {
-          const vendorId = get().vendorId;
+          const vendorId = getVendorIdFromRouter();
           try {
             const { data } = await api.get(`vendors/${vendorId}`);
             set({ vendor: data });
@@ -155,7 +159,7 @@ const usePricingStore = create<PricingStore>()(
           }
         },
         calculateProration: async (priceId, isLoggedIn) => {
-          const vendorId = get().vendorId;
+          const vendorId = getVendorIdFromRouter();
           if (isLoggedIn === false || !vendorId) {
             Router.push('/auth/signin');
             return null;
