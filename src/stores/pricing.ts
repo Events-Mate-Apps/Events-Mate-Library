@@ -22,6 +22,7 @@ interface PricingState {
 }
 
 interface PricingActions {
+  setCurrentPrice: (price: Price) => Promise<void>;
   upgradeSubscription: (priceId: string, isLoggedIn: boolean) => Promise<void>;
   handleSessionCreationFailure: (error: any, price: Price, isLoggedIn: boolean) => Promise<void>;
   createPaymentSession: (price: Price, isLoggedIn: boolean) => Promise<void>;
@@ -83,6 +84,10 @@ const usePricingStore = create<PricingStore>()(
         vendorId: vendorId as string | null,
         currentPrice: null,
         vendor: null,
+
+        setCurrentPrice: async (price: Price) => {
+          set({ currentPrice: price });
+        },
 
         upgradeSubscription,
         handleSessionCreationFailure: async (error, price, isLoggedIn) => {
