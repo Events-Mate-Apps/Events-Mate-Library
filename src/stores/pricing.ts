@@ -109,7 +109,8 @@ const usePricingStore = create<PricingStore>()(
           }
         },
         createPaymentSession: async (price, isLoggedIn) => {
-          const vendorId = get().vendorId;
+          const { query: { vendorId } } = Router
+
           if (isLoggedIn === false || !vendorId) {
             Router.push('/auth/signin');
             return;
