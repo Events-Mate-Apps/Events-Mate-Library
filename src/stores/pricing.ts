@@ -4,7 +4,7 @@ import { api } from '../utils/api';
 import { TrackGoogleAnalyticsEvent } from '../utils/analytics/googleAnalytics/init'; // Assuming this is where the analytics function is defined
 import useNotificationStore from '../stores/notification';
 import Router from 'next/router';
-import { Vendor } from '~/interfaces/vendor';
+import { Vendor } from '../interfaces/vendor';
 
 interface Price {
   id: string;
