@@ -58,6 +58,7 @@ interface UserActions {
   signUp: (body: SignUpRequest) => Promise<void>;
   signOut: () => void;
   setWedding: (wedding: Wedding) => void;
+  setUserEmail: (email: string) => void;
 }
 
 type UserStore = UserState & UserActions
@@ -132,6 +133,11 @@ const useUserStore = create<UserStore>()(
           user: null,
           token: null,
         });
+      },
+      setUserEmail: (email: string) => {
+        set((state) => ({
+          user: state.user ? { ...state.user, email } : null,
+        }));
       },
       setWedding: (wedding) => {
         set({

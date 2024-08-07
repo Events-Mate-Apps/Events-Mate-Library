@@ -5,6 +5,7 @@ import { isEventsMate } from '../../../utils/orientation';
 import { api } from '../../../utils/api';
 import useNotificationStore from '../../../stores/notification'
 import { UserData } from '../../../interfaces/user';
+import useUserStore from '~/stores/auth';
 
 interface InformationProps {
   user: UserData
@@ -15,6 +16,7 @@ const Information: FC<InformationProps> = ({ user }) => {
   const textColorSecondary = 'secondaryGray.600';
   const { t } = useTranslation();
   const { showError, showSuccess } = useNotificationStore();
+  const setUserEmail = useUserStore((state) => state.setUserEmail);
 
   const [username, setUsername] = useState(user.username || '');
   const [email, setEmail] = useState(user.email || '');
@@ -43,6 +45,7 @@ const Information: FC<InformationProps> = ({ user }) => {
 
     try {
       await api.put('users/', payload);
+      setUserEmail(email);
       showSuccess();
     } catch (error) {
       console.error('Error updating profile:', error);
