@@ -5,7 +5,7 @@ import { isEventsMate } from '../../../utils/orientation';
 import { api } from '../../../utils/api';
 import useNotificationStore from '../../../stores/notification'
 import { UserData } from '../../../interfaces/user';
-import useUserStore from '~/stores/auth';
+import useUserStore from '../../../stores/auth';
 
 interface InformationProps {
   user: UserData
