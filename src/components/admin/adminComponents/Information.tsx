@@ -17,8 +17,9 @@ const Information: FC<InformationProps> = ({ user }) => {
   const { t } = useTranslation();
   const { showError, showSuccess } = useNotificationStore();
   const setUserEmail = useUserStore((state) => state.setUserEmail);
+  const setUsername = useUserStore((state) => state.setUsername);
 
-  const [username, setUsername] = useState(user.username || '');
+  const [username, setUsernameState] = useState(user.username || '');
   const [email, setEmail] = useState(user.email || '');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -45,6 +46,7 @@ const Information: FC<InformationProps> = ({ user }) => {
 
     try {
       await api.put('users/', payload);
+      setUsername(username)
       setUserEmail(email);
       showSuccess();
     } catch (error) {
@@ -95,7 +97,7 @@ const Information: FC<InformationProps> = ({ user }) => {
             <Input 
               id="username" 
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) => setUsernameState(e.target.value)}
               placeholder="@simmmple.web" 
             />
           </Box>
