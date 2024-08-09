@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Text, Flex } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
 import { ChatIcon } from '@chakra-ui/icons';
-import { api } from '~/utils/api';
+import { api } from '../../utils/api';
 import { useRouter } from 'next/router';
 
 interface StartMessageProps {

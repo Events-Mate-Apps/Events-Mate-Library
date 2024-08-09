@@ -1,7 +1,7 @@
 import { Box, Button, FormControl, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, SimpleGrid, useColorModeValue, useDisclosure } from '@chakra-ui/react';
 import { Select } from 'chakra-react-select';
 import React, { Dispatch, SetStateAction, useState } from 'react';
-import FormLabel from '~/components/fields/FormLabel';
+import FormLabel from '../../components/fields/FormLabel';
 import { Language, TranslationTextContent } from '../../interfaces/vendor';
 import LanguageList from 'language-list';
 

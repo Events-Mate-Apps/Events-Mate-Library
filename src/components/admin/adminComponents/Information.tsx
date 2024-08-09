@@ -2,9 +2,10 @@ import { FC, useEffect, useState } from 'react';
 import { Flex, FormControl, SimpleGrid, Text, useColorModeValue, Input, FormLabel, Box, Button, Card } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
 import { isEventsMate } from '../../../utils/orientation';
-import { api } from '~/utils/api';
+import { api } from '../../../utils/api';
 import useNotificationStore from '../../../stores/notification'
 import { UserData } from '../../../interfaces/user';
+import useUserStore from '../../../stores/auth';
 
 interface InformationProps {
   user: UserData
@@ -15,8 +16,10 @@ const Information: FC<InformationProps> = ({ user }) => {
   const textColorSecondary = 'secondaryGray.600';
   const { t } = useTranslation();
   const { showError, showSuccess } = useNotificationStore();
+  const setUserEmail = useUserStore((state) => state.setUserEmail);
+  const setUsername = useUserStore((state) => state.setUsername);
 
-  const [username, setUsername] = useState(user.username || '');
+  const [username, setUsernameState] = useState(user.username || '');
   const [email, setEmail] = useState(user.email || '');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -25,6 +28,8 @@ const Information: FC<InformationProps> = ({ user }) => {
   const fetchUserSettings = async () => {
     try {
       const { data } = await api.get<UserData>('users/settings');
+      setFirstName(data.firstName || '')
+      setLastName(data.lastName || '')
       setUserSettings(data);
     } catch (error) {
       console.error('Error fetching user settings:', error);
@@ -41,6 +46,8 @@ const Information: FC<InformationProps> = ({ user }) => {
 
     try {
       await api.put('users/', payload);
+      setUsername(username)
+      setUserEmail(email);
       showSuccess();
     } catch (error) {
       console.error('Error updating profile:', error);
@@ -90,7 +97,7 @@ const Information: FC<InformationProps> = ({ user }) => {
             <Input 
               id="username" 
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) => setUsernameState(e.target.value)}
               placeholder="@simmmple.web" 
             />
           </Box>

@@ -1,6 +1,6 @@
 import { Button, Flex, FormControl, FormLabel, Input, Text, useColorModeValue, Card } from '@chakra-ui/react';
 import { useState, FC } from 'react';
-import { api } from '~/utils/api';
+import { api } from '../../../utils/api';
 import { UserData } from '../../../interfaces/user';
 import { isEventsMate } from '../../../utils/orientation';
 import useTranslation from 'next-translate/useTranslation';

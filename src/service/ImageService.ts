@@ -1,6 +1,6 @@
 import useNotificationStore from '../stores/notification';
 import imageCompression from 'browser-image-compression';
-import { api } from '~/utils/api';
+import { api } from '../utils/api';
 import useTranslation from 'next-translate/useTranslation';
 
 interface ImageUploadParametrs {

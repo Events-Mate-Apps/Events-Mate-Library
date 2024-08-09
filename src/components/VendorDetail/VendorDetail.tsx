@@ -29,6 +29,7 @@ import VendorPriorityBadge from '../VendorPriorityBadge';
 import VerificationDialog from '../fields/VerificationDialog';
 import StartMesssage from './StartMessage';
 import VendorDetailQuestionnaireResponses from './questionnaire/VendorDetailQuestionnaireResponses';
+import { useLocalization } from '../../service/LocalizationService';
 
 interface VendorDetailProps {
   vendor: Vendor;
@@ -41,6 +42,7 @@ interface VendorDetailProps {
 const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, userId, weddingId }) => {
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const { t } = useTranslation();
+  const { getCurrentTranslation } = useLocalization()
 
   const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: false });
   const { push, replace, query, pathname } = useRouter();
@@ -53,7 +55,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
 
   useEffect(() => {
     if (reviewConfirmedToken !== undefined
-            && !isOpen) {
+      && !isOpen) {
       onOpen();
     }
   }, [reviewConfirmedToken, isOpen])
@@ -128,7 +130,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
               </Tag>}
           </div>}
           <LanguageBar
-            obj={vendor.faq}
+            obj={vendor}
             langToDisplay={langToDisplay}
             setLangToDisplay={setLangToDisplay}
           />
@@ -157,23 +159,23 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
                 score={vendor.rating}
                 isPremium={!!vendor.isPremium && vendor.priority >= 2 && vendor.isPremium}
               />
-              {/* <Flex gap='5px' flexWrap='wrap' mb='20px'>
-                                {vendor.categories.map((cat) => (
-                                  <Tag
-                                    variant='solid'
-                                    bgColor='blackAlpha.500'
-                                    backdropFilter='auto'
-                                    backdropBlur='md'
-                                    key={cat}
-                                  >
-                                    {t('vendors:categories.' + cat)}
-                                  </Tag>
-                                ))}
-                              </Flex>
-                            */}
+              <Flex gap='5px' flexWrap='wrap' mb='20px'>
+                {vendor.categories.map((category) => (
+                  <Tag
+                    variant='solid'
+                    bgColor='blackAlpha.500'
+                    backdropFilter='auto'
+                    backdropBlur='md'
+                    key={category.id}
+                  >
+                    {getCurrentTranslation(category.titleContent)}
+                  </Tag>
+                ))}
+              </Flex>
+             
               <Contacts sendStats={sendStats} vendor={vendor} />
               {userId &&
-                            <StartMesssage vendorId={vendor.id} userId={userId|| ''} weddingId={weddingId || ''}/>}
+                <StartMesssage vendorId={vendor.id} userId={userId|| ''} weddingId={weddingId || ''}/>}
               <Box
                 color='secondaryGray.600'
                 pe={{ base: '0px', '3xl': '200px' }}
@@ -185,7 +187,6 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
                   language={langToDisplay}
                   markdown
                 />}
-
               </Box>
               <Links vendor={vendor} />
             </Flex>
@@ -194,14 +195,13 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
       </Card>
       {
         (langToDisplay && vendor.descriptionContent) &&
-                <VendorDescription
-                  description={vendor.descriptionContent}
-                  language={langToDisplay}
-                />
+          <VendorDescription
+            description={vendor.descriptionContent}
+            language={langToDisplay}
+          />
       }
-      {
-        (vendor.faq.length !== 0 && vendor.isPremium && langToDisplay) &&
-                <FAQ language={langToDisplay} vendor={vendor} />
+      {(vendor.faq.length !== 0 && vendor.isPremium && langToDisplay) &&
+        <FAQ language={langToDisplay} vendor={vendor} />
       }
       <DealsCard vendor={vendor} />
       <VendorLocation vendor={vendor} />

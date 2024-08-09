@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect } from 'react';
 import { Box, Heading, Text, FormControl, Flex, Button, Card } from '@chakra-ui/react';
 import { Select } from 'chakra-react-select';
-import { api } from '~/utils/api';
+import { api } from '../../../utils/api';
 import useTranslation from 'next-translate/useTranslation';
 import { isEventsMate } from '../../../utils/orientation';
 import { UserSettingsInterface } from '../../../interfaces/user';

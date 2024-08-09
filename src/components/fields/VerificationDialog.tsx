@@ -12,7 +12,7 @@ import {
 import { FaCheckCircle } from 'react-icons/fa';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useEffect } from 'react';
-import { api } from '@/utils/api';
+import { api } from '../../utils/api';
 import useNotificationStore from '../../stores/notification';
 
 interface VerificationDialogProps {
