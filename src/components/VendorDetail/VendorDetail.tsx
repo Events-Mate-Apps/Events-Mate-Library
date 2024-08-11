@@ -55,10 +55,6 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
   const [langToDisplay, setLangToDisplay] = useState<string | null>(null)
 
   useEffect(() => {
-    console.log('Current develop')
-  }, [])
-
-  useEffect(() => {
     if (reviewConfirmedToken !== undefined
       && !isOpen) {
       onOpen();
