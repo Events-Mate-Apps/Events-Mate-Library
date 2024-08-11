@@ -46,12 +46,17 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
 
   const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: false });
   const { push, replace, query, pathname } = useRouter();
+
   const goToPricings = (vendorId: string) => {
     push(`/main/pricing?vendorId=${vendorId}`);
   }
 
   const reviewConfirmedToken = query.confirmReviewToken;
   const [langToDisplay, setLangToDisplay] = useState<string | null>(null)
+
+  useEffect(() => {
+    console.log('Current develop')
+  }, [])
 
   useEffect(() => {
     if (reviewConfirmedToken !== undefined
