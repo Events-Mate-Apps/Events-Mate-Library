@@ -238,7 +238,7 @@ export interface AdministrativeArea{
   id: number,
   isoCode: string
   nameContent: TranslationTextContent,
-  subVendorAdministrativeArea?: VendorAdministrativeArea,
+  subAdministrativeAreas?: VendorAdministrativeArea,
   nameId: number
 }
 export interface SupportedCountry {
