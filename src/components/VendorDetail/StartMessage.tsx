@@ -39,7 +39,7 @@ const StartMessage: React.FC<StartMessageProps> = ({ vendorId, userId, weddingId
           color="#1B2559"
           fontWeight="500"
         >
-          {t('vendors:messages.yourChats')}
+          {t('vendors:messages.messageVendor')}
         </Text>
         <ChatIcon ml={2}color="#e13784" />
       </Flex>
