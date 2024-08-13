@@ -10,7 +10,6 @@ import {
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { Vendor } from '../../interfaces/vendor';
-import VendorDescription from './Description';
 import FAQ from './FAQ';
 import VendorLocation from './Location';
 import useTranslation from 'next-translate/useTranslation';
@@ -196,13 +195,6 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
           </Flex>
         </Flex>
       </Card>
-      {
-        (langToDisplay && vendor.descriptionContent) &&
-          <VendorDescription
-            description={vendor.descriptionContent}
-            language={langToDisplay}
-          />
-      }
       {(vendor.faq.length !== 0 && vendor.isPremium && langToDisplay) &&
         <FAQ language={langToDisplay} vendor={vendor} />
       }
