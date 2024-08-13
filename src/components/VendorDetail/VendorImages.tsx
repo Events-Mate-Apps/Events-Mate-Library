@@ -56,19 +56,30 @@ const VendorImages: React.FC<VendorImagesProps> = ({ vendor, editable, refetch }
           alt=""
         />
       </Box>
-      {
-        (editable && refetch) ? (
-          <EditableImageList
-            vendor={vendor} 
-            setCurrentImage={setCurrentImage}
-          />
-        ) : (
-          <ImageList
-            vendor={vendor} 
-            setCurrentImage={setCurrentImage}
-          />
-        )
-      }
+      <Box w={
+        editable ? { base: '100%' } :
+          {
+            sm: '100%',
+            md: '100%',
+            lg: '800px',
+            xl: '555px',
+            '2xl': '745px',
+          }
+      }>
+        {
+          (editable && refetch) ? (
+            <EditableImageList
+              vendor={vendor} 
+              setCurrentImage={setCurrentImage}
+            />
+          ) : (
+            <ImageList
+              vendor={vendor} 
+              setCurrentImage={setCurrentImage}
+            />
+          )
+        }
+      </Box>
     </Flex>
   );
 }

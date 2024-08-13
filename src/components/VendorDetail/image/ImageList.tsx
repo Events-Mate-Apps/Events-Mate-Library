@@ -1,4 +1,4 @@
-import { Box, Stack } from '@chakra-ui/react';
+import { Box, Wrap } from '@chakra-ui/react';
 import { Vendor } from '../../../interfaces/vendor'
 import Image from '../../image/Image';
 
@@ -10,9 +10,8 @@ interface ImageListProps {
 const ImageList: React.FC<ImageListProps> = ({ vendor, setCurrentImage }) => {
 
   return (
-    <Stack
-      direction="row"
-      spacing={{ sm: '20px', md: '35px', lg: '20px' }}
+    <Wrap
+      gap={{ sm: '20px', md: '35px', lg: '20px' }}
       justifyContent="flex-start"
       width="fit-content"
     >
@@ -47,7 +46,7 @@ const ImageList: React.FC<ImageListProps> = ({ vendor, setCurrentImage }) => {
           />
         </Box>
       ))}
-    </Stack>
+    </Wrap>
   )
 }
 

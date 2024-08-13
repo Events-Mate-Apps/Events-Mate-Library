@@ -136,8 +136,10 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
             setLangToDisplay={setLangToDisplay}
           />
           <Flex direction={{ sm: 'column', lg: 'column', xl: 'row' }}>
-            <VendorImages vendor={vendor} />
-            <Flex direction='column' w='100%'>
+            <Box>
+              <VendorImages vendor={vendor} />
+            </Box>
+            <Flex direction='column'>
               <Flex
                 alignItems='center'
                 mb='12px'
