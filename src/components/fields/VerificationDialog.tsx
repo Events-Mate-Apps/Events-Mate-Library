@@ -26,22 +26,22 @@ const VerificationDialog: React.FC<VerificationDialogProps> = ({ path, isOpen, t
   const cancelRef = React.useRef<HTMLButtonElement | null>(null);
 
   const { t } = useTranslation();
-  // const { showError } = useNotificationStore();
+  const { showError } = useNotificationStore();
   const cancelButton = useColorModeValue('white', 'gray.700');
 
-  // const verification = async () => {
-  //   try {
-  //     await api.post(path);
-  //   } catch (error) {
-  //     showError({ error });
-  //   }
-  // }
+  const verification = async () => {
+    try {
+      await api.post(path);
+    } catch (error) {
+      showError({ error });
+    }
+  }
 
-  // useEffect(() => {
-  //   if (isOpen) {
-  //     verification();
-  //   }
-  // }, [isOpen]);
+  useEffect(() => {
+    if (isOpen) {
+      verification();
+    }
+  }, [isOpen]);
 
   return (
     <>
