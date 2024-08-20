@@ -39,7 +39,6 @@ const VerificationDialog: React.FC<VerificationDialogProps> = ({ path, isOpen, t
     }
   }
   
-
   useEffect(() => {
     if (isOpen) {
       verification();
