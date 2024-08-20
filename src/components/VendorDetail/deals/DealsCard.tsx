@@ -43,26 +43,30 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
   const [deals, setDeals] = useState<DealType[]>([])
   const getDeals = async (): Promise<void> => {
     try {
-      const { data } = await api.get(`vendors/${vendor.id}/deals`)
+      const { data } = await api.get(`vendors/${vendor.id}/deals`);
       const sortedDeals = (data as DealType[]).slice().sort((a, b) => {
         const isPermanentComparison = b.isPermanent ? 1 : -1;
-    
+  
         if (a.isPermanent !== b.isPermanent) {
           return isPermanentComparison;
         }
-        
+  
         return dayjs(b.endsAt).diff(dayjs(a.endsAt));
       });
-      setDeals(sortedDeals)
-    } catch (error) {
-      showError({ error })
+      setDeals(sortedDeals);
+    } catch (error: any) {
+      if (error?.response?.data?.message !== 'Vendor is not premium') {
+        showError({ error });
+      }
     }
   }
-
+  
   useEffect(() => {
-    vendor.priority > 2 && getDeals()
-  }, [])
-
+    if (vendor.priority > 2) {
+      getDeals();
+    }
+  }, []);
+  
   useEffect(() => {
     router.pathname.includes('edit') && setIsInDashboard(true);
   }, []);
