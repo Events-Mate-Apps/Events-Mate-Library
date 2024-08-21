@@ -33,10 +33,13 @@ const VerificationDialog: React.FC<VerificationDialogProps> = ({ path, isOpen, t
     try {
       await api.post(path);
     } catch (error) {
-      showError({ error });
+      const err = error as CustomError;
+      if (err?.message !== 'Vendor is not premium') {
+        showError({ error: err });
+      }
     }
   }
-
+  
   useEffect(() => {
     if (isOpen) {
       verification();
