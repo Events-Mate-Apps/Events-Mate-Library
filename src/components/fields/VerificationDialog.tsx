@@ -32,9 +32,10 @@ const VerificationDialog: React.FC<VerificationDialogProps> = ({ path, isOpen, t
   const verification = async () => {
     try {
       await api.post(path);
-    } catch (error: any) {
-      if (error?.response?.data?.message !== 'Email already verified') {
-        showError({ error });
+    } catch (error) {
+      const err = error as CustomError;
+      if (err?.message !== 'Vendor is not premium') {
+        showError({ error: err });
       }
     }
   }
