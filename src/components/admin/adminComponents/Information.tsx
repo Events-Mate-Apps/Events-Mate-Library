@@ -23,8 +23,8 @@ const Information: FC<InformationProps> = ({ user }) => {
 
   const [username, setUsernameState] = useState(user.username || '');
   const [email, setEmail] = useState(user.email || '');
-  const [firstNameState, setFirstNameState] = useState('');
-  const [lastNameState, setLastNameState] = useState('');
+  const [firstNameState, setFirstNameState] = useState(user.firstName || '');
+  const [lastNameState, setLastNameState] = useState(user.firstName||'');
   const [userSettings, setUserSettings] = useState<UserData>()
 
   const fetchUserSettings = async () => {
