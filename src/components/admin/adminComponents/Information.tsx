@@ -30,8 +30,6 @@ const Information: FC<InformationProps> = ({ user }) => {
   const fetchUserSettings = async () => {
     try {
       const { data } = await api.get<UserData>('users/settings');
-      setFirstNameState(data.firstName || '')
-      setLastNameState(data.lastName || '')
       setUserSettings(data);
     } catch (error) {
       console.error('Error fetching user settings:', error);
