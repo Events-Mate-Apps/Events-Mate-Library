@@ -8,7 +8,8 @@ interface ProfileProps {
 
 const Profile: FC<ProfileProps> = ({ user }) => {
   const textColor = useColorModeValue('secondaryGray.900', 'white');
- 
+  const textColorSecondary = 'secondaryGray.600';
+
 
   return (
     <Card mb="20px">
@@ -18,7 +19,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
           <Text color={textColor} fontWeight="bold" fontSize="2xl">
             {user.username}
           </Text>
-          <Text mt="1px" color={textColor} fontSize="md">
+          <Text mt="1px" color={textColorSecondary} fontSize="md">
             {user.email}
           </Text>
         </Flex>
