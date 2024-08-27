@@ -18,18 +18,20 @@ const Information: FC<InformationProps> = ({ user }) => {
   const { showError, showSuccess } = useNotificationStore();
   const setUserEmail = useUserStore((state) => state.setUserEmail);
   const setUsername = useUserStore((state) => state.setUsername);
+  const setFirstName = useUserStore((state) => state.setFirstName);
+  const setLastName = useUserStore((state) => state.setLastName);
 
   const [username, setUsernameState] = useState(user.username || '');
   const [email, setEmail] = useState(user.email || '');
-  const [firstName, setFirstName] = useState(user.firstName||'');
-  const [lastName, setLastName] = useState(user.lastName ||'');
+  const [firstName, setFirstNameState] = useState(user.firstName || '');
+  const [lastName, setLastNameState] = useState(user.lastName || '');
   const [userSettings, setUserSettings] = useState<UserData>()
 
   const fetchUserSettings = async () => {
     try {
       const { data } = await api.get<UserData>('users/settings');
-      setFirstName(data.firstName || '')
-      setLastName(data.lastName || '')
+      setFirstNameState(data.firstName || '')
+      setLastNameState(data.lastName || '')
       setUserSettings(data);
     } catch (error) {
       console.error('Error fetching user settings:', error);
@@ -48,6 +50,8 @@ const Information: FC<InformationProps> = ({ user }) => {
       await api.put('users/', payload);
       setUsername(username)
       setUserEmail(email);
+      setFirstName(firstName);
+      setLastName(lastName);
       showSuccess();
     } catch (error) {
       console.error('Error updating profile:', error);
@@ -115,7 +119,7 @@ const Information: FC<InformationProps> = ({ user }) => {
             <Input 
               id="first_name" 
               value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              onChange={(e) => setFirstNameState(e.target.value)}
               placeholder={userSettings?.firstName || t('guests:form.firstName')}
             />
           </Box>
@@ -124,7 +128,7 @@ const Information: FC<InformationProps> = ({ user }) => {
             <Input 
               id="last_name" 
               value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              onChange={(e) => setLastNameState(e.target.value)}
               placeholder={userSettings?.lastName || t('guests:form.lastName')}
             />
           </Box>
