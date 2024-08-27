@@ -23,8 +23,8 @@ const Information: FC<InformationProps> = ({ user }) => {
 
   const [username, setUsernameState] = useState(user.username || '');
   const [email, setEmail] = useState(user.email || '');
-  const [firstName, setFirstNameState] = useState(user.firstName || '');
-  const [lastName, setLastNameState] = useState(user.lastName || '');
+  const [firstNameState, setFirstNameState] = useState('');
+  const [lastNameState, setLastNameState] = useState('');
   const [userSettings, setUserSettings] = useState<UserData>()
 
   const fetchUserSettings = async () => {
@@ -42,16 +42,16 @@ const Information: FC<InformationProps> = ({ user }) => {
     const payload = {
       email,
       username,
-      firstName,
-      lastName,
+      firstNameState,
+      lastNameState,
     };
 
     try {
       await api.put('users/', payload);
       setUsername(username)
       setUserEmail(email);
-      setFirstName(firstName);
-      setLastName(lastName);
+      setFirstName(firstNameState);
+      setLastName(lastNameState);
       showSuccess();
     } catch (error) {
       console.error('Error updating profile:', error);
@@ -118,7 +118,7 @@ const Information: FC<InformationProps> = ({ user }) => {
             <FormLabel htmlFor="first_name">{t('guests:form.firstName')}</FormLabel>
             <Input 
               id="first_name" 
-              value={firstName}
+              value={firstNameState}
               onChange={(e) => setFirstNameState(e.target.value)}
               placeholder={userSettings?.firstName || t('guests:form.firstName')}
             />
@@ -127,7 +127,7 @@ const Information: FC<InformationProps> = ({ user }) => {
             <FormLabel htmlFor="last_name">{t('guests:form.lastName')}</FormLabel>
             <Input 
               id="last_name" 
-              value={lastName}
+              value={lastNameState}
               onChange={(e) => setLastNameState(e.target.value)}
               placeholder={userSettings?.lastName || t('guests:form.lastName')}
             />
