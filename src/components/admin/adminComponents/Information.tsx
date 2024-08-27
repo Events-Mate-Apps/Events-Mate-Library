@@ -3,12 +3,12 @@ import { Flex, FormControl, SimpleGrid, Text, useColorModeValue, Input, FormLabe
 import useTranslation from 'next-translate/useTranslation';
 import { isEventsMate } from '../../../utils/orientation';
 import { api } from '../../../utils/api';
-import useNotificationStore from '../../../stores/notification';
+import useNotificationStore from '../../../stores/notification'
 import { UserData } from '../../../interfaces/user';
 import useUserStore from '../../../stores/auth';
 
 interface InformationProps {
-  user: UserData;
+  user: UserData
 }
 
 const Information: FC<InformationProps> = ({ user }) => {
@@ -23,22 +23,18 @@ const Information: FC<InformationProps> = ({ user }) => {
 
   const [username, setUsernameState] = useState(user.username || '');
   const [email, setEmail] = useState(user.email || '');
-  const [firstName, setFirstNameState] = useState('');
-  const [lastName, setLastNameState] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [firstNameState, setFirstNameState] = useState('');
+  const [lastNameState, setLastNameState] = useState('');
+  const [userSettings, setUserSettings] = useState<UserData>()
 
   const fetchUserSettings = async () => {
     try {
       const { data } = await api.get<UserData>('users/settings');
-      setFirstNameState(data.firstName || '');
-      setLastNameState(data.lastName || '');
-      setUsernameState(data.username || '');
-      setEmail(data.email || '');
-      setLoading(false); // Set loading to false after data is fetched
+      setFirstNameState(data.firstName || '')
+      setLastNameState(data.lastName || '')
+      setUserSettings(data);
     } catch (error) {
       console.error('Error fetching user settings:', error);
-      showError({ error });
-      setLoading(false); // Ensure loading is set to false even on error
     }
   };
 
@@ -46,16 +42,16 @@ const Information: FC<InformationProps> = ({ user }) => {
     const payload = {
       email,
       username,
-      firstName,
-      lastName,
+      firstNameState,
+      lastNameState,
     };
 
     try {
       await api.put('users/', payload);
-      setUsername(username);
+      setUsername(username)
       setUserEmail(email);
-      setFirstName(firstName);
-      setLastName(lastName);
+      setFirstName(firstNameState);
+      setLastName(lastNameState);
       showSuccess();
     } catch (error) {
       console.error('Error updating profile:', error);
@@ -67,56 +63,73 @@ const Information: FC<InformationProps> = ({ user }) => {
     fetchUserSettings();
   }, []);
 
-  if (loading) {
-    return <Text>Loading...</Text>; // Handle loading state if necessary
-  }
-
   return (
     <FormControl>
       <Card mb="20px">
-        <Flex direction="column" mb="30px" ms="10px">
-          <Text fontSize="xl" color={textColorPrimary} fontWeight="bold">
+        <Flex 
+          direction="column" 
+          mb="30px"
+          ms="10px"
+        >
+          <Text 
+            fontSize="xl" 
+            color={textColorPrimary} 
+            fontWeight="bold"
+          >
             {t('user:settings.accountSettings')}
           </Text>
-          <Text fontSize="md" color={textColorSecondary}>
+          <Text 
+            fontSize="md" 
+            color={textColorSecondary}
+          >
             {t('user:settings.changeInformation')}
           </Text>
         </Flex>
-        <SimpleGrid columns={{ sm: 1, md: 2 }} spacing={{ base: '20px', xl: '20px' }}>
-          <Box mb="0px" me="30px">
-            <FormLabel htmlFor="username">{t('common:username')}</FormLabel>
-            <Input
-              id="username"
+        <SimpleGrid 
+          columns={{ sm: 1, md: 2 }} 
+          spacing={{ base: '20px', xl: '20px' }}
+        >
+          <Box  
+            mb="0px"   
+            me="30px" 
+          >
+            <FormLabel 
+              htmlFor="username"
+            >
+              {t('common:username')}
+            </FormLabel>
+            <Input 
+              id="username" 
               value={username}
               onChange={(e) => setUsernameState(e.target.value)}
-              placeholder="@simmmple.web"
+              placeholder="@simmmple.web" 
             />
           </Box>
           <Box>
             <FormLabel htmlFor="email">{t('common:emailAddress')}</FormLabel>
-            <Input
-              id="email"
+            <Input 
+              id="email" 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="mail@simmmple.com"
+              placeholder="mail@simmmple.com" 
             />
           </Box>
           <Box mb="20px" me="30px">
             <FormLabel htmlFor="first_name">{t('guests:form.firstName')}</FormLabel>
-            <Input
-              id="first_name"
-              value={firstName}
+            <Input 
+              id="first_name" 
+              value={firstNameState}
               onChange={(e) => setFirstNameState(e.target.value)}
-              placeholder={firstName || t('guests:form.firstName')}
+              placeholder={userSettings?.firstName || t('guests:form.firstName')}
             />
           </Box>
           <Box mb="20px">
             <FormLabel htmlFor="last_name">{t('guests:form.lastName')}</FormLabel>
-            <Input
-              id="last_name"
-              value={lastName}
+            <Input 
+              id="last_name" 
+              value={lastNameState}
               onChange={(e) => setLastNameState(e.target.value)}
-              placeholder={lastName || t('guests:form.lastName')}
+              placeholder={userSettings?.lastName || t('guests:form.lastName')}
             />
           </Box>
         </SimpleGrid>
