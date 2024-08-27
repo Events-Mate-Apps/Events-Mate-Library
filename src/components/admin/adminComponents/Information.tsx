@@ -23,8 +23,8 @@ const Information: FC<InformationProps> = ({ user }) => {
 
   const [username, setUsernameState] = useState(user.username || '');
   const [email, setEmail] = useState(user.email || '');
-  const [firstNameState, setFirstNameState] = useState(user.firstName || '');
-  const [lastNameState, setLastNameState] = useState(user.firstName||'');
+  const [firstName, setFirstNameState] = useState(user.firstName || '');
+  const [lastName, setLastNameState] = useState(user.firstName||'');
   const [userSettings, setUserSettings] = useState<UserData>()
 
   const fetchUserSettings = async () => {
@@ -42,16 +42,16 @@ const Information: FC<InformationProps> = ({ user }) => {
     const payload = {
       email,
       username,
-      firstNameState,
-      lastNameState,
+      firstName,
+      lastName,
     };
 
     try {
       await api.put('users/', payload);
       setUsername(username)
       setUserEmail(email);
-      setFirstName(firstNameState);
-      setLastName(lastNameState);
+      setFirstName(firstName);
+      setLastName(lastName);
       showSuccess();
     } catch (error) {
       console.error('Error updating profile:', error);
@@ -118,7 +118,7 @@ const Information: FC<InformationProps> = ({ user }) => {
             <FormLabel htmlFor="first_name">{t('guests:form.firstName')}</FormLabel>
             <Input 
               id="first_name" 
-              value={firstNameState}
+              value={firstName}
               onChange={(e) => setFirstNameState(e.target.value)}
               placeholder={userSettings?.firstName || t('guests:form.firstName')}
             />
@@ -127,7 +127,7 @@ const Information: FC<InformationProps> = ({ user }) => {
             <FormLabel htmlFor="last_name">{t('guests:form.lastName')}</FormLabel>
             <Input 
               id="last_name" 
-              value={lastNameState}
+              value={lastName}
               onChange={(e) => setLastNameState(e.target.value)}
               placeholder={userSettings?.lastName || t('guests:form.lastName')}
             />
