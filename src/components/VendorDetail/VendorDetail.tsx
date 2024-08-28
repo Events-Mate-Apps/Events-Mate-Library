@@ -59,7 +59,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
       onOpen();
     }console.log(langToDisplay)
 
-  }, [reviewConfirmedToken, isOpen])
+  }, [reviewConfirmedToken, isOpen, langToDisplay])
 
   const turnOffDialog = () => {
     onClose();
