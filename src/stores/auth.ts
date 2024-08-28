@@ -6,6 +6,8 @@ import { Wedding } from '../interfaces/wedding';
 
 export interface UserData {
   username: string;
+  firstName: string;
+  lastName: string;
   id: string;
   email: string;
   createdAt: string;
@@ -28,18 +30,20 @@ interface Token {
 }
 
 interface SignInRequest {
-  email: string,
-  password: string,
+  email: string;
+  password: string;
 }
 
 interface SignUpRequest extends SignInRequest {
-  name: string
+  name: string;
+  firstName: string;
+  lastName: string;
 }
 
 interface UserState {
   isLoggedIn: boolean;
   user: UserData | null;
-  token: Token | null; 
+  token: Token | null;
   wedding: Wedding | null;
 }
 
@@ -59,7 +63,9 @@ interface UserActions {
   signOut: () => void;
   setWedding: (wedding: Wedding) => void;
   setUserEmail: (email: string) => void;
-  setUsername: (name: string) => void;
+  setUsername: (username: string) => void;
+  setFirstName: (firstName: string) => void;
+  setLastName: (lastName: string) => void;
 }
 
 type UserStore = UserState & UserActions
@@ -97,16 +103,14 @@ const useUserStore = create<UserStore>()(
         }
       },
       signInWithApple: async ({ user, token }) => {
-        set(
-          {
-            token: {
-              expiresAt: token.expiresAt,
-              secret: token.value,
-            },
-            isLoggedIn: true,
-            user,
-          }
-        );
+        set({
+          token: {
+            expiresAt: token.expiresAt,
+            secret: token.value,
+          },
+          isLoggedIn: true,
+          user,
+        });
       },
       signUp: async (body) => {
         const { showError } = useNotificationStore.getState()
@@ -145,11 +149,21 @@ const useUserStore = create<UserStore>()(
           user: state.user ? { ...state.user, username } : null,
         }));
       },
+      setFirstName: (firstName: string) => {
+        set((state) => ({
+          user: state.user ? { ...state.user, firstName } : null,
+        }));
+      },
+      setLastName: (lastName: string) => {
+        set((state) => ({
+          user: state.user ? { ...state.user, lastName } : null,
+        }));
+      },
       setWedding: (wedding) => {
         set({
-          wedding
-        })
-      }
+          wedding,
+        });
+      },
     }),
     {
       name: 'em-auth-store',
