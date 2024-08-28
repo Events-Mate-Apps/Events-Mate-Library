@@ -59,6 +59,8 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
       onOpen();
     }
     console.log(vendor.localizedDescription)
+    console.log(vendor)
+
   }, [reviewConfirmedToken, isOpen])
 
   const turnOffDialog = () => {
