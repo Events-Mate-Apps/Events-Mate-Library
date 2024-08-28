@@ -57,9 +57,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
     if (reviewConfirmedToken !== undefined
       && !isOpen) {
       onOpen();
-    }
-    console.log(vendor.localizedDescription)
-    console.log(vendor)
+    }console.log(langToDisplay)
 
   }, [reviewConfirmedToken, isOpen])
 

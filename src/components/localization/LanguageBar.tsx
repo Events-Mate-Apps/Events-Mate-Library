@@ -18,7 +18,6 @@ const LanguageBar: React.FC<LanguageBarProps> = ({ obj, langToDisplay, setLangTo
     if (langToDisplay === null && langs.length > 0) {
       setLangToDisplay(langs[0]);
     }
-    console.log(langs)
   }, [langs, langToDisplay]);
 
   return (
