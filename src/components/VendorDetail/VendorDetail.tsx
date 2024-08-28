@@ -58,6 +58,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
       && !isOpen) {
       onOpen();
     }
+    console.log(vendor.localizedDescription)
   }, [reviewConfirmedToken, isOpen])
 
   const turnOffDialog = () => {
@@ -130,7 +131,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
               </Tag>}
           </div>}
           <LanguageBar
-            obj={vendor}
+            obj={vendor?.localizedDescription?.[1] || {}}
             langToDisplay={langToDisplay}
             setLangToDisplay={setLangToDisplay}
           />
