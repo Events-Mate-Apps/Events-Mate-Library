@@ -16,11 +16,8 @@ const Information: FC<InformationProps> = ({ user }) => {
   const textColorSecondary = 'secondaryGray.600';
   const { t } = useTranslation();
   const { showError, showSuccess } = useNotificationStore();
-  const setUserEmail = useUserStore((state) => state.setUserEmail);
-  const setUsername = useUserStore((state) => state.setUsername);
-  const setFirstName = useUserStore((state) => state.setFirstName);
-  const setLastName = useUserStore((state) => state.setLastName);
-
+  const userStore = useUserStore()
+ 
   const [username, setUsernameState] = useState(user.username || '');
   const [email, setEmail] = useState(user.email || '');
   const [firstName, setFirstNameState] = useState(user.firstName || '');
@@ -46,10 +43,10 @@ const Information: FC<InformationProps> = ({ user }) => {
 
     try {
       await api.put('users/', payload);
-      setUsername(username)
-      setUserEmail(email);
-      setFirstName(firstName);
-      setLastName(lastName);
+      userStore.setUsername(username)
+      userStore.setUserEmail(email);
+      userStore.setFirstName(firstName);
+      userStore.setLastName(lastName);
       showSuccess();
     } catch (error) {
       console.error('Error updating profile:', error);
