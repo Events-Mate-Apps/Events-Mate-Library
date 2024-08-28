@@ -103,14 +103,16 @@ const useUserStore = create<UserStore>()(
         }
       },
       signInWithApple: async ({ user, token }) => {
-        set({
-          token: {
-            expiresAt: token.expiresAt,
-            secret: token.value,
-          },
-          isLoggedIn: true,
-          user,
-        });
+        set(
+          {
+            token: {
+              expiresAt: token.expiresAt,
+              secret: token.value,
+            },
+            isLoggedIn: true,
+            user,
+          }
+        );
       },
       signUp: async (body) => {
         const { showError } = useNotificationStore.getState()
