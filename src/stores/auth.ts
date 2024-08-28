@@ -14,7 +14,16 @@ export interface UserData {
   type: 'NORMAL' | 'ADMIN';
   appleUserIdentifier?: string;
 }
-
+export interface UserDataWithoutFirstName {
+  username: string;
+  firstName: string;
+  lastName: string;
+  id: string;
+  email: string;
+  createdAt: string;
+  type: 'NORMAL' | 'ADMIN';
+  appleUserIdentifier?: string;
+}
 export interface UserResponseData {
   token: {
     value: string;
@@ -103,14 +112,16 @@ const useUserStore = create<UserStore>()(
         }
       },
       signInWithApple: async ({ user, token }) => {
-        set({
-          token: {
-            expiresAt: token.expiresAt,
-            secret: token.value,
-          },
-          isLoggedIn: true,
-          user,
-        });
+        set(
+          {
+            token: {
+              expiresAt: token.expiresAt,
+              secret: token.value,
+            },
+            isLoggedIn: true,
+            user,
+          }
+        );
       },
       signUp: async (body) => {
         const { showError } = useNotificationStore.getState()
