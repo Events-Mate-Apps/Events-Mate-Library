@@ -130,14 +130,16 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
                 {t('vendors:detail.buySubscription')}
               </Tag>}
           </div>}
-          {vendor.localizedDescription?.map((description, index) => (
-            <LanguageBar
-              key={index}
-              obj={description}
-              langToDisplay={langToDisplay}
-              setLangToDisplay={setLangToDisplay}
-            />
-          ))}
+          <Flex flexDirection="row">
+            {vendor.localizedDescription?.map((description, index) => (
+              <LanguageBar
+                key={index}
+                obj={description}
+                langToDisplay={langToDisplay}
+                setLangToDisplay={setLangToDisplay}
+              />
+            ))}
+          </Flex>
           <Flex direction={{ sm: 'column', lg: 'column', xl: 'row' }}>
             <Box>
               <VendorImages vendor={vendor} />
