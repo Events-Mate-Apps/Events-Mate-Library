@@ -45,8 +45,6 @@ interface SignInRequest {
 
 interface SignUpRequest extends SignInRequest {
   name: string;
-  firstName: string;
-  lastName: string;
 }
 
 interface UserState {
