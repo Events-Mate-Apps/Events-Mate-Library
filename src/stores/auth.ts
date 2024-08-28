@@ -14,7 +14,16 @@ export interface UserData {
   type: 'NORMAL' | 'ADMIN';
   appleUserIdentifier?: string;
 }
-
+export interface UserDataWithoutFirstName {
+  username: string;
+  firstName: string;
+  lastName: string;
+  id: string;
+  email: string;
+  createdAt: string;
+  type: 'NORMAL' | 'ADMIN';
+  appleUserIdentifier?: string;
+}
 export interface UserResponseData {
   token: {
     value: string;
