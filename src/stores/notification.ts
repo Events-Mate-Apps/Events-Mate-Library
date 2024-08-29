@@ -48,7 +48,7 @@ const useNotificationStore = create<NotificationState>((set, get) => {
 
       const err = options.error as CustomError;
       console.error(err.message || err.raw?.message);
-      console.log('err:', JSON.stringify(err))
+      console.log('err:', err.response.data.message)
       toast.error( getNotificationMessage({
         title: `${t('error')}`,
         description: `${t('error')}: ${err.message || err.raw?.message}`,
