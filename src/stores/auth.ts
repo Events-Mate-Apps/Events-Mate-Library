@@ -87,7 +87,7 @@ const useUserStore = create<UserStore>()(
 
         try {
           const {
-            data: { user, token },
+            data: { user, token }, status
           } = await api.post<UserResponseData>('auth/signin', null, {
             headers: {
               Authorization:
@@ -95,7 +95,7 @@ const useUserStore = create<UserStore>()(
             },
           });
 
-          set({
+          if (status === 200) set({
             isLoggedIn: true,
             user,
             token: {
@@ -104,10 +104,7 @@ const useUserStore = create<UserStore>()(
             },
           });          
         } catch (error) {
-          console.log('error:', error)
-          console.log('code:', (error as AxiosError).response?.status)
           if ((error as AxiosError).response?.status === 401) {
-            console.log('code`s 401')
             showCustomError({ 
               title: t('notification:invalidCredentials.title'),
               description: t('notification:invalidCredentials.description')
