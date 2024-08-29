@@ -105,6 +105,8 @@ const useUserStore = create<UserStore>()(
           });          
         } catch (error) {
           if ((error as AxiosError).code === '401') {
+            console.log('error:', error)
+            console.log('code`s 401')
             showCustomError({ 
               title: t('notification:invalidCredentials.title'),
               description: t('notification:invalidCredentials.description')
