@@ -8,13 +8,24 @@ import getT from 'next-translate/getT';
 
 export interface UserData {
   username: string;
+  firstName: string;
+  lastName: string;
   id: string;
   email: string;
   createdAt: string;
   type: 'NORMAL' | 'ADMIN';
   appleUserIdentifier?: string;
 }
-
+export interface UserDataWithoutFirstName {
+  username: string;
+  firstName: string;
+  lastName: string;
+  id: string;
+  email: string;
+  createdAt: string;
+  type: 'NORMAL' | 'ADMIN';
+  appleUserIdentifier?: string;
+}
 export interface UserResponseData {
   token: {
     value: string;
@@ -30,18 +41,18 @@ interface Token {
 }
 
 interface SignInRequest {
-  email: string,
-  password: string,
+  email: string;
+  password: string;
 }
 
 interface SignUpRequest extends SignInRequest {
-  name: string
+  name: string;
 }
 
 interface UserState {
   isLoggedIn: boolean;
   user: UserData | null;
-  token: Token | null; 
+  token: Token | null;
   wedding: Wedding | null;
 }
 
@@ -61,7 +72,9 @@ interface UserActions {
   signOut: () => void;
   setWedding: (wedding: Wedding) => void;
   setUserEmail: (email: string) => void;
-  setUsername: (name: string) => void;
+  setUsername: (username: string) => void;
+  setFirstName: (firstName: string) => void;
+  setLastName: (lastName: string) => void;
   locale?: string,
   setLocale: (locale: string) => void,
 }
@@ -161,11 +174,21 @@ const useUserStore = create<UserStore>()(
           user: state.user ? { ...state.user, username } : null,
         }));
       },
+      setFirstName: (firstName: string) => {
+        set((state) => ({
+          user: state.user ? { ...state.user, firstName } : null,
+        }));
+      },
+      setLastName: (lastName: string) => {
+        set((state) => ({
+          user: state.user ? { ...state.user, lastName } : null,
+        }));
+      },
       setWedding: (wedding) => {
         set({
-          wedding
-        })
-      }
+          wedding,
+        });
+      },
     }),
     {
       name: 'em-auth-store',
