@@ -131,7 +131,7 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
         <Flex w="100%" justifyContent="center" mt="15px">
           <Upsell vendor={vendor} isEnabled={!vendor.isPremium}>
             <Button
-              pointerEvents={vendor.isPremium ? 'none' : 'all'}
+              pointerEvents={!vendor.isPremium ? 'none' : 'all'}
               as={NextLink}
               href={`${vendor.id}/deals/new`}
               variant="darkBrand"
