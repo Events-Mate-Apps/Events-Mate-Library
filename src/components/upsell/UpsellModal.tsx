@@ -80,8 +80,9 @@ const UpsellModal: React.FC<UpsellModalProps> = ({ vendor, onClose, isOpen }) =>
       const { data } = await api.get('payments/products-prices');
 
       const p: ProductWithPrices[] = data;
+      console.log(p)
       const filteredProducts = p.filter(product => product.product.name !== 'WeddMate+');
-
+      console.log(filteredProducts)
       const current = filteredProducts.find(e => ((e.product.metadata.priority as number) == vendor.premiumSubscription.priority)) as ProductWithPrices
       const platinum = filteredProducts.find(e => ((e.product.metadata.priority as number) == 4)) as ProductWithPrices
 
