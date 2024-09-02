@@ -38,14 +38,10 @@ const AddImage: React.FC<AddImageProps> = ({ vendor, images }) => {
   };
 
   const isUserAbleToUploadAnotherImage = () => {
-    switch (vendor.priority) {
-      case 0:
-      case 1:
-        return images.length < 1
-      case 2:
-        return images.length < 10
-      default:
-        return true
+    if (vendor.isPremium){
+      return images.length < 10
+    } else {
+      return images.length < 1
     }
   }
 

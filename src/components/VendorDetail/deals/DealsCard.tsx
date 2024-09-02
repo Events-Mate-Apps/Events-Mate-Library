@@ -67,7 +67,7 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
   };
 
   useEffect(() => {
-    if (vendor.priority > 2) {
+    if (vendor.isPremium) {
       getDeals();
     }
   }, [vendor.priority]);
@@ -129,9 +129,9 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
       </SimpleGrid>
       {isInDashboard && (
         <Flex w="100%" justifyContent="center" mt="15px">
-          <Upsell vendor={vendor} isEnabled={vendor.priority < 2}>
+          <Upsell vendor={vendor} isEnabled={vendor.isPremium}>
             <Button
-              pointerEvents={vendor.priority < 2 ? 'none' : 'all'}
+              pointerEvents={vendor.isPremium ? 'none' : 'all'}
               as={NextLink}
               href={`${vendor.id}/deals/new`}
               variant="darkBrand"
@@ -143,6 +143,7 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
               {t('vendors:detail.deals.create.header')}
             </Button>
           </Upsell>
+
         </Flex>
       )}
     </Card>
