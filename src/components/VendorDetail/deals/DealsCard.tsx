@@ -134,7 +134,7 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
               pointerEvents={!vendor.isPremium ? 'none' : 'all'}
               as={NextLink}
               href={`${vendor.id}/deals/new`}
-              variant="darkBrand"
+              variant="red"
               leftIcon={<AddIcon />}
               letterSpacing="normal"
               size="md"
