@@ -59,7 +59,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
       onOpen();
     }console.log(langToDisplay)
     console.log(vendor)
-    console.log(vendor.localizedDescription)
+    console.log(vendor.descriptionContent)
 
   }, [reviewConfirmedToken, isOpen, langToDisplay])
 
@@ -133,7 +133,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
               </Tag>}
           </div>}
           <Flex flexDirection="row">
-            {vendor.localizedDescription?.map((description, index) => (
+            {vendor.descriptionContent?.translations?.map((description, index) => (
               <LanguageBar
                 key={index}
                 obj={description}

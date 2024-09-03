@@ -15,7 +15,7 @@ const LanguageBar: React.FC<LanguageBarProps> = ({ obj, langToDisplay, setLangTo
   const langs = extractLanguageISOCodesFromObject(obj)
 
   useEffect(() => {
-    console.log(langs)
+    console.log(obj)
     if (langToDisplay === null && langs.length > 0) {
       setLangToDisplay(langs[0]);
     }
