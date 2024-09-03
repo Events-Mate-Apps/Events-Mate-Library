@@ -1,12 +1,12 @@
 import { Flex, Button, Text, useColorModeValue } from '@chakra-ui/react';
 
-export default function Setup(props: {
+const Setup =(props: {
   value: string;
   name: string;
   action?: () => any;
   actionName: string;
   [x: string]: any;
-}) {
+}) => {
   const { value, name, action, actionName, ...rest } = props;
 
   const textColor = useColorModeValue('secondaryGray.900', 'white');
@@ -37,3 +37,4 @@ export default function Setup(props: {
     </Flex>
   );
 }
+export default Setup
