@@ -62,7 +62,8 @@ const AddLangBtn: React.FC<AddLangButtonProps> = ({ content, setContent, childre
             <FormControl>
               <FormLabel>{t('edit:selectLang')}</FormLabel>
               <Select
-                placeholder={t('edit:selectLanguage')}
+                placeholder={t('edit:selectLanguage', { defaultValue: t('edit:selectLanguage') })}
+
                 options={langs.filter((e) => !content.translations.map(e => e.languageISO).includes(e.code)).map(e => {
                   return {
                     label: e.language,
