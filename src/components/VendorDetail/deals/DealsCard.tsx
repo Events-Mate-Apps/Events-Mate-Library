@@ -143,7 +143,6 @@ const DealsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
               {t('vendors:detail.deals.create.header')}
             </Button>
           </Upsell>
-
         </Flex>
       )}
     </Card>
