@@ -1,15 +1,18 @@
-import { Flex, Button, Text, useColorModeValue } from '@chakra-ui/react';
+import { FC } from 'react';
+import { Flex, Button, Text, useColorModeValue, FlexProps } from '@chakra-ui/react';
 
-const Setup =(props: {
+interface SetupProps extends FlexProps {
   value: string;
   name: string;
   action?: () => any;
   actionName: string;
-  [x: string]: any;
-}) => {
+}
+
+const Setup: FC<SetupProps> = (props) => {
   const { value, name, action, actionName, ...rest } = props;
 
   const textColor = useColorModeValue('secondaryGray.900', 'white');
+  
   return (
     <Flex
       justifyContent='space-between'
@@ -37,4 +40,5 @@ const Setup =(props: {
     </Flex>
   );
 }
-export default Setup
+
+export default Setup;
