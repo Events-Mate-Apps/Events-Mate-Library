@@ -57,10 +57,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
     if (reviewConfirmedToken !== undefined
       && !isOpen) {
       onOpen();
-    }console.log(langToDisplay)
-    console.log(vendor)
-    console.log(vendor.descriptionContent)
-
+    }
   }, [reviewConfirmedToken, isOpen, langToDisplay])
 
   const turnOffDialog = () => {
