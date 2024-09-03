@@ -52,6 +52,7 @@ const EditableImageList: React.FC<EditableImageListProps> = ({ vendor, setCurren
   };
 
   useEffect(() => {
+    console.log(images)
     // TODO:
     // eslint-disable-next-line
     images.forEach((e, idx) => e.position = (idx + 1))
