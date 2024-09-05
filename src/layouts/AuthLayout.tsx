@@ -23,8 +23,8 @@ const AuthLayout: FC<AuthLayoutProps> = ({ form, animatedContent, isEventsMate }
       subtitle: 'auth:signIn.subtitle'
     }],
     ['sign-up', { 
-      title: 'auth:signIn.title',
-      subtitle: 'auth:signIn.subtitle'
+      title: 'auth:signUp.title',
+      subtitle: 'auth:signUp.subtitle'
     }],
     ['forgot-password', { 
       title: 'auth:signIn.title',
