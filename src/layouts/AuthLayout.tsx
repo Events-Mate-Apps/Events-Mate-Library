@@ -38,7 +38,6 @@ const AuthLayout: FC<AuthLayoutProps> = ({ form, animatedContent, isEventsMate }
   
   const text = textMap.get(pathname.split('/').slice(-1)[0]);
 
-  // Determine whether to show animated content based on screen width
   const isAnimationVisible = useBreakpointValue({ base: false, lg: true });
 
   return (
