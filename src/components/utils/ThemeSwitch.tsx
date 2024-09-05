@@ -3,18 +3,23 @@ import { FC } from 'react';
 import { IoMdMoon, IoMdSunny } from 'react-icons/io';
 
 interface ThemeSwitchProps {
-  isEventsMate?: boolean
+  isEventsMate?: boolean,
+  isOnGradient?: boolean
 }
 
-const ThemeSwitch: FC<ThemeSwitchProps> = ({ isEventsMate }) => {
+const ThemeSwitch: FC<ThemeSwitchProps> = ({ isEventsMate, isOnGradient }) => {
   const { colorMode, toggleColorMode } = useColorMode();
+
+  const bgGradient = isEventsMate 
+    ? 'linear(to-tr, brand.900, brand.400)' 
+    : 'linear-gradient(to right, #FF328F, #6D055A)'
 
   return (
     <IconButton
       aria-label='color-mode'
       h='60px'
       w='60px'
-      bg={isEventsMate ? 'white' : 'linear-gradient(135deg, #868CFF 0%, #4318FF 100%)'}
+      bg={isOnGradient ? 'white' : bgGradient}
       zIndex='2' 
       position='absolute'
       variant='no-effects'

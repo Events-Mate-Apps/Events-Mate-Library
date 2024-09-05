@@ -39,13 +39,13 @@ const AuthLayout: FC<AuthLayoutProps> = ({ form, animatedContent, isEventsMate }
   const text = textMap.get(pathname.split('/').slice(-1)[0]);
 
   // Determine whether to show animated content based on screen width
-  const showAnimatedContent = useBreakpointValue({ base: false, lg: true });
+  const isAnimationVisible = useBreakpointValue({ base: false, lg: true });
 
   return (
     <Flex h="100vh" position='relative'>
-      <ThemeSwitch isEventsMate />
+      <ThemeSwitch isEventsMate isOnGradient={isAnimationVisible} />
       <Flex 
-        w={showAnimatedContent ? '50%' : '100%'} 
+        w={isAnimationVisible ? '50%' : '100%'} 
         justifyContent='center' 
         alignItems='center'
         px={{ base: 'none', sm: '10px' }}
@@ -66,7 +66,7 @@ const AuthLayout: FC<AuthLayoutProps> = ({ form, animatedContent, isEventsMate }
           {form}
         </Flex>
       </Flex>
-      {showAnimatedContent && (
+      {isAnimationVisible && (
         <Flex w='50%' justifyContent='center' alignItems='center' bgGradient={bgGradient} borderBottomLeftRadius='100px'>
           {animatedContent}
         </Flex>
