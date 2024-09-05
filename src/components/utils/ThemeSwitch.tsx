@@ -14,6 +14,8 @@ const ThemeSwitch: FC<ThemeSwitchProps> = ({ isEventsMate, isOnGradient }) => {
     ? 'linear(to-tr, brand.900, brand.400)' 
     : 'linear-gradient(to right, #FF328F, #6D055A)'
 
+  const background = isOnGradient ? { bg: 'white' } : { bgGradient }
+
   return (
     <>
       <p>{isOnGradient ? 'white' : bgGradient}</p>
@@ -21,7 +23,7 @@ const ThemeSwitch: FC<ThemeSwitchProps> = ({ isEventsMate, isOnGradient }) => {
         aria-label='color-mode'
         h='60px'
         w='60px'
-        bg={isOnGradient ? 'white' : bgGradient}
+        {...background}
         zIndex='2' 
         position='absolute'
         variant='no-effects'
