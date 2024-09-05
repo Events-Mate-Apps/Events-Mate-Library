@@ -15,27 +15,30 @@ const ThemeSwitch: FC<ThemeSwitchProps> = ({ isEventsMate, isOnGradient }) => {
     : 'linear-gradient(to right, #FF328F, #6D055A)'
 
   return (
-    <IconButton
-      aria-label='color-mode'
-      h='60px'
-      w='60px'
-      bg={isOnGradient ? 'white' : bgGradient}
-      zIndex='2' 
-      position='absolute'
-      variant='no-effects'
-      right='30px'
-      bottom='30px'
-      borderRadius='full'
-      onClick={toggleColorMode}
-      icon={
-        <Icon
-          h='24px'
-          w='24px'
-          color={isEventsMate ? 'brand.900' : 'white'}
-          as={colorMode === 'light' ? IoMdMoon : IoMdSunny}
-        />
-      }
-    />
+    <>
+      <p>{isOnGradient ? 'white' : bgGradient}</p>
+      <IconButton
+        aria-label='color-mode'
+        h='60px'
+        w='60px'
+        bg={isOnGradient ? 'white' : bgGradient}
+        zIndex='2' 
+        position='absolute'
+        variant='no-effects'
+        right='30px'
+        bottom='30px'
+        borderRadius='full'
+        onClick={toggleColorMode}
+        icon={
+          <Icon
+            h='24px'
+            w='24px'
+            color={isEventsMate ? 'brand.900' : 'white'}
+            as={colorMode === 'light' ? IoMdMoon : IoMdSunny}
+          />
+        }
+      />
+    </>
   );
 }
 

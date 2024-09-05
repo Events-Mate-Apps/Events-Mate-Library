@@ -43,7 +43,6 @@ const AuthLayout: FC<AuthLayoutProps> = ({ form, animatedContent, isEventsMate }
 
   return (
     <Flex h="100vh" position='relative'>
-      {`isAnimationVisible: ${isAnimationVisible}`}
       <ThemeSwitch isEventsMate isOnGradient={isAnimationVisible} />
       <Flex 
         w={isAnimationVisible ? '50%' : '100%'} 
