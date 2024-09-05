@@ -1,5 +1,5 @@
 
-import { Button, Divider, Flex, FormControl, Icon, Input, InputGroup, InputRightElement, SkipNavLink, Text, useColorModeValue } from '@chakra-ui/react';
+import { Button, Divider, Flex, FormControl, Icon, Input, InputGroup, InputRightElement, Text, useColorModeValue } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
 import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -8,6 +8,7 @@ import { RiEyeCloseLine } from 'react-icons/ri';
 import { TrackGoogleAnalyticsEvent } from '../../utils/analytics/googleAnalytics/init';
 import FormLabel from '../fields/FormLabel';
 import SignInWithAppleButton from '../buttons/SignInWithAppleButton';
+import NavLink from '../utils/NavLink';
 
 interface FormValues {
   email: string,
@@ -21,7 +22,6 @@ interface SignInFormProps {
 
 const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
   const textColor = useColorModeValue('navy.700', 'white');
-  const brandStars = useColorModeValue('brand.500', 'brand.400');
   const textColorBrand = useColorModeValue('brand.500', 'white');
   const textColorDetails = useColorModeValue('navy.700', 'secondaryGray.600');
   const textColorSecondary = 'gray.400';
@@ -71,7 +71,7 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
           mb="8px"
         >
           {t('common:email')}
-          <Text color={brandStars}>*</Text>
+          <Text color={isEventsMate ? 'brand.900' : '#FF328F'}>*</Text>
         </FormLabel>
         <Input
           isRequired={true}
@@ -95,7 +95,7 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
           display="flex"
         >
           {t('auth:password')}
-          <Text color={brandStars}>*</Text>
+          <Text color={isEventsMate ? 'brand.900' : '#FF328F'}>*</Text>
         </FormLabel>
         <InputGroup size="md">
           <Input
@@ -122,7 +122,7 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
         </InputGroup>
 
         <Flex justifyContent="space-between" align="center" mb="24px">
-          <SkipNavLink href="/auth/forgot-password">
+          <NavLink href="/auth/forgot-password">
             <Text
               color={textColorBrand}
               fontSize="sm"
@@ -131,11 +131,12 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
             >
               {t('auth:forgotPassword.title')}
             </Text>
-          </SkipNavLink>
+          </NavLink>
         </Flex>
         <Button
           fontSize="sm"
           bg={isEventsMate ? 'brand.900' : '#FF328F'}
+          color="white"
           fontWeight="500"
           w="100%"
           h="50"
@@ -154,7 +155,7 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
       >
         <Text color={textColorDetails} fontWeight="400" fontSize="14px">
           {t('auth:dontHaveAnAccount')}
-          <SkipNavLink href="/auth/signup" onClick={handleSignUpRedirectEvent}>
+          <NavLink href="/auth/signup" onClick={handleSignUpRedirectEvent}>
             <Text
               color={textColorBrand}
               as="span"
@@ -163,7 +164,7 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
             >
               {t('auth:actions.signUp')}
             </Text>
-          </SkipNavLink>
+          </NavLink>
         </Text>
       </Flex>
     </Flex>
