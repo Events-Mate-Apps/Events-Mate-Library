@@ -69,13 +69,11 @@ const SignInWithAppleButton: FC = () => {
           lastName: response.user.lastName || '',
         },
       };
-  
+
       userStore.signInWithApple(userWithNames);
     },
     [userStore]
   );
-  
-  
 
   const handleAppleLogInEvent = (status: string, message: string) => {
     console.log(`Apple login event: ${status} - ${message}`);
