@@ -1,9 +1,9 @@
 import { Button, Box, useColorModeValue, Text } from '@chakra-ui/react';
 import { useEffect, useRef, useCallback, FC } from 'react';
 import { FaApple } from 'react-icons/fa';
-import { UserData } from '~/interfaces/user';
-import useUserStore from '~/stores/auth';
-import useNotificationStore from '~/stores/notification';
+import { UserData } from '../../interfaces/user';
+import useUserStore from '../../stores/auth';
+import useNotificationStore from '../../stores/notification';
 interface LoginResponse {
   user: UserData;
   token: {

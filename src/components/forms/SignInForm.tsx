@@ -5,7 +5,7 @@ import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { RiEyeCloseLine } from 'react-icons/ri';
-import { TrackGoogleAnalyticsEvent } from '~/utils/analytics/googleAnalytics/init';
+import { TrackGoogleAnalyticsEvent } from '../../utils/analytics/googleAnalytics/init';
 import FormLabel from '../fields/FormLabel';
 import SignInWithAppleButton from '../buttons/SignInWithAppleButton';
 
