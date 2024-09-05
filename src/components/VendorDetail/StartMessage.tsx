@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text, Flex } from '@chakra-ui/react';
+import { Box, Text, Flex, useColorModeValue } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
 import { ChatIcon } from '@chakra-ui/icons';
 import { api } from '../../utils/api';
@@ -14,7 +14,8 @@ interface StartMessageProps {
 const StartMessage: React.FC<StartMessageProps> = ({ vendorId, userId, weddingId }) => {
   const { t } = useTranslation();
   const router = useRouter();
-  
+  const textColor = useColorModeValue('secondaryGray.900', 'white');
+
   const startConversation = async () => {
     await api.post('messages/conversations', {
       userId: userId,
@@ -36,10 +37,10 @@ const StartMessage: React.FC<StartMessageProps> = ({ vendorId, userId, weddingId
         onClick={handleStartConversation}
       >
         <Text 
-          color="#1B2559"
+          color={textColor}
           fontWeight="500"
         >
-          {t('vendors:messages.yourChats')}
+          {t('vendors:messages.messageVendor')}
         </Text>
         <ChatIcon ml={2}color="#e13784" />
       </Flex>

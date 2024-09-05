@@ -34,6 +34,7 @@ export interface Vendor {
   seoImageLink?: string,
   priority: number,
   descriptionContent?: TranslationTextContent,
+  localizedDescription?: Description[];
   premiumSubscription: {
     id: string,
     priority: number,
@@ -232,7 +233,15 @@ export interface VendorAdministrativeArea {
   subVendorAdministrativeArea?: VendorAdministrativeArea,
   nameId: number
 }
-
+export interface AdministrativeArea{
+  countryIso: string
+  haveSVGMap: boolean
+  id: number,
+  isoCode: string
+  nameContent: TranslationTextContent,
+  subAdministrativeAreas?: AdministrativeArea[],
+  nameId: number
+}
 export interface SupportedCountry {
   haveSVGMap: boolean,
   iso: string,
