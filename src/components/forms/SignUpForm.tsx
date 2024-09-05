@@ -167,7 +167,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
           mb="24px"
           onClick={() => userStore.signUp(getValues())}
         >
-          {t('auth:signIn.title')}
+          {t('auth:signUp.title')}
         </AsyncButton>
       </FormControl>
       <Flex
@@ -186,7 +186,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
               ms="5px"
               fontWeight="500"
             >
-              {t('auth:actions.signUp')}
+              {t('auth:actions.signIp')}
             </Text>
           </NavLink>
         </Text>
