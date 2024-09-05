@@ -22,7 +22,6 @@ interface SignInFormProps {
 
 const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
   const textColor = useColorModeValue('navy.700', 'white');
-  const textColorBrand = useColorModeValue('brand.500', 'white');
   const textColorDetails = useColorModeValue('navy.700', 'secondaryGray.600');
   const textColorSecondary = 'gray.400';
   const brandColor = isEventsMate ? 'brand.900' : '#FF328F'
@@ -123,9 +122,9 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
         </InputGroup>
 
         <Flex justifyContent="space-between" align="center" mb="24px">
-          <NavLink href="/auth/forgot-password" styles={{ color: brandColor }}>
+          <NavLink href="/auth/forgot-password">
             <Text
-              color={textColorBrand}
+              color={brandColor}
               fontSize="sm"
               w="180px"
               fontWeight="500"
@@ -156,9 +155,9 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
       >
         <Text color={textColorDetails} fontWeight="400" fontSize="14px">
           {t('auth:dontHaveAnAccount')}
-          <NavLink href="/auth/signup" onClick={handleSignUpRedirectEvent} styles={{ color: brandColor }}>
+          <NavLink href="/auth/signup" onClick={handleSignUpRedirectEvent}>
             <Text
-              color={textColorBrand}
+              color={brandColor}
               as="span"
               ms="5px"
               fontWeight="500"
