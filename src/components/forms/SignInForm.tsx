@@ -134,7 +134,7 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA }) => {
         </Flex>
         <Button
           fontSize="sm"
-          variant="brand"
+          color="brand.900"
           fontWeight="500"
           w="100%"
           h="50"
