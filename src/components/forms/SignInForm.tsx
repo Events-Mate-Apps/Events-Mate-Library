@@ -123,7 +123,7 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
         </InputGroup>
 
         <Flex justifyContent="space-between" align="center" mb="24px">
-          <NavLink href="/auth/forgot-password" styles={{}}>
+          <NavLink href="/auth/forgot-password" styles={{ color: brandColor }}>
             <Text
               color={textColorBrand}
               fontSize="sm"
@@ -156,7 +156,7 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
       >
         <Text color={textColorDetails} fontWeight="400" fontSize="14px">
           {t('auth:dontHaveAnAccount')}
-          <NavLink href="/auth/signup" onClick={handleSignUpRedirectEvent}>
+          <NavLink href="/auth/signup" onClick={handleSignUpRedirectEvent} styles={{ color: brandColor }}>
             <Text
               color={textColorBrand}
               as="span"
