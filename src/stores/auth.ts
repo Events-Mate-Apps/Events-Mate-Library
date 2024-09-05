@@ -3,6 +3,7 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import { api } from '../utils/api';
 import useNotificationStore from './notification';
 import { Wedding } from '../interfaces/wedding';
+import { SignInRequest, SignUpRequest } from '~/interfaces/user';
 
 export interface UserData {
   username: string;
@@ -25,15 +26,6 @@ export interface UserResponseData {
 interface Token {
   expiresAt: string;
   secret: string;
-}
-
-interface SignInRequest {
-  email: string,
-  password: string,
-}
-
-interface SignUpRequest extends SignInRequest {
-  name: string
 }
 
 interface UserState {

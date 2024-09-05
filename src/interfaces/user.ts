@@ -16,3 +16,12 @@ export interface UserSettingsInterface {
   preferredLanguageISO: string
   preferredCurrencyISO: string
 }
+
+export interface SignInRequest {
+  email: string,
+  password: string,
+}
+
+export interface SignUpRequest extends SignInRequest {
+  name: string
+}

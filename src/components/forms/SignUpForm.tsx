@@ -11,14 +11,14 @@ import SignInWithAppleButton from '../buttons/SignInWithAppleButton';
 import NavLink from '../utils/NavLink';
 import AsyncButton from '../buttons/AsyncButton';
 import useUserStore from '~/stores/auth';
-import { SignInRequest } from '~/interfaces/user';
+import { SignUpRequest } from '~/interfaces/user';
 
-interface SignInFormProps {
+interface SignUpFormProps {
   isEnabledSIWA?: boolean
   isEventsMate?: boolean
 }
 
-const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
+const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
   const textColor = useColorModeValue('navy.700', 'white');
   const textColorDetails = useColorModeValue('navy.700', 'secondaryGray.600');
   const textColorSecondary = 'gray.400';
@@ -37,7 +37,7 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
 
   const { t } = useTranslation()
 
-  const { register, getValues } = useForm<SignInRequest>({});
+  const { register, getValues } = useForm<SignUpRequest>({});
 
   return (
     <Flex
@@ -62,6 +62,30 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
         </Flex>
       </>}
       <FormControl>
+        <FormLabel
+          display="flex"
+          ms="4px"
+          fontSize="sm"
+          fontWeight="500"
+          color={textColor}
+          mb="8px"
+        >
+          {t('common:name')}
+          <Text color={brandColor}>*</Text>
+        </FormLabel>
+        <Input
+          isRequired={true}
+          variant="auth"
+          fontSize="sm"
+          ms={{ base: '0px', md: '0px' }}
+          placeholder='John Doe'
+          mb="24px"
+          fontWeight="500"
+          size="lg"
+          {...register('name', {
+            required: true,
+          })}
+        />
         <FormLabel
           display="flex"
           ms="4px"
@@ -171,5 +195,5 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
   );
 }
   
-export default SignInForm;
+export default SignUpForm;
   
