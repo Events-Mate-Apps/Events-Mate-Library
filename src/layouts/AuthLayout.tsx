@@ -2,7 +2,7 @@ import { Flex, Heading, Text, useColorModeValue, useBreakpointValue } from '@cha
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
-import ThemeSwitch from '~/components/utils/ThemeSwitch';
+import ThemeSwitch from '../components/utils/ThemeSwitch';
 
 interface AuthLayoutProps {
   form: JSX.Element,
