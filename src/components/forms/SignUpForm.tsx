@@ -70,7 +70,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
           color={textColor}
           mb="8px"
         >
-          {t('common:name')}
+          {t('auth:fields.name')}
           <Text color={brandColor}>*</Text>
         </FormLabel>
         <Input
