@@ -18,11 +18,11 @@ const AuthLayout: FC<AuthLayoutProps> = ({ form, animatedContent, isEventsMate }
   const { t } = useTranslation();
   
   const textMap: Map<string, { title: string, subtitle: string }> = new Map([
-    ['sign-in', { 
+    ['signin', { 
       title: 'auth:signIn.title',
       subtitle: 'auth:signIn.subtitle'
     }],
-    ['sign-up', { 
+    ['signup', { 
       title: 'auth:signUp.title',
       subtitle: 'auth:signUp.subtitle'
     }],
