@@ -18,7 +18,6 @@ const ThemeSwitch: FC<ThemeSwitchProps> = ({ isEventsMate, isOnGradient }) => {
 
   return (
     <>
-      <p>{isOnGradient ? 'white' : bgGradient}</p>
       <IconButton
         aria-label='color-mode'
         h='60px'
