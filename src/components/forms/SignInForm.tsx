@@ -25,6 +25,7 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
   const textColorBrand = useColorModeValue('brand.500', 'white');
   const textColorDetails = useColorModeValue('navy.700', 'secondaryGray.600');
   const textColorSecondary = 'gray.400';
+  const brandColor = isEventsMate ? 'brand.900' : '#FF328F'
   const [show, setShow] = useState<boolean>(false);
 
   const handleSignUpRedirectEvent = () => {
@@ -71,7 +72,7 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
           mb="8px"
         >
           {t('common:email')}
-          <Text color={isEventsMate ? 'brand.900' : '#FF328F'}>*</Text>
+          <Text color={brandColor}>*</Text>
         </FormLabel>
         <Input
           isRequired={true}
@@ -95,7 +96,7 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
           display="flex"
         >
           {t('auth:password')}
-          <Text color={isEventsMate ? 'brand.900' : '#FF328F'}>*</Text>
+          <Text color={brandColor}>*</Text>
         </FormLabel>
         <InputGroup size="md">
           <Input
@@ -122,7 +123,7 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
         </InputGroup>
 
         <Flex justifyContent="space-between" align="center" mb="24px">
-          <NavLink href="/auth/forgot-password">
+          <NavLink href="/auth/forgot-password" styles={{}}>
             <Text
               color={textColorBrand}
               fontSize="sm"
@@ -135,7 +136,7 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
         </Flex>
         <Button
           fontSize="sm"
-          bg={isEventsMate ? 'brand.900' : '#FF328F'}
+          bg={brandColor}
           color="white"
           fontWeight="500"
           w="100%"
