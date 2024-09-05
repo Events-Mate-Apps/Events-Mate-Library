@@ -10,8 +10,8 @@ import FormLabel from '../fields/FormLabel';
 import SignInWithAppleButton from '../buttons/SignInWithAppleButton';
 import NavLink from '../utils/NavLink';
 import AsyncButton from '../buttons/AsyncButton';
-import useUserStore from '~/stores/auth';
-import { SignUpRequest } from '~/interfaces/user';
+import useUserStore from '../../stores/auth';
+import { SignUpRequest } from '../../interfaces/user';
 
 interface SignUpFormProps {
   isEnabledSIWA?: boolean
@@ -165,7 +165,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
           w="100%"
           h="50"
           mb="24px"
-          onClick={() => userStore.signIn(getValues())}
+          onClick={() => userStore.signUp(getValues())}
         >
           {t('auth:signIn.title')}
         </AsyncButton>

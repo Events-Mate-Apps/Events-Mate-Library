@@ -10,8 +10,8 @@ import FormLabel from '../fields/FormLabel';
 import SignInWithAppleButton from '../buttons/SignInWithAppleButton';
 import NavLink from '../utils/NavLink';
 import AsyncButton from '../buttons/AsyncButton';
-import useUserStore from '~/stores/auth';
-import { SignInRequest } from '~/interfaces/user';
+import useUserStore from '../../stores/auth';
+import { SignInRequest } from '../../interfaces/user';
 
 interface SignInFormProps {
   isEnabledSIWA?: boolean
