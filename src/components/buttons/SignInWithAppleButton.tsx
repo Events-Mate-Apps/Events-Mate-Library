@@ -61,10 +61,21 @@ const SignInWithAppleButton: FC = () => {
 
   const handleSuccessfulLogin = useCallback(
     (response: LoginResponse) => {
-      userStore.signInWithApple(response);
+      const userWithNames = {
+        ...response,
+        user: {
+          ...response.user,
+          firstName: response.user.firstName || '',
+          lastName: response.user.lastName || '',
+        },
+      };
+  
+      userStore.signInWithApple(userWithNames);
     },
     [userStore]
   );
+  
+  
 
   const handleAppleLogInEvent = (status: string, message: string) => {
     console.log(`Apple login event: ${status} - ${message}`);
