@@ -32,7 +32,9 @@ const AuthLayout: FC<AuthLayoutProps> = ({ form, animatedContent, isEventsMate }
     }],
   ]);
 
-  const bgGradient = isEventsMate ? 'linear(to-tr, brand.900, brand.400)' : 'linear-gradient(to right, #003973, #E5E5BE)';
+  const bgGradient = isEventsMate 
+    ? 'linear(to-tr, brand.900, brand.400)' 
+    : 'linear-gradient(to right, #FF328F, #6D055A)';
   
   const text = textMap.get(pathname.split('/').slice(-1)[0]);
 
