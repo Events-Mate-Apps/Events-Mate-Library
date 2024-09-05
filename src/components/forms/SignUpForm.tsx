@@ -178,7 +178,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
         mt="0px"
       >
         <Text color={textColorDetails} fontWeight="400" fontSize="14px">
-          {t('auth:dontHaveAnAccount')}
+          {t('auth:alreadyHaveAnAccount')}
           <NavLink href="/auth/signup" onClick={handleSignUpRedirectEvent}>
             <Text
               color={brandColor}
