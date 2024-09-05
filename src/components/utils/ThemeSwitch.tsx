@@ -15,7 +15,7 @@ const ThemeSwitch: FC<ThemeSwitchProps> = ({ isEventsMate, isOnGradient }) => {
     : 'linear-gradient(to right, #FF328F, #6D055A)'
 
   const background = isOnGradient ? { bg: 'white' } : { bgGradient }
-  const foreground = isOnGradient ? { bg: isEventsMate ? 'brand.900' : '#e13784' } : { color: 'white' }
+  const foreground = isOnGradient ? { color: isEventsMate ? 'brand.900' : '#FF328F' } : { color: 'white' }
 
   return (
     <>
@@ -24,7 +24,6 @@ const ThemeSwitch: FC<ThemeSwitchProps> = ({ isEventsMate, isOnGradient }) => {
         h='60px'
         w='60px'
         {...background}
-        {...foreground}
         zIndex='2' 
         position='absolute'
         variant='no-effects'
@@ -36,7 +35,7 @@ const ThemeSwitch: FC<ThemeSwitchProps> = ({ isEventsMate, isOnGradient }) => {
           <Icon
             h='24px'
             w='24px'
-            color={isEventsMate ? 'brand.900' : 'white'}
+            {...foreground}
             as={colorMode === 'light' ? IoMdMoon : IoMdSunny}
           />
         }
