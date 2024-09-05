@@ -22,7 +22,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
   const textColor = useColorModeValue('navy.700', 'white');
   const textColorDetails = useColorModeValue('navy.700', 'secondaryGray.600');
   const textColorSecondary = 'gray.400';
-  const brandColor = isEventsMate ? 'brand.400' : '#FF328F'
+  const brandColor = isEventsMate ? 'brand.500' : '#FF328F'
   const [show, setShow] = useState<boolean>(false);
 
   const userStore = useUserStore()
