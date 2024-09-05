@@ -135,7 +135,7 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
         </Flex>
         <Button
           fontSize="sm"
-          bg={isEventsMate ? 'brand.900' : 'pink'}
+          bg={isEventsMate ? 'brand.900' : '#FF328F'}
           fontWeight="500"
           w="100%"
           h="50"
