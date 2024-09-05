@@ -186,7 +186,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
               ms="5px"
               fontWeight="500"
             >
-              {t('auth:actions.signIp')}
+              {t('auth:actions.signUp')}
             </Text>
           </NavLink>
         </Text>
