@@ -12,6 +12,7 @@ import NavLink from '../utils/NavLink';
 import AsyncButton from '../buttons/AsyncButton';
 import useUserStore from '../../stores/auth';
 import { SignUpRequest } from '../../interfaces/user';
+import { useRouter } from 'next/router';
 
 interface SignUpFormProps {
   isEnabledSIWA?: boolean
@@ -24,6 +25,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
   const textColorSecondary = 'gray.400';
   const brandColor = isEventsMate ? 'brand.500' : '#FF328F'
   const [show, setShow] = useState<boolean>(false);
+  const { push } = useRouter()
 
   const userStore = useUserStore()
 
@@ -38,6 +40,11 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
   const { t } = useTranslation()
 
   const { register, getValues } = useForm<SignUpRequest>({});
+
+  const signUp = async () => {
+    await userStore.signUp(getValues())
+    push('/app')
+  }
 
   return (
     <Flex
@@ -165,7 +172,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
           w="100%"
           h="50"
           mb="24px"
-          onClick={() => userStore.signUp(getValues())}
+          onClick={() => signUp()}
         >
           {t('auth:signUp.title')}
         </AsyncButton>
