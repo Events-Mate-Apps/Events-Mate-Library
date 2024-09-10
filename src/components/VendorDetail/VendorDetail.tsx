@@ -158,13 +158,13 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
                   {vendor.name}
                 </Text>
                 <VendorPriorityBadge
-                  isPremium={vendor.isPremium ?? false}
+                  isPremium={vendor.isPremium}
                   size='35px'
                 />
               </Flex>
               <ReviewStars
                 score={vendor.rating}
-                isPremium={vendor.isPremium ?? false}
+                isPremium={vendor.isPremium}
               />
               <Flex gap='5px' flexWrap='wrap' mb='20px'>
                 {vendor.categories.map((category) => (

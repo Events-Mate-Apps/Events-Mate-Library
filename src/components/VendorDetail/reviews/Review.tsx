@@ -50,7 +50,7 @@ const Review: React.FC<ReviewProps> = ({
         <Flex justifyContent='space-between' mb='5'>
           <Avatar me='8' name={authorEmail} />
           <ReviewStars score={rating}
-            isPremium={vendor.isPremium ?? false} />
+            isPremium={vendor.isPremium} />
         </Flex>
         <Heading size='sm' color={textColor}>{title}</Heading>
         <Text color={textColor}>{authorEmail}</Text>

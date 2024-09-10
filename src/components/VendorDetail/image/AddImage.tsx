@@ -37,13 +37,9 @@ const AddImage: React.FC<AddImageProps> = ({ vendor, images }) => {
     }
   };
 
-  const isUserAbleToUploadAnotherImage = () => {
-    if (vendor.isPremium){
-      return images.length < 10
-    } else {
-      return images.length < 1
-    }
-  }
+  const isUserAbleToUploadAnotherImage = () => 
+    vendor.isPremium ? images.length < 10 : images.length < 1;
+  
 
   return (
     <Flex
