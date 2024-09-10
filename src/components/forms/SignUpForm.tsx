@@ -132,7 +132,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
           <Input
             isRequired={true}
             fontSize="sm"
-            placeholder={t('auth:passwordMinumum')}
+            placeholder={t('auth:passwordMinimum')}
             mb="24px"
             size="lg"
             type={show ? 'text' : 'password'}
