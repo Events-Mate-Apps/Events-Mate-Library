@@ -1,3 +1,8 @@
+interface Window {
+  AppleID: any;
+  gtag: any;
+}
+
 interface CustomError {
   errorCode: number;
   message?: string;

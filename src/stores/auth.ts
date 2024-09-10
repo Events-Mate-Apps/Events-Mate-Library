@@ -3,6 +3,9 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import { api } from '../utils/api';
 import useNotificationStore from './notification';
 import { Wedding } from '../interfaces/wedding';
+import { SignInRequest, SignUpRequest } from '../interfaces/user';
+import { AxiosError } from 'axios';
+import getT from 'next-translate/getT';
 
 export interface UserData {
   username: string;
@@ -38,15 +41,6 @@ interface Token {
   secret: string;
 }
 
-interface SignInRequest {
-  email: string;
-  password: string;
-}
-
-interface SignUpRequest extends SignInRequest {
-  name: string;
-}
-
 interface UserState {
   isLoggedIn: boolean;
   user: UserData | null;
@@ -73,23 +67,32 @@ interface UserActions {
   setUsername: (username: string) => void;
   setFirstName: (firstName: string) => void;
   setLastName: (lastName: string) => void;
+  locale?: string,
+  setLocale: (locale: string) => void,
 }
 
 type UserStore = UserState & UserActions
 
 const useUserStore = create<UserStore>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       isLoggedIn: false,
       user: null,
       token: null,
       wedding: null,
+      locale: undefined,
+      setLocale: (locale) => {
+        set({
+          locale
+        })
+      },
       signIn: async (body) => {
-        const { showError } = useNotificationStore.getState()
+        const { showError, showCustomError } = useNotificationStore.getState()
+        const t = await getT(get().locale, 'notification')
 
         try {
           const {
-            data: { user, token },
+            data: { user, token }, status
           } = await api.post<UserResponseData>('auth/signin', null, {
             headers: {
               Authorization:
@@ -97,7 +100,7 @@ const useUserStore = create<UserStore>()(
             },
           });
 
-          set({
+          if (status === 200) set({
             isLoggedIn: true,
             user,
             token: {
@@ -106,7 +109,12 @@ const useUserStore = create<UserStore>()(
             },
           });          
         } catch (error) {
-          showError({ error })
+          if ((error as AxiosError).response?.status === 401) {
+            showCustomError({ 
+              title: t('notification:invalidCredentials.title'),
+              description: t('notification:invalidCredentials.description')
+            })
+          } else showError({ error })
         }
       },
       signInWithApple: async ({ user, token }) => {

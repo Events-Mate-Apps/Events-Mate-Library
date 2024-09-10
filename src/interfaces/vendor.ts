@@ -34,6 +34,7 @@ export interface Vendor {
   seoImageLink?: string,
   priority: number,
   descriptionContent?: TranslationTextContent,
+  localizedDescription?: Description[];
   premiumSubscription: {
     id: string,
     priority: number,

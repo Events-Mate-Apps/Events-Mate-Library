@@ -58,7 +58,7 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
       && !isOpen) {
       onOpen();
     }
-  }, [reviewConfirmedToken, isOpen])
+  }, [reviewConfirmedToken, isOpen, langToDisplay])
 
   const turnOffDialog = () => {
     onClose();
@@ -129,11 +129,16 @@ const VendorDetail: React.FC<VendorDetailProps> = ({ vendor, user, sendStats, us
                 {t('vendors:detail.buySubscription')}
               </Tag>}
           </div>}
-          <LanguageBar
-            obj={vendor}
-            langToDisplay={langToDisplay}
-            setLangToDisplay={setLangToDisplay}
-          />
+          <Flex flexDirection="row">
+            {vendor.descriptionContent?.translations?.map((description, index) => (
+              <LanguageBar
+                key={index}
+                obj={description}
+                langToDisplay={langToDisplay}
+                setLangToDisplay={setLangToDisplay}
+              />
+            ))}
+          </Flex>
           <Flex direction={{ sm: 'column', lg: 'column', xl: 'row' }}>
             <Box>
               <VendorImages vendor={vendor} />
