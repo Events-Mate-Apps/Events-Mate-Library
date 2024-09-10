@@ -58,7 +58,7 @@ const DraggableImage: React.FC<DraggableImageProps> = ({
   };
 
   const confirmDeleteImage = async (id?: string) => {
-    setIsDeleteAlertOpen(false);  // Close the alert dialog
+    setIsDeleteAlertOpen(false); 
     await deleteImage(id);
   }
 
@@ -124,19 +124,18 @@ const DraggableImage: React.FC<DraggableImageProps> = ({
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Delete Image
+              {t('edit:deleteImage')}
             </AlertDialogHeader>
-
             <AlertDialogBody>
-              Are you sure you want to delete this image? This action cannot be undone.
+              {t('edit:areYouSure')}
             </AlertDialogBody>
 
             <AlertDialogFooter>
               <Button ref={cancelRef} onClick={onCloseDeleteAlert}>
-                Cancel
+                {t('common:cancel')}
               </Button>
               <Button colorScheme="red" onClick={() => confirmDeleteImage(image.id)} ml={3}>
-                Delete
+                {t('common:delete')}
               </Button>
             </AlertDialogFooter>
           </AlertDialogContent>

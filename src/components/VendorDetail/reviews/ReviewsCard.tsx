@@ -84,25 +84,26 @@ const ReviewsCard: React.FC<{ vendor: Vendor }> = ({ vendor }) => {
           (!reviews || !reviews.reviews[0]) && <Text fontWeight='500' color={secondaryTextColor}>{t('vendors:detail.reviews.noReviewsYet')}</Text>
         }
         {
-          vendor.priority < 3 ?
-            <Text fontWeight='500' color={secondaryTextColor}>{t('vendors:detail.reviews.reviewLowPriorityMessage')}</Text> : (
-              reviews &&
-              reviews.totalReviews > 0 &&
-              reviews.reviews.sort((a: VendorReview, b: VendorReview) => {
-                return dayjs(b.createdAt).diff(dayjs(a.createdAt));
-              }).map((review, key) => {
-                return (
-                  <Review
-                    rating={review.rating}
-                    title={review.title}
-                    authorEmail={review.authorEmail}
-                    description={review.description}
-                    createDate={review.createdAt}
-                    key={review.title + key}
-                    vendor={vendor}
-                  />
-                );
-              }))
+          vendor.isPremium && 
+         reviews &&
+         reviews.totalReviews > 0 &&
+         reviews.reviews
+           .sort((a: VendorReview, b: VendorReview) => {
+             return dayjs(b.createdAt).diff(dayjs(a.createdAt));
+           })
+           .map((review, key) => {
+             return (
+               <Review
+                 rating={review.rating}
+                 title={review.title}
+                 authorEmail={review.authorEmail}
+                 description={review.description}
+                 createDate={review.createdAt}
+                 key={review.title + key}
+                 vendor={vendor}
+               />
+             );
+           })
         }
       </Flex>
     </Card>

@@ -10,7 +10,7 @@ import React from 'react';
 
 interface ReviewStarsProps {
   score: number,
-  isPremium: boolean
+  isPremium?: boolean
 }
 
 const ReviewStars: React.FC<ReviewStarsProps> = ({ score, isPremium }) => {
