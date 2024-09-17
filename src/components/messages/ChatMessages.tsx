@@ -37,6 +37,7 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ name, messages, vendorId })
     try {
       const { data } = await api.get<Vendor>(`vendors/${vendorId }`);
       setIsVendorAbleToUseMessages(data.isPremium)
+      console.log(data.isPremium, "aa")
     } catch (error) {
       showError({ error })
     }
