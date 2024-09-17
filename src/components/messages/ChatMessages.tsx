@@ -49,7 +49,7 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ name, messages, vendorId })
   }, [messages]);
 
   useEffect(() => { 
-    if(isEM){
+    if(!isEM){
       vendorId && getVendor() 
     }
   }, [vendorId])
