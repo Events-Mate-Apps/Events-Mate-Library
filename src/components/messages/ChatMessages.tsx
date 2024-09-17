@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 import useTranslation from 'next-translate/useTranslation';
 import useUserStore from '../../stores/auth';
 import MessageBlock from './MessageBlock';
-import { isEventsMate } from '~/utils/orientation';
+import { isEventsMate } from '../../utils/orientation';
 import { api } from '../../utils/api'
 import useNotificationStore from '../../stores/notification';
 import { Vendor } from '../../interfaces/vendor'
@@ -41,7 +41,7 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ name, messages, vendorId })
       showError({ error })
     }
   };
-  
+
   useEffect(() => {
     if (scrollbarsRef.current) {
       scrollbarsRef.current.scrollToBottom();
