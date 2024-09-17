@@ -153,7 +153,7 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ name, messages, vendorId })
                         t('vendors:messages.months.' + message.createdAt.split('-')[1])
                       : dayjs(message.createdAt).format('hh:mm A')
                   }
-                  side={message.senderId !== userStore.user?.id ? 'left' : 'right'}
+                  side={isEM ? message.senderId !== userStore.user?.id ? 'left' : 'right' : message.senderId !== userStore.user?.id ? 'right' : 'left'}
                 />
               ))
             )}
