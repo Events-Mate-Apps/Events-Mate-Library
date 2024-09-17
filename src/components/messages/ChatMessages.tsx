@@ -86,7 +86,7 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ name, messages, vendorId })
               >
                 {name}
               </Text>
-              {isVendorAbleToUseMessages && (
+              {!isVendorAbleToUseMessages && (
                 <Box 
                   position='absolute'
                   textAlign='center' 
