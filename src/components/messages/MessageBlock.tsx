@@ -36,7 +36,7 @@ const MessageBlock: React.FC<MessageBlockProps> = ({
       w="max-content"
       maxW={{ base: '100%', lg: '65%', xl: '52%' }}
       mb={isLast ? { base: '40px', md: 'none' } : { base: '20px' }}
-      style={side === 'right' ? { marginLeft: 'auto' } : {}}
+      style={side === 'right' ? { marginLeft: 'auto' } : {marginRight: 'auto'}}
       {...rest}
     >
       <Text
