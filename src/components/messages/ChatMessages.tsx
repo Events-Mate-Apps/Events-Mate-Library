@@ -16,7 +16,7 @@ interface ChatMessagesProps {
   status: string;
   name: string;
   messages: Message[];
-  vendorId?: string
+  vendorId?: string | null
 }
 
 const ChatMessages: React.FC<ChatMessagesProps> = ({ name, messages, vendorId }) => {
