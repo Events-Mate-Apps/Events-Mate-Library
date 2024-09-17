@@ -89,21 +89,24 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ name, messages, vendorId })
               {!isVendorAbleToUseMessages && (
                 <Box 
                   position='absolute'
+                  left='50%'
+                  top='50%'
+                  transform='translate(-50%, -50%)'
                   textAlign='center' 
-                  mt='10px'
-                  transform={`translateX(50%)`}
-                  right={'50%'}
                   bg='none'
-                  width={{ base: '600px', '2xl': '700px' }}
+                  width={{ base: '90%', md: '600px', '2xl': '700px' }}
+                  maxWidth='100%'
                   borderRadius='10px'
                   backdropFilter='auto'
                   backdropBlur='200px'
                   zIndex='1'
+                  p={4}
                 >
                   <Text
                     fontWeight='600'
                     fontSize={{ base: '1rem', '2xl': '1.25rem' }}
                     bg='transparent'
+                    mb={2}
                   >
                     {t('vendors:messages.vendorDoesNotHavePremiumTitle')}
                   </Text>
