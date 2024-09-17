@@ -46,6 +46,7 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ name, messages, vendorId })
     if (scrollbarsRef.current) {
       scrollbarsRef.current.scrollToBottom();
     }
+    console.log(messages)
   }, [messages]);
 
   useEffect(() => { 
