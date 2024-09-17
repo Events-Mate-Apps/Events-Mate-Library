@@ -77,7 +77,7 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ name, messages, vendorId })
         pb="52px"
       >
         <Flex>
-          {!isEM ? (
+          {isEM ? (
             <>
               <Text 
                 fontWeight="700"
@@ -85,7 +85,7 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ name, messages, vendorId })
               >
                 {name}
               </Text>
-              {!isVendorAbleToUseMessages && (
+              {isVendorAbleToUseMessages && (
                 <Box 
                   position='absolute'
                   textAlign='center' 
