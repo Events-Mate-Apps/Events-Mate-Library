@@ -37,7 +37,6 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ name, messages, vendorId })
     try {
       const { data } = await api.get<Vendor>(`vendors/${vendorId }`);
       setIsVendorAbleToUseMessages(data.isPremium)
-      console.log(data.isPremium, "aa")
     } catch (error) {
       showError({ error })
     }
@@ -153,7 +152,7 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ name, messages, vendorId })
                         t('vendors:messages.months.' + message.createdAt.split('-')[1])
                       : dayjs(message.createdAt).format('hh:mm A')
                   }
-                  side={message.senderId !== userStore.user?.id ? 'right' : 'left'}
+                  side={message.senderId !== userStore.user?.id ? 'left' : 'right'}
                 />
               ))
             )}
