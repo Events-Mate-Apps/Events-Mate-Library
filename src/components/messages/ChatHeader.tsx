@@ -46,7 +46,7 @@ const ChatHeader: FC<ChatHeaderProps> = ({
   const newLastMessage = formatLastMessage(lastMessage);
 
   useEffect(() => {
-    getVendor();
+    vendorId && getVendor();
   }, [vendorId, refetch]);
 
   if (vendor) {
