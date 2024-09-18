@@ -93,7 +93,7 @@ const useUserStore = create<UserStore>()(
 
         try {
           const {
-            data: { user, token }
+            data: { user, token }, status
           } = await api.post<UserResponseData>('auth/signin', null, {
             headers: {
               Authorization:
@@ -101,15 +101,17 @@ const useUserStore = create<UserStore>()(
             },
           });
 
-          if (user) set({
-            isLoggedIn: true,
-            user,
-            token: {
-              expiresAt: token.expiresAt,
-              secret: token.value,
-            },
-          });   
-          Router.push('/app')       
+          if (status === 200) {
+            set({
+              isLoggedIn: true,
+              user,
+              token: {
+                expiresAt: token.expiresAt,
+                secret: token.value,
+              },
+            });   
+            Router.push('/app')       
+          }
         } catch (error) {
           if ((error as AxiosError).response?.status === 401) {
             showCustomError({ 
