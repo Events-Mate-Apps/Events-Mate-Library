@@ -51,7 +51,7 @@ const ChatHeader: FC<ChatHeaderProps> = ({
 
   if (vendor) {
     return (
-      <Box position="relative" h="90px" border="10px solid red">
+      <Box position="relative" h="90px">
         <Flex
           onClick={() => handleActiveConversation(id)}
           position="absolute"
