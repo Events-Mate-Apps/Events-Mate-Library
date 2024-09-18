@@ -4,6 +4,7 @@ import React, { Dispatch, SetStateAction, useState } from 'react';
 import FormLabel from '../../components/fields/FormLabel';
 import { Language, TranslationTextContent } from '../../interfaces/vendor';
 import LanguageList from 'language-list';
+import useTranslation from 'next-translate/useTranslation';
 
 interface AddLangButtonProps {
   content: TranslationTextContent,
@@ -18,7 +19,8 @@ const AddLangBtn: React.FC<AddLangButtonProps> = ({ content, setContent, childre
   const { isOpen, onClose, onOpen } = useDisclosure()
   const languages: Language[] = LanguageList().getData();
   const langs = [{ code: 'all', language: 'All' }, ...languages]
-
+  const { t } = useTranslation()
+  
   const [lang, setLang] = useState<string | null>(null) 
 
   const addLang = async () => {
@@ -54,13 +56,14 @@ const AddLangBtn: React.FC<AddLangButtonProps> = ({ content, setContent, childre
       <Modal size='xl' isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent h='250px' zIndex="modal" bgColor={bgColor}>
-          <ModalHeader>New language</ModalHeader>
+          <ModalHeader>{t('edit:newLanguage')}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <FormControl>
-              <FormLabel>Select language you want to add</FormLabel>
+              <FormLabel>{t('edit:selectLang')}</FormLabel>
               <Select
-                placeholder="Select language..."
+                placeholder={t('edit:selectLanguage', { defaultValue: t('edit:selectLanguage') })}
+
                 options={langs.filter((e) => !content.translations.map(e => e.languageISO).includes(e.code)).map(e => {
                   return {
                     label: e.language,
@@ -74,14 +77,14 @@ const AddLangBtn: React.FC<AddLangButtonProps> = ({ content, setContent, childre
           </ModalBody>
           <ModalFooter>
             <Button variant='ghost' mr={3} onClick={onClose}>
-                            Close
+              {t('common:close')}
             </Button>
             <Button 
               variant='darkBrand'
               onClick={() => addLang()}
               disabled={!lang}
             >
-                            Add Language
+              {t('edit:addLanguage')}
             </Button>
           </ModalFooter>
         </ModalContent>
