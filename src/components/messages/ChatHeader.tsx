@@ -1,9 +1,8 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Avatar, Box, Flex, Text, useColorModeValue, Button, Progress } from '@chakra-ui/react';
 import Upsell from '../upsell/Upsell';
 import { Vendor } from '../../interfaces/vendor';
 import useNotificationStore from '../../stores/notification';
-import { useEffect, useState } from 'react';
 import { api } from '../../utils/api';
 
 interface ChatHeaderProps {
@@ -52,8 +51,8 @@ const ChatHeader: FC<ChatHeaderProps> = ({
   if (vendor) {
     return (
       <Box position="relative" h="90px">
-        {handleActiveConversation && id && <Flex
-          onClick={() => handleActiveConversation(id)}
+        <Flex
+          onClick={handleActiveConversation && id ? () => handleActiveConversation(id) : undefined}
           position="absolute"
           alignItems="center"
           zIndex="1"
@@ -111,7 +110,7 @@ const ChatHeader: FC<ChatHeaderProps> = ({
               {time}
             </Text>
           </Flex>
-        </Flex>}
+        </Flex>
         {!vendor.isPremium && (
           <Flex
             h="90px"
@@ -124,11 +123,13 @@ const ChatHeader: FC<ChatHeaderProps> = ({
             placeContent="center"
           >
             <Text mb="2px">Toto je premiová funkce!</Text>
-            {handleActiveConversation && id && <Upsell vendor={vendor} onClick={() => handleActiveConversation(id)} isEnabled>
-              <Button variant="darkBrand" size="sm">
-                Koupit předplatné
-              </Button>
-            </Upsell>}
+            {handleActiveConversation && id && (
+              <Upsell vendor={vendor} onClick={() => handleActiveConversation(id)} isEnabled>
+                <Button variant="darkBrand" size="sm">
+                  Koupit předplatné
+                </Button>
+              </Upsell>
+            )}
           </Flex>
         )}
       </Box>
