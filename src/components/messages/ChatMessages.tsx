@@ -117,7 +117,7 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ name, messages, vendorId })
             </>
           ) : (
             <Text 
-              color="gray.700"
+              color={nameColor} 
               fontWeight="700"
               fontSize="xl"
             >
