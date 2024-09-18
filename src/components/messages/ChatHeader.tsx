@@ -11,10 +11,10 @@ interface ChatHeaderProps {
   avatar: string;
   name: string;
   time: string;
-  vendorId: string;
-  id: string;
-  refetch: () => void;
-  handleActiveConversation: (id: string) => void;
+  vendorId?: string;
+  id?: string;
+  refetch?: () => void;
+  handleActiveConversation?: (id: string) => void;
 }
 
 const ChatHeader: FC<ChatHeaderProps> = ({
@@ -52,7 +52,7 @@ const ChatHeader: FC<ChatHeaderProps> = ({
   if (vendor) {
     return (
       <Box position="relative" h="90px">
-        <Flex
+        {handleActiveConversation && id && <Flex
           onClick={() => handleActiveConversation(id)}
           position="absolute"
           alignItems="center"
@@ -111,7 +111,7 @@ const ChatHeader: FC<ChatHeaderProps> = ({
               {time}
             </Text>
           </Flex>
-        </Flex>
+        </Flex>}
         {!vendor.isPremium && (
           <Flex
             h="90px"
@@ -124,11 +124,11 @@ const ChatHeader: FC<ChatHeaderProps> = ({
             placeContent="center"
           >
             <Text mb="2px">Toto je premiová funkce!</Text>
-            <Upsell vendor={vendor} onClick={() => handleActiveConversation(id)} isEnabled>
+            {handleActiveConversation && id && <Upsell vendor={vendor} onClick={() => handleActiveConversation(id)} isEnabled>
               <Button variant="darkBrand" size="sm">
                 Koupit předplatné
               </Button>
-            </Upsell>
+            </Upsell>}
           </Flex>
         )}
       </Box>
