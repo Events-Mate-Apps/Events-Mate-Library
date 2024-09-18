@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, Text, useColorModeValue } from '@chakra-ui/react';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { messagesRenderThumb, messagesRenderTrack, messagesRenderView } from '../scrollbar/ScrollBar';
 import { Message } from '../../interfaces/messages';
@@ -27,10 +27,9 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ name, messages, vendorId })
   const [isVendorAbleToUseMessages, setIsVendorAbleToUseMessages] = useState<boolean | undefined>(false)
 
   const isEM = isEventsMate();
+  const nameColor = useColorModeValue('gray.700', 'white');
 
   const { showError } = useNotificationStore()
-
-  
 
   const getVendor = async () => {
     setIsVendorAbleToUseMessages(false)
@@ -46,7 +45,6 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ name, messages, vendorId })
     if (scrollbarsRef.current) {
       scrollbarsRef.current.scrollToBottom();
     }
-    console.log(vendorId, isVendorAbleToUseMessages)
   }, [messages]);
 
   useEffect(() => { 
@@ -81,6 +79,7 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ name, messages, vendorId })
           {!isEM ? (
             <>
               <Text 
+                color={nameColor} 
                 fontWeight="700"
                 fontSize="xl"
               >
