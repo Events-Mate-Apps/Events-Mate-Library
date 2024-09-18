@@ -30,7 +30,7 @@ const ChatHeader: FC<ChatHeaderProps> = ({
   const [vendor, setVendor] = useState<Vendor | null>(null);
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const { showError } = useNotificationStore();
-
+  const isEM = isEventsMate()
   const getVendor = async () => {
     try {
       const { data } = await api.get(`vendors/${vendorId}`);
@@ -46,10 +46,10 @@ const ChatHeader: FC<ChatHeaderProps> = ({
   const newLastMessage = formatLastMessage(lastMessage);
 
   useEffect(() => {
-    vendorId && getVendor();
+    vendorId && getVendor;
   }, [vendorId, refetch]);
 
-  if (vendor && isEventsMate()) {
+  if (vendor && isEM) {
     return (
       <Box position="relative" h="90px">
         <Flex
