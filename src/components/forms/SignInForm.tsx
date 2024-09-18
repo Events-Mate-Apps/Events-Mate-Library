@@ -12,7 +12,6 @@ import NavLink from '../utils/NavLink';
 import AsyncButton from '../buttons/AsyncButton';
 import useUserStore from '../../stores/auth';
 import { SignInRequest } from '../../interfaces/user';
-import { useRouter } from 'next/router';
 
 interface SignInFormProps {
   isEnabledSIWA?: boolean
@@ -25,13 +24,11 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
   const textColorSecondary = 'gray.400';
   const brandColor = isEventsMate ? 'brand.500' : '#FF328F'
   const [show, setShow] = useState<boolean>(false);
-  const { push } = useRouter()
 
   const userStore = useUserStore()
 
   const signIn = async () => {
     await userStore.signIn(getValues())
-    push('/app')
   }
 
   const handleSignUpRedirectEvent = () => {

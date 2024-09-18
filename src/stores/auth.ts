@@ -6,6 +6,7 @@ import { Wedding } from '../interfaces/wedding';
 import { SignInRequest, SignUpRequest } from '../interfaces/user';
 import { AxiosError } from 'axios';
 import getT from 'next-translate/getT';
+import Router from 'next/router';
 
 export interface UserData {
   username: string;
@@ -107,7 +108,8 @@ const useUserStore = create<UserStore>()(
               expiresAt: token.expiresAt,
               secret: token.value,
             },
-          });          
+          });   
+          Router.push('/app')       
         } catch (error) {
           if ((error as AxiosError).response?.status === 401) {
             showCustomError({ 
