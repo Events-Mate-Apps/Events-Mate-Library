@@ -56,7 +56,7 @@ const ChatHeader: FC<ChatHeaderProps> = ({
 
   if (!isEM) {
     return (
-      <Box border="10px solid black">
+      <Box>
         <Flex
           cursor="pointer"
           pt="26px"
