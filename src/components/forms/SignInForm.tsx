@@ -27,10 +27,6 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
 
   const userStore = useUserStore()
 
-  const signIn = async () => {
-    await userStore.signIn(getValues())
-  }
-
   const handleSignUpRedirectEvent = () => {
     TrackGoogleAnalyticsEvent({
       action: 'sign_up',
@@ -145,7 +141,7 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
           w="100%"
           h="50"
           mb="24px"
-          onClick={() => signIn()}
+          onClick={() => userStore.signIn(getValues())}
         >
           {t('auth:signIn.title')}
         </AsyncButton>

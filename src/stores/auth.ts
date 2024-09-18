@@ -138,17 +138,21 @@ const useUserStore = create<UserStore>()(
 
         try {
           const {
-            data: { user, token },
+            data: { user, token }, status
           } = await api.post<UserResponseData>('auth/signup', body);
 
-          set({
-            isLoggedIn: true,
-            user,
-            token: {
-              expiresAt: token.expiresAt,
-              secret: token.value,
-            },
-          });
+          
+          if (status === 200) {
+            set({
+              isLoggedIn: true,
+              user,
+              token: {
+                expiresAt: token.expiresAt,
+                secret: token.value,
+              },
+            });   
+            Router.push('/app')       
+          }
         } catch (error) {
           showError({ error })
         }
