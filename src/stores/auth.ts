@@ -92,7 +92,7 @@ const useUserStore = create<UserStore>()(
 
         try {
           const {
-            data: { user, token }, status
+            data: { user, token }
           } = await api.post<UserResponseData>('auth/signin', null, {
             headers: {
               Authorization:
@@ -100,7 +100,7 @@ const useUserStore = create<UserStore>()(
             },
           });
 
-          if (status === 200) set({
+          if (user) set({
             isLoggedIn: true,
             user,
             token: {
