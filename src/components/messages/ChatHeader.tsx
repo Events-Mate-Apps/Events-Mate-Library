@@ -4,6 +4,7 @@ import Upsell from '../upsell/Upsell';
 import { Vendor } from '../../interfaces/vendor';
 import useNotificationStore from '../../stores/notification';
 import { api } from '../../utils/api';
+import { isEventsMate } from '../../utils/orientation';
 
 interface ChatHeaderProps {
   lastMessage: string;
@@ -48,7 +49,7 @@ const ChatHeader: FC<ChatHeaderProps> = ({
     vendorId && getVendor();
   }, [vendorId, refetch]);
 
-  if (vendor) {
+  if (vendor && isEventsMate()) {
     return (
       <Box position="relative" h="90px">
         <Flex
