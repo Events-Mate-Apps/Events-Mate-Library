@@ -19,4 +19,8 @@ export const setAuthTokenHeader = (token: string | null) => {
   }
 };
 
+export const resetAuthTokenHeader = () => {
+  instance.defaults.headers.common['Authorization'] = null
+};
+
 export const api = instance;

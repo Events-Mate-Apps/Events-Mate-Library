@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import { api } from '../utils/api';
+import { api, resetAuthTokenHeader } from '../utils/api';
 import useNotificationStore from './notification';
 import { Wedding } from '../interfaces/wedding';
 import { SignInRequest, SignUpRequest } from '../interfaces/user';
@@ -154,6 +154,7 @@ const useUserStore = create<UserStore>()(
         }
       },
       signOut: () => {
+        resetAuthTokenHeader()
         set({
           isLoggedIn: false,
           user: null,
