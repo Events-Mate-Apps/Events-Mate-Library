@@ -83,6 +83,7 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
           mb="24px"
           fontWeight="500"
           size="lg"
+          data-cy="email-input"
           {...register('email', {
             required: true,
           })}
@@ -105,6 +106,7 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
             mb="24px"
             size="lg"
             type={show ? 'text' : 'password'}
+            data-cy="password-input"
             variant="auth"
             {...register('password', {
               required: true,
@@ -141,6 +143,7 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
           w="100%"
           h="50"
           mb="24px"
+          data-cy="submit-button"
           onClick={() => userStore.signIn(getValues())}
         >
           {t('auth:signIn.title')}
