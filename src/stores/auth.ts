@@ -1,11 +1,12 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import { api } from '../utils/api';
+import { api, resetAuthTokenHeader } from '../utils/api';
 import useNotificationStore from './notification';
 import { Wedding } from '../interfaces/wedding';
 import { SignInRequest, SignUpRequest } from '../interfaces/user';
 import { AxiosError } from 'axios';
 import getT from 'next-translate/getT';
+import Router from 'next/router';
 
 export interface UserData {
   username: string;
@@ -100,14 +101,17 @@ const useUserStore = create<UserStore>()(
             },
           });
 
-          if (status === 200) set({
-            isLoggedIn: true,
-            user,
-            token: {
-              expiresAt: token.expiresAt,
-              secret: token.value,
-            },
-          });          
+          if (status === 200) {
+            set({
+              isLoggedIn: true,
+              user,
+              token: {
+                expiresAt: token.expiresAt,
+                secret: token.value,
+              },
+            });   
+            Router.push('/app')       
+          }
         } catch (error) {
           if ((error as AxiosError).response?.status === 401) {
             showCustomError({ 
@@ -134,22 +138,27 @@ const useUserStore = create<UserStore>()(
 
         try {
           const {
-            data: { user, token },
+            data: { user, token }, status
           } = await api.post<UserResponseData>('auth/signup', body);
 
-          set({
-            isLoggedIn: true,
-            user,
-            token: {
-              expiresAt: token.expiresAt,
-              secret: token.value,
-            },
-          });
+          
+          if (status === 200) {
+            set({
+              isLoggedIn: true,
+              user,
+              token: {
+                expiresAt: token.expiresAt,
+                secret: token.value,
+              },
+            });   
+            Router.push('/app')       
+          }
         } catch (error) {
           showError({ error })
         }
       },
       signOut: () => {
+        resetAuthTokenHeader()
         set({
           isLoggedIn: false,
           user: null,
