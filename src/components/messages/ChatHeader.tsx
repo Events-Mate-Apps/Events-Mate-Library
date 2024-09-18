@@ -123,13 +123,15 @@ const ChatHeader: FC<ChatHeaderProps> = ({
             placeContent="center"
           >
             <Text mb="2px">Toto je premiová funkce!</Text>
-            {handleActiveConversation && id && (
-              <Upsell vendor={vendor} onClick={() => handleActiveConversation(id)} isEnabled>
-                <Button variant="darkBrand" size="sm">
-                  Koupit předplatné
-                </Button>
-              </Upsell>
-            )}
+            <Upsell 
+              vendor={vendor} 
+              isEnabled 
+              onClick={handleActiveConversation && id ? () => handleActiveConversation(id) : undefined}
+            >
+              <Button variant="darkBrand" size="sm">
+                Koupit předplatné
+              </Button>
+            </Upsell>
           </Flex>
         )}
       </Box>
