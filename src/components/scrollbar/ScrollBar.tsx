@@ -1,7 +1,12 @@
-import { Box } from '@chakra-ui/react';
+import React, { FC } from 'react';
+import { Box, BoxProps } from '@chakra-ui/react';
 
-export const renderTrack = ({ style, ...props }: any) => {
-  const trackStyle = {
+interface ScrollbarProps extends React.HTMLAttributes<HTMLDivElement> {
+  style?: React.CSSProperties;
+}
+
+export const renderTrack: FC<ScrollbarProps> = ({ style, ...props }) => {
+  const trackStyle: React.CSSProperties = {
     position: 'absolute',
     maxWidth: '100%',
     width: 6,
@@ -15,28 +20,30 @@ export const renderTrack = ({ style, ...props }: any) => {
   };
   return <div style={{ ...style, ...trackStyle }} {...props} />;
 };
-export const renderThumb = ({ style, ...props }: any) => {
-  const thumbStyle = {
+
+export const renderThumb: FC<ScrollbarProps> = ({ style, ...props }) => {
+  const thumbStyle: React.CSSProperties = {
     borderRadius: 15,
     background: 'rgba(222, 222, 222, .1)',
   };
   return <div style={{ ...style, ...thumbStyle }} {...props} />;
 };
-export const renderView = ({ style, ...props }: any) => {
-  const viewStyle = {
+
+export const renderView: FC<ScrollbarProps> = ({ style, ...props }) => {
+  const viewStyle: React.CSSProperties = {
     marginBottom: -22,
   };
   return (
     <Box
       me={{ base: '0px !important' }}
       style={{ ...style, ...viewStyle }}
-      {...props}
+      {...(props as BoxProps)}
     />
   );
 };
 
-export const kanbanRenderTrack = ({ style, ...props }: any) => {
-  const trackStyle = {
+export const kanbanRenderTrack: FC<ScrollbarProps> = ({ style, ...props }) => {
+  const trackStyle: React.CSSProperties = {
     width: 6,
     transition: 'opacity 200ms ease 0s',
     opacity: 0,
@@ -47,23 +54,25 @@ export const kanbanRenderTrack = ({ style, ...props }: any) => {
   };
   return <div style={{ ...style, ...trackStyle }} {...props} />;
 };
-export const kanbanRenderThumb = ({ style, ...props }: any) => {
-  const thumbStyle = {
+
+export const kanbanRenderThumb: FC<ScrollbarProps> = ({ style, ...props }) => {
+  const thumbStyle: React.CSSProperties = {
     borderRadius: 15,
     background: 'rgba(222, 222, 222, .1)',
   };
   return <div style={{ ...style, ...thumbStyle }} {...props} />;
 };
-export const kanbanRenderView = ({ style, ...props }: any) => {
-  const viewStyle = {
+
+export const kanbanRenderView: FC<ScrollbarProps> = ({ style, ...props }) => {
+  const viewStyle: React.CSSProperties = {
     position: 'relative',
     marginRight: -15,
   };
   return <div style={{ ...style, ...viewStyle }} {...props} />;
 };
 
-export const storiesRenderTrack = ({ style, ...props }: any) => {
-  const trackStyle = {
+export const storiesRenderTrack: FC<ScrollbarProps> = ({ style, ...props }) => {
+  const trackStyle: React.CSSProperties = {
     width: 6,
     transition: 'opacity 200ms ease 0s',
     opacity: 0,
@@ -74,23 +83,25 @@ export const storiesRenderTrack = ({ style, ...props }: any) => {
   };
   return <div style={{ ...style, ...trackStyle }} {...props} />;
 };
-export const storiesRenderThumb = ({ style, ...props }: any) => {
-  const thumbStyle = {
+
+export const storiesRenderThumb: FC<ScrollbarProps> = ({ style, ...props }) => {
+  const thumbStyle: React.CSSProperties = {
     borderRadius: 15,
     background: 'rgba(222, 222, 222, .1)',
   };
   return <div style={{ ...style, ...thumbStyle }} {...props} />;
 };
-export const storiesRenderView = ({ style, ...props }: any) => {
-  const viewStyle = {
+
+export const storiesRenderView: FC<ScrollbarProps> = ({ style, ...props }) => {
+  const viewStyle: React.CSSProperties = {
     position: 'relative',
     marginRight: -15,
   };
   return <div style={{ ...style, ...viewStyle }} {...props} />;
 };
 
-export const messagesRenderTrack = ({ style, ...props }: any) => {
-  const trackStyle = {
+export const messagesRenderTrack: FC<ScrollbarProps> = ({ style, ...props }) => {
+  const trackStyle: React.CSSProperties = {
     position: 'absolute',
     maxWidth: '100%',
     width: 6,
@@ -104,17 +115,19 @@ export const messagesRenderTrack = ({ style, ...props }: any) => {
   };
   return <div style={{ ...style, ...trackStyle }} {...props} />;
 };
-export const messagesRenderThumb = ({ style, ...props }: any) => {
-  const thumbStyle = {
+
+export const messagesRenderThumb: FC<ScrollbarProps> = ({ style, ...props }) => {
+  const thumbStyle: React.CSSProperties = {
     borderRadius: 15,
     background: 'rgba(222, 222, 222, .1)',
   };
   return <div style={{ ...style, ...thumbStyle }} {...props} />;
 };
-export const messagesRenderView = ({ style, ...props }: any) => {
-  const viewStyle = {
+
+export const messagesRenderView: FC<ScrollbarProps> = ({ style, ...props }) => {
+  const viewStyle: React.CSSProperties = {
     marginBottom: -22,
     maxWidth: '100%',
   };
-  return <Box style={{ ...style, ...viewStyle }} {...props} />;
+  return <Box style={{ ...style, ...viewStyle }} {...(props as BoxProps)} />;
 };
