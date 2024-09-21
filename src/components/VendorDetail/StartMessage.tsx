@@ -18,22 +18,22 @@ const StartMessage: React.FC<StartMessageProps> = ({ vendorId, userId, weddingId
 
   const startConversation = async () => {
     try {
-      const response = await api.get<Conversation[]>('messages/myConversations');
-      
-      const existingConversation = response.data.find(
+      const { data } = await api.get<Conversation[]>('messages/myConversations');
+  
+      const existingConversation = data.find(
         conversation => conversation.vendorId === vendorId
       );
-      
+  
       if (existingConversation) {
         return existingConversation.id;
       } else {
-        const newConversation = await api.post('messages/conversations', {
+        const { data: { id: newConversationId } } = await api.post('messages/conversations', {
           userId: userId,
           vendorId: vendorId,
           weddingId: weddingId
         });
-        
-        return newConversation.data.id;
+  
+        return newConversationId;
       }
     } catch (error) {
       console.error('Error starting conversation:', error);

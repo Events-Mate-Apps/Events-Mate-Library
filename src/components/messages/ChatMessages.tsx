@@ -24,7 +24,7 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ name, messages, vendorId })
   const userStore = useUserStore();
   const { t } = useTranslation();
 
-  const [isVendorAbleToUseMessages, setIsVendorAbleToUseMessages] = useState<boolean | undefined>(false)
+  const [isVendorAbleToUseMessages, setIsVendorAbleToUseMessages] = useState<boolean>(false)
 
   const isEM = isEventsMate();
   const nameColor = useColorModeValue('gray.700', 'white');
