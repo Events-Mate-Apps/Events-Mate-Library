@@ -4,7 +4,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { ChatIcon } from '@chakra-ui/icons';
 import { api } from '../../utils/api';
 import { useRouter } from 'next/router';
-
+import { Conversation } from '../../interfaces/messages';
 interface StartMessageProps {
   vendorId: string;
   userId: string;
@@ -17,11 +17,28 @@ const StartMessage: React.FC<StartMessageProps> = ({ vendorId, userId, weddingId
   const textColor = useColorModeValue('secondaryGray.900', 'white');
 
   const startConversation = async () => {
-    await api.post('messages/conversations', {
-      userId: userId,
-      vendorId: vendorId,
-      weddingId: weddingId
-    });
+    try {
+      const { data } = await api.get<Conversation[]>('messages/myConversations');
+  
+      const existingConversation = data.find(
+        conversation => conversation.vendorId === vendorId
+      );
+  
+      if (existingConversation) {
+        return existingConversation.id;
+      } else {
+        const { data: { id: newConversationId } } = await api.post('messages/conversations', {
+          userId: userId,
+          vendorId: vendorId,
+          weddingId: weddingId
+        });
+  
+        return newConversationId;
+      }
+    } catch (error) {
+      console.error('Error starting conversation:', error);
+      throw error;
+    }
   };
 
   const handleStartConversation = async () => {
