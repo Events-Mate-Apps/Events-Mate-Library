@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Button,
   Flex,
@@ -7,48 +8,47 @@ import {
   Box,
 } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
-import React from 'react';
 import { Vendor } from '../../interfaces/vendor';
 import useNotificationStore from '../../stores/notification';
 
 interface ContactsProps {
   vendor: Vendor;
-  sendStats?: (vendorId: string, event: string) => Promise<void>
+  sendStats?: (vendorId: string, event: string) => Promise<void>;
 }
 
-export default function Contacts({ vendor, sendStats }: ContactsProps) {
+const Contacts: React.FC<ContactsProps> = ({ vendor, sendStats }) => {
   const textColor = useColorModeValue('secondaryGray.900', 'white');
-  const { showSuccess, showError } = useNotificationStore()
+  const { showSuccess, showError } = useNotificationStore();
   const { onCopy: onCopyPhone, setValue: setPhoneValue } = useClipboard('');
   const { onCopy: onCopyEmail, setValue: setEmailValue } = useClipboard('');
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const handleEmail = async () => {
     try {
-      sendStats && await sendStats(vendor.id, 'emailViewed')
+      sendStats && await sendStats(vendor.id, 'emailViewed');
       setEmailValue(vendor.email);
-      onCopyEmail()
+      onCopyEmail();
       showSuccess({
         title: t('vendors:detail.emailCopied'),
-      })
+      });
     } catch (error) {
-      showError({ error })
+      showError({ error });
     }
   };
 
   const handlePhone = async () => {
     try {
-      sendStats && await sendStats(vendor.id, 'phoneViewed')
+      sendStats && await sendStats(vendor.id, 'phoneViewed');
       setPhoneValue(vendor.phone);
-      onCopyPhone()
+      onCopyPhone();
       showSuccess({
         title: t('vendors:detail.phoneCopied'),
-      })
+      });
     } catch (error) {
-      showError({ error })
+      showError({ error });
     }
-  }
+  };
     
   return (
     <Box w='100%'>
@@ -71,7 +71,7 @@ export default function Contacts({ vendor, sendStats }: ContactsProps) {
           </Text>
           <Button
             variant='ghost'
-            onClick={() => handleEmail()}
+            onClick={handleEmail}
             p="0"
             height="auto"
             textAlign="left"
@@ -97,7 +97,7 @@ export default function Contacts({ vendor, sendStats }: ContactsProps) {
           </Text>
           <Button
             variant='ghost'
-            onClick={() => handlePhone()}
+            onClick={handlePhone}
             p="0"
             height="auto"
           >
@@ -112,4 +112,6 @@ export default function Contacts({ vendor, sendStats }: ContactsProps) {
       </Flex>
     </Box>
   );
-}
+};
+
+export default Contacts;
