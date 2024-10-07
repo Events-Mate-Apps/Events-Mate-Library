@@ -91,6 +91,7 @@ export default function Contacts({ vendor, sendStats }: ContactsProps) {
             color={textColor}
             fontWeight="semibold"
             minWidth="60px"
+            mb="8px"
           >
             {t('vendors:detail.phone')}
           </Text>
