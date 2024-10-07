@@ -58,7 +58,7 @@ export default function Contacts({ vendor, sendStats }: ContactsProps) {
       >
         {t('vendors:detail.contacts')}
       </Text>
-      <Flex justifyContent='space-between' flexFlow={{ sm: 'column', md: 'row' }}>
+      <Flex justifyContent='space-between' flexFlow="column">
         <Flex alignItems='center' gap='10px' w={{ sm: '100%', md: '50%' }}>
           <Text 
             color={textColor}
