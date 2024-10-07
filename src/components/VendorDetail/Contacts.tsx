@@ -18,27 +18,31 @@ interface ContactsProps {
 export default function Contacts({ vendor, sendStats }: ContactsProps) {
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const { showSuccess, showError } = useNotificationStore()
-  const { onCopy, setValue } = useClipboard('');
+  const { onCopy: onCopyPhone, setValue: setPhoneValue } = useClipboard('');
+  const { onCopy: onCopyEmail, setValue: setEmailValue } = useClipboard('');
 
   const { t } = useTranslation()
 
   const handleEmail = async () => {
     try {
       sendStats && await sendStats(vendor.id, 'emailViewed')
+      setEmailValue(vendor.email);
+      onCopyEmail()
+      showSuccess({
+        title: t('vendors:detail.emailCopied'),
+      })
     } catch (error) {
       showError({ error })
-    } finally { 
-      window.location.href = `mailto:${vendor.email}`
     }
   };
 
   const handlePhone = async () => {
     try {
       sendStats && await sendStats(vendor.id, 'phoneViewed')
-      setValue(vendor.phone);
-      onCopy()
+      setPhoneValue(vendor.phone);
+      onCopyPhone()
       showSuccess({
-        title: t('vendors:detail.copied'),
+        title: t('vendors:detail.phoneCopied'),
       })
     } catch (error) {
       showError({ error })
