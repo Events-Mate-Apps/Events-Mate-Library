@@ -4,6 +4,7 @@ import {
   Text,
   useClipboard,
   useColorModeValue,
+  Box,
 } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
@@ -50,29 +51,32 @@ export default function Contacts({ vendor, sendStats }: ContactsProps) {
   }
     
   return (
-    <Flex 
-      flexFlow='column'
-      w='100%' 
-      gap='20px'
-    >
+    <Box w='100%'>
       <Text 
         color={textColor}
         fontSize="xl"
         fontWeight="semibold"
+        mb="20px"
       >
         {t('vendors:detail.contacts')}
       </Text>
-      <Flex justifyContent='space-between' flexFlow="column">
-        <Flex alignItems='center' gap='10px' w={{ sm: '100%', md: '50%' }}>
+      <Flex direction="column" gap="10px">
+        <Flex alignItems='flex-start' gap='10px'>
           <Text 
             color={textColor}
             fontWeight="semibold"
+            minWidth="60px"
           >
-            {t('vendors:detail.email')}
+            {t('vendors:detail.email')}:
           </Text>
           <Button
             variant='ghost'
             onClick={() => handleEmail()}
+            p="0"
+            height="auto"
+            textAlign="left"
+            whiteSpace="normal"
+            wordBreak="break-all"
           >
             <Text 
               color="secondaryGray.800"
@@ -82,16 +86,19 @@ export default function Contacts({ vendor, sendStats }: ContactsProps) {
             </Text>
           </Button>
         </Flex>
-        <Flex alignItems='center' gap='10px' w={{ sm: '100%', md: '50%' }}>
+        <Flex alignItems='center' gap='10px'>
           <Text
             color={textColor}
             fontWeight="semibold"
+            minWidth="60px"
           >
-            {t('vendors:detail.phone')}
+            {t('vendors:detail.phone')}:
           </Text>
           <Button
             variant='ghost'
             onClick={() => handlePhone()}
+            p="0"
+            height="auto"
           >
             <Text 
               color="secondaryGray.800"
@@ -102,6 +109,6 @@ export default function Contacts({ vendor, sendStats }: ContactsProps) {
           </Button>
         </Flex>
       </Flex>
-    </Flex>
+    </Box>
   );
 }
