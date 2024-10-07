@@ -67,7 +67,7 @@ export default function Contacts({ vendor, sendStats }: ContactsProps) {
             fontWeight="semibold"
             minWidth="60px"
           >
-            {t('vendors:detail.email')}:
+            {t('vendors:detail.email')}
           </Text>
           <Button
             variant='ghost'
@@ -92,7 +92,7 @@ export default function Contacts({ vendor, sendStats }: ContactsProps) {
             fontWeight="semibold"
             minWidth="60px"
           >
-            {t('vendors:detail.phone')}:
+            {t('vendors:detail.phone')}
           </Text>
           <Button
             variant='ghost'
