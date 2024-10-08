@@ -74,6 +74,7 @@ const Footer: FC = () => {
           <Stack align={'flex-start'}>
             <ListHeader>{t('common:company')}</ListHeader>
             <Link href={'/main/about-us'}>{t('common:about-us')}</Link>
+            <Link href={'/main/about-app'}>{t('common:about-app')}</Link>
             <Link href={'/main/contact'}>{t('common:contact-us')}</Link>
           </Stack>
 
