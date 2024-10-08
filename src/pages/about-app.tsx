@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Flex, Heading, Text, Image, SimpleGrid, BoxProps } from '@chakra-ui/react';
 import LandingLayout from '../components/dashboard/LandingLayout';
+import { isEventsMate } from '../utils/orientation';
 
 interface StatBoxProps {
   title: string;
@@ -10,7 +11,7 @@ interface StatBoxProps {
 
 const StatBox: React.FC<StatBoxProps> = ({ title, value, description }) => (
   <Box>
-    <Heading size="lg" mb={2}>{value}</Heading>
+    <Heading size="lg" mb={2} color={isEventsMate() ? '#7551FF' : 'rgb(225, 55, 132)'}>{value}</Heading>
     <Text fontWeight="bold" mb={1}>{title}</Text>
     <Text fontSize="sm" color="gray.500">{description}</Text>
   </Box>
@@ -19,12 +20,12 @@ const StatBox: React.FC<StatBoxProps> = ({ title, value, description }) => (
 const AboutApp: React.FC<BoxProps> = () => {
   return (
     <LandingLayout>
-      <Box maxWidth="1200px" margin="auto" p={8} >
+      <Box maxWidth="1200px" margin="auto" p={8}>
         <Flex direction={{ base: 'column', md: 'row' }} align="center" justify="space-between">
           <Box maxW={{ base: '100%', md: '50%' }} mb={{ base: 8, md: 0 }}>
             <Heading size="2xl" mb={4}>Plánujte svatby snadno s EventsMate</Heading>
             <Text fontSize="lg" color="gray.600" mb={8}>
-            EventsMate je vaším spolehlivým partnerem pro organizaci dokonalé svatby. S našimi zkušenostmi a širokou sítí dodavatelů vám pomůžeme vytvořit nezapomenutelný den.
+              EventsMate je vaším spolehlivým partnerem pro organizaci dokonalé svatby. S našimi zkušenostmi a širokou sítí dodavatelů vám pomůžeme vytvořit nezapomenutelný den.
             </Text>
             <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={8}>
               <StatBox
