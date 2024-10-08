@@ -49,7 +49,7 @@ const AboutApp: React.FC<BoxProps> = () => {
         </Box>
         <Box maxW={{ base: '100%', md: '45%' }}>
           <Image 
-            src="/api/placeholder/400/400" 
+            src="/icon.png" 
             alt="Svatební pár"
             borderRadius="xl"
             boxShadow="xl"
