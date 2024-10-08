@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Flex, Heading, Text, Image, SimpleGrid, BoxProps } from '@chakra-ui/react';
-import LandingLayout from '~/components/dashboard/LandingLayout';
+import LandingLayout from '../components/dashboard/LandingLayout';
 
 interface StatBoxProps {
   title: string;
