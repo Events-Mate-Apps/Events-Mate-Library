@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Heading, Text, Image, SimpleGrid, BoxProps } from '@chakra-ui/react';
+import { Box, Flex, Heading, Text, SimpleGrid, BoxProps } from '@chakra-ui/react';
 import LandingLayout from '../components/dashboard/LandingLayout';
 import { isEventsMate } from '../utils/orientation';
 
@@ -21,7 +21,7 @@ const AboutApp: React.FC<BoxProps> = () => {
   return (
     <LandingLayout>
       <Box maxWidth="1200px" margin="auto" p={8}>
-        <Flex direction={{ base: 'column', md: 'row' }} align="center" justify="space-between">
+        <Flex direction={{ base: 'column', md: 'row' }} align="center" justify="space-around">
           <Box maxW={{ base: '100%', md: '50%' }} mb={{ base: 8, md: 0 }}>
             <Heading size="2xl" mb={4}>Plánujte svatby snadno s EventsMate</Heading>
             <Text fontSize="lg" color="gray.600" mb={8}>
@@ -50,14 +50,14 @@ const AboutApp: React.FC<BoxProps> = () => {
               />
             </SimpleGrid>
           </Box>
-          <Box maxW={{ base: '100%', md: '45%' }}>
+          {/* <Box maxW={{ base: '100%', md: '45%' }}>
             <Image 
               src="/icon.png" 
               alt="Svatební pár"
               borderRadius="xl"
               boxShadow="xl"
             />
-          </Box>
+          </Box> */}
         </Flex>
       </Box>
     </LandingLayout>
