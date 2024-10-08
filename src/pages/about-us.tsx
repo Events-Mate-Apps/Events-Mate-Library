@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, Container, Heading, Text, SimpleGrid, VStack, Image, Flex, Icon, useColorModeValue } from '@chakra-ui/react';
 import { FaLinkedin, FaTwitter } from 'react-icons/fa';
-import LandingLayout from '../components/dashboard/LandingLayout';
 import useTranslation from 'next-translate/useTranslation';
 
 interface TeamMemberProps {
@@ -96,40 +95,38 @@ const TeamPage: React.FC = () => {
   ];
 
   return (
-    <LandingLayout>
-      <Box bg={bgColor} minH="100vh" py={12}>
-        <Container maxW="7xl">
-          <VStack spacing={12}>
-            <Box textAlign="center">
-              <Heading as="h2" size="2xl" color={headingColor} mb={2}>
+    <Box bg={bgColor} minH="100vh" py={12}>
+      <Container maxW="7xl">
+        <VStack spacing={12}>
+          <Box textAlign="center">
+            <Heading as="h2" size="2xl" color={headingColor} mb={2}>
                 The amazing team behind all results
-              </Heading>
-              <Text fontSize="xl" color={textColor} maxW="2xl" mx="auto">
+            </Heading>
+            <Text fontSize="xl" color={textColor} maxW="2xl" mx="auto">
                 Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.
-              </Text>
-            </Box>
-            <SimpleGrid 
-              columns={[1, null, 2, 3]} 
-              spacing={8} 
-              w="full"
-              sx={{
-                '& > *:last-child:nth-child(odd)': {
-                  gridColumn: {
-                    base: 'auto',
-                    md: '2 / 2',
-                    lg: '2 / 3'
-                  }
+            </Text>
+          </Box>
+          <SimpleGrid 
+            columns={[1, null, 2, 3]} 
+            spacing={8} 
+            w="full"
+            sx={{
+              '& > *:last-child:nth-child(odd)': {
+                gridColumn: {
+                  base: 'auto',
+                  md: '2 / 2',
+                  lg: '2 / 3'
                 }
-              }}
-            >
-              {teamMembers.map((member, index) => (
-                <TeamMember key={index} {...member} />
-              ))}
-            </SimpleGrid>
-          </VStack>
-        </Container>
-      </Box>
-    </LandingLayout>
+              }
+            }}
+          >
+            {teamMembers.map((member, index) => (
+              <TeamMember key={index} {...member} />
+            ))}
+          </SimpleGrid>
+        </VStack>
+      </Container>
+    </Box>
   );
 };
 
