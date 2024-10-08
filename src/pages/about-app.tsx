@@ -19,7 +19,7 @@ const StatBox: React.FC<StatBoxProps> = ({ title, value, description }) => (
 const AboutApp: React.FC<BoxProps> = () => {
   return (
     <LandingLayout>
-      <Box maxWidth="1200px" margin="auto" p={8} >
+      <Box maxWidth="1200px" margin="auto" h="100vh" p={8} >
         <Flex direction={{ base: 'column', md: 'row' }} align="center" justify="space-between">
           <Box maxW={{ base: '100%', md: '50%' }} mb={{ base: 8, md: 0 }}>
             <Heading size="2xl" mb={4}>Plánujte svatby snadno s EventsMate</Heading>
