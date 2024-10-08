@@ -15,43 +15,42 @@ const StatBox: React.FC<StatBoxProps> = ({ title, value, description }) => (
   </Box>
 );
 
-const HorizonStats: React.FC<BoxProps> = () => {
+const AboutApp: React.FC<BoxProps> = () => {
   return (
     <Box maxWidth="1200px" margin="auto" p={8} >
       <Flex direction={{ base: 'column', md: 'row' }} align="center" justify="space-between">
         <Box maxW={{ base: '100%', md: '50%' }} mb={{ base: 8, md: 0 }}>
-          <Heading size="2xl" mb={4}>Boost your workflow with Horizon</Heading>
+          <Heading size="2xl" mb={4}>Plánujte svatby snadno s EventsMate</Heading>
           <Text fontSize="lg" color="gray.600" mb={8}>
-            Uma duis convallis convallis tellus interdum velit laoreet pentesque
-            aliquam tortor consequat porta.
+            EventsMate je vaším spolehlivým partnerem pro organizaci dokonalé svatby. S našimi zkušenostmi a širokou sítí dodavatelů vám pomůžeme vytvořit nezapomenutelný den.
           </Text>
           <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={8}>
             <StatBox
-              title="Successful Projects"
-              value="340+"
-              description="Uma duis convallis convallis tellus interdum velit laoreet."
+              title="Nových nevěst měsíčně"
+              value="300+"
+              description="Každý měsíc nám důvěřuje více než 300 nových nevěst s plánováním jejich svatby."
             />
             <StatBox
-              title="Annual Percentage Rate"
-              value="$10m"
-              description="Uma duis convallis convallis tellus interdum velit laoreet."
+              title="Aktivních nevěst"
+              value="2000"
+              description="Aktuálně pomáháme 2000 nevěstám s přípravou jejich vysněného dne."
             />
             <StatBox
-              title="Clients Worldwide"
-              value="2.8k+"
-              description="Uma duis convallis convallis tellus interdum velit laoreet."
+              title="Prověřených dodavatelů"
+              value="150+"
+              description="Spolupracujeme s více než 150 kvalitními dodavateli pro všechny aspekty vaší svatby."
             />
             <StatBox
-              title="Daily Visits"
-              value="7000+"
-              description="Uma duis convallis convallis tellus interdum velit laoreet."
+              title="Let zkušeností"
+              value="5+"
+              description="Již více než 5 let pomáháme párům uskutečnit jejich svatební sny."
             />
           </SimpleGrid>
         </Box>
         <Box maxW={{ base: '100%', md: '45%' }}>
           <Image 
             src="/api/placeholder/400/400" 
-            alt="Lightning bolt"
+            alt="Svatební pár"
             borderRadius="xl"
             boxShadow="xl"
           />
@@ -61,4 +60,4 @@ const HorizonStats: React.FC<BoxProps> = () => {
   );
 };
 
-export default HorizonStats;
+export default AboutApp;
