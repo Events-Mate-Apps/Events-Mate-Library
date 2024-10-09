@@ -90,7 +90,7 @@ const TeamPage: React.FC = () => {
       name: 'Markét',
       role: t('auth:market.role'),
       description: t('auth:market.desc'),
-      imageUrl: '/img/about/sarah.jpg' 
+      imageUrl: '/img/about/pryckova.jpg' 
     }
   ];
 
