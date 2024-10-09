@@ -18,7 +18,7 @@ import { isEventsMate } from '../utils/orientation';
 const ContactPage: FC = () => {
   const { t } = useTranslation();
 
-  const bgColor = useColorModeValue('white', 'gray.800');
+  const bgColor = useColorModeValue('white', 'inherit');
   const textColor = useColorModeValue('navy.800', 'white');
   const subTextColor = useColorModeValue('gray.600', 'gray.300');
   const iconColor = isEventsMate() ? '#7551FF' : 'rgb(225, 55, 132)';
