@@ -67,11 +67,13 @@ export default function Navbar() {
   const activeLinks = isEventsMate() ? eventsMateLinks : weddMateLinks;
 
   const handleLoginOnClick = () => {
-    TrackGoogleAnalyticsEvent({
-      action: 'log_in',
-      label: 'Log in',
-      page: 'Navigation Bar'
-    });
+    if (isEventsMate()) {
+      TrackGoogleAnalyticsEvent({
+        action: 'log_in',
+        label: 'Log in',
+        page: 'Navigation Bar'
+      });
+    }
   }
 
   return (
