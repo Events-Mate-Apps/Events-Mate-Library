@@ -4,9 +4,6 @@ import {
   Flex,
   Heading,
   Text,
-  Input,
-  Textarea,
-  Button,
   Icon,
   Container,
   VStack,
@@ -53,7 +50,7 @@ const ContactPage: FC = () => {
             </Flex>
           </VStack>
 
-          <Box flex={1} width="100%">
+          {/* <Box flex={1} width="100%">
             <Box bg="white" p={8} borderRadius="xl" boxShadow="lg" width="100%">
               <VStack spacing={6} align="stretch">
                 <Heading as="h2" size="lg" color="navy.800">
@@ -76,7 +73,7 @@ const ContactPage: FC = () => {
                 </Button>
               </VStack>
             </Box>
-          </Box>
+          </Box> */}
         </Flex>
       </Container>
     </LandingLayout>
