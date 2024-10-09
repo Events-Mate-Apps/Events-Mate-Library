@@ -18,7 +18,7 @@ const ContactPage: FC = () => {
 
   return (
     <LandingLayout>
-      <Container maxW="100%" minH="100vh" centerContent>
+      <Container maxW="100%" centerContent>
         <Flex 
           direction="column"
           justify="center" 
