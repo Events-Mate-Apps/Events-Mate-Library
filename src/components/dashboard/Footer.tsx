@@ -19,50 +19,53 @@ import { IoMdMoon, IoMdSunny } from 'react-icons/io';
 import LanguageSelect from './LanguageSelect';
 import useTranslation from 'next-translate/useTranslation';
 import dayjs from 'dayjs';
+import { isEventsMate } from '../../utils/orientation';
 
-const ListHeader = ({ children }: { children: ReactNode }) => {
-  return (
-    <Text fontWeight={'500'} fontSize={'lg'} mb={2}>
-      {children}
-    </Text>
-  );
-};
-const SocialButton = ({
-  children,
-  label,
-  href,
-}: {
+interface ListHeaderProps {
+  children: ReactNode;
+}
+
+interface SocialButtonProps {
   children: ReactNode;
   label: string;
   href: string;
-}) => {
-  return (
-    <chakra.button
-      bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
-      rounded={'full'}
-      w={8}
-      h={8}
-      cursor={'pointer'}
-      as={'a'}
-      href={href}
-      display={'inline-flex'}
-      alignItems={'center'}
-      justifyContent={'center'}
-      transition={'background 0.3s ease'}
-      _hover={{
-        bg: useColorModeValue('blackAlpha.200', 'whiteAlpha.200'),
-      }}
-    >
-      <VisuallyHidden>{label}</VisuallyHidden>
-      {children}
-    </chakra.button>
-  );
-};
+}
+
+const ListHeader: FC<ListHeaderProps> = ({ children }) => (
+  <Text fontWeight={'500'} fontSize={'lg'} mb={2}>
+    {children}
+  </Text>
+);
+
+const SocialButton: FC<SocialButtonProps> = ({ children, label, href }) => (
+  <chakra.button
+    bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
+    rounded={'full'}
+    w={8}
+    h={8}
+    cursor={'pointer'}
+    as={'a'}
+    href={href}
+    display={'inline-flex'}
+    alignItems={'center'}
+    justifyContent={'center'}
+    transition={'background 0.3s ease'}
+    _hover={{
+      bg: useColorModeValue('blackAlpha.200', 'whiteAlpha.200'),
+    }}
+  >
+    <VisuallyHidden>{label}</VisuallyHidden>
+    {children}
+  </chakra.button>
+);
 
 const Footer: FC = () => {
   const { colorMode, toggleColorMode } = useColorMode();
-  const currentYear = dayjs().year()
+  const currentYear = dayjs().year();
   const { t } = useTranslation();
+
+  const companyName = isEventsMate() ? 'Events Mate' : 'WeddMate';
+  const instagramLink = isEventsMate() ? 'https://www.instagram.com/eventsmateapp/' : 'https://www.instagram.com/weddmate_cz/';
 
   return (
     <Box
@@ -114,13 +117,13 @@ const Footer: FC = () => {
           justify={{ md: 'space-between' }}
           align={{ md: 'center' }}
         >
-          <Text>© {currentYear} Events Mate Apps s.r.o | All rights reserved</Text>
+          <Text>© {currentYear} {companyName} Apps s.r.o | All rights reserved</Text>
           <Stack direction={'row'} spacing={6}>
             {/*TODO uncomment YouTube as soon as it is relevant*/}
             {/*<SocialButton label={'YouTube'} href={'#'}>*/}
             {/*  <FaYoutube />*/}
             {/*</SocialButton>*/}
-            <SocialButton label={'Instagram'} href={'https://www.instagram.com/weddmate_cz/'}>
+            <SocialButton label={'Instagram'} href={instagramLink}>
               <FaInstagram />
             </SocialButton>
             <Button
@@ -139,9 +142,7 @@ const Footer: FC = () => {
               }}
               onClick={toggleColorMode}
             >
-              <Icon
-                as={colorMode === 'light' ? IoMdMoon : IoMdSunny}
-              />
+              <Icon as={colorMode === 'light' ? IoMdMoon : IoMdSunny} />
             </Button>
             <LanguageSelect />
           </Stack>
@@ -149,5 +150,6 @@ const Footer: FC = () => {
       </Box>
     </Box>
   );
-}
-export default Footer
+};
+
+export default Footer;
