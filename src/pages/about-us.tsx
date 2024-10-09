@@ -100,10 +100,10 @@ const TeamPage: React.FC = () => {
         <VStack spacing={12}>
           <Box textAlign="center">
             <Heading as="h2" size="2xl" color={headingColor} mb={2}>
-                The amazing team behind all results
+              {t('auth:aboutus.title')}
             </Heading>
             <Text fontSize="xl" color={textColor} maxW="2xl" mx="auto">
-                Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.
+              {t('auth:aboutus.subtitle')}
             </Text>
           </Box>
           <SimpleGrid 
