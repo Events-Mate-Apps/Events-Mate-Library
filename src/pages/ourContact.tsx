@@ -13,6 +13,7 @@ import {
 import { MdEmail } from 'react-icons/md';
 import LandingLayout from '../components/dashboard/LandingLayout';
 import useTranslation from 'next-translate/useTranslation';
+import { isEventsMate } from '../utils/orientation';
 
 const ContactPage: FC = () => {
   const { t } = useTranslation();
@@ -20,8 +21,8 @@ const ContactPage: FC = () => {
   const bgColor = useColorModeValue('white', 'gray.800');
   const textColor = useColorModeValue('navy.800', 'white');
   const subTextColor = useColorModeValue('gray.600', 'gray.300');
-  const iconColor = useColorModeValue('purple.500', 'purple.300');
-  const linkColor = useColorModeValue('purple.500', 'purple.300');
+  const iconColor = isEventsMate() ? '#7551FF' : 'rgb(225, 55, 132)';
+  const linkColor = isEventsMate() ? '#7551FF' : 'rgb(225, 55, 132)';
 
   return (
     <LandingLayout>
@@ -53,33 +54,6 @@ const ContactPage: FC = () => {
               </Link>
             </VStack>
           </VStack>
-
-          {/* Commented out form section
-          <Box width="100%" mt={16}>
-            <Box bg={useColorModeValue('white', 'gray.700')} p={8} borderRadius="xl" boxShadow="lg" width="100%">
-              <VStack spacing={6} align="stretch">
-                <Heading as="h2" size="lg" color={textColor}>
-                  {t('auth:contact.form.title')}
-                </Heading>
-                <Box>
-                  <Text mb={2} fontWeight="medium" color={subTextColor}>{t('auth:contact.form.firstName')}</Text>
-                  <Input placeholder={t('auth:contact.form.firstNamePlaceholder')} size="lg" />
-                </Box>
-                <Box>
-                  <Text mb={2} fontWeight="medium" color={subTextColor}>{t('auth:contact.form.email')}</Text>
-                  <Input placeholder={t('auth:contact.form.emailPlaceholder')} size="lg" />
-                </Box>
-                <Box>
-                  <Text mb={2} fontWeight="medium" color={subTextColor}>{t('auth:contact.form.message')}</Text>
-                  <Textarea placeholder={t('auth:contact.form.messagePlaceholder')} rows={4} size="lg" />
-                </Box>
-                <Button colorScheme="purple" size="lg" borderRadius="xl">
-                  {t('auth:contact.form.submit')}
-                </Button>
-              </VStack>
-            </Box>
-          </Box>
-          */}
         </Flex>
       </Container>
     </LandingLayout>
