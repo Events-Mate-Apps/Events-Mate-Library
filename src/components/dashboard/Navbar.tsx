@@ -40,7 +40,7 @@ export default function Navbar() {
     },
     {
       text: t('common:blog'),
-      href: 'https://blog.eventsmate.com',
+      href: 'https://blog.weddmate.com',
     },
     {
       text: t('common:pricing'),
