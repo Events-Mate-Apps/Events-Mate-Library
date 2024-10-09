@@ -61,10 +61,6 @@ export default function Navbar() {
     {
       text: t('common:blog'),
       href: 'https://blog.weddmate.com',
-    },
-    {
-      text: t('common:pricing'),
-      href: '/main/pricing',
     }
   ], [t]);
 
