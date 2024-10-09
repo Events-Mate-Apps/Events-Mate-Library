@@ -32,26 +32,32 @@ export default function Navbar() {
 
   const { t } = useTranslation('');
 
-  const leftLinks: {
-    text: string;
-    href: string;
-    loggedIn?: boolean;
-    underlineOnActive?: boolean;
-  }[] = [
-    {
-      text: t('aboutApp:title'),
-      href: '/main/about-app',
-      underlineOnActive: false,
-    },
-    {
-      text: t('common:blog'),
-      href: isEventsMate() ? 'https://blog.eventsmate.com' : 'https://blog.weddmate.com',
-    },
-    {
-      text: t('common:pricing'),
-      href: '/main/pricing',
+  const leftLinks = useMemo(() => {
+    const links = [
+      {
+        text: t('aboutApp:title'),
+        href: '/main/about-app',
+        underlineOnActive: false,
+      },
+      {
+        text: t('common:blog'),
+        href: isEventsMate() ? 'https://blog.eventsmate.com' : 'https://blog.weddmate.com',
+      },
+      {
+        text: t('common:pricing'),
+        href: '/main/pricing',
+      }
+    ];
+
+    if (!isEventsMate) {
+      links.unshift({
+        text: t('common:vendors'),
+        href: '/vendors',
+      });
     }
-  ];
+
+    return links;
+  }, [t, isEventsMate]);
 
   const handleLoginOnClick = () => {
     TrackGoogleAnalyticsEvent({
@@ -111,17 +117,14 @@ export default function Navbar() {
         className={styles.left}
         display={{ base: 'none', lg: 'flex' }}
       >
-        {leftLinks.map(({ text, href, loggedIn, underlineOnActive }, i) => {
-          if (loggedIn != null && isLoggedIn !== loggedIn) return null;
-          return (
-            <CustomLink
-              text={text}
-              href={href}
-              key={i}
-              underlineOnActive={underlineOnActive}
-            />
-          );
-        })}
+        {leftLinks.map(({ text, href, underlineOnActive }, i) => (
+          <CustomLink
+            text={text}
+            href={href}
+            key={i}
+            underlineOnActive={underlineOnActive}
+          />
+        ))}
       </Box>
 
       <Box
@@ -167,9 +170,7 @@ export default function Navbar() {
           </>
         ) : (
           <>
-            <div
-              onClick={handleLoginOnClick}
-            >
+            <div onClick={handleLoginOnClick}>
               <CustomLink text={t('auth:login')} href="/auth/signin" />
             </div>
             <NextLink href="/auth/signup" passHref>
@@ -209,23 +210,20 @@ export default function Navbar() {
             )}
             borderRadius="1rem"
           >
-            {leftLinks.map(({ text, href, loggedIn }, i) => {
-              if (loggedIn != null && isLoggedIn !== loggedIn) return null;
-              return (
-                <Box 
+            {leftLinks.map(({ text, href }, i) => (
+              <Box 
+                key={i} 
+                w="90vw" 
+                pos="relative" 
+                textAlign="center"
+              >
+                <CustomLink 
+                  text={text} 
+                  href={href} 
                   key={i} 
-                  w="90vw" 
-                  pos="relative" 
-                  textAlign="center"
-                >
-                  <CustomLink 
-                    text={text} 
-                    href={href} 
-                    key={i} 
-                  />
-                </Box>
-              );
-            })}
+                />
+              </Box>
+            ))}
             {isLoggedIn ? (
               <Flex 
                 w="100%" 
@@ -269,9 +267,7 @@ export default function Navbar() {
                 alignItems="center" 
                 flexDir="column"
               >
-                <div
-                  onClick={handleLoginOnClick}
-                >
+                <div onClick={handleLoginOnClick}>
                   <CustomLink text={t('auth:login')} href="/auth/signin" />
                 </div>
                 <NextLink href="/auth/signup" passHref>
