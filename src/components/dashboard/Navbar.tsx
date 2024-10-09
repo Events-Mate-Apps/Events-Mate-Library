@@ -15,22 +15,23 @@ import styles from 'styles/landing/Navbar.module.scss';
 import { TrackGoogleAnalyticsEvent } from '~/utils/analytics/googleAnalytics/init';
 import { TinyColor } from '@ctrl/tinycolor';
 import { darken } from '@chakra-ui/theme-tools';
-import useUserStore from '../../stores/auth';
 import useTranslation from 'next-translate/useTranslation';
+import useUserStore from '../../stores/auth';
+import { isEventsMate } from '../../utils/orientation';
 
 export default function Navbar() {
   const userStore = useUserStore();
   const [expandedOnMobile, setExpandedOnMobile] = useState(false);
   const [dbButtonLoading, setDbButtonLoading] = useState(false);
   const menuIconFilter = mode('invert(0)', 'invert(.90)');
-  
+
   const isLoggedIn = useMemo(() => {
     if (!userStore?.user) return false;
     return userStore.isLoggedIn;
   }, [userStore?.user]);
-  
+
   const { t } = useTranslation('');
-  
+
   const leftLinks: {
     text: string;
     href: string;
@@ -44,14 +45,14 @@ export default function Navbar() {
     },
     {
       text: t('common:blog'),
-      href: 'https://blog.weddmate.com',
+      href: isEventsMate() ? 'https://blog.eventsmate.com' : 'https://blog.weddmate.com',
     },
     {
       text: t('common:pricing'),
       href: '/main/pricing',
     }
   ];
-  
+
   const handleLoginOnClick = () => {
     TrackGoogleAnalyticsEvent({
       action: 'log_in',
@@ -59,7 +60,7 @@ export default function Navbar() {
       page: 'Navigation Bar'
     });
   }
-  
+
   return (
     <Box
       as={motion.nav}
@@ -95,7 +96,7 @@ export default function Navbar() {
           transition="transform 0.1s ease-in-out"
         >
           <Image
-            alt="WeddMate"
+            alt={isEventsMate() ? 'EventsMate' : 'WeddMate'}
             src="/icon.png"
             quality={100}
             layout="fill"
@@ -122,24 +123,7 @@ export default function Navbar() {
           );
         })}
       </Box>
-      <Box
-        as={motion.div}
-        className={styles.left}
-        display={{ base: 'none', lg: 'flex' }}
-      >
-        {[].map(({ text, href, loggedIn, underlineOnActive }, i) => {
-          if (loggedIn != null && isLoggedIn !== loggedIn) return null;
-          return (
-            <CustomLink
-              text={text}
-              href={href}
-              key={i}
-              underlineOnActive={underlineOnActive}
-            />
-          );
-        })}
-      </Box>
-  
+
       <Box
         as={motion.div}
         className={styles.right}
@@ -235,23 +219,6 @@ export default function Navbar() {
                   textAlign="center"
                 >
                   <CustomLink 
-                    text={text} 
-                    href={href} 
-                    key={i} 
-                  />
-                </Box>
-              );
-            })}
-            {[].map(({ text, href, loggedIn }, i) => {
-              if (loggedIn != null && isLoggedIn !== loggedIn) return null;
-              return (
-                <Box 
-                  key={i} 
-                  w="90vw" 
-                  pos="relative" 
-                  textAlign="center"
-                >
-                  <CustomLink
                     text={text} 
                     href={href} 
                     key={i} 
@@ -364,7 +331,7 @@ export default function Navbar() {
     </Box>
   );
 }
-  
+
 function CustomLink({
   text,
   href,
@@ -377,7 +344,6 @@ function CustomLink({
   aProps?: TextProps;
 }) {
   const router = useRouter();
-  console.log(router.pathname);
   return (
     <div style={{ position: 'relative' }} className={styles.customLink}>
       <NextLink href={href}>
