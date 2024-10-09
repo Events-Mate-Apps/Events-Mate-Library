@@ -11,7 +11,6 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { MdEmail } from 'react-icons/md';
-import LandingLayout from '../components/dashboard/LandingLayout';
 import useTranslation from 'next-translate/useTranslation';
 import { isEventsMate } from '../utils/orientation';
 
@@ -25,7 +24,7 @@ const ContactPage: FC = () => {
   const linkColor = isEventsMate() ? '#7551FF' : 'rgb(225, 55, 132)';
 
   return (
-    <LandingLayout>
+    <>
       <Container maxW="100%" centerContent bg={bgColor}>
         <Flex 
           direction="column"
@@ -56,7 +55,7 @@ const ContactPage: FC = () => {
           </VStack>
         </Flex>
       </Container>
-    </LandingLayout>
+    </>
   );
 };
 
