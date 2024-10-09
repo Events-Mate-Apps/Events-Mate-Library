@@ -2,20 +2,22 @@ import React, { useRef, useEffect, useState } from 'react';
 import { Box, Flex, Heading, Text, SimpleGrid, BoxProps } from '@chakra-ui/react';
 import { motion, useAnimation } from 'framer-motion';
 import { isEventsMate } from '../utils/orientation';
+import useTranslation from 'next-translate/useTranslation';
 
 interface StatBoxProps {
-  title: string;
-  value: string;
-  description: string;
+  titleKey: string;
+  valueKey: string;
+  descriptionKey: string;
   delay: number;
 }
 
 const MotionBox = motion(Box);
 
-const StatBox: React.FC<StatBoxProps> = ({ title, value, description, delay }) => {
+const StatBox: React.FC<StatBoxProps> = ({ titleKey, valueKey, descriptionKey, delay }) => {
   const controls = useAnimation();
   const ref = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -46,9 +48,11 @@ const StatBox: React.FC<StatBoxProps> = ({ title, value, description, delay }) =
       animate={controls}
       transition={{ duration: 0.5, delay: isVisible ? delay : 0 }}
     >
-      <Heading size="lg" mb={2} color={isEventsMate() ? '#7551FF' : 'rgb(225, 55, 132)'}>{value}</Heading>
-      <Text fontWeight="bold" mb={1}>{title}</Text>
-      <Text fontSize="sm" color="gray.500">{description}</Text>
+      <Heading size="lg" mb={2} color={isEventsMate() ? '#7551FF' : 'rgb(225, 55, 132)'}>
+        {t(valueKey)}
+      </Heading>
+      <Text fontWeight="bold" mb={1}>{t(titleKey)}</Text>
+      <Text fontSize="sm" color="gray.500">{t(descriptionKey)}</Text>
     </MotionBox>
   );
 };
@@ -56,6 +60,7 @@ const StatBox: React.FC<StatBoxProps> = ({ title, value, description, delay }) =
 const AboutApp: React.FC<BoxProps> = () => {
   const controls = useAnimation();
   const ref = useRef(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -95,34 +100,34 @@ const AboutApp: React.FC<BoxProps> = () => {
             animate={controls}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <Heading size="2xl" mb={4}>Plánujte svatby snadno s EventsMate</Heading>
+            <Heading size="2xl" mb={4}>{t('auth:about.title')}</Heading>
             <Text fontSize="lg" color="gray.600" mb={8}>
-              EventsMate je vaším spolehlivým partnerem pro organizaci dokonalé svatby. S našimi zkušenostmi a širokou sítí dodavatelů vám pomůžeme vytvořit nezapomenutelný den.
+              {t('auth:about.subtitle')}
             </Text>
           </MotionBox>
           <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={8}>
             <StatBox
-              title="Nových nevěst měsíčně"
-              value="300+"
-              description="Každý měsíc nám důvěřuje více než 300 nových nevěst s plánováním jejich svatby."
+              titleKey="auth:about.stats.newBrides.title"
+              valueKey="auth:about.stats.newBrides.value"
+              descriptionKey="auth:about.stats.newBrides.description"
               delay={0.4}
             />
             <StatBox
-              title="Aktivních nevěst"
-              value="2000"
-              description="Aktuálně pomáháme 2000 nevěstám s přípravou jejich vysněného dne."
+              titleKey="auth:about.stats.activeBrides.title"
+              valueKey="auth:about.stats.activeBrides.value"
+              descriptionKey="auth:about.stats.activeBrides.description"
               delay={0.6}
             />
             <StatBox
-              title="Prověřených dodavatelů"
-              value="150+"
-              description="Spolupracujeme s více než 150 kvalitními dodavateli pro všechny aspekty vaší svatby."
+              titleKey="auth:about.stats.verifiedVendors.title"
+              valueKey="auth:about.stats.verifiedVendors.value"
+              descriptionKey="auth:about.stats.verifiedVendors.description"
               delay={0.8}
             />
             <StatBox
-              title="Let zkušeností"
-              value="5+"
-              description="Již více než 5 let pomáháme párům uskutečnit jejich svatební sny."
+              titleKey="auth:about.stats.yearsExperience.title"
+              valueKey="auth:about.stats.yearsExperience.value"
+              descriptionKey="auth:about.stats.yearsExperience.description"
               delay={1}
             />
           </SimpleGrid>
