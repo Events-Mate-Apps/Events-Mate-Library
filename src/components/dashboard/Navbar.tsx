@@ -32,32 +32,43 @@ export default function Navbar() {
 
   const { t } = useTranslation('');
 
-  const leftLinks = useMemo(() => {
-    const links = [
-      {
-        text: t('aboutApp:title'),
-        href: '/main/about-app',
-        underlineOnActive: false,
-      },
-      {
-        text: t('common:blog'),
-        href: isEventsMate() ? 'https://blog.eventsmate.com' : 'https://blog.weddmate.com',
-      },
-      {
-        text: t('common:pricing'),
-        href: '/main/pricing',
-      }
-    ];
-
-    if (!isEventsMate) {
-      links.unshift({
-        text: t('common:vendors'),
-        href: '/vendors',
-      });
+  const eventsMateLinks = useMemo(() => [
+    {
+      text: t('aboutApp:title'),
+      href: '/main/about-app',
+      underlineOnActive: false,
+    },
+    {
+      text: t('common:blog'),
+      href: 'https://blog.eventsmate.com',
+    },
+    {
+      text: t('common:pricing'),
+      href: '/main/pricing',
     }
+  ], [t]);
 
-    return links;
-  }, [t, isEventsMate]);
+  const weddMateLinks = useMemo(() => [
+    {
+      text: t('common:vendors'),
+      href: '/vendors',
+    },
+    {
+      text: t('aboutApp:title'),
+      href: '/main/about-app',
+      underlineOnActive: false,
+    },
+    {
+      text: t('common:blog'),
+      href: 'https://blog.weddmate.com',
+    },
+    {
+      text: t('common:pricing'),
+      href: '/main/pricing',
+    }
+  ], [t]);
+
+  const activeLinks = isEventsMate() ? eventsMateLinks : weddMateLinks;
 
   const handleLoginOnClick = () => {
     TrackGoogleAnalyticsEvent({
@@ -117,7 +128,7 @@ export default function Navbar() {
         className={styles.left}
         display={{ base: 'none', lg: 'flex' }}
       >
-        {leftLinks.map(({ text, href, underlineOnActive }, i) => (
+        {activeLinks.map(({ text, href, underlineOnActive }, i) => (
           <CustomLink
             text={text}
             href={href}
@@ -164,7 +175,7 @@ export default function Navbar() {
                   setDbButtonLoading(true);
                 }}
               >
-                <Text py="18px">{t('landing:navbar.dashboard')}</Text>
+                <Text py="18px">{t('common:dashboard')}</Text>
               </Button>
             </NextLink>
           </>
@@ -187,7 +198,7 @@ export default function Navbar() {
                 px="28px"
                 h="52px"
               >
-                <Text py="18px">{t('landing:navbar.getStarted')}</Text>
+                <Text py="18px">{t('common:getStarted')}</Text>
               </Button>
             </NextLink>
           </>
@@ -210,7 +221,7 @@ export default function Navbar() {
             )}
             borderRadius="1rem"
           >
-            {leftLinks.map(({ text, href }, i) => (
+            {activeLinks.map(({ text, href }, i) => (
               <Box 
                 key={i} 
                 w="90vw" 
@@ -257,7 +268,7 @@ export default function Navbar() {
                       setDbButtonLoading(true);
                     }}
                   >
-                    <Text py="18px">{t('landing:navbar.dashboard')}</Text>
+                    <Text py="18px">{t('common:dashboard')}</Text>
                   </Button>
                 </NextLink>
               </Flex>
@@ -284,7 +295,7 @@ export default function Navbar() {
                     px="28px"
                     h="52px"
                   >
-                    <Text py="18px">{t('landing:navbar.getStarted')}</Text>
+                    <Text py="18px">{t('common:getStarted')}</Text>
                   </Button>
                 </NextLink>
               </Flex>
