@@ -20,37 +20,35 @@ const ContactPage: FC = () => {
     <LandingLayout>
       <Container maxW="100%" minH="100vh" centerContent>
         <Flex 
-          direction={{ base: 'column', md: 'row' }} 
-          gap={10} 
+          direction="column"
           justify="center" 
-          align="flex-start"
-          maxWidth="1200px" 
+          align="center"
+          maxWidth="800px" 
           width="100%" 
-          py={10}
+          py={20}
           px={4}
         >
-          <VStack flex={1} align="start" spacing={6} textAlign="left">
+          <VStack spacing={12} align="center" textAlign="center">
             <Box>
               <Heading as="h1" size="2xl" color="navy.800" mb={4}>
                 {t('auth:contact.title')}
               </Heading>
-              <Text fontSize="md" color="gray.600" mb={6}>
+              <Text fontSize="lg" color="gray.600" mb={6}>
                 {t('auth:contact.subtitle')}
               </Text>
             </Box>
           
-            <Flex justifyContent="center" alignItems="center">
-              <VStack spacing={4} align="center">
-                <Icon as={MdEmail} boxSize={8} color="purple.500" />
-                <Text fontWeight="bold" color="navy.800">{t('auth:contact.email.label')}</Text>
-                <Link href="mailto:info@events-mate.com" color="purple.500">
-                  info@events-mate.com
-                </Link>
-              </VStack>
-            </Flex>
+            <VStack spacing={6} align="center">
+              <Icon as={MdEmail} boxSize={12} color="purple.500" />
+              <Text fontWeight="bold" fontSize="xl" color="navy.800">{t('auth:contact.email.label')}</Text>
+              <Link href="mailto:info@events-mate.com" color="purple.500" fontSize="lg">
+                info@events-mate.com
+              </Link>
+            </VStack>
           </VStack>
 
-          {/* <Box flex={1} width="100%">
+          {/* Commented out form section
+          <Box width="100%" mt={16}>
             <Box bg="white" p={8} borderRadius="xl" boxShadow="lg" width="100%">
               <VStack spacing={6} align="stretch">
                 <Heading as="h2" size="lg" color="navy.800">
@@ -73,7 +71,8 @@ const ContactPage: FC = () => {
                 </Button>
               </VStack>
             </Box>
-          </Box> */}
+          </Box>
+          */}
         </Flex>
       </Container>
     </LandingLayout>
