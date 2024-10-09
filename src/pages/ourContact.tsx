@@ -17,7 +17,6 @@ import useTranslation from 'next-translate/useTranslation';
 const ContactPage: FC = () => {
   const { t } = useTranslation();
 
-  // Color mode values
   const bgColor = useColorModeValue('white', 'gray.800');
   const textColor = useColorModeValue('navy.800', 'white');
   const subTextColor = useColorModeValue('gray.600', 'gray.300');
@@ -26,7 +25,7 @@ const ContactPage: FC = () => {
 
   return (
     <LandingLayout>
-      <Container maxW="100%" centerContent bg={bgColor} minH="100vh">
+      <Container maxW="100%" centerContent bg={bgColor}>
         <Flex 
           direction="column"
           justify="center" 
