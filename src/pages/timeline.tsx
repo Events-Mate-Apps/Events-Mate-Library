@@ -1,50 +1,71 @@
 import React from 'react';
-import { Box, Text, Icon, Accordion, AccordionItem, AccordionButton, AccordionPanel } from '@chakra-ui/react';
+import { Box, VStack, Text, Icon, Flex, useColorModeValue } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 
-const TimeLine = () => {
+const FAQTimeline = () => {
   const questions = [
-    'Liší se funkce u měsíčního a ročního předplatného?',
-    'Liší se funkce u měsíčního a ročního předplatného?',
-    'Liší se funkce u měsíčního a ročního ?'
+    { text: 'Liší se funkce u měsíčního a ročního předplatného?', time: 'Leden 2023' },
+    { text: 'Liší se funkce u měsíčního a ročního předplatného?', time: 'Březen 2023' },
+    { text: 'Liší se funkce u měsíčního a ročního ?', time: 'Červen 2023' }
   ];
 
+  const textColor = useColorModeValue('navy.600', 'white');
+  const lineColor = useColorModeValue('navy.600', 'gray.500');
+  const iconBgColor = useColorModeValue('white', 'gray.700');
+  const iconColor = useColorModeValue('navy.600', 'white');
+
   return (
-    <Box maxWidth="600px" margin="auto" padding={4}>
-      <Accordion allowToggle>
-        {questions.map((question, index) => (
-          <AccordionItem key={index} border="none" mb={4}>
-            {({ isExpanded }) => (
-              <>
-                <AccordionButton
-                  bg="white"
-                  borderRadius="md"
-                  boxShadow="md"
-                  _hover={{ bg: 'gray.50' }}
-                  p={4}
-                >
-                  <Box flex="1" textAlign="left">
-                    <Text color="#4A5568" fontWeight="medium">{question}</Text>
-                  </Box>
-                  <Icon
-                    as={ChevronDownIcon}
-                    transform={isExpanded ? 'rotate(-180deg)' : undefined}
-                    transition="transform 0.2s"
-                    color="#4A5568"
-                  />
-                </AccordionButton>
-                <AccordionPanel pb={4}>
-                  <Text color="gray.600">
-                    Here you can add the answer to the question. This text is just a placeholder.
-                  </Text>
-                </AccordionPanel>
-              </>
-            )}
-          </AccordionItem>
+    <Box maxWidth="800px" margin="auto" padding="0 16px 20px" position="relative">
+      <Box
+        position="absolute"
+        left="50%"
+        top="0"
+        height="calc(100% + 20px)"
+        width="2px"
+        borderLeft="2px dashed"
+        borderColor={lineColor}
+        zIndex={0}
+      />
+      <VStack spacing="100px" align="stretch">
+        {questions.map((item, index) => (
+          <Flex 
+            key={index} 
+            alignItems="center" 
+            position="relative"
+            justifyContent={!(index % 2 === 0) ? 'flex-end' : 'flex-start'}
+            marginTop={index === 0 ? '0' : 'auto'}
+          >
+            <Box
+              width="40px"
+              height="40px"
+              borderRadius="full"
+              bg={iconBgColor}
+              boxShadow="md"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              position="absolute"
+              left="50%"
+              transform="translateX(-50%)"
+              zIndex={1}
+              top={index === 0 ? '0' : 'auto'}
+            >
+              <Icon as={ChevronDownIcon} color={iconColor} boxSize="20px" />
+            </Box>
+            <Box 
+              width="calc(50% - 30px)" 
+              textAlign={index % 2 === 0 ? 'right' : 'left'}
+              paddingLeft={index % 2 === 0 ? 0 : 4}
+              paddingRight={index % 2 === 0 ? 4 : 0}
+            >
+              <Text color={textColor} fontSize="sm" fontWeight="bold" mb={2}>{item.time}</Text>
+              <Text color={textColor} fontWeight="medium">{item.text}</Text>
+            </Box>
+          </Flex>
         ))}
-      </Accordion>
+      </VStack>
     </Box>
   );
 };
 
-export default TimeLine;
+export default FAQTimeline;
