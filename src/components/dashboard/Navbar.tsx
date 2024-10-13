@@ -10,7 +10,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/legacy/image';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { useMemo, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import styles from 'styles/landing/Navbar.module.scss';
 import { TrackGoogleAnalyticsEvent } from '~/utils/analytics/googleAnalytics/init';
 import { TinyColor } from '@ctrl/tinycolor';
@@ -337,17 +337,19 @@ export default function Navbar() {
   );
 }
 
-function CustomLink({
-  text,
-  href,
-  underlineOnActive = true,
-  aProps,
-}: {
+interface CustomLinkProps {
   text: string;
   href: string;
   underlineOnActive?: boolean;
   aProps?: TextProps;
-}) {
+}
+
+const CustomLink: FC<CustomLinkProps> = ({
+  text,
+  href,
+  underlineOnActive = true,
+  aProps,
+}) => {
   const router = useRouter();
   return (
     <div style={{ position: 'relative' }} className={styles.customLink}>
@@ -374,4 +376,4 @@ function CustomLink({
       </NextLink>
     </div>
   );
-}
+};

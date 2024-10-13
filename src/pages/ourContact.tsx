@@ -20,8 +20,8 @@ const ContactPage: FC = () => {
   const bgColor = useColorModeValue('white', 'inherit');
   const textColor = useColorModeValue('navy.800', 'white');
   const subTextColor = useColorModeValue('gray.600', 'gray.300');
-  const iconColor = isEventsMate() ? '#7551FF' : 'rgb(225, 55, 132)';
-  const linkColor = isEventsMate() ? '#7551FF' : 'rgb(225, 55, 132)';
+  const iconColor = isEventsMate() ? '#7551FF' : '#E13784';
+  const linkColor = isEventsMate() ? '#7551FF' : '#E13784';
 
   return (
     <>

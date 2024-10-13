@@ -1,7 +1,8 @@
 
 import { VStack, Link, Image } from '@chakra-ui/react';
+import { FC } from 'react';
 
-const StoreLinks = () => {
+const StoreLinks: FC = () => {
   return (
     <VStack spacing={4}>
       <Link

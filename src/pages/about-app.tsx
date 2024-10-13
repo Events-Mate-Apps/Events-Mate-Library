@@ -48,7 +48,7 @@ const StatBox: React.FC<StatBoxProps> = ({ titleKey, valueKey, descriptionKey, d
       animate={controls}
       transition={{ duration: 0.5, delay: isVisible ? delay : 0 }}
     >
-      <Heading size="lg" mb={2} color={isEventsMate() ? '#7551FF' : 'rgb(225, 55, 132)'}>
+      <Heading size="lg" mb={2} color={isEventsMate() ? '#7551FF' : '#E13784'}>
         {t(valueKey)}
       </Heading>
       <Text fontWeight="bold" mb={1}>{t(titleKey)}</Text>
