@@ -54,46 +54,46 @@ const TeamPage: React.FC = () => {
       name: 'Robin & Naty',
       role: t('auth:robin.role'),
       description: t('auth:robin.desc'),
-      imageUrl: '/img/about/robin.jpeg'
+      imageUrl: '/img/about/robin.webp'
     },
     {
       name: 'Šimon',
       role: t('auth:simon.role'),
       description: t('auth:simon.desc'),
-      imageUrl: '/img/about/buchta.jpg'
+      imageUrl: '/img/about/buchta.webp'
     },
     {
       name: 'Smejcova',
       role: t('auth:smejcova.role'),
       description: t('auth:smejcova.desc'),
-      imageUrl: '/img/about/smejcova.jpg'
+      imageUrl: '/img/about/smejcova.webp'
     },
     {
       name: 'Valenta',
       role: t('auth:valenta.role'),
       description: t('auth:valenta.desc'),
-      imageUrl: '/img/about/valenta.jpeg'
+      imageUrl: '/img/about/valenta.webp'
     },
     {
       name: 'Jan Wawrzyk',
       role: t('auth:wawrzyk.role'),
       description: t('auth:wawrzyk.desc'),
-      imageUrl: '/img/about/wawrzyk.jpg' 
+      imageUrl: '/img/about/wawrzyk.webp' 
     },
     {
       name: 'Jan Swiatnowski',
       role: t('auth:swiatnowski.role'),
       description: t('auth:swiatnowski.desc'),
-      imageUrl: '/img/about/sarah.jpg' 
+      imageUrl: '/img/about/sarah.webp' 
     },
     {
       name: 'Markét',
       role: t('auth:market.role'),
       description: t('auth:market.desc'),
-      imageUrl: '/img/about/pryckova.jpg' 
+      imageUrl: '/img/about/pryckova.webp' 
     }
   ];
-
+  
   return (
     <Box bg={bgColor} minH="100vh" py={12}>
       <Container maxW="7xl">
