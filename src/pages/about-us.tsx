@@ -84,7 +84,7 @@ const TeamPage: React.FC = () => {
       name: 'Jan Swiatnowski',
       role: t('auth:swiatnowski.role'),
       description: t('auth:swiatnowski.desc'),
-      imageUrl: '/img/about/sarah.webp' 
+      imageUrl: '/img/about/swiatnowski.webp' 
     },
     {
       name: 'Markét',
