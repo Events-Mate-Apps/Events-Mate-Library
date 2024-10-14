@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Box, VStack, Text, Icon, Flex, useColorModeValue } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 
-const FAQTimeline = () => {
+const FAQTimeline: FC = () => {
   const questions = [
     { text: 'Liší se funkce u měsíčního a ročního předplatného?', time: 'Leden 2023' },
     { text: 'Liší se funkce u měsíčního a ročního předplatného?', time: 'Březen 2023' },
@@ -15,7 +15,7 @@ const FAQTimeline = () => {
   const iconColor = useColorModeValue('navy.600', 'white');
 
   return (
-    <Box maxWidth="800px" margin="auto" padding="0 16px 20px" position="relative">
+    <Box maxWidth="800px" margin="auto" padding="0 16px 20px" position="relative" pt="40px">
       <Box
         position="absolute"
         left="50%"
