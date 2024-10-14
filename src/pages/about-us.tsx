@@ -21,7 +21,7 @@ const TeamMember: React.FC<TeamMemberProps> = ({ name, role, description, imageU
   return (
     <Box bg={bgColor} boxShadow="md" borderRadius="lg" p={6}>
       <VStack spacing={4}>
-        <Image src={imageUrl} alt={name} borderRadius="full" boxSize="100px" />
+        <Image src={imageUrl} alt={name} borderRadius="full" objectFit="cover" boxSize="100px"  />
         <VStack spacing={1}>
           <Heading as="h3" size="md" color={headingColor}>
             {name}
