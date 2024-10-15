@@ -1,6 +1,5 @@
 import React from 'react';
-import { Box, Container, Heading, Text, SimpleGrid, VStack, Image, Flex, Icon, useColorModeValue } from '@chakra-ui/react';
-import { FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { Box, Container, Heading, Text, SimpleGrid, VStack, Image, useColorModeValue } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
 
 interface TeamMemberProps {
@@ -15,8 +14,6 @@ const TeamMember: React.FC<TeamMemberProps> = ({ name, role, description, imageU
   const headingColor = useColorModeValue('navy.900', 'white');
   const roleColor = useColorModeValue('blue.600', 'blue.300');
   const textColor = useColorModeValue('gray.600', 'gray.300');
-  const iconColor = useColorModeValue('gray.600', 'gray.400');
-
 
   return (
     <Box bg={bgColor} boxShadow="md" borderRadius="lg" p={6}>
@@ -33,10 +30,6 @@ const TeamMember: React.FC<TeamMemberProps> = ({ name, role, description, imageU
         <Text fontSize="sm" color={textColor} textAlign="center">
           {description}
         </Text>
-        <Flex>
-          <Icon as={FaLinkedin} w={5} h={5} color={iconColor} mr={2} cursor="pointer" />
-          <Icon as={FaTwitter} w={5} h={5} color={iconColor} cursor="pointer" />
-        </Flex>
       </VStack>
     </Box>
   );
