@@ -49,6 +49,7 @@ const AuthLayout: FC<AuthLayoutProps> = ({ form, animatedContent, isEventsMate }
         right="4"
         alignItems="center"
         gap="4"
+        flexDirection="row"
         zIndex={10}
       >
         <LanguageSelect />
@@ -62,7 +63,7 @@ const AuthLayout: FC<AuthLayoutProps> = ({ form, animatedContent, isEventsMate }
         px={{ base: 'none', sm: '10px' }}
         pb={{ base: '100px', lg: '0px' }}
       >
-        <Flex w="400px" flexFlow="column">
+        <Flex w="400px" flexDirection="column">
           <Heading color={textColor} fontSize="36px">
             {text && t(text.title)}
           </Heading>
