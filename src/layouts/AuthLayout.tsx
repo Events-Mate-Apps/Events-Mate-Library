@@ -3,7 +3,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 import ThemeSwitch from '../components/utils/ThemeSwitch';
-
+import LanguageSelect from '../components/dashboard/LanguageSelect';
 interface AuthLayoutProps {
   form: JSX.Element,
   animatedContent: JSX.Element
@@ -42,6 +42,7 @@ const AuthLayout: FC<AuthLayoutProps> = ({ form, animatedContent, isEventsMate }
 
   return (
     <Flex h="100vh" position='relative'>
+      <LanguageSelect></LanguageSelect>
       <ThemeSwitch isEventsMate={isEventsMate} isOnGradient={isAnimationVisible} />
       <Flex 
         w={isAnimationVisible ? '50%' : '100%'} 
