@@ -1,3 +1,4 @@
+// useUserStore.ts
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { api, resetAuthTokenHeader } from '../utils/api';
@@ -18,6 +19,7 @@ export interface UserData {
   type: 'NORMAL' | 'ADMIN';
   appleUserIdentifier?: string;
 }
+
 export interface UserDataWithoutFirstName {
   username: string;
   firstName: string;
@@ -28,6 +30,7 @@ export interface UserDataWithoutFirstName {
   type: 'NORMAL' | 'ADMIN';
   appleUserIdentifier?: string;
 }
+
 export interface UserResponseData {
   token: {
     value: string;
@@ -68,11 +71,11 @@ interface UserActions {
   setUsername: (username: string) => void;
   setFirstName: (firstName: string) => void;
   setLastName: (lastName: string) => void;
-  locale?: string,
-  setLocale: (locale: string) => void,
+  locale?: string;
+  setLocale: (locale: string) => void;
 }
 
-type UserStore = UserState & UserActions
+type UserStore = UserState & UserActions;
 
 const useUserStore = create<UserStore>()(
   persist(
@@ -82,22 +85,24 @@ const useUserStore = create<UserStore>()(
       token: null,
       wedding: null,
       locale: undefined,
+
       setLocale: (locale) => {
         set({
-          locale
-        })
+          locale,
+        });
       },
+
       signIn: async (body) => {
-        const { showError, showCustomError } = useNotificationStore.getState()
-        const t = await getT(get().locale, 'notification')
+        const { showError, showCustomError } = useNotificationStore.getState();
+        const t = await getT(get().locale, 'notification');
 
         try {
           const {
-            data: { user, token }, status
+            data: { user, token },
+            status,
           } = await api.post<UserResponseData>('auth/signin', null, {
             headers: {
-              Authorization:
-                'Basic ' + window.btoa(`${body.email}:${body.password}`),
+              Authorization: 'Basic ' + window.btoa(`${body.email}:${body.password}`),
             },
           });
 
@@ -109,39 +114,42 @@ const useUserStore = create<UserStore>()(
                 expiresAt: token.expiresAt,
                 secret: token.value,
               },
-            });   
-            Router.push('/app')       
+            });
+            Router.push('/app');
           }
         } catch (error) {
           if ((error as AxiosError).response?.status === 401) {
-            showCustomError({ 
+            showCustomError({
               title: t('notification:invalidCredentials.title'),
-              description: t('notification:invalidCredentials.description')
-            })
-          } else showError({ error })
+              description: t('notification:invalidCredentials.description'),
+            });
+          } else {
+            showError({ error });
+          }
+          throw error; // Rethrow the error for the form to handle specific cases
         }
       },
+
       signInWithApple: async ({ user, token }) => {
-        set(
-          {
-            token: {
-              expiresAt: token.expiresAt,
-              secret: token.value,
-            },
-            isLoggedIn: true,
-            user,
-          }
-        );
+        set({
+          token: {
+            expiresAt: token.expiresAt,
+            secret: token.value,
+          },
+          isLoggedIn: true,
+          user,
+        });
       },
+
       signUp: async (body) => {
-        const { showError } = useNotificationStore.getState()
+        const { showError } = useNotificationStore.getState();
 
         try {
           const {
-            data: { user, token }, status
+            data: { user, token },
+            status,
           } = await api.post<UserResponseData>('auth/signup', body);
 
-          
           if (status === 200) {
             set({
               isLoggedIn: true,
@@ -150,41 +158,48 @@ const useUserStore = create<UserStore>()(
                 expiresAt: token.expiresAt,
                 secret: token.value,
               },
-            });   
-            Router.push('/app')       
+            });
+            Router.push('/app');
           }
         } catch (error) {
-          showError({ error })
+          showError({ error });
+          throw error; // Rethrow the error for the form to handle specific cases
         }
       },
+
       signOut: () => {
-        resetAuthTokenHeader()
+        resetAuthTokenHeader();
         set({
           isLoggedIn: false,
           user: null,
           token: null,
         });
       },
+
       setUserEmail: (email: string) => {
         set((state) => ({
           user: state.user ? { ...state.user, email } : null,
         }));
       },
+
       setUsername: (username: string) => {
         set((state) => ({
           user: state.user ? { ...state.user, username } : null,
         }));
       },
+
       setFirstName: (firstName: string) => {
         set((state) => ({
           user: state.user ? { ...state.user, firstName } : null,
         }));
       },
+
       setLastName: (lastName: string) => {
         set((state) => ({
           user: state.user ? { ...state.user, lastName } : null,
         }));
       },
+
       setWedding: (wedding) => {
         set({
           wedding,
@@ -194,8 +209,8 @@ const useUserStore = create<UserStore>()(
     {
       name: 'em-auth-store',
       storage: createJSONStorage(() => localStorage),
-    },
-  ),
+    }
+  )
 );
 
 export default useUserStore;
