@@ -1,4 +1,4 @@
-import { Flex, Heading, Text, useColorModeValue, useBreakpointValue } from '@chakra-ui/react';
+import { Flex, Heading, Text, useColorModeValue, useBreakpointValue, HStack } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
@@ -43,18 +43,16 @@ const AuthLayout: FC<AuthLayoutProps> = ({ form, animatedContent, isEventsMate }
 
   return (
     <Flex h="100vh" position="relative">
-      <Flex
+      <HStack
         position="absolute"
         bottom="4"
         right="4"
-        alignItems="center"
-        gap="4"
-        flexDirection="row"
-        zIndex={10}
+        spacing="4"
+        zIndex="10"
       >
         <LanguageSelect />
         <ThemeSwitch isEventsMate={isEventsMate} isOnGradient={isAnimationVisible} />
-      </Flex>
+      </HStack>
 
       <Flex 
         w={isAnimationVisible ? '50%' : '100%'} 
