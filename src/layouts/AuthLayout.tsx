@@ -49,6 +49,7 @@ const AuthLayout: FC<AuthLayoutProps> = ({ form, animatedContent, isEventsMate }
         right="4"
         spacing="4"
         zIndex="10"
+        flexDir="row"
       >
         <LanguageSelect />
         <ThemeSwitch isEventsMate={isEventsMate} isOnGradient={isAnimationVisible} />
