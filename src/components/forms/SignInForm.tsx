@@ -121,7 +121,7 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
             variant="auth"
             fontSize="sm"
             type="email"
-            placeholder={t('auth:emailPlaceholder')}
+            placeholder="John Doe"
             mb="24px"
             fontWeight="500"
             size="lg"
