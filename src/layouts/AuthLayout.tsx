@@ -43,10 +43,9 @@ const AuthLayout: FC<AuthLayoutProps> = ({ form, animatedContent, isEventsMate }
 
   return (
     <Flex h="100vh" position="relative">
-      {/* Container for LanguageSelect and ThemeSwitch */}
       <Flex
         position="absolute"
-        top="4"
+        bottom="4"
         right="4"
         alignItems="center"
         gap="4"
@@ -56,7 +55,6 @@ const AuthLayout: FC<AuthLayoutProps> = ({ form, animatedContent, isEventsMate }
         <ThemeSwitch isEventsMate={isEventsMate} isOnGradient={isAnimationVisible} />
       </Flex>
 
-      {/* Main Content */}
       <Flex 
         w={isAnimationVisible ? '50%' : '100%'} 
         justifyContent="center" 
@@ -80,7 +78,6 @@ const AuthLayout: FC<AuthLayoutProps> = ({ form, animatedContent, isEventsMate }
         </Flex>
       </Flex>
 
-      {/* Animated Content */}
       {isAnimationVisible && (
         <Flex 
           w="50%" 
