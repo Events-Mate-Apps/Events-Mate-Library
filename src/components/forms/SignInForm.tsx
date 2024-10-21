@@ -112,7 +112,7 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
           color={textColor}
           mb="8px"
         >
-          {t('auth:email')}
+          {t('common:email')}
           <Text color={brandColor}>*</Text>
         </FormLabel>
         <Box animation={shakeEmail ? `${shake} 0.5s` : 'none'}>
