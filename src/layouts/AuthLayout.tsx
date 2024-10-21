@@ -4,10 +4,11 @@ import { useRouter } from 'next/router';
 import { FC } from 'react';
 import ThemeSwitch from '../components/utils/ThemeSwitch';
 import LanguageSelect from '../components/dashboard/LanguageSelect';
+
 interface AuthLayoutProps {
-  form: JSX.Element,
-  animatedContent: JSX.Element
-  isEventsMate?: boolean
+  form: JSX.Element;
+  animatedContent: JSX.Element;
+  isEventsMate?: boolean;
 }
 
 const AuthLayout: FC<AuthLayoutProps> = ({ form, animatedContent, isEventsMate }) => {
@@ -16,8 +17,8 @@ const AuthLayout: FC<AuthLayoutProps> = ({ form, animatedContent, isEventsMate }
 
   const { pathname } = useRouter();
   const { t } = useTranslation();
-  
-  const textMap: Map<string, { title: string, subtitle: string }> = new Map([
+
+  const textMap: Map<string, { title: string; subtitle: string }> = new Map([
     ['signin', { 
       title: 'auth:signIn.title',
       subtitle: 'auth:signIn.subtitle'
@@ -41,13 +42,23 @@ const AuthLayout: FC<AuthLayoutProps> = ({ form, animatedContent, isEventsMate }
   const isAnimationVisible = useBreakpointValue({ base: false, lg: true });
 
   return (
-    <Flex h="100vh" position='relative'>
-      <LanguageSelect></LanguageSelect>
-      <ThemeSwitch isEventsMate={isEventsMate} isOnGradient={isAnimationVisible} />
+    <Flex h="100vh" position="relative" bgGradient={bgGradient}>
+      <Flex
+        position="absolute"
+        top="4"
+        right="4"
+        alignItems="center"
+        gap="4"
+        zIndex={10}
+      >
+        <LanguageSelect />
+        <ThemeSwitch isEventsMate={isEventsMate} isOnGradient={isAnimationVisible} />
+      </Flex>
+
       <Flex 
         w={isAnimationVisible ? '50%' : '100%'} 
-        justifyContent='center' 
-        alignItems='center'
+        justifyContent="center" 
+        alignItems="center"
         px={{ base: 'none', sm: '10px' }}
         pb={{ base: '100px', lg: '0px' }}
       >
@@ -66,13 +77,20 @@ const AuthLayout: FC<AuthLayoutProps> = ({ form, animatedContent, isEventsMate }
           {form}
         </Flex>
       </Flex>
+
       {isAnimationVisible && (
-        <Flex w='50%' justifyContent='center' alignItems='center' bgGradient={bgGradient} borderBottomLeftRadius='100px'>
+        <Flex 
+          w="50%" 
+          justifyContent="center" 
+          alignItems="center" 
+          bgGradient={bgGradient} 
+          borderBottomLeftRadius="100px"
+        >
           {animatedContent}
         </Flex>
       )}
     </Flex>
   );
-}
+};
 
 export default AuthLayout;
