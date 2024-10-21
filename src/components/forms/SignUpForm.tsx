@@ -1,7 +1,19 @@
-
-import { Divider, Flex, FormControl, Icon, Input, InputGroup, InputRightElement, Text, useColorModeValue } from '@chakra-ui/react';
+import {
+  Divider,
+  Flex,
+  FormControl,
+  FormErrorMessage,
+  Icon,
+  Input,
+  InputGroup,
+  InputRightElement,
+  Text,
+  useColorModeValue,
+  keyframes,
+  Box,
+} from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { RiEyeCloseLine } from 'react-icons/ri';
@@ -12,31 +24,61 @@ import NavLink from '../utils/NavLink';
 import AsyncButton from '../buttons/AsyncButton';
 import useUserStore from '../../stores/auth';
 import { SignUpRequest } from '../../interfaces/user';
+
 interface SignUpFormProps {
-  isEnabledSIWA?: boolean
-  isEventsMate?: boolean
+  isEnabledSIWA?: boolean;
+  isEventsMate?: boolean;
 }
+
+const shake = keyframes`
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-10px); }
+  40% { transform: translateX(10px); }
+  60% { transform: translateX(-10px); }
+  80% { transform: translateX(10px); }
+  100% { transform: translateX(0); }
+`;
 
 const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
   const textColor = useColorModeValue('navy.700', 'white');
   const textColorDetails = useColorModeValue('navy.700', 'secondaryGray.600');
   const textColorSecondary = 'gray.400';
-  const brandColor = isEventsMate ? 'brand.500' : '#FF328F'
+  const brandColor = isEventsMate ? 'brand.500' : '#FF328F';
   const [show, setShow] = useState<boolean>(false);
+  const [shakeEmail, setShakeEmail] = useState<boolean>(false);
 
-  const userStore = useUserStore()
+  const userStore = useUserStore();
 
   const handleSignUpRedirectEvent = () => {
     TrackGoogleAnalyticsEvent({
       action: 'sign_up',
       label: 'Sign Up',
-      page: 'Sign In'
+      page: 'Sign In',
     });
-  }
+  };
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const { register, getValues } = useForm<SignUpRequest>({});
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    trigger,
+  } = useForm<SignUpRequest>({
+    mode: 'onBlur',
+  });
+
+  const onSubmit = async (data: SignUpRequest) => {
+    await userStore.signUp(data);
+  };
+
+  useEffect(() => {
+    if (errors.email) {
+      setShakeEmail(true);
+      const timer = setTimeout(() => setShakeEmail(false), 500);
+      return () => clearTimeout(timer);
+    }
+  }, [errors.email]);
 
   return (
     <Flex
@@ -48,19 +90,20 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
       borderRadius="15px"
       me="auto"
       mb={{ base: '20px', md: 'auto' }}
-
     >
-      {isEnabledSIWA && <>
-        <SignInWithAppleButton />
-        <Flex align="center" my="10px">
-          <Divider />
-          <Text color={textColorSecondary} mx="14px">
-            {t('common:or')}
-          </Text>
-          <Divider />
-        </Flex>
-      </>}
-      <FormControl>
+      {isEnabledSIWA && (
+        <>
+          <SignInWithAppleButton />
+          <Flex align="center" my="10px">
+            <Divider />
+            <Text color={textColorSecondary} mx="14px">
+              {t('common:or')}
+            </Text>
+            <Divider />
+          </Flex>
+        </>
+      )}
+      <FormControl isInvalid={!!errors.name || !!errors.email || !!errors.password}>
         <FormLabel
           display="flex"
           ms="4px"
@@ -73,11 +116,10 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
           <Text color={brandColor}>*</Text>
         </FormLabel>
         <Input
-          isRequired={true}
+          isRequired
           variant="auth"
           fontSize="sm"
-          ms={{ base: '0px', md: '0px' }}
-          placeholder='John Doe'
+          placeholder="John Doe"
           mb="24px"
           fontWeight="500"
           size="lg"
@@ -85,6 +127,12 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
             required: true,
           })}
         />
+        {errors.name && (
+          <FormErrorMessage mb="24px">
+            {t('auth:errors.nameRequired')}
+          </FormErrorMessage>
+        )}
+
         <FormLabel
           display="flex"
           ms="4px"
@@ -93,23 +141,36 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
           color={textColor}
           mb="8px"
         >
-          {t('common:email')}
+          {t('auth:email')}
           <Text color={brandColor}>*</Text>
         </FormLabel>
-        <Input
-          isRequired={true}
-          variant="auth"
-          fontSize="sm"
-          ms={{ base: '0px', md: '0px' }}
-          type="email"
-          placeholder={t('common:emailPlaceholder')}
-          mb="24px"
-          fontWeight="500"
-          size="lg"
-          {...register('email', {
-            required: true,
-          })}
-        />
+        <Box animation={shakeEmail ? `${shake} 0.5s` : 'none'}>
+          <Input
+            isRequired
+            variant="auth"
+            fontSize="sm"
+            type="email"
+            placeholder="mail@weddmate.com"
+            mb="24px"
+            fontWeight="500"
+            size="lg"
+            {...register('email', {
+              required: true,
+              pattern: /^\S+@\S+\.\S+$/,
+            })}
+            onBlur={() => {
+              trigger('email');
+            }}
+          />
+        </Box>
+        {errors.email && (
+          <FormErrorMessage mb="24px">
+            {errors.email.type === 'required'
+              ? t('auth:errors.emailRequired')
+              : t('auth:errors.invalidEmail')}
+          </FormErrorMessage>
+        )}
+
         <FormLabel
           ms="4px"
           fontSize="sm"
@@ -122,7 +183,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
         </FormLabel>
         <InputGroup size="md">
           <Input
-            isRequired={true}
+            isRequired
             fontSize="sm"
             placeholder={t('auth:passwordMinimum')}
             mb="24px"
@@ -143,6 +204,13 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
             />
           </InputRightElement>
         </InputGroup>
+        {errors.password && (
+          <FormErrorMessage mb="24px">
+            {errors.password.type === 'required'
+              ? t('auth:errors.passwordRequired')
+              : t('auth:errors.passwordMinLength')}
+          </FormErrorMessage>
+        )}
 
         <Flex justifyContent="space-between" align="center" mb="24px">
           <NavLink href="/auth/forgot-password">
@@ -156,19 +224,22 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
             </Text>
           </NavLink>
         </Flex>
+
         <AsyncButton
           fontSize="sm"
           bg={brandColor}
           color="white"
           fontWeight="500"
           w="100%"
-          h="50"
+          h="50px"
           mb="24px"
-          onClick={() => userStore.signUp(getValues())}
+          isLoading={isSubmitting}
+          onClick={handleSubmit(onSubmit)}
         >
           {t('auth:signUp.title')}
         </AsyncButton>
       </FormControl>
+
       <Flex
         flexDirection="column"
         justifyContent="center"
@@ -192,7 +263,6 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
       </Flex>
     </Flex>
   );
-}
-  
+};
+
 export default SignUpForm;
-  
