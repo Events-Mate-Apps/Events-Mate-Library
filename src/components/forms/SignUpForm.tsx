@@ -48,6 +48,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
   const [shakeEmail, setShakeEmail] = useState<boolean>(false);
 
   const userStore = useUserStore();
+  const { t } = useTranslation();
 
   const handleSignUpRedirectEvent = () => {
     TrackGoogleAnalyticsEvent({
@@ -56,8 +57,6 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
       page: 'Sign In',
     });
   };
-
-  const { t } = useTranslation();
 
   const {
     register,
@@ -124,12 +123,12 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
           fontWeight="500"
           size="lg"
           {...register('name', {
-            required: true,
+            required: t('auth:errors.nameRequired'),
           })}
         />
         {errors.name && (
           <FormErrorMessage mb="24px">
-            {t('auth:errors.nameRequired')}
+            {errors.name.message}
           </FormErrorMessage>
         )}
 
@@ -155,8 +154,11 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
             fontWeight="500"
             size="lg"
             {...register('email', {
-              required: true,
-              pattern: /^\S+@\S+\.\S+$/,
+              required: t('auth:errors.emailRequired'),
+              pattern: {
+                value: /^\S+@\S+\.\S+$/,
+                message: t('auth:errors.invalidEmail'),
+              },
             })}
             onBlur={() => {
               trigger('email');
@@ -165,9 +167,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
         </Box>
         {errors.email && (
           <FormErrorMessage mb="24px">
-            {errors.email.type === 'required'
-              ? t('auth:errors.emailRequired')
-              : t('auth:errors.invalidEmail')}
+            {errors.email.message}
           </FormErrorMessage>
         )}
 
@@ -191,8 +191,11 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
             type={show ? 'text' : 'password'}
             variant="auth"
             {...register('password', {
-              required: true,
-              minLength: 8,
+              required: t('auth:errors.passwordRequired'),
+              minLength: {
+                value: 8,
+                message: t('auth:errors.passwordMinLength'),
+              },
             })}
           />
           <InputRightElement display="flex" alignItems="center" mt="4px">
@@ -206,9 +209,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
         </InputGroup>
         {errors.password && (
           <FormErrorMessage mb="24px">
-            {errors.password.type === 'required'
-              ? t('auth:errors.passwordRequired')
-              : t('auth:errors.passwordMinLength')}
+            {errors.password.message}
           </FormErrorMessage>
         )}
 

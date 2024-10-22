@@ -167,9 +167,7 @@ const useUserStore = create<UserStore>()(
           if (axios.isAxiosError(error)) {
             if (error.response) {
               const message = error.response.data?.message;
-              console.log(message)
-              console.log('Localized message:', t('errors.userAlreadyExists'));
-              console.log(message === 'A user with this email already exists.')
+             
               if (message === 'A user with this email already exists.') {
                 showError({ error: new Error(t('errors.userAlreadyExists')) });
               } else {
