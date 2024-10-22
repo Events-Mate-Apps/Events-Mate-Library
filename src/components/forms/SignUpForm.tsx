@@ -1,4 +1,3 @@
-// SignUpForm.tsx
 import {
   Divider,
   Flex,
@@ -25,7 +24,6 @@ import NavLink from '../utils/NavLink';
 import AsyncButton from '../buttons/AsyncButton';
 import useUserStore from '../../stores/auth';
 import { SignUpRequest } from '../../interfaces/user';
-import { AxiosError } from 'axios'; // Import AxiosError
 
 interface SignUpFormProps {
   isEnabledSIWA?: boolean;
@@ -64,7 +62,6 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
   const {
     register,
     handleSubmit,
-    setError, // Extract setError
     formState: { errors, isSubmitting },
     trigger,
   } = useForm<SignUpRequest>({
@@ -72,25 +69,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
   });
 
   const onSubmit = async (data: SignUpRequest) => {
-    try {
-      await userStore.signUp(data);
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        if (
-          error.response?.status === 400 &&
-          error.response.data.message === 'A user with this email already exists.'
-        ) {
-          setError('email', {
-            type: 'manual',
-            message: 'A user with this email already exists.',
-          });
-        } else {
-          // Optionally handle other specific errors here
-        }
-      } else {
-        // Optionally handle non-Axios errors here
-      }
-    }
+    await userStore.signUp(data);
   };
 
   useEffect(() => {
@@ -125,7 +104,6 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
         </>
       )}
       <FormControl isInvalid={!!errors.name || !!errors.email || !!errors.password}>
-        {/* Name Field */}
         <FormLabel
           display="flex"
           ms="4px"
@@ -155,7 +133,6 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
           </FormErrorMessage>
         )}
 
-        {/* Email Field */}
         <FormLabel
           display="flex"
           ms="4px"
@@ -190,11 +167,10 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
           <FormErrorMessage mb="24px">
             {errors.email.type === 'required'
               ? t('auth:errors.emailRequired')
-              : errors.email.message || t('auth:errors.invalidEmail')}
+              : t('auth:errors.invalidEmail')}
           </FormErrorMessage>
         )}
 
-        {/* Password Field */}
         <FormLabel
           ms="4px"
           fontSize="sm"
@@ -224,7 +200,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
               color={textColorSecondary}
               cursor="pointer"
               as={show ? RiEyeCloseLine : MdOutlineRemoveRedEye}
-              onClick={() => setShow((prevState) => !prevState)}
+              onClick={() => setShow(prevState => !prevState)}
             />
           </InputRightElement>
         </InputGroup>
@@ -236,16 +212,19 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
           </FormErrorMessage>
         )}
 
-        {/* Forgot Password Link */}
         <Flex justifyContent="space-between" align="center" mb="24px">
           <NavLink href="/auth/forgot-password">
-            <Text color={brandColor} fontSize="sm" w="180px" fontWeight="500">
+            <Text
+              color={brandColor}
+              fontSize="sm"
+              w="180px"
+              fontWeight="500"
+            >
               {t('auth:forgotPassword.title')}
             </Text>
           </NavLink>
         </Flex>
 
-        {/* Submit Button */}
         <AsyncButton
           fontSize="sm"
           bg={brandColor}
@@ -261,7 +240,6 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
         </AsyncButton>
       </FormControl>
 
-      {/* Sign In Link */}
       <Flex
         flexDirection="column"
         justifyContent="center"
@@ -272,7 +250,12 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
         <Text color={textColorDetails} fontWeight="400" fontSize="14px">
           {t('auth:alreadyHaveAnAccount')}
           <NavLink href="/auth/signin" onClick={handleSignUpRedirectEvent}>
-            <Text color={brandColor} as="span" ms="5px" fontWeight="500">
+            <Text
+              color={brandColor}
+              as="span"
+              ms="5px"
+              fontWeight="500"
+            >
               {t('auth:actions.signIn')}
             </Text>
           </NavLink>
