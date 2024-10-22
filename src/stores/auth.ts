@@ -170,7 +170,7 @@ const useUserStore = create<UserStore>()(
               console.log(message)
               console.log(message === 'A user with this email already exists.')
               if (message === 'A user with this email already exists.') {
-                showError({ error: (t('errors.userAlreadyExists')) });
+                showError({ error: new Error(t('errors.userAlreadyExists')) });
               } else {
                 showError({ error: new Error(message || 'An unexpected error occurred.') });
               }
