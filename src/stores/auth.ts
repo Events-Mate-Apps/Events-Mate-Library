@@ -75,7 +75,7 @@ interface UserActions {
 }
 
 type UserStore = UserState & UserActions;
-
+  
 const useUserStore = create<UserStore>()(
   persist(
     (set, get) => ({
@@ -144,13 +144,14 @@ const useUserStore = create<UserStore>()(
 
       signUp: async (body) => {
         const { showError } = useNotificationStore.getState();
-
+        const t = await getT(get().locale, 'auth');
+      
         try {
           const {
             data: { user, token },
             status,
           } = await api.post<UserResponseData>('auth/signup', body);
-
+      
           if (status === 200) {
             set({
               isLoggedIn: true,
@@ -165,8 +166,13 @@ const useUserStore = create<UserStore>()(
         } catch (error) {
           if (axios.isAxiosError(error)) {
             if (error.response) {
-              const message = error.response.data?.message || 'An unexpected error occurred.';
-              showError({ error: new Error(message) });
+              const message = error.response.data?.message;
+      
+              if (message === 'A user with this email already exists.') {
+                showError({ error: new Error(t('errors.userAlreadyExists')) });
+              } else {
+                showError({ error: new Error(message || 'An unexpected error occurred.') });
+              }
             } else if (error.request) {
               showError({ error: new Error('No response from the server. Please try again later.') });
             } else {
@@ -177,7 +183,7 @@ const useUserStore = create<UserStore>()(
           }
         }
       },
-
+      
       signOut: () => {
         resetAuthTokenHeader();
         set({
