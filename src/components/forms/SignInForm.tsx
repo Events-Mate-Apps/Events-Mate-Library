@@ -61,16 +61,12 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
 
   const {
     register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
+    getValues,
+    formState: { errors },
     trigger,
   } = useForm<SignInRequest>({
     mode: 'onBlur',
   });
-
-  const onSubmit = async (data: SignInRequest) => {
-    await userStore.signIn(data);
-  };
 
   useEffect(() => {
     if (errors.email) {
@@ -125,6 +121,7 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
             mb="24px"
             fontWeight="500"
             size="lg"
+            data-cy="email-input"
             {...register('email', {
               required: true,
               pattern: /^\S+@\S+\.\S+$/,
@@ -160,6 +157,7 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
             mb="24px"
             size="lg"
             type={show ? 'text' : 'password'}
+            data-cy="password-input"
             variant="auth"
             {...register('password', {
               required: true,
@@ -199,8 +197,8 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
           w="100%"
           h="50px"
           mb="24px"
-          isLoading={isSubmitting}
-          onClick={handleSubmit(onSubmit)}
+          data-cy="submit-button"
+          onClick={() => userStore.signIn(getValues())}
         >
           {t('auth:signIn.title')}
         </AsyncButton>
