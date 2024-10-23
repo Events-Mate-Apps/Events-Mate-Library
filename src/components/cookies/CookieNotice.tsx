@@ -3,7 +3,7 @@ import useTranslation from 'next-translate/useTranslation';
 
 import { FC, useEffect, useState } from 'react';
 import useCookieStore from '../../stores/cookies';
-import { isEventsMate } from '~/utils/orientation';
+import { isEventsMate } from '../../utils/orientation';
 
 const CookieNotice: FC = () => {
   const [isCookieNoticeVisible, setIsCookieNoticeVisible] = useState(false);
