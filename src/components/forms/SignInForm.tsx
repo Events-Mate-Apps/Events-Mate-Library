@@ -1,7 +1,19 @@
-
-import { Divider, Flex, FormControl, Icon, Input, InputGroup, InputRightElement, Text, useColorModeValue } from '@chakra-ui/react';
+import {
+  Divider,
+  Flex,
+  FormControl,
+  FormErrorMessage,
+  Icon,
+  Input,
+  InputGroup,
+  InputRightElement,
+  Text,
+  useColorModeValue,
+  keyframes,
+  Box,
+} from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { RiEyeCloseLine } from 'react-icons/ri';
@@ -14,30 +26,55 @@ import useUserStore from '../../stores/auth';
 import { SignInRequest } from '../../interfaces/user';
 
 interface SignInFormProps {
-  isEnabledSIWA?: boolean
-  isEventsMate?: boolean
+  isEnabledSIWA?: boolean;
+  isEventsMate?: boolean;
 }
+
+const shake = keyframes`
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-10px); }
+  40% { transform: translateX(10px); }
+  60% { transform: translateX(-10px); }
+  80% { transform: translateX(10px); }
+  100% { transform: translateX(0); }
+`;
 
 const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
   const textColor = useColorModeValue('navy.700', 'white');
   const textColorDetails = useColorModeValue('navy.700', 'secondaryGray.600');
   const textColorSecondary = 'gray.400';
-  const brandColor = isEventsMate ? 'brand.500' : '#FF328F'
+  const brandColor = isEventsMate ? 'brand.500' : '#FF328F';
   const [show, setShow] = useState<boolean>(false);
+  const [shakeEmail, setShakeEmail] = useState<boolean>(false);
 
-  const userStore = useUserStore()
+  const userStore = useUserStore();
 
   const handleSignUpRedirectEvent = () => {
     TrackGoogleAnalyticsEvent({
       action: 'sign_up',
       label: 'Sign Up',
-      page: 'Sign In'
+      page: 'Sign In',
     });
-  }
+  };
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const { register, getValues } = useForm<SignInRequest>({});
+  const {
+    register,
+    getValues,
+    formState: { errors },
+    trigger,
+  } = useForm<SignInRequest>({
+    mode: 'onBlur',
+  });
+
+  useEffect(() => {
+    if (errors.email) {
+      setShakeEmail(true);
+      const timer = setTimeout(() => setShakeEmail(false), 500);
+      return () => clearTimeout(timer);
+    }
+  }, [errors.email]);
 
   return (
     <Flex
@@ -49,19 +86,20 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
       borderRadius="15px"
       me="auto"
       mb={{ base: '20px', md: 'auto' }}
-
     >
-      {isEnabledSIWA && <>
-        <SignInWithAppleButton />
-        <Flex align="center" my="10px">
-          <Divider />
-          <Text color={textColorSecondary} mx="14px">
-            {t('common:or')}
-          </Text>
-          <Divider />
-        </Flex>
-      </>}
-      <FormControl>
+      {isEnabledSIWA && (
+        <>
+          <SignInWithAppleButton />
+          <Flex align="center" my="10px">
+            <Divider />
+            <Text color={textColorSecondary} mx="14px">
+              {t('common:or')}
+            </Text>
+            <Divider />
+          </Flex>
+        </>
+      )}
+      <FormControl isInvalid={!!errors.email || !!errors.password}>
         <FormLabel
           display="flex"
           ms="4px"
@@ -73,21 +111,34 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
           {t('common:email')}
           <Text color={brandColor}>*</Text>
         </FormLabel>
-        <Input
-          isRequired={true}
-          variant="auth"
-          fontSize="sm"
-          ms={{ base: '0px', md: '0px' }}
-          type="email"
-          placeholder={t('common:emailPlaceholder')}
-          mb="24px"
-          fontWeight="500"
-          size="lg"
-          data-cy="email-input"
-          {...register('email', {
-            required: true,
-          })}
-        />
+        <Box animation={shakeEmail ? `${shake} 0.5s` : 'none'}>
+          <Input
+            isRequired
+            variant="auth"
+            fontSize="sm"
+            type="email"
+            placeholder="John Doe"
+            mb="24px"
+            fontWeight="500"
+            size="lg"
+            data-cy="email-input"
+            {...register('email', {
+              required: true,
+              pattern: /^\S+@\S+\.\S+$/,
+            })}
+            onBlur={() => {
+              trigger('email');
+            }}
+          />
+        </Box>
+        {errors.email && (
+          <FormErrorMessage mb="24px">
+            {errors.email.type === 'required'
+              ? t('auth:errors.emailRequired')
+              : t('auth:errors.invalidEmail')}
+          </FormErrorMessage>
+        )}
+
         <FormLabel
           ms="4px"
           fontSize="sm"
@@ -100,7 +151,7 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
         </FormLabel>
         <InputGroup size="md">
           <Input
-            isRequired={true}
+            isRequired
             fontSize="sm"
             placeholder={t('auth:passwordMinimum')}
             mb="24px"
@@ -122,26 +173,29 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
             />
           </InputRightElement>
         </InputGroup>
+        {errors.password && (
+          <FormErrorMessage mb="24px">
+            {errors.password.type === 'required'
+              ? t('auth:errors.passwordRequired')
+              : t('auth:errors.passwordMinLength')}
+          </FormErrorMessage>
+        )}
 
         <Flex justifyContent="space-between" align="center" mb="24px">
           <NavLink href="/auth/forgot-password">
-            <Text
-              color={brandColor}
-              fontSize="sm"
-              w="180px"
-              fontWeight="500"
-            >
+            <Text color={brandColor} fontSize="sm" w="180px" fontWeight="500">
               {t('auth:forgotPassword.title')}
             </Text>
           </NavLink>
         </Flex>
+
         <AsyncButton
           fontSize="sm"
           bg={brandColor}
           color="white"
           fontWeight="500"
           w="100%"
-          h="50"
+          h="50px"
           mb="24px"
           data-cy="submit-button"
           onClick={() => userStore.signIn(getValues())}
@@ -149,6 +203,7 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
           {t('auth:signIn.title')}
         </AsyncButton>
       </FormControl>
+
       <Flex
         flexDirection="column"
         justifyContent="center"
@@ -159,12 +214,7 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
         <Text color={textColorDetails} fontWeight="400" fontSize="14px">
           {t('auth:dontHaveAnAccount')}
           <NavLink href="/auth/signup" onClick={handleSignUpRedirectEvent}>
-            <Text
-              color={brandColor}
-              as="span"
-              ms="5px"
-              fontWeight="500"
-            >
+            <Text color={brandColor} as="span" ms="5px" fontWeight="500">
               {t('auth:actions.signUp')}
             </Text>
           </NavLink>
@@ -172,7 +222,6 @@ const SignInForm: FC<SignInFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
       </Flex>
     </Flex>
   );
-}
-  
+};
+
 export default SignInForm;
-  

@@ -4,7 +4,7 @@ import { api, resetAuthTokenHeader } from '../utils/api';
 import useNotificationStore from './notification';
 import { Wedding } from '../interfaces/wedding';
 import { SignInRequest, SignUpRequest } from '../interfaces/user';
-import { AxiosError } from 'axios';
+import axios from 'axios';
 import getT from 'next-translate/getT';
 import Router from 'next/router';
 
@@ -18,6 +18,7 @@ export interface UserData {
   type: 'NORMAL' | 'ADMIN';
   appleUserIdentifier?: string;
 }
+
 export interface UserDataWithoutFirstName {
   username: string;
   firstName: string;
@@ -28,6 +29,7 @@ export interface UserDataWithoutFirstName {
   type: 'NORMAL' | 'ADMIN';
   appleUserIdentifier?: string;
 }
+
 export interface UserResponseData {
   token: {
     value: string;
@@ -47,6 +49,7 @@ interface UserState {
   user: UserData | null;
   token: Token | null;
   wedding: Wedding | null;
+  locale?: string;
 }
 
 interface LoginResponse {
@@ -68,12 +71,11 @@ interface UserActions {
   setUsername: (username: string) => void;
   setFirstName: (firstName: string) => void;
   setLastName: (lastName: string) => void;
-  locale?: string,
-  setLocale: (locale: string) => void,
+  setLocale: (locale: string) => void;
 }
 
-type UserStore = UserState & UserActions
-
+type UserStore = UserState & UserActions;
+  
 const useUserStore = create<UserStore>()(
   persist(
     (set, get) => ({
@@ -82,18 +84,19 @@ const useUserStore = create<UserStore>()(
       token: null,
       wedding: null,
       locale: undefined,
+      
       setLocale: (locale) => {
-        set({
-          locale
-        })
+        set({ locale });
       },
+
       signIn: async (body) => {
-        const { showError, showCustomError } = useNotificationStore.getState()
-        const t = await getT(get().locale, 'notification')
+        const { showError, showCustomError } = useNotificationStore.getState();
+        const t = await getT(get().locale, 'notification');
 
         try {
           const {
-            data: { user, token }, status
+            data: { user, token },
+            status,
           } = await api.post<UserResponseData>('auth/signin', null, {
             headers: {
               Authorization:
@@ -109,47 +112,44 @@ const useUserStore = create<UserStore>()(
                 expiresAt: token.expiresAt,
                 secret: token.value,
               },
-            });   
-            Router.push('/app')       
+            });
+            Router.push('/app');
           }
         } catch (error) {
-          if ((error as AxiosError).response?.status === 401) {
-            showCustomError({ 
-              title: t('notification:invalidCredentials.title'),
-              description: t('notification:invalidCredentials.description')
-            })
-            return
+          if (axios.isAxiosError(error)) {
+            if (error.response?.status === 401) {
+              showCustomError({
+                title: t('notification:invalidCredentials.title'),
+                description: t('notification:invalidCredentials.description'),
+              });
+            } else {
+              showError({ error: new Error(error.response?.data?.message || 'An unexpected error occurred.') });
+            }
+          } else {
+            showError({ error: new Error('An unexpected error occurred.') });
           }
-          if ((error as AxiosError).response?.status === 400) {
-            showCustomError({ 
-              title: t('notification:invalidCredentials.title'),
-              description: t('notification:invalidCredentials.description')
-            })
-            return
-          }
-          showError({ error })
         }
       },
+
       signInWithApple: async ({ user, token }) => {
-        set(
-          {
-            token: {
-              expiresAt: token.expiresAt,
-              secret: token.value,
-            },
-            isLoggedIn: true,
-            user,
-          }
-        );
+        set({
+          token: {
+            expiresAt: token.expiresAt,
+            secret: token.value,
+          },
+          isLoggedIn: true,
+          user,
+        });
       },
+
       signUp: async (body) => {
-        const { showError, showCustomError } = useNotificationStore.getState();
-        const t = await getT(get().locale, 'auth')
+        const { showError } = useNotificationStore.getState();
+        const t = await getT(get().locale, 'auth');
       
         try {
           const {
-            data: { user, token }, 
-            status
+            data: { user, token },
+            status,
           } = await api.post<UserResponseData>('auth/signup', body);
       
           if (status === 200) {
@@ -163,51 +163,62 @@ const useUserStore = create<UserStore>()(
             });
             Router.push('/app');
           }
-        } catch (error: unknown) {
-          if (error instanceof AxiosError && error.response?.status === 400) {
-            const errorMessage = error.response.data.message;
-            showCustomError({ title: 
-              errorMessage === 'A user with this email already exists.' ?
-                t('userAlreadyExists') :
-                errorMessage
-            });
+        } catch (error) {
+          if (axios.isAxiosError(error)) {
+            if (error.response) {
+              const message = error.response.data?.message;
+                
+              if (message === 'A user with this email already exists.') {
+                showError({ error: new Error(t('auth:errors.userAlreadyExists')) });
+              } else {
+                showError({ error: new Error(message || 'An unexpected error occurred.') });
+              }
+            } else if (error.request) {
+              showError({ error: new Error('No response from the server. Please try again later.') });
+            } else {
+              showError({ error: new Error(error.message) });
+            }
           } else {
-            showError({ error });
+            showError({ error: new Error('An unexpected error occurred.') });
           }
         }
       },
+      
       signOut: () => {
-        resetAuthTokenHeader()
+        resetAuthTokenHeader();
         set({
           isLoggedIn: false,
           user: null,
           token: null,
         });
       },
+
       setUserEmail: (email: string) => {
         set((state) => ({
           user: state.user ? { ...state.user, email } : null,
         }));
       },
+
       setUsername: (username: string) => {
         set((state) => ({
           user: state.user ? { ...state.user, username } : null,
         }));
       },
+
       setFirstName: (firstName: string) => {
         set((state) => ({
           user: state.user ? { ...state.user, firstName } : null,
         }));
       },
+
       setLastName: (lastName: string) => {
         set((state) => ({
           user: state.user ? { ...state.user, lastName } : null,
         }));
       },
+
       setWedding: (wedding) => {
-        set({
-          wedding,
-        });
+        set({ wedding });
       },
     }),
     {
