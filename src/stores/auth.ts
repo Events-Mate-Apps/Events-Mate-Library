@@ -118,7 +118,16 @@ const useUserStore = create<UserStore>()(
               title: t('notification:invalidCredentials.title'),
               description: t('notification:invalidCredentials.description')
             })
-          } else showError({ error })
+            return
+          }
+          if ((error as AxiosError).response?.status === 400) {
+            showCustomError({ 
+              title: t('notification:invalidCredentials.title'),
+              description: t('notification:invalidCredentials.description')
+            })
+            return
+          }
+          showError({ error })
         }
       },
       signInWithApple: async ({ user, token }) => {
@@ -134,14 +143,15 @@ const useUserStore = create<UserStore>()(
         );
       },
       signUp: async (body) => {
-        const { showError } = useNotificationStore.getState()
-
+        const { showError, showCustomError } = useNotificationStore.getState();
+        const t = await getT(get().locale, 'notification')
+      
         try {
           const {
-            data: { user, token }, status
+            data: { user, token }, 
+            status
           } = await api.post<UserResponseData>('auth/signup', body);
-
-          
+      
           if (status === 200) {
             set({
               isLoggedIn: true,
@@ -150,11 +160,20 @@ const useUserStore = create<UserStore>()(
                 expiresAt: token.expiresAt,
                 secret: token.value,
               },
-            });   
-            Router.push('/app')       
+            });
+            Router.push('/app');
           }
-        } catch (error) {
-          showError({ error })
+        } catch (error: unknown) {
+          if (error instanceof AxiosError && error.response?.status === 400) {
+            const errorMessage = error.response.data.message;
+            showCustomError({ title: 
+              errorMessage === 'A user with this email already exists.' ?
+                t('auth:userAlreadyExists') :
+                errorMessage
+            });
+          } else {
+            showError({ error });
+          }
         }
       },
       signOut: () => {
