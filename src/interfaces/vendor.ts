@@ -2,7 +2,7 @@ import { Category } from './category'
 
 export interface Vendor {
   status: string
-  isPremium?: boolean,
+  isPremium: boolean,
   id: string,
   alias: string,
   categories: Category[],
