@@ -144,7 +144,7 @@ const useUserStore = create<UserStore>()(
       },
       signUp: async (body) => {
         const { showError, showCustomError } = useNotificationStore.getState();
-        const t = await getT(get().locale, 'notification')
+        const t = await getT(get().locale, 'auth')
       
         try {
           const {
@@ -168,7 +168,7 @@ const useUserStore = create<UserStore>()(
             const errorMessage = error.response.data.message;
             showCustomError({ title: 
               errorMessage === 'A user with this email already exists.' ?
-                t('auth:userAlreadyExists') :
+                t('userAlreadyExists') :
                 errorMessage
             });
           } else {
