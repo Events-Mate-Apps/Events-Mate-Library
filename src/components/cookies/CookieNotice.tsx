@@ -3,12 +3,14 @@ import useTranslation from 'next-translate/useTranslation';
 
 import { FC, useEffect, useState } from 'react';
 import useCookieStore from '../../stores/cookies';
+import { isEventsMate } from '~/utils/orientation';
 
 const CookieNotice: FC = () => {
   const [isCookieNoticeVisible, setIsCookieNoticeVisible] = useState(false);
   const cookiesStore = useCookieStore()
   const bg = useColorModeValue('rgba(0, 0, 0, 0.5)', 'rgba(255, 255, 255, 0.7)')
   const text = useColorModeValue('whiteAlpha.900', 'blackAlpha.900')
+  const color = isEventsMate() ? 'brand.900' : 'pink.500'
   const { t } = useTranslation()
 
   useEffect(() => {
@@ -39,7 +41,7 @@ const CookieNotice: FC = () => {
         <Flex gap="2">
           <Button
             variant="solid"
-            bgColor="brand.900"
+            bgColor={color}
             color="white"
             size="md"
             background="#aaa"
