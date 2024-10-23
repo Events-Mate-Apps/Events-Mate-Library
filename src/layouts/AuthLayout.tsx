@@ -1,13 +1,14 @@
-import { Flex, Heading, Text, useColorModeValue, useBreakpointValue } from '@chakra-ui/react';
+import { Flex, Heading, Text, useColorModeValue, useBreakpointValue, HStack } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 import ThemeSwitch from '../components/utils/ThemeSwitch';
+import LanguageSelect from '../components/dashboard/LanguageSelect';
 
 interface AuthLayoutProps {
-  form: JSX.Element,
-  animatedContent: JSX.Element
-  isEventsMate?: boolean
+  form: JSX.Element;
+  animatedContent: JSX.Element;
+  isEventsMate?: boolean;
 }
 
 const AuthLayout: FC<AuthLayoutProps> = ({ form, animatedContent, isEventsMate }) => {
@@ -16,8 +17,8 @@ const AuthLayout: FC<AuthLayoutProps> = ({ form, animatedContent, isEventsMate }
 
   const { pathname } = useRouter();
   const { t } = useTranslation();
-  
-  const textMap: Map<string, { title: string, subtitle: string }> = new Map([
+
+  const textMap: Map<string, { title: string; subtitle: string }> = new Map([
     ['signin', { 
       title: 'auth:signIn.title',
       subtitle: 'auth:signIn.subtitle'
@@ -41,16 +42,33 @@ const AuthLayout: FC<AuthLayoutProps> = ({ form, animatedContent, isEventsMate }
   const isAnimationVisible = useBreakpointValue({ base: false, lg: true });
 
   return (
-    <Flex h="100vh" position='relative'>
-      <ThemeSwitch isEventsMate={isEventsMate} isOnGradient={isAnimationVisible} />
+    <Flex h="100vh" position="relative">
+      <HStack
+        position="absolute"
+        bottom="4"
+        right="4"
+        spacing="4"
+        zIndex="10"
+        sx={{
+          '.chakra-button': {
+            position: 'static !important',
+            right: 'auto !important',
+            bottom: 'auto !important',
+          },
+        }}
+      >
+        <LanguageSelect />
+        <ThemeSwitch isEventsMate={isEventsMate} isOnGradient={isAnimationVisible} />
+      </HStack>
+
       <Flex 
         w={isAnimationVisible ? '50%' : '100%'} 
-        justifyContent='center' 
-        alignItems='center'
+        justifyContent="center" 
+        alignItems="center"
         px={{ base: 'none', sm: '10px' }}
         pb={{ base: '100px', lg: '0px' }}
       >
-        <Flex w="400px" flexFlow="column">
+        <Flex w="400px" flexDirection="column">
           <Heading color={textColor} fontSize="36px">
             {text && t(text.title)}
           </Heading>
@@ -65,13 +83,21 @@ const AuthLayout: FC<AuthLayoutProps> = ({ form, animatedContent, isEventsMate }
           {form}
         </Flex>
       </Flex>
+
+      {/* Animated Content */}
       {isAnimationVisible && (
-        <Flex w='50%' justifyContent='center' alignItems='center' bgGradient={bgGradient} borderBottomLeftRadius='100px'>
+        <Flex 
+          w="50%" 
+          justifyContent="center" 
+          alignItems="center" 
+          bgGradient={bgGradient} 
+          borderBottomLeftRadius="100px"
+        >
           {animatedContent}
         </Flex>
       )}
     </Flex>
   );
-}
+};
 
 export default AuthLayout;
