@@ -104,34 +104,34 @@ const useUserStore = create<UserStore>()(
               .map((x) => ('00' + x.toString(16)).slice(-2))
               .join('')
           );
-          
-          /* eslint-disable camelcase */
-          const requestBody = {
-            username: body.email,
-            grant_type: 'password',
-            password: hashedPassword,
-          };
-          /* eslint-disable camelcase */
-
-          const { data: { user, token }, status } = await newApi.post<LoginResponse>('/auth/token',requestBody,
+      
+          const requestBody = new URLSearchParams();
+          requestBody.append('grant_type', 'password');
+          requestBody.append('username', body.email);
+          requestBody.append('password', hashedPassword);
+      
+          const response = await newApi.post('/auth/token', requestBody, {
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded', // Required for URLSearchParams
+            },
+          });
+      
+          const { data: { user, token } } = response;
+      
+          set({
+            isLoggedIn: true,
+            user,
+            token: {
+              expiresAt: token.expiresAt,
+              secret: token.value,
+            },
+          });
+      
+          Router.push(
+            `/app?access_token=${encodeURIComponent(token.value)}&refresh_token=${encodeURIComponent(
+              token.value,
+            )}`
           );
-      
-          if (status === 200) {
-            set({
-              isLoggedIn: true,
-              user,
-              token: {
-                expiresAt: token.expiresAt,
-                secret: token.value,
-              },
-            });
-      
-            Router.push(
-              `/app?access_token=${encodeURIComponent(token.value)}&refresh_token=${encodeURIComponent(
-                token.value,
-              )}`
-            );
-          }
         } catch (error) {
           if (axios.isAxiosError(error)) {
             if (error.response?.status === 401) {
@@ -140,7 +140,11 @@ const useUserStore = create<UserStore>()(
                 description: t('notification:invalidCredentials.description'),
               });
             } else {
-              showError({ error: new Error(error.response?.data?.detail || 'An unexpected error occurred.') });
+              showError({
+                error: new Error(
+                  error.response?.data?.detail || 'An unexpected error occurred.'
+                ),
+              });
             }
           } else {
             showError({ error: new Error('An unexpected error occurred.') });
