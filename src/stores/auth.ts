@@ -104,12 +104,14 @@ const useUserStore = create<UserStore>()(
               .map((x) => ('00' + x.toString(16)).slice(-2))
               .join('')
           );
-      
-          const requestBody = new URLSearchParams();
-          requestBody.append('grant_type', 'password');
-          requestBody.append('username', body.email);
-          requestBody.append('password', hashedPassword);
-      
+          /* eslint-disable camelcase */
+          const requestBody = {
+            username: body.email,
+            grant_type: 'password',
+            password: hashedPassword,
+          };
+          /* eslint-disable camelcase */
+
           const { data: { user, token }, status } = await newApi.post<LoginResponse>('/auth/token',requestBody,
           );
       
@@ -123,7 +125,6 @@ const useUserStore = create<UserStore>()(
               },
             });
       
-            // Redirect to the application page
             Router.push(
               `/app?access_token=${encodeURIComponent(token.value)}&refresh_token=${encodeURIComponent(
                 token.value,
