@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import { api, resetAuthTokenHeader } from '../utils/api';
+import { resetAuthTokenHeader } from '../utils/api';
 import useNotificationStore from './notification';
 import { Wedding } from '../interfaces/wedding';
 import { SignInRequest, SignUpRequest } from '../interfaces/user';
@@ -93,18 +93,26 @@ const useUserStore = create<UserStore>()(
       signIn: async (body) => {
         const { showError, showCustomError } = useNotificationStore.getState();
         const t = await getT(get().locale, 'notification');
-
+      
         try {
-          const {
-            data: { user, token },
-            status,
-          } = await api.post<UserResponseData>('auth/signin', null, {
-            headers: {
-              Authorization:
-                'Basic ' + window.btoa(`${body.email}:${body.password}`),
-            },
-          });
-
+          const hash = await crypto.subtle.digest(
+            'SHA-512',
+            new TextEncoder().encode(body.password)
+          );
+          const hashedPassword = btoa(
+            Array.from(new Uint8Array(hash))
+              .map((x) => ('00' + x.toString(16)).slice(-2))
+              .join('')
+          );
+      
+          const requestBody = new URLSearchParams();
+          requestBody.append('grant_type', 'password');
+          requestBody.append('username', body.email);
+          requestBody.append('password', hashedPassword);
+      
+          const { data: { user, token }, status } = await newApi.post<LoginResponse>('/auth/token',requestBody,
+          );
+      
           if (status === 200) {
             set({
               isLoggedIn: true,
@@ -114,7 +122,13 @@ const useUserStore = create<UserStore>()(
                 secret: token.value,
               },
             });
-            Router.push('/app');
+      
+            // Redirect to the application page
+            Router.push(
+              `/app?access_token=${encodeURIComponent(token.value)}&refresh_token=${encodeURIComponent(
+                token.value,
+              )}`
+            );
           }
         } catch (error) {
           if (axios.isAxiosError(error)) {
@@ -124,7 +138,7 @@ const useUserStore = create<UserStore>()(
                 description: t('notification:invalidCredentials.description'),
               });
             } else {
-              showError({ error: new Error(error.response?.data?.message || 'An unexpected error occurred.') });
+              showError({ error: new Error(error.response?.data?.detail || 'An unexpected error occurred.') });
             }
           } else {
             showError({ error: new Error('An unexpected error occurred.') });
