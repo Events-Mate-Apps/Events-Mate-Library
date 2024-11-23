@@ -105,10 +105,13 @@ const useUserStore = create<UserStore>()(
               .join('')
           );
       
-          const requestBody = new URLSearchParams();
-          requestBody.append('grant_type', 'password');
-          requestBody.append('username', body.email);
-          requestBody.append('password', hashedPassword);
+          /* eslint-disable camelcase */
+          const requestBody = {
+            username: body.email,
+            grant_type: 'password',
+            password: hashedPassword,
+          };
+          /* eslint-disable camelcase */
       
           const response = await newApi.post('/auth/token', requestBody, {
             headers: {
