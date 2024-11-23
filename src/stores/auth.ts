@@ -104,7 +104,6 @@ const useUserStore = create<UserStore>()(
               .map((x) => ('00' + x.toString(16)).slice(-2))
               .join('')
           );
-      
           /* eslint-disable camelcase */
           const requestBody = {
             username: body.email,
@@ -112,10 +111,10 @@ const useUserStore = create<UserStore>()(
             password: hashedPassword,
           };
           /* eslint-disable camelcase */
-      
+
           const response = await newApi.post('/auth/token', requestBody, {
             headers: {
-              'Content-Type': 'application/x-www-form-urlencoded', // Required for URLSearchParams
+              'Content-Type': 'application/x-www-form-urlencoded',
             },
           });
       
