@@ -102,7 +102,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
           </Flex>
         </>
       )}
-      <FormControl isInvalid={!!errors.name || !!errors.email || !!errors.password}>
+      <FormControl isInvalid={!!errors.firstName || !!errors.lastName || !!errors.email || !!errors.password}>
         <FormLabel
           display="flex"
           ms="4px"
@@ -122,15 +122,29 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
           mb="24px"
           fontWeight="500"
           size="lg"
-          {...register('name', {
+          {...register('firstName', {
             required: t('auth:errors.nameRequired'),
           })}
         />
-        {errors.name && (
+        <Input
+          isRequired
+          variant="auth"
+          fontSize="sm"
+          placeholder="John Doe"
+          mb="24px"
+          fontWeight="500"
+          size="lg"
+          {...register('lastName', {
+            required: t('auth:errors.nameRequired'),
+          })}
+        />
+        
+        {/*TODO
+         {errors.name && (
           <FormErrorMessage mb="24px">
-            {errors.name.message}
+            {errors.fir.message}
           </FormErrorMessage>
-        )}
+        )} */}
 
         <FormLabel
           display="flex"
