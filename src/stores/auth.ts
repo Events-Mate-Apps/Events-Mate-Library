@@ -104,6 +104,7 @@ const useUserStore = create<UserStore>()(
               .map((x) => ('00' + x.toString(16)).slice(-2))
               .join('')
           );
+          
           /* eslint-disable camelcase */
           const requestBody = {
             username: body.email,
