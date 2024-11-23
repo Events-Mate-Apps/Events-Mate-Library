@@ -23,5 +23,6 @@ export interface SignInRequest {
 }
 
 export interface SignUpRequest extends SignInRequest {
-  name: string
+  firstName: string,
+  lastName: string
 }

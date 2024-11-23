@@ -7,6 +7,7 @@ import { SignInRequest, SignUpRequest } from '../interfaces/user';
 import axios from 'axios';
 import getT from 'next-translate/getT';
 import Router from 'next/router';
+import { newApi } from '../utils/apinew';
 
 export interface UserData {
   username: string;
@@ -147,10 +148,29 @@ const useUserStore = create<UserStore>()(
         const t = await getT(get().locale, 'auth');
       
         try {
+          const hash = await crypto.subtle.digest(
+            'SHA-512',
+            new TextEncoder().encode(body.password),
+          );
+          const hashedPassword = btoa(
+            Array.from(new Uint8Array(hash))
+              .map((x) => ('00' + x.toString(16)).slice(-2))
+              .join(''),
+          );
+
+          /* eslint-disable camelcase */
+          const requestBody = {
+            email: body.email,
+            given_name: body.firstName,
+            family_name: body.lastName,
+            password: hashedPassword,
+          };
+          /* eslint-enable camelcase */
+      
           const {
             data: { user, token },
             status,
-          } = await api.post<UserResponseData>('auth/signup', body);
+          } = await newApi.post<UserResponseData>('auth/register', requestBody);
       
           if (status === 200) {
             set({
@@ -161,13 +181,18 @@ const useUserStore = create<UserStore>()(
                 secret: token.value,
               },
             });
-            Router.push('/app');
+      
+            Router.push(
+              `/app?access_token=${encodeURIComponent(token.value)}&refresh_token=${encodeURIComponent(
+                token.value,
+              )}`,
+            );
           }
         } catch (error) {
           if (axios.isAxiosError(error)) {
             if (error.response) {
               const message = error.response.data?.message;
-                
+      
               if (message === 'A user with this email already exists.') {
                 showError({ error: new Error(t('auth:errors.userAlreadyExists')) });
               } else {
@@ -183,7 +208,6 @@ const useUserStore = create<UserStore>()(
           }
         }
       },
-      
       signOut: () => {
         resetAuthTokenHeader();
         set({
