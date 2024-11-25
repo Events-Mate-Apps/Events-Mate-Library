@@ -91,7 +91,7 @@ const useUserStore = create<UserStore>()(
       },
 
       signIn: async (body) => {
-        const { showError, showCustomError } = useNotificationStore.getState();
+        const { showCustomError } = useNotificationStore.getState();
         const t = await getT(get().locale, 'notification');
       
         try {
@@ -104,14 +104,12 @@ const useUserStore = create<UserStore>()(
               .map((x) => ('00' + x.toString(16)).slice(-2))
               .join('')
           );
-          /* eslint-disable camelcase */
-          const requestBody = {
-            username: body.email,
-            grant_type: 'password',
-            password: hashedPassword,
-          };
-          /* eslint-disable camelcase */
-
+      
+          const requestBody = new URLSearchParams();
+          requestBody.append('grant_type', 'password');
+          requestBody.append('username', body.email);
+          requestBody.append('password', hashedPassword);
+      
           const response = await newApi.post('/auth/token', requestBody, {
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
@@ -131,7 +129,7 @@ const useUserStore = create<UserStore>()(
       
           Router.push(
             `/app?access_token=${encodeURIComponent(token.value)}&refresh_token=${encodeURIComponent(
-              token.value,
+              token.value
             )}`
           );
         } catch (error) {
@@ -141,16 +139,8 @@ const useUserStore = create<UserStore>()(
                 title: t('notification:invalidCredentials.title'),
                 description: t('notification:invalidCredentials.description'),
               });
-            } else {
-              showError({
-                error: new Error(
-                  error.response?.data?.detail || 'An unexpected error occurred.'
-                ),
-              });
             }
-          } else {
-            showError({ error: new Error('An unexpected error occurred.') });
-          }
+          } 
         }
       },
 
