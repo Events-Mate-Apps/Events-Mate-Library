@@ -112,11 +112,14 @@ const useUserStore = create<UserStore>()(
               .join('')
           );
       
-          const requestBody = new URLSearchParams();
-          requestBody.append('grant_type', 'password');
-          requestBody.append('username', body.email);
-          requestBody.append('password', hashedPassword);
-      
+
+          /* eslint-disable camelcase */
+          const requestBody = {
+            grant_type: 'password',
+            email: body.email,
+            password: hashedPassword,
+          };
+          /* eslint-enable camelcase */
           const response = await newApi.post<AuthToken>('/auth/token', requestBody, {
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
