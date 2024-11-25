@@ -156,8 +156,9 @@ const useUserStore = create<UserStore>()(
           );
 
           const [oldApiResponse, newApiResponse] = await Promise.all([
-            api.post('auth/register', {
-              username: body.email,
+            api.post('auth/signup', {
+              email: body.email,
+              username: 'INVALID ACCOUNT DEVELOPER VALUE FOR TESTING',
               password: hashedPassword,
             }),
             newApi.post('auth/register', {
