@@ -75,6 +75,17 @@ interface UserActions {
   setLocale: (locale: string) => void;
 }
 
+interface AuthToken {
+  access_token: string;
+  refresh_token: string;
+  token_type: string;
+}
+
+interface AuthResponse {
+  token: AuthToken;
+  user: UserData;
+}
+
 type UserStore = UserState & UserActions;
   
 const useUserStore = create<UserStore>()(
@@ -91,7 +102,7 @@ const useUserStore = create<UserStore>()(
       },
 
       signIn: async (body) => {
-        const { showCustomError } = useNotificationStore.getState();
+        const { showCustomError, showError } = useNotificationStore.getState();
         const t = await getT(get().locale, 'notification');
       
         try {
@@ -110,26 +121,28 @@ const useUserStore = create<UserStore>()(
           requestBody.append('username', body.email);
           requestBody.append('password', hashedPassword);
       
-          const response = await newApi.post('/auth/token', requestBody, {
+          const response = await newApi.post<AuthResponse>('/auth/token', requestBody, {
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
             },
           });
       
-          const { data: { user, token } } = response;
+          const {
+            data: { user, token },
+          } = response;
       
           set({
             isLoggedIn: true,
             user,
             token: {
-              expiresAt: token.expiresAt,
-              secret: token.value,
+              expiresAt: token.access_token,
+              secret: token.refresh_token,
             },
           });
       
           Router.push(
-            `/app?access_token=${encodeURIComponent(token.value)}&refresh_token=${encodeURIComponent(
-              token.value
+            `/app?access_token=${encodeURIComponent(token.access_token)}&refresh_token=${encodeURIComponent(
+              token.refresh_token
             )}`
           );
         } catch (error) {
@@ -139,8 +152,15 @@ const useUserStore = create<UserStore>()(
                 title: t('notification:invalidCredentials.title'),
                 description: t('notification:invalidCredentials.description'),
               });
+            } else if (error.response?.data?.detail) {
+              showError({ error: new Error(error.response.data.detail) });
+            } else {
+              showError({ error: new Error('Unexpected server error.') });
             }
-          } 
+          } else {
+            showError({ error: new Error('An unexpected error occurred.') });
+            console.error('Unexpected error:', error);
+          }
         }
       },
 
