@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import { resetAuthTokenHeader } from '../utils/api';
+import { api, resetAuthTokenHeader } from '../utils/api';
 import useNotificationStore from './notification';
 import { Wedding } from '../interfaces/wedding';
 import { SignInRequest, SignUpRequest } from '../interfaces/user';
@@ -20,51 +20,28 @@ export interface UserData {
   appleUserIdentifier?: string;
 }
 
-export interface UserDataWithoutFirstName {
-  username: string;
-  firstName: string;
-  lastName: string;
-  id: string;
-  email: string;
-  createdAt: string;
-  type: 'NORMAL' | 'ADMIN';
-  appleUserIdentifier?: string;
-}
-
-export interface UserResponseData {
-  token: {
-    value: string;
-    createdAt: string;
-    expiresAt: string;
-  };
-  user: UserData;
-}
-
-interface Token {
+export interface OldAuthToken {
+  value: string;
   expiresAt: string;
-  secret: string;
 }
 
-interface UserState {
+export interface NewAuthToken {
+  access_token: string;
+  refresh_token: string;
+  token_type: string;
+}
+
+export interface UserState {
   isLoggedIn: boolean;
   user: UserData | null;
-  token: Token | null;
+  oldToken: OldAuthToken | null;
+  newToken: NewAuthToken | null;
   wedding: Wedding | null;
   locale?: string;
 }
 
-interface LoginResponse {
-  user: UserData;
-  token: {
-    value: string;
-    createdAt: string;
-    expiresAt: string;
-  };
-}
-
-interface UserActions {
+export interface UserActions {
   signIn: (body: SignInRequest) => Promise<void>;
-  signInWithApple: (response: LoginResponse) => Promise<void>;
   signUp: (body: SignUpRequest) => Promise<void>;
   signOut: () => void;
   setWedding: (wedding: Wedding) => void;
@@ -75,32 +52,98 @@ interface UserActions {
   setLocale: (locale: string) => void;
 }
 
-interface AuthToken {
-  access_token: string;
-  refresh_token: string;
-  token_type: string;
-}
-
-
 type UserStore = UserState & UserActions;
-  
+
 const useUserStore = create<UserStore>()(
   persist(
     (set, get) => ({
       isLoggedIn: false,
       user: null,
-      token: null,
+      oldToken: null,
+      newToken: null,
       wedding: null,
       locale: undefined,
-      
+
       setLocale: (locale) => {
         set({ locale });
       },
 
       signIn: async (body) => {
-        const { showCustomError, showError } = useNotificationStore.getState();
+        const { showError, showCustomError } = useNotificationStore.getState();
         const t = await getT(get().locale, 'notification');
-      
+
+        try {
+          const [oldApiResponse, newApiResponse] = await Promise.all([
+            api.post('auth/signin', null, {
+              headers: {
+                Authorization: 'Basic ' + window.btoa(`${body.email}:${body.password}`),
+              },
+            }),
+            (async () => {
+              const hash = await crypto.subtle.digest(
+                'SHA-512',
+                new TextEncoder().encode(body.password)
+              );
+              const hashedPassword = btoa(
+                Array.from(new Uint8Array(hash))
+                  .map((x) => ('00' + x.toString(16)).slice(-2))
+                  .join('')
+              );
+              const requestBody = new URLSearchParams();
+              requestBody.append('grant_type', 'password');
+              requestBody.append('username', body.email);
+              requestBody.append('password', hashedPassword);
+
+              return newApi.post('/auth/token', requestBody, {
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+              });
+            })(),
+          ]);
+
+          const oldToken = oldApiResponse.data.token;
+          const newToken = newApiResponse.data;
+
+          set({
+            isLoggedIn: true,
+            user: oldApiResponse.data.user,
+            oldToken: {
+              value: oldToken.value,
+              expiresAt: oldToken.expiresAt,
+            },
+            newToken: {
+              access_token: newToken.access_token,
+              refresh_token: newToken.refresh_token,
+              token_type: newToken.token_type,
+            },
+          });
+
+          Router.push(
+            `/app?access_token=${encodeURIComponent(
+              newToken.access_token
+            )}&refresh_token=${encodeURIComponent(newToken.refresh_token)}`
+          );
+        } catch (error) {
+          if (axios.isAxiosError(error)) {
+            if (error.response?.status === 401) {
+              showCustomError({
+                title: t('notification:invalidCredentials.title'),
+                description: t('notification:invalidCredentials.description'),
+              });
+            } else {
+              showError({
+                error: new Error(error.response?.data?.detail || 'An unexpected error occurred.'),
+              });
+            }
+          } else {
+            showError({ error: new Error('An unexpected error occurred.') });
+          }
+        }
+      },
+
+      signUp: async (body) => {
+        const { showError } = useNotificationStore.getState();
+        const t = await getT(get().locale, 'auth');
+
         try {
           const hash = await crypto.subtle.digest(
             'SHA-512',
@@ -111,135 +154,62 @@ const useUserStore = create<UserStore>()(
               .map((x) => ('00' + x.toString(16)).slice(-2))
               .join('')
           );
-      
-          const requestBody = new URLSearchParams();
-          requestBody.append('grant_type', 'password');
-          requestBody.append('username', body.email);
-          requestBody.append('password', hashedPassword);
-      
-          const response = await newApi.post<AuthToken>('/auth/token', requestBody, {
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-            },
-          });
-      
-          const {
-            data: { refresh_token, access_token },
-          } = response;
-      
+
+          const [oldApiResponse, newApiResponse] = await Promise.all([
+            api.post('auth/register', {
+              username: body.email,
+              password: hashedPassword,
+            }),
+            newApi.post('auth/register', {
+              email: body.email,
+              given_name: body.firstName,
+              family_name: body.lastName,
+              password: hashedPassword,
+            }),
+          ]);
+
+          const oldToken = oldApiResponse.data.token;
+          const newToken = newApiResponse.data.token;
+
           set({
             isLoggedIn: true,
-            token: {
-              expiresAt: access_token,
-              secret: refresh_token,
+            user: newApiResponse.data.user,
+            oldToken: {
+              value: oldToken.value,
+              expiresAt: oldToken.expiresAt,
+            },
+            newToken: {
+              access_token: newToken.access_token,
+              refresh_token: newToken.refresh_token,
+              token_type: newToken.token_type,
             },
           });
-      
+
           Router.push(
-            `/app?access_token=${encodeURIComponent(access_token)}&refresh_token=${encodeURIComponent(refresh_token
-            )}`
+            `/app?access_token=${encodeURIComponent(
+              newToken.access_token
+            )}&refresh_token=${encodeURIComponent(newToken.refresh_token)}`
           );
         } catch (error) {
           if (axios.isAxiosError(error)) {
-            if (error.response?.status === 401) {
-              showCustomError({
-                title: t('notification:invalidCredentials.title'),
-                description: t('notification:invalidCredentials.description'),
-              });
-            } else if (error.response?.data?.detail) {
-              showError({ error: new Error(error.response.data.detail) });
+            if (error.response?.data?.message === 'A user with this email already exists.') {
+              showError({ error: new Error(t('auth:errors.userAlreadyExists')) });
             } else {
-              showError({ error: new Error('Unexpected server error.') });
-            }
-          } else {
-            showError({ error: new Error('An unexpected error occurred.') });
-            console.error('Unexpected error:', error);
-          }
-        }
-      },
-
-      signInWithApple: async ({ user, token }) => {
-        set({
-          token: {
-            expiresAt: token.expiresAt,
-            secret: token.value,
-          },
-          isLoggedIn: true,
-          user,
-        });
-      },
-
-      signUp: async (body) => {
-        const { showError } = useNotificationStore.getState();
-        const t = await getT(get().locale, 'auth');
-      
-        try {
-          const hash = await crypto.subtle.digest(
-            'SHA-512',
-            new TextEncoder().encode(body.password),
-          );
-          const hashedPassword = btoa(
-            Array.from(new Uint8Array(hash))
-              .map((x) => ('00' + x.toString(16)).slice(-2))
-              .join(''),
-          );
-
-          /* eslint-disable camelcase */
-          const requestBody = {
-            email: body.email,
-            given_name: body.firstName,
-            family_name: body.lastName,
-            password: hashedPassword,
-          };
-          /* eslint-enable camelcase */
-      
-          const {
-            data: { user, token },
-            status,
-          } = await newApi.post<UserResponseData>('auth/register', requestBody);
-      
-          if (status === 200) {
-            set({
-              isLoggedIn: true,
-              user,
-              token: {
-                expiresAt: token.expiresAt,
-                secret: token.value,
-              },
-            });
-      
-            Router.push(
-              `/app?access_token=${encodeURIComponent(token.value)}&refresh_token=${encodeURIComponent(
-                token.value,
-              )}`,
-            );
-          }
-        } catch (error) {
-          if (axios.isAxiosError(error)) {
-            if (error.response) {
-              const message = error.response.data?.message;
-      
-              if (message === 'A user with this email already exists.') {
-                showError({ error: new Error(t('auth:errors.userAlreadyExists')) });
-              } else {
-                showError({ error: new Error(message || 'An unexpected error occurred.') });
-              }
-            } else if (error.request) {
-              showError({ error: new Error('No response from the server. Please try again later.') });
-            } else {
-              showError({ error: new Error(error.message) });
+              showError({ error: new Error('An unexpected error occurred.') });
             }
           } else {
             showError({ error: new Error('An unexpected error occurred.') });
           }
         }
       },
+
       signOut: () => {
         resetAuthTokenHeader();
         set({
           isLoggedIn: false,
           user: null,
-          token: null,
+          oldToken: null,
+          newToken: null,
         });
       },
 
