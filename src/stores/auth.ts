@@ -81,10 +81,6 @@ interface AuthToken {
   token_type: string;
 }
 
-interface AuthResponse {
-  token: AuthToken;
-  user: UserData;
-}
 
 type UserStore = UserState & UserActions;
   
@@ -121,28 +117,26 @@ const useUserStore = create<UserStore>()(
           requestBody.append('username', body.email);
           requestBody.append('password', hashedPassword);
       
-          const response = await newApi.post<AuthResponse>('/auth/token', requestBody, {
+          const response = await newApi.post<AuthToken>('/auth/token', requestBody, {
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
             },
           });
       
           const {
-            data: { user, token },
+            data: { refresh_token, access_token },
           } = response;
       
           set({
             isLoggedIn: true,
-            user,
             token: {
-              expiresAt: token.access_token,
-              secret: token.refresh_token,
+              expiresAt: access_token,
+              secret: refresh_token,
             },
           });
       
           Router.push(
-            `/app?access_token=${encodeURIComponent(token.access_token)}&refresh_token=${encodeURIComponent(
-              token.refresh_token
+            `/app?access_token=${encodeURIComponent(access_token)}&refresh_token=${encodeURIComponent(refresh_token
             )}`
           );
         } catch (error) {
