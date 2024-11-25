@@ -201,7 +201,7 @@ const useUserStore = create<UserStore>()(
             status,
           } = await newApi.post<UserResponseData>('auth/register', requestBody);
       
-          if (status === 200) {
+          if (status === 200 || status === 201) {
             set({
               isLoggedIn: true,
               user,
