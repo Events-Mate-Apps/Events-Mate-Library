@@ -113,13 +113,12 @@ const useUserStore = create<UserStore>()(
           );
       
 
-          /* eslint-disable camelcase */
-          const requestBody = {
-            grant_type: 'password',
-            email: body.email,
-            password: hashedPassword,
-          };
-          /* eslint-enable camelcase */
+          const requestBody = new URLSearchParams();
+          requestBody.append('grant_type', 'password');
+          requestBody.append('username', body.email);
+          requestBody.append('password', hashedPassword);
+      
+
           const response = await newApi.post<AuthToken>('/auth/token', requestBody, {
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
@@ -186,7 +185,7 @@ const useUserStore = create<UserStore>()(
               .map((x) => ('00' + x.toString(16)).slice(-2))
               .join(''),
           );
-
+      
           /* eslint-disable camelcase */
           const requestBody = {
             email: body.email,
@@ -196,26 +195,13 @@ const useUserStore = create<UserStore>()(
           };
           /* eslint-enable camelcase */
       
-          const {
-            data: { user, token },
-            status,
-          } = await newApi.post<UserResponseData>('auth/register', requestBody);
+          const response = await newApi.post('auth/register', requestBody);
       
-          if (status === 200 || status === 201) {
-            set({
-              isLoggedIn: true,
-              user,
-              token: {
-                expiresAt: token.expiresAt,
-                secret: token.value,
-              },
+          if (response.status === 200 || response.status === 201) {
+            await get().signIn({
+              email: body.email,
+              password: body.password, 
             });
-      
-            Router.push(
-              `/app?access_token=${encodeURIComponent(token.value)}&refresh_token=${encodeURIComponent(
-                token.value,
-              )}`,
-            );
           }
         } catch (error) {
           if (axios.isAxiosError(error)) {
