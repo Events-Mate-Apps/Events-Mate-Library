@@ -104,7 +104,6 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
       )}
       <FormControl isInvalid={!!errors.firstName || !!errors.lastName || !!errors.email || !!errors.password}>
         
-        {/* First Name */}
         <FormLabel
           display="flex"
           ms="4px"
@@ -129,7 +128,6 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
           })}
         />
 
-        {/* Last Name */}
         <FormLabel
           display="flex"
           ms="4px"
