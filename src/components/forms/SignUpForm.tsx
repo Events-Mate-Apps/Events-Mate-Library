@@ -103,6 +103,8 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
         </>
       )}
       <FormControl isInvalid={!!errors.firstName || !!errors.lastName || !!errors.email || !!errors.password}>
+        
+        {/* First Name */}
         <FormLabel
           display="flex"
           ms="4px"
@@ -111,14 +113,14 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
           color={textColor}
           mb="8px"
         >
-          {t('auth:fields.name')}
+          {t('auth:fields.firstName')}
           <Text color={brandColor}>*</Text>
         </FormLabel>
         <Input
           isRequired
           variant="auth"
           fontSize="sm"
-          placeholder="John Doe"
+          placeholder="John"
           mb="24px"
           fontWeight="500"
           size="lg"
@@ -126,11 +128,24 @@ const SignUpForm: FC<SignUpFormProps> = ({ isEnabledSIWA, isEventsMate }) => {
             required: t('auth:errors.nameRequired'),
           })}
         />
+
+        {/* Last Name */}
+        <FormLabel
+          display="flex"
+          ms="4px"
+          fontSize="sm"
+          fontWeight="500"
+          color={textColor}
+          mb="8px"
+        >
+          {t('auth:fields.lastName')}
+          <Text color={brandColor}>*</Text>
+        </FormLabel>
         <Input
           isRequired
           variant="auth"
           fontSize="sm"
-          placeholder="John Doe"
+          placeholder="Doe"
           mb="24px"
           fontWeight="500"
           size="lg"
