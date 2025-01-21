@@ -83,7 +83,42 @@ interface AuthToken {
 
 
 type UserStore = UserState & UserActions;
+const base64UrlDecode = (str: string): string => {
+  let output = str.replace(/-/g, '+').replace(/_/g, '/');
+  switch (output.length % 4) {
+    case 0: break;
+    case 2: output += '=='; break;
+    case 3: output += '='; break;
+    default: throw new Error('Invalid base64url string');
+  }
+  return decodeURIComponent(atob(output));
+};
+
+const verifyAndDecodeJWT = async (token: string, secret: string) => {
+  const [headerB64, payloadB64, signatureB64] = token.split('.');
   
+  // Verify HS256 signature
+  const encoder = new TextEncoder();
+  const data = encoder.encode(`${headerB64}.${payloadB64}`);
+  const signature = Uint8Array.from(atob(signatureB64.replace(/-/g, '+').replace(/_/g, '/')), c => c.charCodeAt(0));
+  
+  const key = await crypto.subtle.importKey(
+    'raw',
+    encoder.encode(secret),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['verify']
+  );
+
+  const isValid = await crypto.subtle.verify('HMAC', key, signature, data);
+  if (!isValid) throw new Error('Invalid signature');
+
+  // Return decoded content
+  return {
+    header: JSON.parse(base64UrlDecode(headerB64)),
+    payload: JSON.parse(base64UrlDecode(payloadB64))
+  };
+};
 const useUserStore = create<UserStore>()(
   persist(
     (set, get) => ({
@@ -128,7 +163,11 @@ const useUserStore = create<UserStore>()(
           const {
             data: { refresh_token, access_token },
           } = response;
-      
+
+          const decoded = await verifyAndDecodeJWT(access_token, refresh_token);
+          console.log('Verified JWT Header:', decoded.header);
+          console.log('Verified JWT Payload:', decoded.payload);
+
           set({
             isLoggedIn: true,
             token: {
