@@ -15,21 +15,37 @@ const instance: AxiosInstance = axios.create({
 
 function toCamelCase(key: string): string {
   return key.replace(/([-_][a-z])/gi, ($1) =>
-    $1.toUpperCase().replace('_', '').replace('-', ''),
+    $1.toUpperCase().replace('_', '').replace('-', '')
   );
 }
 
-instance.interceptors.response.use((response: AxiosResponse) => {
-  if (response.data && typeof response.data === 'object') {
-    const camelCasedData = Object.fromEntries(
-      Object.entries(response.data).map(([key, value]) => [
+
+function transformResponseData(data: any): any {
+  if (Array.isArray(data)) {
+    return data.map(transformResponseData);
+  }
+  if (data && typeof data === 'object') {
+    return Object.fromEntries(
+      Object.entries(data).map(([key, value]) => [
         toCamelCase(key),
-        value,
+        transformResponseData(value),
       ])
     );
+  }
+  return data;
+}
+
+instance.interceptors.response.use((response: AxiosResponse) => {
+  if (
+    response.data &&
+    typeof response.data === 'object' &&
+    !Array.isArray(response.data) &&
+    response.data !== null
+  ) {
+    const transformedData = transformResponseData(response.data);
     return {
       ...response,
-      data: camelCasedData,
+      data: transformedData,
     };
   }
   return response;
@@ -38,6 +54,8 @@ instance.interceptors.response.use((response: AxiosResponse) => {
 export const setAuthTokenHeader = (token: string | null) => {
   if (token) {
     instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  } else {
+    instance.defaults.headers.common['Authorization'] = '';
   }
 };
 
