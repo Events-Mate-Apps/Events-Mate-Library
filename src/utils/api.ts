@@ -19,7 +19,6 @@ function toCamelCase(key: string): string {
   );
 }
 
-
 function transformResponseData(data: any): any {
   if (Array.isArray(data)) {
     return data.map(transformResponseData);
@@ -36,12 +35,7 @@ function transformResponseData(data: any): any {
 }
 
 instance.interceptors.response.use((response: AxiosResponse) => {
-  if (
-    response.data &&
-    typeof response.data === 'object' &&
-    !Array.isArray(response.data) &&
-    response.data !== null
-  ) {
+  if (response.data && typeof response.data === 'object' && response.data !== null) {
     const transformedData = transformResponseData(response.data);
     return {
       ...response,
@@ -64,3 +58,4 @@ export const resetAuthTokenHeader = () => {
 };
 
 export const api = instance;
+
