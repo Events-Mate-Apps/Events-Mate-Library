@@ -76,8 +76,8 @@ interface UserActions {
 }
 
 interface AuthToken {
-  access_token: string;
-  refresh_token: string;
+  accessToken: string;
+  refreshToken: string;
   token_type: string;
 }
 
@@ -93,11 +93,9 @@ const decodeJWT = (token: string) => {
   };
 };
 
-// Modified base64UrlDecode
 const base64UrlDecode = (str: string): string => {
   let output = str.replace(/-/g, '+').replace(/_/g, '/');
   
-  // Add padding
   switch (output.length % 4) {
     case 2: output += '=='; break;
     case 3: output += '='; break;
@@ -105,6 +103,7 @@ const base64UrlDecode = (str: string): string => {
   
   return atob(output);
 };
+
 const useUserStore = create<UserStore>()(
   persist(
     (set, get) => ({
@@ -146,24 +145,22 @@ const useUserStore = create<UserStore>()(
             },
           });
       
-          const {
-            data: { refresh_token, access_token },
-          } = response;
-
-          const decoded = await decodeJWT(access_token);
+          const { data } = response
+          const { accessToken, refreshToken } = data;
+          const decoded = await decodeJWT(accessToken);
           console.log('Verified JWT Header:', decoded);
           console.log('Verified JWT Payload:', decoded);
 
           set({
             isLoggedIn: true,
             token: {
-              expiresAt: access_token,
-              secret: refresh_token,
+              expiresAt: accessToken,
+              secret: refreshToken,
             },
           });
       
           Router.push(
-            `/app?access_token=${encodeURIComponent(access_token)}&refresh_token=${encodeURIComponent(refresh_token
+            `/app?access_token=${encodeURIComponent(accessToken)}&refresh_token=${encodeURIComponent(refreshToken
             )}`
           );
         } catch (error) {
