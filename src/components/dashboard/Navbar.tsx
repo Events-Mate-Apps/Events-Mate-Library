@@ -19,7 +19,7 @@ import useTranslation from 'next-translate/useTranslation';
 import useUserStore from '../../stores/auth';
 import { isEventsMate } from '../../utils/orientation';
 
-export default function Navbar() {
+const Navbar: FC = () => {
   const userStore = useUserStore();
   const [expandedOnMobile, setExpandedOnMobile] = useState(false);
   const [dbButtonLoading, setDbButtonLoading] = useState(false);
@@ -375,3 +375,4 @@ const CustomLink: FC<CustomLinkProps> = ({
     </div>
   );
 };
+export default Navbar
