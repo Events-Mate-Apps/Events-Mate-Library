@@ -25,10 +25,8 @@ export default function Navbar() {
   const [dbButtonLoading, setDbButtonLoading] = useState(false);
   const menuIconFilter = mode('invert(0)', 'invert(.90)');
 
-  const isLoggedIn = useMemo(() => {
-    if (!userStore?.user) return false;
-    return userStore.isLoggedIn;
-  }, [userStore?.user]);
+  const isLoggedIn = userStore?.isLoggedIn || false;
+
 
   const { t } = useTranslation('');
 
