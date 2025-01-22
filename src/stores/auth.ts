@@ -76,8 +76,8 @@ interface UserActions {
 }
 
 interface AuthToken {
-  access_token: string;
-  refresh_token: string;
+  accessToken: string;
+  refreshToken: string;
   token_type: string;
 }
 
@@ -146,22 +146,22 @@ const useUserStore = create<UserStore>()(
           });
       
           const { data } = response
-          const { access_token, refresh_token } = data;
-          const decoded = await decodeJWT(access_token);
+          const { accessToken, refreshToken } = data;
+          const decoded = await decodeJWT(accessToken);
           console.log('Verified JWT Header:', decoded);
           console.log('Verified JWT Payload:', decoded);
 
           set({
             isLoggedIn: true,
             token: {
-              expiresAt: access_token,
-              secret: refresh_token,
+              expiresAt: accessToken,
+              secret: refreshToken,
             },
           });
           
-          setAuthTokenHeader(access_token)
+          setAuthTokenHeader(accessToken)
           Router.push(
-            `/app?access_token=${encodeURIComponent(access_token)}&refresh_token=${encodeURIComponent(refreshToken
+            `/app?access_token=${encodeURIComponent(accessToken)}&refresh_token=${encodeURIComponent(refreshToken
             )}`
           );
         } catch (error) {
