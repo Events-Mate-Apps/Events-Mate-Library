@@ -85,6 +85,7 @@ interface AuthToken {
 type UserStore = UserState & UserActions;
 
 const decodeJWT = (token: string) => {
+  console.log(token)
   const [headerB64, payloadB64] = token.split('.');
   
   return {
@@ -157,6 +158,7 @@ const useUserStore = create<UserStore>()(
               secret: refreshToken,
             },
           });
+          
           setAuthTokenHeader(accessToken)
           Router.push(
             `/app?access_token=${encodeURIComponent(accessToken)}&refresh_token=${encodeURIComponent(refreshToken
