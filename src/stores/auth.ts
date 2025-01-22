@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import { resetAuthTokenHeader } from '../utils/api';
+import { resetAuthTokenHeader, setAuthTokenHeader } from '../utils/api';
 import useNotificationStore from './notification';
 import { Wedding } from '../interfaces/wedding';
 import { SignInRequest, SignUpRequest } from '../interfaces/user';
@@ -131,7 +131,6 @@ const useUserStore = create<UserStore>()(
               .map((x) => ('00' + x.toString(16)).slice(-2))
               .join('')
           );
-      
 
           const requestBody = new URLSearchParams();
           requestBody.append('grant_type', 'password');
@@ -158,7 +157,7 @@ const useUserStore = create<UserStore>()(
               secret: refreshToken,
             },
           });
-      
+          setAuthTokenHeader(accessToken)
           Router.push(
             `/app?access_token=${encodeURIComponent(accessToken)}&refresh_token=${encodeURIComponent(refreshToken
             )}`
