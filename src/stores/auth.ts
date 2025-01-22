@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import { resetAuthTokenHeader, setAuthTokenHeader } from '../utils/api';
+import { api, resetAuthTokenHeader, setAuthTokenHeader } from '../utils/api';
 import useNotificationStore from './notification';
 import { Wedding } from '../interfaces/wedding';
 import { SignInRequest, SignUpRequest } from '../interfaces/user';
@@ -139,14 +139,13 @@ const useUserStore = create<UserStore>()(
           requestBody.append('password', hashedPassword);
       
 
-          const response = await newApi.post<AuthToken>('/auth/token', requestBody, {
+          const response = await api.post<AuthToken>('/auth/token', requestBody, {
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
             },
           });
-      
-          const { data } = response
-          const { accessToken, refreshToken } = data;
+
+          const { accessToken, refreshToken } = response.data;
           const decoded = await decodeJWT(accessToken);
           console.log('Verified JWT Header:', decoded);
           console.log('Verified JWT Payload:', decoded);

@@ -8,14 +8,11 @@ if (!baseURL) {
 
 const instance: AxiosInstance = axios.create({
   baseURL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
 });
 
 function toCamelCase(key: string): string {
   return key.replace(/([-_][a-z])/gi, ($1) =>
-    $1.toUpperCase().replace('_', '').replace('-', '')
+    $1.toUpperCase().replace('_', '')
   );
 }
 
@@ -35,11 +32,16 @@ function transformResponseData(data: any): any {
 }
 
 instance.interceptors.response.use((response: AxiosResponse) => {
-  console.log('Original response data:', response.data);
+  if (typeof response.data === 'string' && !response.data.includes('<') && !response.data.includes('{')) {
+    try {
+      response.data = JSON.parse(response.data);
+    } catch (error) {
+      console.error('Failed to parse response data as JSON:', error);
+    }
+  }
 
   if (response.data && typeof response.data === 'object' && response.data !== null) {
     const transformedData = transformResponseData(response.data);
-    console.log('Transformed data:', transformedData);
     return {
       ...response,
       data: transformedData,
