@@ -35,8 +35,11 @@ function transformResponseData(data: any): any {
 }
 
 instance.interceptors.response.use((response: AxiosResponse) => {
+  console.log('Original response data:', response.data);
+
   if (response.data && typeof response.data === 'object' && response.data !== null) {
     const transformedData = transformResponseData(response.data);
+    console.log('Transformed data:', transformedData);
     return {
       ...response,
       data: transformedData,
@@ -58,4 +61,3 @@ export const resetAuthTokenHeader = () => {
 };
 
 export const api = instance;
-
