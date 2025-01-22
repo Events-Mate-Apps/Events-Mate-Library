@@ -76,8 +76,8 @@ interface UserActions {
 }
 
 interface AuthToken {
-  accessToken: string;
-  refreshToken: string;
+  access_token: string;
+  refresh_token: string;
   token_type: string;
 }
 
@@ -146,7 +146,7 @@ const useUserStore = create<UserStore>()(
           });
       
           const { data } = response
-          const { access_token, refreshToken } = data;
+          const { access_token, refresh_token } = data;
           const decoded = await decodeJWT(access_token);
           console.log('Verified JWT Header:', decoded);
           console.log('Verified JWT Payload:', decoded);
@@ -155,7 +155,7 @@ const useUserStore = create<UserStore>()(
             isLoggedIn: true,
             token: {
               expiresAt: access_token,
-              secret: refreshToken,
+              secret: refresh_token,
             },
           });
           
