@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import { api, resetAuthTokenHeader, setAuthTokenHeader } from '../utils/api';
+import { resetAuthTokenHeader, setAuthTokenHeader } from '../utils/api';
 import useNotificationStore from './notification';
 import { Wedding } from '../interfaces/wedding';
 import { SignInRequest, SignUpRequest } from '../interfaces/user';
@@ -139,7 +139,7 @@ const useUserStore = create<UserStore>()(
           requestBody.append('password', hashedPassword);
       
 
-          const response = await api.post<AuthToken>('/auth/token', requestBody, {
+          const response = await newApi.post<AuthToken>('/auth/token', requestBody, {
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
             },

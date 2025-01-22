@@ -5,15 +5,11 @@ export const baseURL = process.env.NEXT_PUBLIC_NEW_BACKEND_URL;
 if (!baseURL) {
   console.warn(`WARNING: NEXT_PUBLIC_BACKEND_URL does not exist. Check your .env file...`);
 }
-
-// Transform snake_case to camelCase
 function toCamelCase(key: string): string {
   return key.replace(/([-_][a-z])/gi, ($1) =>
     $1.toUpperCase().replace('_', '')
   );
 }
-
-// Transform response data
 function transformResponseData(data: any): any {
   if (Array.isArray(data)) {
     return data.map(transformResponseData);
@@ -36,7 +32,6 @@ const instance: AxiosInstance = axios.create({
   },
 });
 
-// Add response interceptor
 instance.interceptors.response.use((response: AxiosResponse) => {
   if (response.data && typeof response.data === 'object' && response.data !== null) {
     const transformedData = transformResponseData(response.data);
