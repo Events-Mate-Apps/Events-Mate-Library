@@ -146,22 +146,22 @@ const useUserStore = create<UserStore>()(
           });
       
           const { data } = response
-          const { accessToken, refreshToken } = data;
-          const decoded = await decodeJWT(accessToken);
+          const { access_token, refreshToken } = data;
+          const decoded = await decodeJWT(access_token);
           console.log('Verified JWT Header:', decoded);
           console.log('Verified JWT Payload:', decoded);
 
           set({
             isLoggedIn: true,
             token: {
-              expiresAt: accessToken,
+              expiresAt: access_token,
               secret: refreshToken,
             },
           });
           
-          setAuthTokenHeader(accessToken)
+          setAuthTokenHeader(access_token)
           Router.push(
-            `/app?access_token=${encodeURIComponent(accessToken)}&refresh_token=${encodeURIComponent(refreshToken
+            `/app?access_token=${encodeURIComponent(access_token)}&refresh_token=${encodeURIComponent(refreshToken
             )}`
           );
         } catch (error) {
