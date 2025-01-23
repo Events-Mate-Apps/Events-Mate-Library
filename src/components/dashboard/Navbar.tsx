@@ -10,7 +10,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/legacy/image';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { FC, useMemo, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import styles from 'styles/landing/Navbar.module.scss';
 import { TrackGoogleAnalyticsEvent } from '~/utils/analytics/googleAnalytics/init';
 import { TinyColor } from '@ctrl/tinycolor';
@@ -74,6 +74,9 @@ const Navbar: FC = () => {
     }
   }
 
+  useEffect(() => {
+    userStore.refreshAccessToken()
+  }, [])
   return (
     <Box
       as={motion.nav}

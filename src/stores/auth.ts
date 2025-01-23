@@ -1,13 +1,14 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import { resetAuthTokenHeader, setAuthTokenHeader } from '../utils/api';
 import useNotificationStore from './notification';
 import { Wedding } from '../interfaces/wedding';
 import { SignInRequest, SignUpRequest } from '../interfaces/user';
 import axios from 'axios';
 import getT from 'next-translate/getT';
 import Router from 'next/router';
-import { newApi } from '../utils/apinew';
+import { newApi, removeAuthTokenHeader, setAuthTokenHeader } from '../utils/apinew';
+import { decodeJWT } from '../utils/decode'
+import { AxiosResponse } from 'axios';
 
 export interface UserData {
   username: string;
@@ -67,6 +68,7 @@ interface UserActions {
   signInWithApple: (response: LoginResponse) => Promise<void>;
   signUp: (body: SignUpRequest) => Promise<void>;
   signOut: () => void;
+  refreshAccessToken: () => Promise<boolean>;
   setWedding: (wedding: Wedding) => void;
   setUserEmail: (email: string) => void;
   setUsername: (username: string) => void;
@@ -83,27 +85,6 @@ interface AuthToken {
 
 
 type UserStore = UserState & UserActions;
-
-const decodeJWT = (token: string) => {
-  console.log(token)
-  const [headerB64, payloadB64] = token.split('.');
-  
-  return {
-    header: JSON.parse(base64UrlDecode(headerB64)),
-    payload: JSON.parse(base64UrlDecode(payloadB64))
-  };
-};
-
-const base64UrlDecode = (str: string): string => {
-  let output = str.replace(/-/g, '+').replace(/_/g, '/');
-  
-  switch (output.length % 4) {
-    case 2: output += '=='; break;
-    case 3: output += '='; break;
-  }
-  
-  return atob(output);
-};
 
 const useUserStore = create<UserStore>()(
   persist(
@@ -177,7 +158,6 @@ const useUserStore = create<UserStore>()(
             }
           } else {
             showError({ error: new Error('An unexpected error occurred.') });
-            console.error('Unexpected error:', error);
           }
         }
       },
@@ -246,14 +226,53 @@ const useUserStore = create<UserStore>()(
         }
       },
       signOut: () => {
-        resetAuthTokenHeader();
+        removeAuthTokenHeader();
         set({
           isLoggedIn: false,
           user: null,
           token: null,
         });
       },
+      refreshAccessToken: async () => {
+        const { token } = get();
+        if (!token || !token.secret) {
+          console.error('No refresh token available.');
+          get().signOut();
+          return false;
+        }
 
+        const requestBody = new URLSearchParams();
+        requestBody.append('grant_type', 'refresh');
+        requestBody.append('refresh_token', token.secret);
+
+        try {
+          const response: AxiosResponse<AuthToken> = await newApi.post(
+            '/auth/token',
+            requestBody.toString(),
+            {
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+              },
+            }
+          );
+
+          const { accessToken, refreshToken: newRefreshToken } = response.data;
+
+          set((state) => ({
+            ...state,
+            token: {
+              expiresAt: accessToken,
+              secret: newRefreshToken,
+            },
+          }));
+
+          setAuthTokenHeader(accessToken);
+          return true;
+        } catch (error) {
+          get().signOut();
+          return false;
+        }
+      },
       setUserEmail: (email: string) => {
         set((state) => ({
           user: state.user ? { ...state.user, email } : null,
@@ -282,6 +301,7 @@ const useUserStore = create<UserStore>()(
         set({ wedding });
       },
     }),
+    
     {
       name: 'em-auth-store',
       storage: createJSONStorage(() => localStorage),

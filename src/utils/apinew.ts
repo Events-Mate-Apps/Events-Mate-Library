@@ -1,28 +1,10 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import { transformResponseData  } from './helpers/caseConvertor';
 
 export const baseURL = process.env.NEXT_PUBLIC_NEW_BACKEND_URL;
 
 if (!baseURL) {
   console.warn(`WARNING: NEXT_PUBLIC_BACKEND_URL does not exist. Check your .env file...`);
-}
-function toCamelCase(key: string): string {
-  return key.replace(/([-_][a-z])/gi, ($1) =>
-    $1.toUpperCase().replace('_', '')
-  );
-}
-function transformResponseData(data: any): any {
-  if (Array.isArray(data)) {
-    return data.map(transformResponseData);
-  }
-  if (data && typeof data === 'object') {
-    return Object.fromEntries(
-      Object.entries(data).map(([key, value]) => [
-        toCamelCase(key),
-        transformResponseData(value),
-      ])
-    );
-  }
-  return data;
 }
 
 const instance: AxiosInstance = axios.create({
@@ -49,8 +31,9 @@ export const setAuthTokenHeader = (token: string | null) => {
   }
 };
 
-export const resetAuthTokenHeader = () => {
+export const removeAuthTokenHeader = () => {
   instance.defaults.headers.common['Authorization'] = null;
 };
+
 
 export const newApi = instance;
