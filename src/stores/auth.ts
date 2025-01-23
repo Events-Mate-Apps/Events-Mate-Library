@@ -242,7 +242,7 @@ const useUserStore = create<UserStore>()(
         }
 
         const requestBody = new URLSearchParams();
-        requestBody.append('grant_type', 'refresh');
+        requestBody.append('grant_type', 'refresh_token');
         requestBody.append('refresh_token', token.secret);
 
         try {
