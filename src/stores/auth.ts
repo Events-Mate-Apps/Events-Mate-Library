@@ -117,33 +117,41 @@ const useUserStore = create<UserStore>()(
               .map((x) => ('00' + x.toString(16)).slice(-2))
               .join('')
           );
-      
+
           const requestBody = new URLSearchParams();
           requestBody.append('grant_type', 'password');
           requestBody.append('username', body.email);
           requestBody.append('password', hashedPassword);
       
+
           const response = await newApi.post<AuthToken>('/auth/token', requestBody, {
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
             },
           });
-      
+
           const { accessToken, refreshToken } = response.data;
-      
+          //TODO: add user information after it gets added
+          // const decoded = await decodeJWT(accessToken);
+       
+
           set({
             isLoggedIn: true,
             token: {
               accessToken: accessToken,
               secret: refreshToken,
             },
+            //TODO: After it gets added
+            // user: {
+            //   email: decoded.payload.exp,
+            // }
           });
           
-          setAuthTokenHeader(accessToken);
+          setAuthTokenHeader(accessToken)
           Router.push(
-            `/app?access_token=${encodeURIComponent(accessToken)}&refresh_token=${encodeURIComponent(refreshToken)}`
+            `/app?access_token=${encodeURIComponent(accessToken)}&refresh_token=${encodeURIComponent(refreshToken
+            )}`
           );
-      
         } catch (error) {
           if (axios.isAxiosError(error)) {
             if (error.response?.status === 401) {
@@ -152,25 +160,16 @@ const useUserStore = create<UserStore>()(
                 description: t('notification:invalidCredentials.description'),
               });
             } else if (error.response?.data?.detail) {
-              showError({ 
-                error: new Error(error.response.data.detail)
-              });
-            } else if (error.response?.data?.message) {
-              showError({ 
-                error: new Error(error.response.data.message)
-              });
+              showError({ error: new Error(error.response.data.detail) });
             } else {
-              showError({ 
-                error: new Error('Unexpected server error.')
-              });
+              showError({ error: new Error('Unexpected server error.') });
             }
           } else {
-            showError({ 
-              error: new Error('An unexpected error occurred.')
-            });
+            showError({ error: new Error('An unexpected error occurred.') });
           }
         }
       },
+
       signInWithApple: async ({ user, token }) => {
         set({
           token: {
@@ -183,7 +182,7 @@ const useUserStore = create<UserStore>()(
       },
 
       signUp: async (body) => {
-        const { showError } = useNotificationStore.getState();
+        const { showError, showCustomError } = useNotificationStore.getState();
         const t = await getT(get().locale, 'auth');
       
         try {
@@ -219,22 +218,43 @@ const useUserStore = create<UserStore>()(
           if (axios.isAxiosError(error)) {
             if (error.response) {
               const message = error.response.data?.message;
+              const detail = error.response.data?.detail;
       
               if (message === 'A user with this email already exists.') {
-                showError({ error: new Error(t('auth:errors.userAlreadyExists')) });
+                showCustomError({
+                  title: t('auth:errors.userExists'),
+                  description: t('auth:errors.userAlreadyExists')
+                });
+              } else if (detail) {
+                showError({ 
+                  error: new Error(detail)
+                });
+              } else if (message) {
+                showError({ 
+                  error: new Error(message)
+                });
               } else {
-                showError({ error: new Error(message || 'An unexpected error occurred.') });
+                showError({ 
+                  error: new Error('An unexpected error occurred')
+                });
               }
             } else if (error.request) {
-              showError({ error: new Error('No response from the server. Please try again later.') });
+              showError({ 
+                error: new Error('No response from the server. Please try again later.')
+              });
             } else {
-              showError({ error: new Error(error.message) });
+              showError({ 
+                error: new Error(error.message)
+              });
             }
           } else {
-            showError({ error: new Error('An unexpected error occurred.') });
+            showError({ 
+              error: new Error('An unexpected error occurred')
+            });
           }
         }
       },
+      
       signOut: () => {
         removeAuthTokenHeader();
         set({
