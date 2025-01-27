@@ -128,7 +128,7 @@ const useUserStore = create<UserStore>()(
 
           const { accessToken, refreshToken } = response.data;
           const decoded = await decodeJWT(accessToken);
-          console.log('Verified JWT Header:', decoded);
+          console.log('Verified JWT Header:', decoded.payload.exp);
           console.log('Verified JWT Payload:', decoded);
 
           set({
