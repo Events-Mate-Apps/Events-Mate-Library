@@ -42,7 +42,8 @@ export interface UserResponseData {
 }
 
 interface Token {
-  expiresAt: string;
+  accessToken?: string;
+  expiresAt?: string;
   secret: string;
 }
 
@@ -82,7 +83,6 @@ interface AuthToken {
   refreshToken: string;
   token_type: string;
 }
-
 
 type UserStore = UserState & UserActions;
 
@@ -134,7 +134,7 @@ const useUserStore = create<UserStore>()(
           set({
             isLoggedIn: true,
             token: {
-              expiresAt: accessToken,
+              accessToken: accessToken,
               secret: refreshToken,
             },
           });
