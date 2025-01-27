@@ -117,41 +117,33 @@ const useUserStore = create<UserStore>()(
               .map((x) => ('00' + x.toString(16)).slice(-2))
               .join('')
           );
-
+      
           const requestBody = new URLSearchParams();
           requestBody.append('grant_type', 'password');
           requestBody.append('username', body.email);
           requestBody.append('password', hashedPassword);
       
-
           const response = await newApi.post<AuthToken>('/auth/token', requestBody, {
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
             },
           });
-
+      
           const { accessToken, refreshToken } = response.data;
-          //TODO: add user information after it gets added
-          // const decoded = await decodeJWT(accessToken);
-       
-
+      
           set({
             isLoggedIn: true,
             token: {
               accessToken: accessToken,
               secret: refreshToken,
             },
-            //TODO: After it gets added
-            // user: {
-            //   email: decoded.payload.exp,
-            // }
           });
           
-          setAuthTokenHeader(accessToken)
+          setAuthTokenHeader(accessToken);
           Router.push(
-            `/app?access_token=${encodeURIComponent(accessToken)}&refresh_token=${encodeURIComponent(refreshToken
-            )}`
+            `/app?access_token=${encodeURIComponent(accessToken)}&refresh_token=${encodeURIComponent(refreshToken)}`
           );
+      
         } catch (error) {
           if (axios.isAxiosError(error)) {
             if (error.response?.status === 401) {
@@ -160,16 +152,25 @@ const useUserStore = create<UserStore>()(
                 description: t('notification:invalidCredentials.description'),
               });
             } else if (error.response?.data?.detail) {
-              showError({ error: new Error(error.response.data.detail) });
+              showError({ 
+                error: new Error(error.response.data.detail)
+              });
+            } else if (error.response?.data?.message) {
+              showError({ 
+                error: new Error(error.response.data.message)
+              });
             } else {
-              showError({ error: new Error('Unexpected server error.') });
+              showError({ 
+                error: new Error('Unexpected server error.')
+              });
             }
           } else {
-            showError({ error: new Error('An unexpected error occurred.') });
+            showError({ 
+              error: new Error('An unexpected error occurred.')
+            });
           }
         }
       },
-
       signInWithApple: async ({ user, token }) => {
         set({
           token: {
