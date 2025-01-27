@@ -18,3 +18,13 @@ export const base64UrlDecode = (str: string): string => {
   
   return atob(output);
 };
+export const toSnakeCase = (obj: Record<string, any>): Record<string, any> => {
+  if (!obj || typeof obj !== 'object') return obj;
+    
+  return Object.keys(obj).reduce((acc, key) => {
+    const snakeKey = key.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
+    acc[snakeKey] = toSnakeCase(obj[key]);  
+    return acc;
+  }, {} as Record<string, any>);
+};
+  

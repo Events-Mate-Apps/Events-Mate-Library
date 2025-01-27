@@ -6,15 +6,19 @@ import { SignInRequest, SignUpRequest } from '../interfaces/user';
 import axios from 'axios';
 import getT from 'next-translate/getT';
 import Router from 'next/router';
+import { toSnakeCase } from '~/utils/decode';
 import { newApi, removeAuthTokenHeader, setAuthTokenHeader } from '../utils/apinew';
-import { decodeJWT } from '../utils/decode'
+// import { decodeJWT } from '../utils/decode'
 import { AxiosResponse } from 'axios';
 
 export interface UserData {
+  //TODO: match it with backend
   username: string;
+  //firstname: string;
   firstName: string;
+  //surname: string;
   lastName: string;
-  id: string;
+  // id: string;
   email: string;
   createdAt: string;
   type: 'NORMAL' | 'ADMIN';
@@ -127,9 +131,9 @@ const useUserStore = create<UserStore>()(
           });
 
           const { accessToken, refreshToken } = response.data;
-          const decoded = await decodeJWT(accessToken);
-          console.log('Verified JWT Header:', decoded.payload.exp);
-          console.log('Verified JWT Payload:', decoded);
+          //TODO: add user information after it gets added
+          // const decoded = await decodeJWT(accessToken);
+       
 
           set({
             isLoggedIn: true,
@@ -137,6 +141,10 @@ const useUserStore = create<UserStore>()(
               accessToken: accessToken,
               secret: refreshToken,
             },
+            //TODO: After it gets added
+            // user: {
+            //   email: decoded.payload.exp,
+            // }
           });
           
           setAuthTokenHeader(accessToken)
@@ -182,27 +190,28 @@ const useUserStore = create<UserStore>()(
             'SHA-512',
             new TextEncoder().encode(body.password),
           );
+      
           const hashedPassword = btoa(
             Array.from(new Uint8Array(hash))
               .map((x) => ('00' + x.toString(16)).slice(-2))
               .join(''),
           );
       
-          /* eslint-disable camelcase */
           const requestBody = {
             email: body.email,
-            given_name: body.firstName,
-            family_name: body.lastName,
+            givenName: body.firstName,
+            familyName: body.lastName,
             password: hashedPassword,
           };
-          /* eslint-enable camelcase */
       
-          const response = await newApi.post('auth/register', requestBody);
+          const snakeCaseBody = toSnakeCase(requestBody);
+      
+          const response = await newApi.post('auth/register', snakeCaseBody);
       
           if (response.status === 200 || response.status === 201) {
             await get().signIn({
               email: body.email,
-              password: body.password, 
+              password: body.password,
             });
           }
         } catch (error) {
