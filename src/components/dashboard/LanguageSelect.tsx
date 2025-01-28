@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { Box, useBreakpointValue, useColorModeValue } from '@chakra-ui/react';
+import { Box, useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { Select } from 'chakra-react-select';
 
@@ -17,10 +17,6 @@ const LanguageSelect: FC = () => {
 
   const isMobile = useBreakpointValue({ base: true, md: false });
 
-  const darkBg = useColorModeValue('gray.800', 'gray.800');
-  const darkText = useColorModeValue('whiteAlpha.900', 'whiteAlpha.900');
-  const darkBorder = useColorModeValue('gray.600', 'gray.600');
-
   const onSelect = (value: string) => {
     setSelectedLanguage(value);
     router.push({ pathname, query }, asPath, { locale: value });
@@ -30,30 +26,29 @@ const LanguageSelect: FC = () => {
     {
       flag: `🇺🇸`,
       locale: `en`,
-      title: `English (US)`,
+      title: `English (US)`
     },
     {
       flag: `🇸🇰`,
       locale: `sk`,
-      title: `Slovenčina`,
+      title: `Slovenčina`
     },
     {
       flag: `🇨🇿`,
       locale: `cs`,
-      title: `Čeština`,
-    },
+      title: `Čeština`
+    }
   ];
 
-  const languageOptions = languages.map((language) => ({
+  const languageOptions = languages.map(language => ({
     label: `${language.flag} ${language.title}`,
     value: language.locale,
   }));
 
-  const languageOptionsSmall = languages.map((language) => ({
+  const languageOptionsSmall = languages.map(language => ({
     label: `${language.flag}`,
     value: language.locale,
   }));
-
   return (
     <>
       <Box display={{ base: 'none', lg: 'flex' }}>
@@ -64,7 +59,7 @@ const LanguageSelect: FC = () => {
           options={languageOptions}
           closeMenuOnSelect={true}
           onChange={(selected) => {
-            onSelect(selected?.value || `en`);
+            onSelect(selected?.value || `en`)
           }}
           inputId={'large-language-picker'}
           instanceId={'large-language-picker'}
@@ -77,34 +72,6 @@ const LanguageSelect: FC = () => {
               }
               : undefined
           }
-          chakraStyles={{
-            container: (provided) => ({
-              ...provided,
-              bg: darkBg,
-              color: darkText,
-            }),
-            control: (provided) => ({
-              ...provided,
-              bg: darkBg,
-              borderColor: darkBorder,
-            }),
-            menu: (provided) => ({
-              ...provided,
-              bg: darkBg,
-            }),
-            option: (provided, state) => ({
-              ...provided,
-              bg: state.isSelected ? darkBorder : darkBg,
-              color: darkText,
-              _hover: {
-                bg: darkBorder,
-              },
-            }),
-            singleValue: (provided) => ({
-              ...provided,
-              color: darkText,
-            }),
-          }}
         />
       </Box>
       <Box display={{ base: 'flex', lg: 'none' }}>
@@ -114,7 +81,7 @@ const LanguageSelect: FC = () => {
           options={languageOptionsSmall}
           closeMenuOnSelect={true}
           onChange={(selected) => {
-            onSelect(selected?.value || `en`);
+            onSelect(selected?.value || `en`)
           }}
           inputId={'small-language-picker'}
           instanceId={'small-language-picker'}
@@ -127,38 +94,9 @@ const LanguageSelect: FC = () => {
               }
               : undefined
           }
-          chakraStyles={{
-            container: (provided) => ({
-              ...provided,
-              bg: darkBg,
-              color: darkText,
-            }),
-            control: (provided) => ({
-              ...provided,
-              bg: darkBg,
-              borderColor: darkBorder,
-            }),
-            menu: (provided) => ({
-              ...provided,
-              bg: darkBg,
-            }),
-            option: (provided, state) => ({
-              ...provided,
-              bg: state.isSelected ? darkBorder : darkBg,
-              color: darkText,
-              _hover: {
-                bg: darkBorder,
-              },
-            }),
-            singleValue: (provided) => ({
-              ...provided,
-              color: darkText,
-            }),
-          }}
         />
       </Box>
     </>
   );
-};
-
-export default LanguageSelect;
+}
+export default LanguageSelect
