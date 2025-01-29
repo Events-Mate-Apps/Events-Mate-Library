@@ -1,102 +1,90 @@
 import { FC, useState } from 'react';
-import { Box, useBreakpointValue } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import { Select } from 'chakra-react-select';
+import {
+  Button,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Flex,
+  IconButton,
+  useColorMode,
+  useColorModeValue,
+  Text,
+} from '@chakra-ui/react';
+import { ChevronDownIcon } from '@chakra-ui/icons';
+import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 
-interface LanguageOption {
-  flag: string;
-  locale: string;
-  title: string;
-}
+const LanguageSelector: FC = () => {
+  const { colorMode, toggleColorMode } = useColorMode();
 
-const LanguageSelect: FC = () => {
-  const router = useRouter();
-  const { asPath, pathname, query, locale: initialLocale } = router;
-
-  const [selectedLanguage, setSelectedLanguage] = useState<string>(initialLocale ?? 'en');
-
-  const isMobile = useBreakpointValue({ base: true, md: false });
-
-  const onSelect = (value: string) => {
-    setSelectedLanguage(value);
-    router.push({ pathname, query }, asPath, { locale: value });
-  };
-
-  const languages: LanguageOption[] = [
-    {
-      flag: `🇺🇸`,
-      locale: `en`,
-      title: `English (US)`
-    },
-    {
-      flag: `🇸🇰`,
-      locale: `sk`,
-      title: `Slovenčina`
-    },
-    {
-      flag: `🇨🇿`,
-      locale: `cs`,
-      title: `Čeština`
-    }
+  const languages = [
+    { flag: '🇺🇸', title: 'English (US)', value: 'en' },
+    { flag: '🇸🇰', title: 'Slovenčina', value: 'sk' },
+    { flag: '🇨🇿', title: 'Čeština', value: 'cs' },
   ];
+  const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
 
-  const languageOptions = languages.map(language => ({
-    label: `${language.flag} ${language.title}`,
-    value: language.locale,
-  }));
-
-  const languageOptionsSmall = languages.map(language => ({
-    label: `${language.flag}`,
-    value: language.locale,
-  }));
-  return (
-    <>
-      <Box display={{ base: 'none', lg: 'flex' }}>
-        <Select
-          menuPlacement="top"
-          classNamePrefix="react-select"
-          placeholder={isMobile ? undefined : 'Select Language'}
-          options={languageOptions}
-          closeMenuOnSelect={true}
-          onChange={(selected) => {
-            onSelect(selected?.value || `en`)
-          }}
-          inputId={'large-language-picker'}
-          instanceId={'large-language-picker'}
-          name={'large-language-picker'}
-          defaultValue={
-            selectedLanguage
-              ? {
-                label: languageOptions.find((a) => a.value === selectedLanguage)?.label,
-                value: selectedLanguage,
-              }
-              : undefined
-          }
-        />
-      </Box>
-      <Box display={{ base: 'flex', lg: 'none' }}>
-        <Select
-          menuPlacement="top"
-          classNamePrefix="react-select"
-          options={languageOptionsSmall}
-          closeMenuOnSelect={true}
-          onChange={(selected) => {
-            onSelect(selected?.value || `en`)
-          }}
-          inputId={'small-language-picker'}
-          instanceId={'small-language-picker'}
-          name={'small-language-picker'}
-          defaultValue={
-            selectedLanguage
-              ? {
-                label: languageOptionsSmall.find((a) => a.value === selectedLanguage)?.label,
-                value: selectedLanguage,
-              }
-              : undefined
-          }
-        />
-      </Box>
-    </>
+  const bgGradient = useColorModeValue(
+    'linear(to-r, pink.400, purple.500)',
+    'linear(to-r, pink.700, purple.900)'
   );
-}
-export default LanguageSelect
+  const buttonBg = useColorModeValue('white', 'purple.800');
+  const textColor = useColorModeValue('purple.900', 'white');
+
+  return (
+    <Flex
+      alignItems="center"
+      justifyContent="space-between"
+      bgGradient={bgGradient}
+      p={6}
+      borderRadius="16px"
+      w="fit-content"
+    >
+      {/* Language Selector */}
+      <Menu>
+        <MenuButton
+          as={Button}
+          rightIcon={<ChevronDownIcon />}
+          bg={buttonBg}
+          borderRadius="16px"
+          color={textColor}
+          fontWeight="500"
+          px={6}
+          _hover={{ bg: buttonBg }}
+          _active={{ bg: buttonBg }}
+        >
+          <Flex alignItems="center">
+            <Text>{selectedLanguage.flag}</Text>
+            <Text ml={2}>{selectedLanguage.title}</Text>
+          </Flex>
+        </MenuButton>
+        <MenuList bg={buttonBg} border="none" borderRadius="12px">
+          {languages.map((lang) => (
+            <MenuItem
+              key={lang.value}
+              onClick={() => setSelectedLanguage(lang)}
+              justifyContent="space-between"
+            >
+              <Text>{lang.flag}</Text>
+              <Text>{lang.title}</Text>
+            </MenuItem>
+          ))}
+        </MenuList>
+      </Menu>
+
+      {/* Theme Toggle Button */}
+      <IconButton
+        ml={4}
+        onClick={toggleColorMode}
+        bg={buttonBg}
+        borderRadius="full"
+        icon={colorMode === 'light' ? <SunIcon color="pink.500" /> : <MoonIcon color="pink.300" />}
+        aria-label="Toggle Theme"
+        size="lg"
+        _hover={{ bg: buttonBg }}
+      />
+    </Flex>
+  );
+};
+
+export default LanguageSelector;
