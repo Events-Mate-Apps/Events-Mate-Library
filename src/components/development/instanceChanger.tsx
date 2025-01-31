@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import {  AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogFooter, Button } from '@chakra-ui/react';
 import  useNotificationStore  from '../../stores/notification';
 
-import { setBaseURL } from '../../utils/apinew';
+import { newApi, setBaseURL } from '../../utils/apinew';
 
 export const DevEnvironmentSwitcher = () => {
   const { showSuccess } = useNotificationStore();
@@ -14,13 +14,21 @@ export const DevEnvironmentSwitcher = () => {
       setIsOpen(true);
     }
   }, []);
-  
+  const fetchData = async () => {
+    try {
+      const response = await newApi.get('/mock-api');
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
   const handleTesting = () => {
     setBaseURL('http://localhost:3000/api');
     showSuccess({
       title: '🔧 Using Local API',
       description: 'API requests will be sent to localhost:3000',
     });
+    fetchData()
     setIsOpen(false);
   };
   
