@@ -5,7 +5,7 @@ import  useNotificationStore  from '../../stores/notification';
 import { newApi, setBaseURL } from '../../utils/apinew';
 
 export const DevEnvironmentSwitcher = () => {
-  const { showSuccess } = useNotificationStore();
+  const { showSuccess, showError } = useNotificationStore();
   const [isOpen, setIsOpen] = useState(false);
   const cancelRef = useRef<HTMLButtonElement>(null);
   
@@ -14,21 +14,29 @@ export const DevEnvironmentSwitcher = () => {
       setIsOpen(true);
     }
   }, []);
-  const fetchData = async () => {
+
+  const testingRequest = async () => {
     try {
       const response = await newApi.get('/mock-api');
-      console.log(response.data);
-    } catch (error) {
-      console.error('Error fetching data:', error);
+      showSuccess({
+        title: '✅ Connection Successful',
+        description: `Testing API response: ${JSON.stringify(response.data)}`,
+        duration: 5000
+      });
+      return response.data;
+    } catch (error: any) {
+      showError({
+        error
+      })
     }
-  };
+  }
   const handleTesting = () => {
     setBaseURL('http://localhost:3000/api');
     showSuccess({
       title: '🔧 Using Local API',
       description: 'API requests will be sent to localhost:3000',
     });
-    fetchData()
+    testingRequest()
     setIsOpen(false);
   };
   
