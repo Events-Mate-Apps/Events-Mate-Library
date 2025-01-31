@@ -35,5 +35,8 @@ export const removeAuthTokenHeader = () => {
   instance.defaults.headers.common['Authorization'] = null;
 };
 
+export const setBaseURL = (newBaseURL: string) => {
+  instance.defaults.baseURL = newBaseURL;
+};
 
 export const newApi = instance;
