@@ -1,89 +1,86 @@
 import { FC, useState } from 'react';
+import { useRouter } from 'next/router';
 import {
+  Box,
   Button,
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
   Flex,
-  IconButton,
-  useColorMode,
-  useColorModeValue,
   Text,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
-import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 
 const LanguageSelector: FC = () => {
-  const { colorMode, toggleColorMode } = useColorMode();
+  const router = useRouter();
 
   const languages = [
     { flag: '🇺🇸', title: 'English (US)', value: 'en' },
     { flag: '🇸🇰', title: 'Slovenčina', value: 'sk' },
     { flag: '🇨🇿', title: 'Čeština', value: 'cs' },
   ];
+
   const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
 
-  const bgGradient = useColorModeValue(
-    'linear(to-r, pink.400, purple.500)',
-    'linear(to-r, pink.700, purple.900)'
-  );
-  const buttonBg = useColorModeValue('white', 'purple.800');
-  const textColor = useColorModeValue('purple.900', 'white');
+  const onSelect = (value: string) => {
+    const selected = languages.find((lang) => lang.value === value) || languages[0];
+    setSelectedLanguage(selected);
+    router.push(router.pathname, router.asPath, { locale: value });
+  };
+
+  const selectBg = useColorModeValue('rgba(228, 228, 231, 0.3)', 'purple.700');
+  const textColor = useColorModeValue('white', 'white');
+  
+  const selectedBg = useColorModeValue('blue.200', 'blue.700');
 
   return (
-    <Flex
-      alignItems="center"
-      justifyContent="space-between"
-      bgGradient={bgGradient}
-      p={6}
+    <Box
+      p={4}
       borderRadius="16px"
+      bgGradient="transparent"
       w="fit-content"
+      display="flex"
+      alignItems="center"
     >
-      {/* Language Selector */}
       <Menu>
         <MenuButton
+          border="1px solid rgba(212, 212, 216, 0.2)"
           as={Button}
           rightIcon={<ChevronDownIcon />}
-          bg={buttonBg}
-          borderRadius="16px"
+          bg="transparent"
           color={textColor}
-          fontWeight="500"
-          px={6}
-          _hover={{ bg: buttonBg }}
-          _active={{ bg: buttonBg }}
+          borderRadius="16px"
+          _hover={{ bg: selectBg }}
+          _active={{ bg: selectBg }}
         >
           <Flex alignItems="center">
-            <Text>{selectedLanguage.flag}</Text>
-            <Text ml={2}>{selectedLanguage.title}</Text>
+            <Text fontSize="lg" fontWeight="500">
+              {selectedLanguage.flag}
+            </Text>
+            <Text fontSize="14px" fontWeight="500" ml="2">
+              {selectedLanguage.title}
+            </Text>
           </Flex>
         </MenuButton>
-        <MenuList bg={buttonBg} border="none" borderRadius="12px">
+        <MenuList border="none" borderRadius="12px" bg={selectBg} boxShadow="md">
           {languages.map((lang) => (
             <MenuItem
               key={lang.value}
-              onClick={() => setSelectedLanguage(lang)}
-              justifyContent="space-between"
+              onClick={() => onSelect(lang.value)}
+              bg={selectedLanguage.value === lang.value ? selectedBg : 'transparent'}
+              _hover={{ bg: selectedLanguage.value === lang.value ? selectedBg : 'gray.200' }}
             >
-              <Text>{lang.flag}</Text>
-              <Text>{lang.title}</Text>
+              <Flex alignItems="center" bg="transparent">
+                <Text bg="transparent">{lang.flag}</Text>
+                <Text ml={3}>{lang.title}</Text>
+              </Flex>
             </MenuItem>
           ))}
         </MenuList>
       </Menu>
-
-      {/* Theme Toggle Button */}
-      <IconButton
-        ml={4}
-        onClick={toggleColorMode}
-        bg={buttonBg}
-        borderRadius="full"
-        icon={colorMode === 'light' ? <SunIcon color="pink.500" /> : <MoonIcon color="pink.300" />}
-        aria-label="Toggle Theme"
-        size="lg"
-        _hover={{ bg: buttonBg }}
-      />
-    </Flex>
+    </Box>
   );
 };
 
