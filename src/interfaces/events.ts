@@ -10,6 +10,7 @@ export interface ColorScheme {
 }
   
 export interface Event {
+  id: number;
   eventType: number;
   descriptionShort: LocalizedContent;
   description: LocalizedContent;
