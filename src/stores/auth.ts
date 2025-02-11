@@ -266,7 +266,6 @@ const useUserStore = create<UserStore>()(
       refreshAccessToken: async () => {
         const { token } = get();
         if (!token || !token.secret) {
-          console.error('No refresh token available.');
           get().signOut();
           return false;
         }
