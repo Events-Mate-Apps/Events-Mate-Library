@@ -2,6 +2,7 @@ export interface LocalizedContent {
   cz: string;
   en: string;
   fr: string;
+  all: string
 }
   
 export interface ColorScheme {
