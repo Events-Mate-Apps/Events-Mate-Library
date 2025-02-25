@@ -133,7 +133,7 @@ const useUserStore = create<UserStore>()(
           const { accessToken, refreshToken } = response.data;
           //TODO: add user information after it gets added
           const decoded = await decodeJWT(refreshToken);
-          console.log(decoded)
+          console.log(decoded.payload.givenName)
 
           set({
             isLoggedIn: true,
@@ -141,10 +141,10 @@ const useUserStore = create<UserStore>()(
               accessToken: accessToken,
               secret: refreshToken,
             },
-            //TODO: After it gets added
             // user: {
             //   email: decoded.payload.exp,
-            //   firstName: decoded.payload.exp
+            //   firstName: decoded.payload.givenName,
+            //   lastName: decoded.payload.familyName
             // }
           });
           
