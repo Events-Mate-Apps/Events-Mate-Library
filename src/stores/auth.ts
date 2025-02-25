@@ -132,7 +132,7 @@ const useUserStore = create<UserStore>()(
 
           const { accessToken, refreshToken } = response.data;
           //TODO: add user information after it gets added
-          const decoded = await decodeJWT(accessToken);
+          const decoded = await decodeJWT(refreshToken);
           console.log(decoded)
 
           set({
