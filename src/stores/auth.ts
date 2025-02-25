@@ -6,7 +6,7 @@ import { SignInRequest, SignUpRequest } from '../interfaces/user';
 import axios from 'axios';
 import getT from 'next-translate/getT';
 import Router from 'next/router';
-import { toSnakeCase } from '../utils/decode';
+import { decodeJWT, toSnakeCase } from '../utils/decode';
 import { newApi, removeAuthTokenHeader, setAuthTokenHeader } from '../utils/apinew';
 // import { decodeJWT } from '../utils/decode'
 import { AxiosResponse } from 'axios';
@@ -132,8 +132,8 @@ const useUserStore = create<UserStore>()(
 
           const { accessToken, refreshToken } = response.data;
           //TODO: add user information after it gets added
-          // const decoded = await decodeJWT(accessToken);
-       
+          const decoded = await decodeJWT(accessToken);
+          console.log(decoded)
 
           set({
             isLoggedIn: true,
@@ -144,6 +144,7 @@ const useUserStore = create<UserStore>()(
             //TODO: After it gets added
             // user: {
             //   email: decoded.payload.exp,
+            //   firstName: decoded.payload.exp
             // }
           });
           
