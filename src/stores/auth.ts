@@ -14,15 +14,11 @@ import { toCamelCaseDeep } from '../utils/decode';
 
 export interface UserData {
   //TODO: match it with backend
-  username: string;
-  //firstname: string;
   firstName: string;
-  //surname: string;
   lastName: string;
-  // id: string;
   email: string;
-  createdAt: string;
-  type: 'NORMAL' | 'ADMIN';
+  createdAt?: string;
+  type?: 'NORMAL' | 'ADMIN';
   appleUserIdentifier?: string;
 }
 
@@ -144,11 +140,11 @@ const useUserStore = create<UserStore>()(
               accessToken: accessToken,
               secret: refreshToken,
             },
-            // user: {
-            //   email: decoded.payload.exp,
-            //   firstName: decoded.payload.givenName,
-            //   lastName: decoded.payload.familyName
-            // }
+            user: {
+              email: decoded.payload.exp,
+              firstName: decoded.payload.givenName,
+              lastName: decoded.payload.familyName
+            }
           });
           
           setAuthTokenHeader(accessToken)
