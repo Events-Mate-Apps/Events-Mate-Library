@@ -141,9 +141,9 @@ const useUserStore = create<UserStore>()(
               secret: refreshToken,
             },
             user: {
-              email: decoded.payload.exp,
-              firstName: decoded.payload.givenName,
-              lastName: decoded.payload.familyName
+              email: camelCaseDecoded.payload.email,
+              firstName: camelCaseDecoded.payload.givenName,
+              lastName: camelCaseDecoded.payload.familyName
             }
           });
           
