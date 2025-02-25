@@ -10,6 +10,7 @@ import { decodeJWT, toSnakeCase } from '../utils/decode';
 import { newApi, removeAuthTokenHeader, setAuthTokenHeader } from '../utils/apinew';
 // import { decodeJWT } from '../utils/decode'
 import { AxiosResponse } from 'axios';
+import { toCamelCaseDeep } from '~/utils/decode';
 
 export interface UserData {
   //TODO: match it with backend
@@ -24,6 +25,7 @@ export interface UserData {
   type: 'NORMAL' | 'ADMIN';
   appleUserIdentifier?: string;
 }
+
 
 export interface UserDataWithoutFirstName {
   username: string;
@@ -133,7 +135,8 @@ const useUserStore = create<UserStore>()(
           const { accessToken, refreshToken } = response.data;
           //TODO: add user information after it gets added
           const decoded = await decodeJWT(refreshToken);
-          console.log(decoded.payload.givenName)
+          const camelCaseDecoded = toCamelCaseDeep(decoded)
+          console.log(camelCaseDecoded)
 
           set({
             isLoggedIn: true,

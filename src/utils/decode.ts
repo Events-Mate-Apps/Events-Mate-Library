@@ -18,6 +18,29 @@ export const base64UrlDecode = (str: string): string => {
   
   return atob(output);
 };
+
+export const toCamelCaseDeep = (data: any): any => {
+  if (typeof data === 'string') {
+    return data.replace(/([-_][a-z])/gi, ($1) =>
+      $1.toUpperCase().replace(/[-_]/, '')
+    );
+  }
+  if (Array.isArray(data)) {
+    return data.map(item => toCamelCaseDeep(item));
+  }
+  if (data !== null && typeof data === 'object') {
+    return Object.keys(data).reduce((acc, key) => {
+      const camelKey = key.replace(/([-_][a-z])/gi, ($1) =>
+        $1.toUpperCase().replace(/[-_]/, '')
+      );
+      return { ...acc, [camelKey]: toCamelCaseDeep(data[key]) };
+    }, {});
+  }
+  return data;
+};
+
+
+
 export const toSnakeCase = (obj: Record<string, any>): Record<string, any> => {
   if (!obj || typeof obj !== 'object') return obj;
     
