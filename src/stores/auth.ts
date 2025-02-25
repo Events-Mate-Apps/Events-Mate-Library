@@ -10,7 +10,7 @@ import { decodeJWT, toSnakeCase } from '../utils/decode';
 import { newApi, removeAuthTokenHeader, setAuthTokenHeader } from '../utils/apinew';
 // import { decodeJWT } from '../utils/decode'
 import { AxiosResponse } from 'axios';
-import { toCamelCaseDeep } from '~/utils/decode';
+import { toCamelCaseDeep } from '../utils/decode';
 
 export interface UserData {
   //TODO: match it with backend
