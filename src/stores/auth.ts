@@ -8,7 +8,6 @@ import getT from 'next-translate/getT';
 import Router from 'next/router';
 import { decodeJWT, toSnakeCase } from '../utils/decode';
 import { newApi, removeAuthTokenHeader, setAuthTokenHeader } from '../utils/apinew';
-// import { decodeJWT } from '../utils/decode'
 import { AxiosResponse } from 'axios';
 import { toCamelCaseDeep } from '../utils/decode';
 
@@ -21,7 +20,6 @@ export interface UserData {
   type?: 'NORMAL' | 'ADMIN';
   appleUserIdentifier?: string;
 }
-
 
 export interface UserDataWithoutFirstName {
   username: string;
@@ -53,7 +51,7 @@ interface UserState {
   isLoggedIn: boolean;
   user: UserData | null;
   token: Token | null;
-  wedding: Wedding | null;
+  wedding?: Wedding | null;
   locale?: string;
 }
 
@@ -106,22 +104,11 @@ const useUserStore = create<UserStore>()(
         const t = await getT(get().locale, 'notification');
       
         try {
-          const hash = await crypto.subtle.digest(
-            'SHA-512',
-            new TextEncoder().encode(body.password)
-          );
-          const hashedPassword = btoa(
-            Array.from(new Uint8Array(hash))
-              .map((x) => ('00' + x.toString(16)).slice(-2))
-              .join('')
-          );
-
           const requestBody = new URLSearchParams();
           requestBody.append('grant_type', 'password');
           requestBody.append('username', body.email);
-          requestBody.append('password', hashedPassword);
+          requestBody.append('password', body.password);
       
-
           const response = await newApi.post<AuthToken>('/auth/token', requestBody, {
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
@@ -131,8 +118,8 @@ const useUserStore = create<UserStore>()(
           const { accessToken, refreshToken } = response.data;
           //TODO: add user information after it gets added
           const decoded = await decodeJWT(refreshToken);
-          const camelCaseDecoded = toCamelCaseDeep(decoded)
-          console.log(camelCaseDecoded)
+          const camelCaseDecoded = toCamelCaseDeep(decoded);
+          console.log(camelCaseDecoded);
 
           set({
             isLoggedIn: true,
@@ -147,10 +134,9 @@ const useUserStore = create<UserStore>()(
             }
           });
           
-          setAuthTokenHeader(accessToken)
+          setAuthTokenHeader(accessToken);
           Router.push(
-            `/app?access_token=${encodeURIComponent(accessToken)}&refresh_token=${encodeURIComponent(refreshToken
-            )}`
+            `/app?access_token=${encodeURIComponent(accessToken)}&refresh_token=${encodeURIComponent(refreshToken)}`
           );
         } catch (error) {
           if (axios.isAxiosError(error)) {
@@ -186,22 +172,11 @@ const useUserStore = create<UserStore>()(
         const t = await getT(get().locale, 'auth');
       
         try {
-          const hash = await crypto.subtle.digest(
-            'SHA-512',
-            new TextEncoder().encode(body.password),
-          );
-      
-          const hashedPassword = btoa(
-            Array.from(new Uint8Array(hash))
-              .map((x) => ('00' + x.toString(16)).slice(-2))
-              .join(''),
-          );
-      
           const requestBody = {
             email: body.email,
             givenName: body.firstName,
             familyName: body.lastName,
-            password: hashedPassword,
+            password: body.password,
           };
       
           const snakeCaseBody = toSnakeCase(requestBody);
@@ -326,7 +301,7 @@ const useUserStore = create<UserStore>()(
         }));
       },
 
-      setWedding: (wedding) => {
+      setWedding: ( wedding: Wedding ) => {
         set({ wedding });
       },
     }),
