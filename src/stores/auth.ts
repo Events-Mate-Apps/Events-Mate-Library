@@ -265,7 +265,7 @@ const useUserStore = create<UserStore>()(
           set((state) => ({
             ...state,
             token: {
-              expiresAt: accessToken,
+              accessToken: accessToken,
               secret: newRefreshToken,
             },
           }));
