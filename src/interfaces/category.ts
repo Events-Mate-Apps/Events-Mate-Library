@@ -9,6 +9,11 @@ export interface Category {
   parent: Parent
   subCategories: SubCategory[]
 }
+export interface newCategory {
+  id: string
+  name: string
+  type: string
+}
 
 export interface TranslationTextContent {
   id?: string | number,
