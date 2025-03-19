@@ -26,6 +26,7 @@ export default forwardRef(function InputField(
     | undefined;
     helperText?: string;
     autoComplete?: string;
+    containerProps?: React.ComponentProps<typeof Flex>; 
   } & Omit<InputProps, 'ref'>,
   ref
 ) {
@@ -41,12 +42,12 @@ export default forwardRef(function InputField(
     helperText,
     isRequired,
     autoComplete = 'on',
-  
+    containerProps, // Extract it
     ...rest
   } = props;
-  
+
   return (
-    <Flex direction="column" mb={mb ? mb : '30px'}>
+    <Flex direction="column" mb={mb ? mb : '30px'} {...containerProps}> {/* Apply it here */}
       <FormControl isInvalid={!!error} isRequired={isRequired}>
         <FormLabel htmlFor={id} display={label ? 'flex' : 'none'}>
           {label}
@@ -87,4 +88,3 @@ export default forwardRef(function InputField(
     </Flex>
   );
 });
-  
