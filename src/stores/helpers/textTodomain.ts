@@ -32,7 +32,7 @@ export const textToDomainText = (text: string, domain: string): string => {
       'localhost',
       new Map([
         ['WeddMate', 'Localhost'],
-        ['weddmateURL', 'localhost']
+        ['weddmateURL', 'nase-svatba']
       ])
     ],
     [
