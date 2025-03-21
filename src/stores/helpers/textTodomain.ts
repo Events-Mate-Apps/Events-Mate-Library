@@ -4,56 +4,56 @@ export const textToDomainText = (text: string, domain: string): string => {
       'www.nase-svatba.cz',
       new Map([
         ['WeddMate', 'Naše svatba'],
-        ['weddmateURL', 'nase-svatba']
+        ['weddmateURL', 'nase-svatba.cz'] 
       ])
     ],
     [
       'www.weddmate.com',
       new Map([
         ['WeddMate', 'WeddMate'],
-        ['weddmateURL', 'weddmate']
+        ['weddmateURL', 'weddmate.com']
       ])
     ],
     [
       'www.our-wedding.com',
       new Map([
         ['WeddMate', 'WeddMate'],
-        ['weddmateURL', 'our-wedding']
+        ['weddmateURL', 'our-wedding.com'] 
       ])
     ],
     [
       'www.our-wedding.app',
       new Map([
         ['WeddMate', 'WeddMate'],
-        ['weddmateURL', 'our-wedding']
+        ['weddmateURL', 'our-wedding.app'] 
       ])
     ],
     [
       'localhost',
       new Map([
         ['WeddMate', 'Localhost'],
-        ['weddmateURL', 'nase-svatba']
+        ['weddmateURL', 'nase-svatba.cz'] 
       ])
     ],
     [
       'www.nas-den.sk',
       new Map([
         ['WeddMate', 'Náš deň'],
-        ['weddmateURL', 'nas-den']
+        ['weddmateURL', 'nas-den.sk'] 
       ])
     ],
     [
       'www.nasza-wesele.pl',
       new Map([
         ['WeddMate', 'Nasza wesele'],
-        ['weddmateURL', 'nasza-wesele']
+        ['weddmateURL', 'nasza-wesele.pl'] 
       ])
     ],
     [
       'www.xil-nostro-matrimonio.it',
       new Map([
         ['WeddMate', 'Il nostro matrimonio'],
-        ['weddmateURL', 'il-nostro-matrimonio']
+        ['weddmateURL', 'il-nostro-matrimonio.it']
       ])
     ]
   ]);
