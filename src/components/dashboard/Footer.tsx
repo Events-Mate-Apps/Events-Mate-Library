@@ -68,7 +68,7 @@ const Footer: FC = () => {
   const domain = window.location.hostname
 
   const companyName = isEventsMate() ? 'Events Mate' : textToDomainText('WeddMate', domain);
-  const instagramLink = isEventsMate() ? 'https://www.instagram.com/eventsmateapp/' : 'https://www.instagram.com/weddmate_cz/';
+  const instagramLink = isEventsMate() ? 'https://www.instagram.com/eventsmateapp/' : 'https://www.instagram.com/nase.svatba.cz/';
 
   return (
     <Box
