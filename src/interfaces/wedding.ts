@@ -60,6 +60,8 @@ export type Wedding = {
   pin: string;
   description: string;
   menus: Menu[],
+  latitude?: number,
+  longtitude?: number
 };
 
 export type Location = {
