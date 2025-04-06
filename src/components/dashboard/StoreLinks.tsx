@@ -14,7 +14,7 @@ const StoreLinks: FC = () => {
           height="63px"
         />
       </Link>
-      <Link
+      {/* <Link
         href="https://play.google.com/store/apps/details?id=com.weddmate.mobile&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"
         display="inline-block"
         overflow="hidden"
@@ -28,7 +28,7 @@ const StoreLinks: FC = () => {
           width="190px"
           height="80px"
         />
-      </Link>
+      </Link> */}
     </VStack>
   );
 };

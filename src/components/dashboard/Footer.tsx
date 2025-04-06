@@ -20,6 +20,7 @@ import LanguageSelect from './LanguageSelect';
 import useTranslation from 'next-translate/useTranslation';
 import dayjs from 'dayjs';
 import { isEventsMate } from '../../utils/orientation';
+import { textToDomainText } from '../../stores/helpers/textTodomain';
 
 interface ListHeaderProps {
   children: ReactNode;
@@ -64,8 +65,10 @@ const Footer: FC = () => {
   const currentYear = dayjs().year();
   const { t } = useTranslation();
 
-  const companyName = isEventsMate() ? 'Events Mate' : 'WeddMate';
-  const instagramLink = isEventsMate() ? 'https://www.instagram.com/eventsmateapp/' : 'https://www.instagram.com/weddmate_cz/';
+  const domain = window.location.hostname
+
+  const companyName = isEventsMate() ? 'Events Mate' : textToDomainText('WeddMate', domain);
+  const instagramLink = isEventsMate() ? 'https://www.instagram.com/eventsmateapp/' : 'https://www.instagram.com/nase.svatba.cz/';
 
   return (
     <Box
@@ -117,7 +120,7 @@ const Footer: FC = () => {
           justify={{ md: 'space-between' }}
           align={{ md: 'center' }}
         >
-          <Text>© {currentYear} {companyName} Apps s.r.o | All rights reserved</Text>
+          <Text>© {currentYear} + {companyName} + Apps s.r.o | All rights reserved</Text>
           <Stack direction={'row'} spacing={6}>
             {/*TODO uncomment YouTube as soon as it is relevant*/}
             {/*<SocialButton label={'YouTube'} href={'#'}>*/}
