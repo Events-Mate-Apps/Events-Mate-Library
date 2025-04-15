@@ -2,7 +2,7 @@ import { Box, Heading, Text } from '@chakra-ui/react';
 import LandingLayout from '../../components/dashboard/LandingLayout';
 import { motion } from 'framer-motion';
 
-export default function PrivacyPolicy() {
+const PrivacyPolicy = () => {
   return (
     <LandingLayout>
       <Box
@@ -641,3 +641,6 @@ export default function PrivacyPolicy() {
     </LandingLayout>
   );
 }
+
+
+export default PrivacyPolicy
