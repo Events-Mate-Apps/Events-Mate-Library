@@ -3,6 +3,7 @@ import LandingLayout from '../../components/dashboard/LandingLayout';
 import { motion } from 'framer-motion';
 import useTranslation from 'next-translate/useTranslation';
 
+
 const PrivacyPolicy = () => {
   const { t } = useTranslation()
   return (
