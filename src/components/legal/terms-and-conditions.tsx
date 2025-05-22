@@ -142,18 +142,10 @@ const TermsOfService = () => {
             <Text as="p">
               <u>{t('privacy:cookies.thirdParty.title')}</u>
             </Text>
-            <Text as="p">
-              {t('privacy:cookies.thirdParty.analytics')}
-            </Text>
-            <Text as="p">
-              {t('privacy:cookies.thirdParty.permanent')}
-            </Text>
-            <Text as="p">
-              {t('privacy:cookies.thirdParty.analytical')}
-            </Text>
-            <Text as="p">
-              {t('privacy:cookies.thirdParty.profiling')}
-            </Text>
+            <Text as="p">{t('privacy:cookies.thirdParty.analytics.paragraph1')}</Text>
+            <Text as="p">{t('privacy:cookies.thirdParty.analytics.paragraph2')}</Text>
+            <Text as="p">{t('privacy:cookies.thirdParty.analytics.paragraph3')}</Text>
+            <Text as="p">{t('privacy:cookies.thirdParty.analytics.paragraph4')}</Text>
             <Text as="p">&nbsp;</Text>
             <Text as="p">
               <u>{t('privacy:cookies.profiling.title')}</u>
@@ -209,9 +201,6 @@ const TermsOfService = () => {
               {t('privacy:thirdParties.legalDisclosure')}
             </Text>
             <Text as="p">&nbsp;</Text>
-            <Text as="p">
-              {t('privacy:thirdParties.knowledgeSharing')}
-            </Text>
             <Text as="p">
               {t('privacy:thirdParties.optOut')}
             </Text>
