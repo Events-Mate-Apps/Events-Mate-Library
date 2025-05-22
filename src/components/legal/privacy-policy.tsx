@@ -217,37 +217,21 @@ const PrivacyPolicy = () => {
               {t('privacy:processingPurpose.nonPersonal')}
             </Text>
             <Text as="p">&nbsp;</Text>
-            <Text as="p">
-              {t('privacy:processingPurpose.lawfulUse')}
-            </Text>
-            <Text as="p">
-              {t('privacy:processingPurpose.lawfulGrounds')}
-            </Text>
+            <Text as="p">{t('privacy:processingPurpose.lawfulUse')}</Text>
+            <Text as="p">{t('privacy:processingPurpose.lawfulGrounds')}</Text>
             <ul>
-              <li>
-                {t('privacy:processingPurpose.grounds.contract')}
-              </li>
-              <li>
-                {t('privacy:processingPurpose.grounds.legitimate')}
-              </li>
-              <li>
-                {t('privacy:processingPurpose.grounds.legal')}
-              </li>
-              <li>
-                {t('privacy:processingPurpose.grounds.consent')}
-              </li>
+              <li>{t('privacy:processingPurpose.grounds.useContract')}</li>
+              <li>{t('privacy:processingPurpose.grounds.legitimate')}</li>
+              <li>{t('privacy:processingPurpose.grounds.legal')}</li>
+              <li>{t('privacy:processingPurpose.grounds.consent')}</li>
             </ul>
             <Text as="p">&nbsp;</Text>
-            <Text as="p">
-              {t('privacy:processingPurpose.businessPurposesIntro')}
-            </Text>
+            <Text as="p">{t('privacy:processingPurpose.businessPurposesIntro')}</Text>
             <Text as="p">
               {t('privacy:processingPurpose.purposes.account')}
             </Text>
             <Text as="p">{t('privacy:processingPurpose.purposes.purchases')}</Text>
-            <Text as="p">
-              {t('privacy:processingPurpose.purposes.activities')}
-            </Text>
+            <Text as="p">{t('privacy:processingPurpose.purposes.contact')}</Text>
             <Text as="p">
               {t('privacy:processingPurpose.purposes.communication')}
             </Text>
