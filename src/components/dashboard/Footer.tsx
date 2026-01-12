@@ -65,16 +65,12 @@ const Footer: FC = () => {
   const currentYear = dayjs().year();
   const { t } = useTranslation();
 
-  const domain = window.location.hostname
-
+  const domain = window.location.hostname;
   const companyName = isEventsMate() ? 'Events Mate' : textToDomainText('WeddMate', domain);
-  const instagramLink = isEventsMate() ? 'https://www.instagram.com/eventsmateapp/' : 'https://www.instagram.com/nase.svatba.cz/';
+  const instagramLink = 'https://www.instagram.com/nase.svatba.cz/'
 
   return (
-    <Box
-      bg={useColorModeValue('gray.50', 'gray.900')}
-      color={useColorModeValue('gray.700', 'gray.200')}
-    >
+    <Box bg={useColorModeValue('gray.50', 'gray.900')} color={useColorModeValue('gray.700', 'gray.200')}>
       <Container as={Stack} maxW={'6xl'} py={10}>
         <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={8}>
           <Stack align={'flex-start'}>
@@ -86,7 +82,7 @@ const Footer: FC = () => {
 
           <Stack align={'flex-start'}>
             <ListHeader>{t('common:support')}</ListHeader>
-            <Link href={'#'}>{t('common:help-center')}</Link>
+            <Link href="mailto:info@nase-svatba.cz">{t('common:help-center')}</Link>
           </Stack>
 
           <Stack align={'flex-start'}>
@@ -102,15 +98,11 @@ const Footer: FC = () => {
         </SimpleGrid>
       </Container>
 
-      <Box justifyContent='center' mb='20px' display={{ lg: 'none', base: 'flex' }}>
+      <Box justifyContent="center" mb="20px" display={{ lg: 'none', base: 'flex' }}>
         <StoreLinks />
       </Box>
 
-      <Box
-        borderTopWidth={1}
-        borderStyle={'solid'}
-        borderColor={useColorModeValue('gray.200', 'gray.700')}
-      >
+      <Box borderTopWidth={1} borderStyle={'solid'} borderColor={useColorModeValue('gray.200', 'gray.700')}>
         <Container
           as={Stack}
           maxW={'6xl'}
@@ -122,10 +114,6 @@ const Footer: FC = () => {
         >
           <Text>© {currentYear} + {companyName} + Apps s.r.o | All rights reserved</Text>
           <Stack direction={'row'} spacing={6}>
-            {/*TODO uncomment YouTube as soon as it is relevant*/}
-            {/*<SocialButton label={'YouTube'} href={'#'}>*/}
-            {/*  <FaYoutube />*/}
-            {/*</SocialButton>*/}
             <SocialButton label={'Instagram'} href={instagramLink}>
               <FaInstagram />
             </SocialButton>
